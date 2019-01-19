@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -12,12 +13,22 @@ public class MainMenuController : MonoBehaviour
     public DOTweenAnimation creditsFlyIn;
     public DOTweenAnimation optionsFlyIn;
     public List<TextMeshProUGUI> title = new List<TextMeshProUGUI>();
+    public AudioClip click;
+
+    private AudioSource source;
+
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.anyKeyDown)
         {
+            source.PlayOneShot(click);
             pressAnyFade.DOKill();
             pressAnyFade.GetComponent<TextMeshProUGUI>().DOFade(0, .2f);
             menuFlyIn.DOPlayAllById("menuFlyIn");
@@ -47,5 +58,10 @@ public class MainMenuController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void PlayPong()
+    {
+        SceneManager.LoadScene("Pong");
     }
 }
