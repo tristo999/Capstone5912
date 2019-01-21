@@ -62,6 +62,6 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayPong()
     {
-        SceneManager.LoadScene("Pong");
+        SceneLoader.Instance.LoadSceneWithScreen("Pong");
     }
 }
