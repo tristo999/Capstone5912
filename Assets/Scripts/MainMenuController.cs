@@ -21,11 +21,13 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+      
         if (Input.anyKeyDown)
         {
             source.PlayOneShot(click);

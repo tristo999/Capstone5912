@@ -3,7 +3,13 @@ guid: 3d64b3f3a2b160f4194162e17e139f15
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pressAnyFade: {instanceID: 0}
+  - menuFlyIn: {instanceID: 0}
+  - creditsFlyIn: {instanceID: 0}
+  - optionsFlyIn: {instanceID: 0}
+  - click: {fileID: 8300000, guid: 7cf93ca337b041b40923b1e9792ce9a4, type: 3}
+  - bgMusic: {fileID: 8300000, guid: d941f026b31a77940bbdafe07510397a, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
