@@ -59,7 +59,7 @@ public class PongManager : MonoBehaviour
     public void QuitToMenu()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Title");
+        SceneLoader.Instance.LoadSceneWithScreen("Title");
     }
 
  
