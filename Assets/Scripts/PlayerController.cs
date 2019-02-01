@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Bolt.EntityBehaviour<IPlayerState>
 {
     private Rigidbody rb;
-    private float speed;
-    private Plane aimPlane;
+    private float speed = 10f;
+    private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
 
-    void Start()
+    public override void Attached()
     {
         rb = GetComponent<Rigidbody>();
-        speed = 10f;
-        aimPlane = new Plane(Vector3.up, Vector3.zero);
+        state.SetTransforms(state.transform, transform);
     }
 
-    void FixedUpdate()
-    {
+    public override void SimulateOwner() {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -27,14 +25,15 @@ public class PlayerController : MonoBehaviour
         //mouse loook
         float distance;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (aimPlane.Raycast(ray, out distance))
-        {
+        if (aimPlane.Raycast(ray, out distance)) {
             Vector3 target = ray.GetPoint(distance);
             target.y = gameObject.transform.position.y;
             gameObject.transform.LookAt(target);
         }
+    }
 
-        //friction
-        rb.velocity = rb.velocity * 0.98f;
+    void FixedUpdate()
+    {
+        
     }
 }
