@@ -12,7 +12,7 @@ public class CommandEvent : UnityEvent<string[]>
 {
 }
 
-public class Console : MonoBehaviour
+public class WizardConsole : MonoBehaviour
 {
     public GameObject ConsoleBox;
     public TextMeshProUGUI EntryBox;
