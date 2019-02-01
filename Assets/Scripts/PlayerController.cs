@@ -2,20 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PongPlayerController))]
 public class PlayerController : MonoBehaviour
 {
-    PongPlayerController controller;
+    private Rigidbody rb;
+    private float speed;
+    private Plane aimPlane;
 
-    // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<PongPlayerController>();
+        rb = GetComponent<Rigidbody>();
+        speed = 10f;
+        aimPlane = new Plane(Vector3.up, Vector3.zero);
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        controller.MovePaddle(Input.GetAxis("Vertical"));
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        rb.AddForce(movement * speed);
+
+        //mouse loook
+        float distance;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (aimPlane.Raycast(ray, out distance))
+        {
+            Vector3 target = ray.GetPoint(distance);
+            target.y = gameObject.transform.position.y;
+            gameObject.transform.LookAt(target);
+        }
+
+        //friction
+        rb.velocity = rb.velocity * 0.98f;
     }
 }
