@@ -38,6 +38,6 @@ public class ItemManager : MonoBehaviour
 
     private void LoadAllItemPrefabsFromDirectory()
     {
-        itemPrefabs = PrefabLoader.LoadAllPrefabsOfType<Item>("Assets/Prefabs/Items");
+        itemPrefabs = PrefabLoader.LoadAllPrefabsOfType<Item>("Assets/Prefabs/InteractiveObjects/Items");
     }
 }
