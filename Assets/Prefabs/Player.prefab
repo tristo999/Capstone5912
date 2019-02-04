@@ -1466,9 +1466,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929aeecf1c1bbac4289af9a5061b8f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapons: []
+  Weapons:
+  - {fileID: 9101408868429107494}
   ActiveItems: []
-  speed: 5
+  speed: 4
 --- !u!114 &4796421394851021473
 MonoBehaviour:
   m_ObjectHideFlags: 0
