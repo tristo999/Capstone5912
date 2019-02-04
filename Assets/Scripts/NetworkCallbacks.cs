@@ -11,7 +11,7 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
         var spawnPosition = new Vector3(Random.Range(-4, 4), 4, Random.Range(-4, 4));
 
         // instantiate cube
-        var spawned = BoltNetwork.Instantiate(BoltPrefabs.NetworkedPlayerTest, spawnPosition, Quaternion.identity);
+        var spawned = BoltNetwork.Instantiate(BoltPrefabs.Player, spawnPosition, Quaternion.identity);
         PlayerJoined pj = PlayerJoined.Create();
         pj.Player = spawned;
         pj.Send();
