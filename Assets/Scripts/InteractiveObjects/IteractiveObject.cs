@@ -4,21 +4,22 @@ using UnityEngine;
 
 public abstract class InteractiveObject : MonoBehaviour
 {
-    private Shader originalShader;
+    public Material highlightMaterial;
 
-    // Later: https://youtu.be/SMLbbi8oaO8
+    private Material originalMaterial;
+
     void Awake()
     {
-        originalShader = GetComponent<Renderer>().material.shader;
+        originalMaterial = GetComponent<Renderer>().material;
     }
 
     public virtual void AddHighlight()
     {
-        GetComponent<Renderer>().material.shader = null;
+        GetComponent<Renderer>().sharedMaterial = highlightMaterial;
     }
 
     public virtual void RemoveHighlight()
     {
-        GetComponent<Renderer>().material.shader = originalShader;
+        GetComponent<Renderer>().sharedMaterial = originalMaterial;
     }
 }
