@@ -7,7 +7,7 @@ public abstract class Item : InteractiveObject
     private static int nameHoverVerticalOffset = -35;
 
     private string itemName = "Unnamed";
-    private static GUIStyle nameGUIStyle = null;
+    private GUIStyle nameGUIStyle = null;
 
     void OnGUI()
     {
@@ -19,6 +19,15 @@ public abstract class Item : InteractiveObject
             {
                 fontSize = 16
             };
+        }
+
+        if (IsHighlighted())
+        {
+            nameGUIStyle.fontStyle = FontStyle.Bold;
+        } 
+        else
+        {
+            nameGUIStyle.fontStyle = FontStyle.Normal;
         }
 
         Vector2 namePosition = Camera.main.WorldToScreenPoint(transform.position);

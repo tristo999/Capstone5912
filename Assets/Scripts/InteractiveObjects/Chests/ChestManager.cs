@@ -39,7 +39,7 @@ public class ChestManager : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
-            Vector3 position = new Vector3(Random.Range(-5.0f, 5.0f), 0.2f, Random.Range(-5.0f, 5.0f));
+            Vector3 position = new Vector3(Random.Range(-5.0f, 5.0f), 0, Random.Range(-5.0f, 5.0f));
             Quaternion direction = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
             SpawnChest(position, direction);
         }
