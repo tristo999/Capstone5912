@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 251509076158341514}
   - component: {fileID: 796878640488294110}
   - component: {fileID: 136235169873786213}
-  - component: {fileID: 76281273}
+  - component: {fileID: 4744366848447757846}
   m_Layer: 0
-  m_Name: HealthItem1
+  m_Name: RedPotionItem
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &76281273
+--- !u!114 &4744366848447757846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 76281272}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 515c2f9ac3d790545adf09c83f33497e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e29c81a1ad48b344b509905382f3279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 0a3ad4fe07ff9b3468a67964b735a19d, type: 2}

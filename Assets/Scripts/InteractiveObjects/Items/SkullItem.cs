@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DummyItem : Item
+public class SkullItem : Item
 {
-
+    void Start()
+    {
+        SetName("Skull");
+    }
 }
