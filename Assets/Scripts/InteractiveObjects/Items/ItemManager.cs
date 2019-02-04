@@ -6,14 +6,12 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager Instance;
 
-    private List<GameObject> itemPrefabs;
+    public List<GameObject> itemPrefabs = new List<GameObject>();
 
     private void Awake()
     {
         if (Instance != null) Destroy(this);
         else Instance = this;
-
-        LoadAllItemPrefabsFromDirectory();
     }
 
     public GameObject SpawnItem(Vector3 location)
@@ -34,10 +32,5 @@ public class ItemManager : MonoBehaviour
         newItem.GetComponent<Rigidbody>().AddTorque(force.magnitude / 4.0f * new Vector3(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)).normalized);
 
         return newItem;
-    }
-
-    private void LoadAllItemPrefabsFromDirectory()
-    {
-        itemPrefabs = PrefabLoader.LoadAllPrefabsOfType<Item>("Assets/Prefabs/InteractiveObjects/Items");
     }
 }

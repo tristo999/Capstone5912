@@ -6,14 +6,13 @@ public class ChestManager : MonoBehaviour
 {
     public static ChestManager Instance;
 
-    private List<GameObject> chestPrefabs;
+    public List<GameObject> chestPrefabs = new List<GameObject>();
 
     private void Awake()
     {
         if (Instance != null) Destroy(this);
         else Instance = this;
 
-        LoadAllChestPrefabsFromDirectory();
         SpawnChestsOnLevelStart();
     }
 
@@ -26,11 +25,6 @@ public class ChestManager : MonoBehaviour
     public GameObject SpawnChest(Vector3 location, Quaternion directionFacing, GameObject chestPrefab)
     {
         return Instantiate(chestPrefab, location, directionFacing);
-    }
-
-    private void LoadAllChestPrefabsFromDirectory()
-    {
-        chestPrefabs = PrefabLoader.LoadAllPrefabsOfType<Chest>("Assets/Prefabs/InteractiveObjects/Chests");
     }
 
 

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerMovementController : Bolt.EntityBehaviour<IPlayerState>
 {
-
     public List<WizardWeapon> Weapons = new List<WizardWeapon>();
     public List<WizardActive> ActiveItems = new List<WizardActive>();
 
