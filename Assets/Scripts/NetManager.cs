@@ -21,6 +21,7 @@ public class NetManager : Bolt.GlobalEventListener
 
             BoltNetwork.SetServerInfo(matchName, null);
             BoltNetwork.LoadScene("CassNinjaMoves");
+            SceneLoader.Instance.LoadScreenAsync(BoltNetwork.CurrentAsyncOperation);
         }
     }
 
@@ -32,6 +33,7 @@ public class NetManager : Bolt.GlobalEventListener
 
             if (photonSession.Source == UdpSessionSource.Photon) {
                 BoltNetwork.Connect(photonSession);
+                SceneLoader.Instance.LoadScreenAsync(BoltNetwork.CurrentAsyncOperation);
             }
         }
     }

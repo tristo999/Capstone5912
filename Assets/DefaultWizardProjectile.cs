@@ -11,7 +11,7 @@ public class DefaultWizardProjectile : Bolt.EntityBehaviour<IProjectileState>
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if (!entity.isOwner) return;
+        if (!entity.isAttached || !entity.isOwner) return;
         if (collision.gameObject.tag == "Player") {
             PlayerHit playerHit = PlayerHit.Create();
             playerHit.HitEntity = collision.gameObject.GetComponent<PlayerController>().entity;

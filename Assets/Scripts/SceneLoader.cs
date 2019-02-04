@@ -43,6 +43,22 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadScene(scene));
     }
 
+    public void LoadScreenAsync(AsyncOperation async) {
+        canvas = Instantiate(loadingCanvas);
+        statusText = canvas.GetComponentsInChildren<TextMeshProUGUI>()[1];
+        statusText.text = vanityLoadingMessages[Random.Range(0, vanityLoadingMessages.Count - 1)];
+        StartCoroutine(LoadScreenUntilAsync(async));
+    }
+
+    public IEnumerator LoadScreenUntilAsync(AsyncOperation async) {
+        loadingScene = true;
+        while (async == null || !async.isDone) {
+            yield return null;
+        }
+        loadingScene = false;
+        Destroy(canvas);
+    }
+
     IEnumerator LoadScene(string scene)
     {
         yield return new WaitForSeconds(5);

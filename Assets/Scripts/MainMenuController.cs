@@ -8,13 +8,15 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
 
+    public RectTransform TopMenu;
+    public RectTransform BottomMenu;
+    public TextMeshProUGUI Title;
+    public RectTransform Credits;
     public DOTweenAnimation pressAnyFade;
-    public DOTweenAnimation menuFlyIn;
-    public DOTweenAnimation creditsFlyIn;
-    public DOTweenAnimation optionsFlyIn;
     public List<TextMeshProUGUI> title = new List<TextMeshProUGUI>();
     public AudioClip click;
 
+    private bool onMenu;
     private AudioSource source;
 
 
@@ -24,46 +26,54 @@ public class MainMenuController : MonoBehaviour
        
     }
 
-    // Update is called once per frame
+    // Did you know: Update is called once per frame
     void Update()
     {
-      
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && !onMenu)
         {
-            source.PlayOneShot(click);
             pressAnyFade.DOKill();
             pressAnyFade.GetComponent<TextMeshProUGUI>().DOFade(0, .2f);
-            menuFlyIn.DOPlayAllById("menuFlyIn");
+            TopMenu.DOAnchorPosX(0, 1.5f);
+            BottomMenu.DOAnchorPosX(0, 1.5f);
+            Title.DOFade(1f, 1.5f);
+            onMenu = true;
         }
     }
 
     public void OptionsTransition()
     {
-        menuFlyIn.DOPlayBackwardsAllById("menuFlyIn");
-        title.ForEach(x => x.DOFade(0, .5f));
+        TopMenu.DOAnchorPosX(-1100, 1.5f);
+        BottomMenu.DOAnchorPosX(1100, 1.5f);
+        Title.DOFade(0f, 1.5f);
     }
 
     public void CreditsFlyIn()
     {
-        menuFlyIn.DOPlayBackwardsAllById("menuFlyIn");
-        title.ForEach(x => x.DOFade(0, .5f));
-        creditsFlyIn.DOPlay();
+        source.PlayOneShot(click);
+        TopMenu.DOAnchorPosX(-1100, 1.5f);
+        BottomMenu.DOAnchorPosX(1100, 1.5f);
+        Title.DOFade(0f, 1.5f);
+        Credits.DOAnchorPosY(0f, 2f);
     }
 
     public void CreditsFlyOut()
     {
-        menuFlyIn.DORestartAllById("menuFlyIn");
-        title.ForEach(x => x.DOFade(1, .5f));
-        creditsFlyIn.DORewind();
+        source.PlayOneShot(click);
+        TopMenu.DOAnchorPosX(0, 1.5f);
+        BottomMenu.DOAnchorPosX(0, 1.5f);
+        Title.DOFade(1f, 1.5f);
+        Credits.DOAnchorPosY(900f, 1.5f);
     }
 
     public void QuitGame()
     {
+        source.PlayOneShot(click);
         Application.Quit();
     }
 
     public void PlayPong()
     {
+        source.PlayOneShot(click);
         SceneLoader.Instance.LoadSceneWithScreen("Pong");
     }
 }

@@ -43,7 +43,6 @@ public class PlayerController : Bolt.EntityBehaviour<IPlayerState>
 
     private void CheckForPlayer() {
         foreach (Player p in ReInput.players.Players) {
-            Debug.LogFormat("Checking {0}: {1}", p.name, p.GetAnyButton());
             if (p.GetAnyButton() && !p.isPlaying) {
                 AssignPlayer(p.id);
             }
