@@ -1398,7 +1398,8 @@ GameObject:
   - component: {fileID: 338}
   - component: {fileID: 377}
   - component: {fileID: 380}
-  - component: {fileID: 575}
+  - component: {fileID: 8229442572553572363}
+  - component: {fileID: 4796421394851021473}
   - component: {fileID: 576}
   m_Layer: 0
   m_Name: Player
@@ -1453,7 +1454,7 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.74, z: 0}
---- !u!114 &575
+--- !u!114 &8229442572553572363
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1462,13 +1463,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5cdf5ef024c4d6d9df07e9f0407a2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 929aeecf1c1bbac4289af9a5061b8f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapons:
-  - {fileID: 9101408868429107494}
+  Weapons: []
   ActiveItems: []
-  speed: 4
+  speed: 5
+--- !u!114 &4796421394851021473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3b4b54770d0cda46992888f187fd3af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &576
 MonoBehaviour:
   m_ObjectHideFlags: 0

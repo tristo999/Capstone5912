@@ -3888,7 +3888,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 578007774}
-  - component: {fileID: 578007773}
   m_Layer: 0
   m_Name: ConsoleManager
   m_TagString: Untagged
@@ -3896,18 +3895,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &578007773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 578007772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a474d43450c0845915ccbd37b72c70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &578007774
 Transform:
   m_ObjectHideFlags: 0
@@ -15101,7 +15088,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2066526583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d7a6af293eafa47b1439ba4a40bcab, type: 3}
+  m_Script: {fileID: 11500000, guid: cf8910ad6cdd67045ad7d7108cbdbd4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2066526585

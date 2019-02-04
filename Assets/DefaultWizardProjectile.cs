@@ -14,7 +14,7 @@ public class DefaultWizardProjectile : Bolt.EntityBehaviour<IProjectileState>
         if (!entity.isAttached || !entity.isOwner) return;
         if (collision.gameObject.tag == "Player") {
             PlayerHit playerHit = PlayerHit.Create();
-            playerHit.HitEntity = collision.gameObject.GetComponent<PlayerController>().entity;
+            playerHit.HitEntity = collision.gameObject.GetComponent<PlayerMovementController>().entity;
             playerHit.Send();
         }
         BoltNetwork.Destroy(gameObject);
