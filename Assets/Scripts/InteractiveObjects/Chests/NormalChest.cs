@@ -6,9 +6,13 @@ public class NormalChest : Chest
 {
     public override void OnOpen()
     {
-        base.OnOpen();
-
-        Vector3 tossForce = 50f * gameObject.transform.forward + 80f * gameObject.transform.up;
-        ItemManager.Instance.SpawnItem(gameObject.transform.position + new Vector3(0, 0.2f, 0), tossForce);
+        if (entity.isOwner) {
+            Vector3 tossForce = 50f * gameObject.transform.forward + 80f * gameObject.transform.up;
+            SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
+            evnt.Position = transform.position + new Vector3(0, .2f, 0f);
+            evnt.Force = tossForce;
+            evnt.ItemId = -1;
+            evnt.Send();
+        }
     }
 }

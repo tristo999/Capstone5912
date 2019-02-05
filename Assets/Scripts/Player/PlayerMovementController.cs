@@ -3,28 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementController : Bolt.EntityBehaviour<IPlayerState>
+public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 {
-    public List<WizardWeapon> Weapons = new List<WizardWeapon>();
-    public List<WizardActive> ActiveItems = new List<WizardActive>();
-
     private Rigidbody rb;
     public float speed;
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
     private Player localPlayer;
+    private InteractiveObject objectInFocus;
 
-    private WizardActive activeItem;
-    private WizardWeapon wizardWeapon;
+    public WizardActive activeItem;
+    public WizardWeapon wizardWeapon;
 
     public override void Attached()
     {
         rb = GetComponent<Rigidbody>();
         state.SetTransforms(state.transform, transform);
-        state.ActiveItem = -1;
-        state.AddCallback("WeaponId", WizardWeaponChanged);
-        state.AddCallback("ActiveItem", ActiveItemChanged);
-        // We have to call this as the state defaults to 0;
-        WizardWeaponChanged();
     }
 
     public void Update() {
@@ -36,7 +29,11 @@ public class PlayerMovementController : Bolt.EntityBehaviour<IPlayerState>
         }
         DoMovement();
         DoLook();
-        if (localPlayer.GetButtonDown("Fire")) wizardWeapon.Fire();
+        CheckInteract();
+        if (localPlayer.GetButtonDown("Interact")) DoInteract();
+        if (localPlayer.GetButtonDown("Fire")) wizardWeapon.FireDown();
+        if (localPlayer.GetButton("Fire")) wizardWeapon.FireHold();
+        if (localPlayer.GetButtonUp("Fire")) wizardWeapon.FireRelease();
         if (activeItem != null && localPlayer.GetButtonDown("UseActive")) activeItem.Activate();
     }
 
@@ -76,24 +73,71 @@ public class PlayerMovementController : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    private void ActiveItemChanged() {
-        if (activeItem != null)
-            activeItem.gameObject.SetActive(false);
-        if (state.ActiveItem > -1) {
-            activeItem = ActiveItems[state.ActiveItem];
-            activeItem.gameObject.SetActive(true);
-            activeItem.OnEquip();
-        } else {
-            activeItem = null;
+    private void CheckInteract() {
+        Vector3 boxSize = new Vector3(.35f, 1f, .4f);
+        Collider[] overlap = Physics.OverlapBox(transform.position + transform.forward * .26f + transform.up * .51f, boxSize / 2, transform.rotation);
+        InteractiveObject closest = null;
+
+        // Check for interactive.
+        foreach (Collider c in overlap) {
+            if (c.tag == "Interactive") {
+                InteractiveObject io = c.GetComponent<InteractiveObject>();
+                if (io != null) {
+                    if (closest == null || Vector3.Distance(transform.position, c.transform.position) < Vector3.Distance(transform.position, io.transform.position))
+                        closest = io;
+                } 
+            }
+        }
+
+        // Update Highlights.
+        if (closest != null) {
+            if (objectInFocus != null && objectInFocus != closest) {
+                objectInFocus.RemoveHighlight();
+                objectInFocus = closest;
+                objectInFocus.AddHighlight();
+            } else if (objectInFocus == null) {
+                objectInFocus = closest;
+                closest.AddHighlight();
+            }
+        } else if (objectInFocus != null) {
+            objectInFocus.RemoveHighlight();
+            objectInFocus = null;
         }
     }
 
-    private void WizardWeaponChanged() {
+    private void DoInteract() {
+        if (objectInFocus != null)
+            objectInFocus.DoInteract(entity);
+    }
+
+    public void GetPickup(ItemPickup pickup) {
+        PlayerGotItem evnt = PlayerGotItem.Create(entity);
+        evnt.Pickup = pickup.entity;
+        evnt.Send();
+    }
+
+    public override void OnEvent(PlayerGotItem evnt) {
+        ItemPickup pickup = evnt.Pickup.GetComponent<ItemPickup>();
+        GameObject pickupObj = Instantiate(pickup.pickupPrefab, transform);
+        if (pickup.pickupType == ItemPickup.PickupType.Active) {
+            ActiveItemChanged(pickupObj.GetComponent<WizardActive>());
+        } else if (pickup.pickupType == ItemPickup.PickupType.Weapon) {
+            WizardWeaponChanged(pickupObj.GetComponent<WizardWeapon>());
+        }
+    }
+
+    private void ActiveItemChanged(WizardActive active) {
+        if (activeItem != null)
+            Destroy(activeItem.gameObject);
+        activeItem = active;
+        activeItem.OnEquip();
+    }
+
+    private void WizardWeaponChanged(WizardWeapon wep) {
         Debug.Log("Set weapon to " + state.WeaponId);
         if (wizardWeapon != null)
-            wizardWeapon.gameObject.SetActive(false);
-        wizardWeapon = Weapons[state.WeaponId];
-        wizardWeapon.gameObject.SetActive(true);
+            Destroy(wizardWeapon.gameObject);
+        wizardWeapon = wep;
         wizardWeapon.OnEquip();
     }
 

@@ -5,5 +5,8 @@ using UnityEngine;
 public abstract class WizardWeapon : MonoBehaviour
 {
     public abstract void OnEquip();
-    public abstract void Fire();
+    public abstract void FireDown();
+    public abstract void FireHold();
+    public abstract void FireRelease();
+
 }

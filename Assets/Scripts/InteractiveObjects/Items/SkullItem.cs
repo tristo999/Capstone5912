@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SkullItem : Item
 {
-    void Start()
-    {
-        SetName("Skull");
-    }
+    public override string ItemName => "Skull";
+
+    public override string ItemDescription => "Press F to pay repsects.";
 }

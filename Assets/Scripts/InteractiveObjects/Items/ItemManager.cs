@@ -1,36 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
 {
     public static ItemManager Instance;
 
     public List<GameObject> itemPrefabs = new List<GameObject>();
 
-    private void Awake()
-    {
-        if (Instance != null) Destroy(this);
-        else Instance = this;
+    public override void Attached() {
+        Instance = this;
     }
 
-    public GameObject SpawnItem(Vector3 location)
-    {
-        return SpawnItem(location, new Vector3(0, 0, 0));
+    public override void OnEvent(SpawnItem evnt) {
+        if (!entity.isOwner) return;
+        if (evnt.ItemId == -1) {
+            evnt.ItemId = Random.Range(0, itemPrefabs.Count);
+        }
+        SpawnItem(evnt.Position, evnt.Force, itemPrefabs[evnt.ItemId]);
     }
 
-    public GameObject SpawnItem(Vector3 location, Vector3 force)
+    private GameObject SpawnItem(Vector3 location, Vector3 force, GameObject itemPrefab)
     {
-        GameObject itemPrefab = itemPrefabs[Random.Range(0, itemPrefabs.Count)];
-        return SpawnItem(location, force, itemPrefab);
-    }
-
-    public GameObject SpawnItem(Vector3 location, Vector3 force, GameObject itemPrefab)
-    {
-        GameObject newItem = Instantiate(itemPrefab, location, Quaternion.identity);
+        GameObject newItem = BoltNetwork.Instantiate(itemPrefab, location, Quaternion.identity);
         newItem.GetComponent<Rigidbody>().AddForce(force);
         newItem.GetComponent<Rigidbody>().AddTorque(force.magnitude / 4.0f * new Vector3(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)).normalized);
 
         return newItem;
+    }
+
+    public int GetId(Item item) {
+        return itemPrefabs.Select((value, index) => new { value, index = index + 1 }).Where(pair => pair.value.GetComponent<Item>() == item).Select(pair => pair.index).FirstOrDefault() - 1;
     }
 }

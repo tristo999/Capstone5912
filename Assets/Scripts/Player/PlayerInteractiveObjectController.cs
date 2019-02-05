@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +24,7 @@ public class PlayerInteractiveObjectController : Bolt.EntityBehaviour<IPlayerSta
         // TODO: Replace with Rewire input
         if (Input.GetKeyDown("x"))
         {
-            ItemManager.Instance.SpawnItem(new Vector3(Random.Range(-1.0f, 1.0f), 0.2f, Random.Range(-1.0f, 1.0f)));
+            //ItemManager.Instance.SpawnItem(new Vector3(Random.Range(-1.0f, 1.0f), 0.2f, Random.Range(-1.0f, 1.0f)));
         }
     }
 
@@ -138,3 +138,4 @@ public class PlayerInteractiveObjectController : Bolt.EntityBehaviour<IPlayerSta
                 new Vector2(obj2.transform.position.x, obj2.transform.position.z));
     }
 }
+*/

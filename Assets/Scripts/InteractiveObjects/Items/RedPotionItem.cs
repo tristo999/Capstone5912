@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RedPotionItem : Item
 {
-    void Start()
-    {
-        SetName("Red Potion");
-    }
+    public override string ItemName => "Red Potion";
+    public override string ItemDescription => "It's red!";
 }

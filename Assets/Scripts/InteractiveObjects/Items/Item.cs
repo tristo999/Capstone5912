@@ -1,59 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public abstract class Item : InteractiveObject
 {
-    private static int nameHoverVerticalOffset = -35;
+    public abstract string ItemName { get; }
+    public abstract string ItemDescription { get; }
 
-    private string itemName = "Unnamed";
-    private GUIStyle nameGUIStyle = null;
-
-    void OnGUI()
-    {
-        // Must be called in OnGUI unfortunately.
-        if (nameGUIStyle == null)
+    public int Id {
+        get
         {
-            // Ref: https://docs.unity3d.com/ScriptReference/GUIStyle.html
-            nameGUIStyle = new GUIStyle(GUI.skin.box)
-            {
-                fontSize = 16
-            };
+            return id;
         }
-
-        if (IsHighlighted())
-        {
-            nameGUIStyle.fontStyle = FontStyle.Bold;
-        } 
-        else
-        {
-            nameGUIStyle.fontStyle = FontStyle.Normal;
-        }
-
-        Vector2 namePosition = Camera.main.WorldToScreenPoint(transform.position);
-        Vector2 nameSize = nameGUIStyle.CalcSize(new GUIContent(GetName()));
-        Rect nameBounds = new Rect(namePosition.x - nameSize.x / 2, Screen.height - namePosition.y - nameSize.y / 2 + nameHoverVerticalOffset, nameSize.x, nameSize.y);
-        GUI.Box(nameBounds, GetName(), nameGUIStyle);
     }
 
-    public virtual bool TryPickUp()
-    {
-        OnPickUp();
-        return true;
+    public GameObject ItemNameText;
+    public GameObject ItemDescriptionText;
+
+    private TextMeshPro nameText;
+    private TextMeshPro descriptionText;
+    private int id;
+
+    private void Awake() {
+        id = ItemManager.Instance.GetId(this);
     }
 
-    public virtual void OnPickUp()
-    {
-        Destroy(gameObject);
+    private void Start() {
+        nameText = Instantiate(ItemNameText).GetComponent<TextMeshPro>();
+        descriptionText = Instantiate(ItemDescriptionText).GetComponent<TextMeshPro>();
+        nameText.text = ItemName;
+        descriptionText.text = ItemDescription;
     }
 
-    public string GetName()
-    {
-        return itemName;
+    private void Update() {
+        if (nameText == null) return;
+        nameText.transform.position = transform.position + Vector3.up * .5f;
+        descriptionText.transform.position = transform.position + Vector3.up * .2f;
+        nameText.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        descriptionText.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
     }
 
-    protected void SetName(string newName)
+    public override void Attached() {
+        state.SetTransforms(state.transform, transform);
+    }
+
+    public override void DoInteract(BoltEntity bEntity) {
+        DestroyPickup evnt = DestroyPickup.Create(entity);
+        evnt.Send();
+    }
+
+    public override void OnEvent(DestroyPickup evnt)
     {
-        itemName = newName;
+        if (descriptionText != null)
+            Destroy(descriptionText.gameObject);
+        if (nameText != null)
+            Destroy(nameText.gameObject);
+        BoltNetwork.Destroy(gameObject);
     }
 }
