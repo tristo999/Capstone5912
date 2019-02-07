@@ -11,6 +11,13 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
 
     public override void Attached() {
         Instance = this;
+        SetItemIds();
+    }
+
+    private void SetItemIds() {
+        for (int i = 0; i < itemPrefabs.Count; i++) {
+            itemPrefabs[i].GetComponent<ItemPickup>().pickupPrefab.GetComponent<HeldItem>().Id = i;
+        }
     }
 
     public override void OnEvent(SpawnItem evnt) {

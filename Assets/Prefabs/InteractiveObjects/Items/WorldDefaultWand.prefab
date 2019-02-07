@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 919}
   - component: {fileID: 680}
   m_Layer: 0
-  m_Name: WorldFireballWand
+  m_Name: WorldDefaultWand
   m_TagString: Interactive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 21648bd5a5c079c4f86b418626497982, type: 2}
+  - {fileID: 2100000, guid: aae2dd7588757b44895852c870465716, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,9 +111,9 @@ MonoBehaviour:
     type: 3}
   ItemDescriptionText: {fileID: 940272997902301849, guid: 15a7179fa2c8fdb4e813907a502c2ac9,
     type: 3}
-  itemName: Wand of Fireballs
-  itemDescription: Explosive fun!
-  pickupPrefab: {fileID: 5720748155591841518, guid: 8537f430b02e498499cff75b7d52ee14,
+  itemName: Plain 'Ol Wand
+  itemDescription: Boring.
+  pickupPrefab: {fileID: 4547380477446255212, guid: 545ddda69cb8ffb4fb6e8fbf89330729,
     type: 3}
   pickupType: 2
 --- !u!114 &919
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 09e7d6ee-72ec-4b8e-ad31-100dbed331a8
-  _prefabId: 8
+  _prefabId: 7
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1

@@ -127,18 +127,33 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void ActiveItemChanged(WizardActive active) {
-        if (activeItem != null)
-            Destroy(activeItem.gameObject);
+        DropActive();
         activeItem = active;
-        activeItem.OnEquip();
     }
 
     private void WizardWeaponChanged(WizardWeapon wep) {
-        Debug.Log("Set weapon to " + state.WeaponId);
+        DropWeapon();
+        wizardWeapon = wep;
+    }
+
+    private void DropActive() {
+        if (activeItem != null)
+            Destroy(activeItem.gameObject);
+        SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
+        evnt.ItemId = activeItem.Id;
+        evnt.Position = transform.position;
+        evnt.Force = transform.forward;
+        evnt.Send();
+    }
+
+    private void DropWeapon() {
         if (wizardWeapon != null)
             Destroy(wizardWeapon.gameObject);
-        wizardWeapon = wep;
-        wizardWeapon.OnEquip();
+        SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
+        evnt.ItemId = wizardWeapon.Id;
+        evnt.Position = transform.position;
+        evnt.Force = transform.forward;
+        evnt.Send();
     }
 
     public void AssignPlayer(int id) {

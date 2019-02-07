@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class WizardActive : MonoBehaviour
+public abstract class WizardActive : HeldItem
 {
     private int uses;
     private float timeout;
