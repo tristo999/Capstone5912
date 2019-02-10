@@ -38,6 +38,10 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
     private void CheckForPlayer() {
         foreach (Player p in ReInput.players.Players) {
+            if (p.GetAnyButton()) {
+                Debug.LogFormat("{0}: {1}", p.id, p.GetAnyButton());
+            }
+            
             if (p.GetAnyButton() && !p.isPlaying) {
                 AssignPlayer(p.id);
             }
