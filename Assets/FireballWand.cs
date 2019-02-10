@@ -43,7 +43,7 @@ public class FireballWand : WizardWeapon
         line.SetPositions(new Vector3[PointsInArc]);
     }
 
-    public override void OnEquip() {
+    public override void OnEquip(PlayerMovementController player) {
         line = GetComponent<LineRenderer>();
         line.positionCount = PointsInArc;
         spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;

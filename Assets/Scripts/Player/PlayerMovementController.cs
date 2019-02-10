@@ -118,11 +118,12 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
     public override void OnEvent(PlayerGotItem evnt) {
         ItemPickup pickup = evnt.Pickup.GetComponent<ItemPickup>();
-        GameObject pickupObj = Instantiate(pickup.pickupPrefab, transform);
-        if (pickup.pickupType == ItemPickup.PickupType.Active) {
-            ActiveItemChanged(pickupObj.GetComponent<WizardActive>());
-        } else if (pickup.pickupType == ItemPickup.PickupType.Weapon) {
-            WizardWeaponChanged(pickupObj.GetComponent<WizardWeapon>());
+        WizardFightItem item = ItemManager.Instance.items[pickup.Id];
+        GameObject pickupObj = Instantiate(item.HeldModel, transform);
+        if (item.Type == WizardFightItem.ItemType.Active) {
+            ActiveItemChanged((WizardActive)item.HeldScript);
+        } else if (item.Type == WizardFightItem.ItemType.Weapon) {
+            WizardWeaponChanged((WizardWeapon)item.HeldScript);
         }
     }
 

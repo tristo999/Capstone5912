@@ -44,10 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66414dbed2f26c44188bde02743b2acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefabs:
-  - {fileID: 4082690868843771817, guid: e7e36b2483689a340b082184bb8dda40, type: 3}
-  - {fileID: 76281272, guid: 7a6ae7939f464874b9a8448f7e883a2b, type: 3}
-  - {fileID: 6914129209993652447, guid: 3656c79fadf18ea4d8df63e66475d913, type: 3}
+  items:
+  - {fileID: 11400000, guid: 22de94d42918651448c73850568f17bb, type: 2}
+  - {fileID: 11400000, guid: b3f8c74823bda8f42b417a047c642353, type: 2}
 --- !u!114 &923
 MonoBehaviour:
   m_ObjectHideFlags: 0

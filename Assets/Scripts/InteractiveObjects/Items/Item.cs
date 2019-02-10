@@ -5,32 +5,20 @@ using UnityEngine;
 
 public abstract class Item : InteractiveObject
 {
-    public abstract string ItemName { get; }
-    public abstract string ItemDescription { get; }
 
-    public int Id {
-        get
-        {
-            return id;
-        }
-    }
+    public int Id { get; set; }
 
     public GameObject ItemNameText;
     public GameObject ItemDescriptionText;
 
     private TextMeshPro nameText;
     private TextMeshPro descriptionText;
-    private int id;
-
-    private void Awake() {
-        id = ItemManager.Instance.GetId(this);
-    }
 
     private void Start() {
         nameText = Instantiate(ItemNameText).GetComponent<TextMeshPro>();
         descriptionText = Instantiate(ItemDescriptionText).GetComponent<TextMeshPro>();
-        nameText.text = ItemName;
-        descriptionText.text = ItemDescription;
+        nameText.text = ItemManager.Instance.items[Id].ItemName;
+        descriptionText.text = ItemManager.Instance.items[Id].ItemDescription;
     }
 
     private void Update() {
