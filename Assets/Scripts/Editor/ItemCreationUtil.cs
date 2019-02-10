@@ -62,7 +62,6 @@ public class ItemCreationUtil : EditorWindow
         iM.OnEnable();
         WizardFightItem loaded = AssetDatabase.LoadAssetAtPath<WizardFightItem>("Assets/Items/" + item.ItemName + ".asset");
         iM.Items.Add(loaded);
-        iM.AssignIDs();
         iM.OnDisable();
         item = CreateInstance<WizardFightItem>();
     }

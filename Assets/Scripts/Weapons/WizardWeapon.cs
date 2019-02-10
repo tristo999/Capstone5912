@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class WizardWeapon : HeldItem
 {
-    public abstract void OnEquip(PlayerMovementController player);
+    public abstract void OnEquip();
     public abstract void FireDown();
     public abstract void FireHold();
     public abstract void FireRelease();

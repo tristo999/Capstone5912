@@ -15,10 +15,7 @@ public abstract class Item : InteractiveObject
     private TextMeshPro descriptionText;
 
     private void Start() {
-        nameText = Instantiate(ItemNameText).GetComponent<TextMeshPro>();
-        descriptionText = Instantiate(ItemDescriptionText).GetComponent<TextMeshPro>();
-        nameText.text = ItemManager.Instance.items[Id].ItemName;
-        descriptionText.text = ItemManager.Instance.items[Id].ItemDescription;
+        
     }
 
     private void Update() {
@@ -29,8 +26,25 @@ public abstract class Item : InteractiveObject
         descriptionText.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
     }
 
+    public override void FocusGained() {
+        nameText = Instantiate(ItemNameText).GetComponent<TextMeshPro>();
+        descriptionText = Instantiate(ItemDescriptionText).GetComponent<TextMeshPro>();
+        nameText.text = ItemManager.Instance.items[Id].ItemName;
+        descriptionText.text = ItemManager.Instance.items[Id].ItemDescription;
+        base.FocusGained();
+    }
+
+    public override void FocusLost() {
+        if (descriptionText != null)
+            Destroy(descriptionText.gameObject);
+        if (nameText != null)
+            Destroy(nameText.gameObject);
+        base.FocusLost();
+    }
+
     public override void Attached() {
         state.SetTransforms(state.transform, transform);
+        state.AddCallback("ItemId", IdChanged);
     }
 
     public override void DoInteract(BoltEntity bEntity) {
@@ -45,5 +59,13 @@ public abstract class Item : InteractiveObject
         if (nameText != null)
             Destroy(nameText.gameObject);
         BoltNetwork.Destroy(gameObject);
+    }
+
+    private void IdChanged() {
+        Id = state.ItemId;
+        if (descriptionText != null)
+            descriptionText.text = ItemManager.Instance.items[Id].ItemDescription;
+        if (nameText != null)
+            nameText.text = ItemManager.Instance.items[Id].ItemName;
     }
 }

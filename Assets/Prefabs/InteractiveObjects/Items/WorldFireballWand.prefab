@@ -8,13 +8,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 510}
-  - component: {fileID: 625}
-  - component: {fileID: 566}
-  - component: {fileID: 685}
-  - component: {fileID: 916}
-  - component: {fileID: 919}
-  - component: {fileID: 680}
+  - component: {fileID: 507}
+  - component: {fileID: 618}
+  - component: {fileID: 562}
+  - component: {fileID: 676}
+  - component: {fileID: 903}
+  - component: {fileID: 905}
+  - component: {fileID: 671}
   m_Layer: 0
   m_Name: WorldFireballWand
   m_TagString: Interactive
@@ -22,7 +22,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &510
+--- !u!4 &507
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36,7 +36,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &625
+--- !u!33 &618
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &566
+--- !u!23 &562
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,7 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &685
+--- !u!65 &676
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9999999, y: 0.9999999, z: 0.9999999}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &916
+--- !u!114 &903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
     type: 3}
   ItemDescriptionText: {fileID: 940272997902301849, guid: 15a7179fa2c8fdb4e813907a502c2ac9,
     type: 3}
---- !u!114 &919
+--- !u!114 &905
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 09e7d6ee-72ec-4b8e-ad31-100dbed331a8
-  _prefabId: 8
+  _prefabId: 5
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -140,7 +140,7 @@ MonoBehaviour:
   _entityBehaviourQueryOption: 0
   _entityPriorityCalculatorQueryOption: 0
   _entityReplicationFilterQueryOption: 0
---- !u!54 &680
+--- !u!54 &671
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -12,6 +12,14 @@ public abstract class InteractiveObject : Bolt.EntityEventListener<IInteractiveS
 
     public abstract void DoInteract(BoltEntity entity);
 
+    public virtual void FocusGained() {
+        AddHighlight();
+    }
+
+    public virtual void FocusLost() {
+        RemoveHighlight();
+    }
+
     public virtual void AddHighlight()
     {
         originalMaterial = GetComponent<Renderer>().sharedMaterial;

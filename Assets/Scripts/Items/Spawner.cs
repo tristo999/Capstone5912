@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public string folder;
+    private GameObject spawned;
 
     Object[] LoadFromFolder(string folder){
         Object[] objs = Resources.LoadAll(folder);
@@ -16,14 +17,23 @@ public class Spawner : MonoBehaviour
         return objs;
     }
     
-    Object SpawnObject(Object[] prefabs){
+    GameObject SpawnObject(Object[] prefabs){
         Transform pos = GetComponent<Transform>();
-        return Instantiate(prefabs[Random.Range(0, prefabs.Length)], GetComponent<Transform>());
+        return Instantiate(prefabs[Random.Range(0, prefabs.Length)], transform) as GameObject;
     }
 
     void Awake(){
-        Object obj = SpawnObject(LoadFromFolder(folder));
-        
+        spawned = SpawnObject(LoadFromFolder(folder));
+    }
+
+    private void Update() {
+        if (Input.GetMouseButtonDown(0))
+            DemoRespawn();
+    }
+
+    private void DemoRespawn() {
+        Destroy(spawned);
+        spawned = SpawnObject(LoadFromFolder(folder));
     }
 
 }

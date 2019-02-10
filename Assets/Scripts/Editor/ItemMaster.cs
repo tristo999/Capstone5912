@@ -38,8 +38,8 @@ public class ItemMaster : EditorWindow
     }
 
     void OnGUI() {
-        if (GUILayout.Button("Assign Item IDs")) {
-            AssignIDs();
+        if (GUILayout.Button("Fix Prefabs")) {
+            FixPrefabs();
         }
         SerializedObject obj = new SerializedObject(this);
         SerializedProperty prop = obj.FindProperty("Items");
@@ -50,20 +50,15 @@ public class ItemMaster : EditorWindow
         UpdatePrefab();
     }
 
-    public void AssignIDs() {
-        UpdatePrefab();
+    public void FixPrefabs() {
+        foreach (WizardFightItem item in Items) {
+            item.HeldScript = item.HeldModel.GetComponent<HeldItem>();
+            item.ItemScript = item.WorldModel.GetComponent<Item>();
+        }
     }
 
     private void UpdatePrefab() {
         itemManager.items = Items.ToList();
-        for (int i = 0; i < itemManager.items.Count; i++) {
-            GameObject world = PrefabUtility.GetCorrespondingObjectFromOriginalSource(itemManager.items[i].WorldModel);
-            GameObject held = PrefabUtility.GetCorrespondingObjectFromOriginalSource(itemManager.items[i].HeldModel);
-            world.GetComponent<Item>().Id = i;
-            held.GetComponent<HeldItem>().Id = i;
-            EditorUtility.SetDirty(world);
-            EditorUtility.SetDirty(held);
-        }
         EditorUtility.SetDirty(ManagerPrefab);
     }
 }

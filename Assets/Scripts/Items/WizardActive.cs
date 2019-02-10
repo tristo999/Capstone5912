@@ -8,5 +8,7 @@ public abstract class WizardActive : HeldItem
     private float timeout;
 
     public abstract void OnEquip();
-    public abstract void Activate();
+    public abstract void ActiveDown();
+    public abstract void ActivateHold();
+    public abstract void ActivateRelease();
 }

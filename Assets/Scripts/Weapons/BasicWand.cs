@@ -6,25 +6,34 @@ public class BasicWand : WizardWeapon
 {
     public GameObject projectile;
     public float launchVelocity;
-    private PlayerMovementController owner;
+
+    public float FireTime = .5f;
+    private float timer = 0.0f;
 
     public override void FireDown() {
-        Vector3 spawnPos = transform.position + transform.forward * .3f;
-        spawnPos.y += .8f;
-        BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
-        proj.GetComponent<DefaultWizardProjectile>().owner = owner.gameObject;
-        proj.GetComponent<Rigidbody>().velocity = transform.forward * launchVelocity;
+        
     }
 
     public override void FireHold() {
-
+        if (timer < 0f) {
+            Vector3 spawnPos = transform.position + transform.forward * .3f;
+            spawnPos.y += .8f;
+            BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
+            proj.GetComponent<DefaultWizardProjectile>().owner = Owner.gameObject;
+            proj.GetComponent<Rigidbody>().velocity = transform.forward * launchVelocity * Owner.state.ProjectileSpeed + Owner.GetComponent<Rigidbody>().velocity * .8f;
+            timer = FireTime * Owner.state.FireRate;
+        } 
     }
 
     public override void FireRelease() {
 
     }
 
-    public override void OnEquip(PlayerMovementController player) {
-        owner = player;
+    public override void OnEquip() {
+
+    }
+
+    private void Update() {
+        timer -= Time.deltaTime;
     }
 }

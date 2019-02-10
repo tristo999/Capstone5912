@@ -6,13 +6,10 @@ using UnityEngine;
 public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 {
     private Rigidbody rb;
-    public float speed;
+    public float BaseSpeed;
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
     private Player localPlayer;
     private InteractiveObject objectInFocus;
-
-    public WizardActive activeItem;
-    public WizardWeapon wizardWeapon;
 
     public override void Attached()
     {
@@ -31,10 +28,12 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         DoLook();
         CheckInteract();
         if (localPlayer.GetButtonDown("Interact")) DoInteract();
-        if (localPlayer.GetButtonDown("Fire")) wizardWeapon.FireDown();
-        if (localPlayer.GetButton("Fire")) wizardWeapon.FireHold();
-        if (localPlayer.GetButtonUp("Fire")) wizardWeapon.FireRelease();
-        if (activeItem != null && localPlayer.GetButtonDown("UseActive")) activeItem.Activate();
+        if (localPlayer.GetButtonDown("Fire")) state.FireDown();
+        if (localPlayer.GetButton("Fire")) state.FireHold();
+        if (localPlayer.GetButtonUp("Fire")) state.FireRelease();
+        if (localPlayer.GetButtonDown("UseActive")) state.ActiveDown();
+        if (localPlayer.GetButton("UseActive")) state.ActiveHold();
+        if (localPlayer.GetButtonUp("UseActive")) state.ActiveRelease();
     }
 
     private void CheckForPlayer() {
@@ -49,7 +48,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         float moveHorizontal = localPlayer.GetAxis("Horizontal");
         float moveVertical = localPlayer.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.MovePosition(transform.position + movement * speed * BoltNetwork.FrameDeltaTime);
+        rb.MovePosition(transform.position + movement * BaseSpeed * Time.deltaTime * state.Speed);
     }
 
     private void DoLook() {
@@ -92,15 +91,15 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         // Update Highlights.
         if (closest != null) {
             if (objectInFocus != null && objectInFocus != closest) {
-                objectInFocus.RemoveHighlight();
+                objectInFocus.FocusLost();
                 objectInFocus = closest;
-                objectInFocus.AddHighlight();
+                objectInFocus.FocusGained();
             } else if (objectInFocus == null) {
                 objectInFocus = closest;
-                closest.AddHighlight();
+                closest.FocusGained();
             }
         } else if (objectInFocus != null) {
-            objectInFocus.RemoveHighlight();
+            objectInFocus.FocusLost();
             objectInFocus = null;
         }
     }
@@ -112,48 +111,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
     public void GetPickup(ItemPickup pickup) {
         PlayerGotItem evnt = PlayerGotItem.Create(entity);
-        evnt.Pickup = pickup.entity;
-        evnt.Send();
-    }
-
-    public override void OnEvent(PlayerGotItem evnt) {
-        ItemPickup pickup = evnt.Pickup.GetComponent<ItemPickup>();
-        WizardFightItem item = ItemManager.Instance.items[pickup.Id];
-        GameObject pickupObj = Instantiate(item.HeldModel, transform);
-        if (item.Type == WizardFightItem.ItemType.Active) {
-            ActiveItemChanged((WizardActive)item.HeldScript);
-        } else if (item.Type == WizardFightItem.ItemType.Weapon) {
-            WizardWeaponChanged((WizardWeapon)item.HeldScript);
-        }
-    }
-
-    private void ActiveItemChanged(WizardActive active) {
-        DropActive();
-        activeItem = active;
-    }
-
-    private void WizardWeaponChanged(WizardWeapon wep) {
-        DropWeapon();
-        wizardWeapon = wep;
-    }
-
-    private void DropActive() {
-        if (activeItem != null)
-            Destroy(activeItem.gameObject);
-        SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
-        evnt.ItemId = activeItem.Id;
-        evnt.Position = transform.position;
-        evnt.Force = transform.forward;
-        evnt.Send();
-    }
-
-    private void DropWeapon() {
-        if (wizardWeapon != null)
-            Destroy(wizardWeapon.gameObject);
-        SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
-        evnt.ItemId = wizardWeapon.Id;
-        evnt.Position = transform.position;
-        evnt.Force = transform.forward;
+        evnt.PickupId = pickup.Id;
         evnt.Send();
     }
 

@@ -14,16 +14,26 @@ public class FireballWand : WizardWeapon
     private LineRenderer line;
     private Vector3 spawnPos;
 
+    private bool beganFiring;
+
+    private float timer;
+    public float FireTime = 1.25f;
+
     public override void FireDown() {
-        currentVelocity = BaseLaunchVelocity;
+        currentVelocity = BaseLaunchVelocity * Owner.state.ProjectileSpeed;
     }
 
     public override void FireHold() {
+        if (timer > 0) return;
+        if (!beganFiring) {
+            Owner.state.Speed -= 0.75f;
+            beganFiring = true;
+        }
         spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;
-        if (currentVelocity < MaxLaunchVelocity)
-            currentVelocity += 0.05f;
+        if (currentVelocity < MaxLaunchVelocity * Owner.state.ProjectileSpeed)
+            currentVelocity += 0.05f * Owner.state.ProjectileSpeed;
         Vector3[] positions = new Vector3[PointsInArc];
-        Vector3 dir = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity;
+        Vector3 dir = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity + Owner.GetComponent<Rigidbody>().velocity * .8f;
         float timeToImpact = TimeOfImpact(dir);
         float step = timeToImpact / PointsInArc;
         for (int i = 0; i < PointsInArc; i++) {
@@ -34,6 +44,12 @@ public class FireballWand : WizardWeapon
     }
 
     public override void FireRelease() {
+        if (timer > 0) return;
+        if (beganFiring) {
+            // Sometimes firerelease gets called twice so we need to check to make sure the speed up is not applied twice.
+            Owner.state.Speed += 0.75f;
+        }
+        beganFiring = false;
         spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;
         BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
         proj.GetComponent<FireballProjectile>().owner = transform.parent.gameObject;
@@ -41,9 +57,14 @@ public class FireballWand : WizardWeapon
 
         currentVelocity = 0f;
         line.SetPositions(new Vector3[PointsInArc]);
+        timer = FireTime * Owner.state.FireRate;
     }
 
-    public override void OnEquip(PlayerMovementController player) {
+    private void Update() {
+        timer -= Time.deltaTime;
+    }
+
+    public override void OnEquip() {
         line = GetComponent<LineRenderer>();
         line.positionCount = PointsInArc;
         spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;

@@ -8,22 +8,39 @@ public class FireballProjectile : Bolt.EntityBehaviour<IProjectileState>
     public GameObject trail;
     public GameObject explosion;
 
+    public float damage;
+    public float explosionRadius;
+    public float explosionForce;
+
     public override void Attached() {
         state.SetTransforms(state.transform, transform);
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if (entity.isOwner && collision.gameObject.tag == "Player") {
-            PlayerHit playerHit = PlayerHit.Create();
-            playerHit.HitEntity = collision.gameObject.GetComponent<PlayerMovementController>().entity;
-            playerHit.Send();
-        }
+        Explode();
+        StartCoroutine(DelayDestroy());
+    }
+
+    private void Explode() {
         trail.SetActive(false);
         explosion.SetActive(true);
         GetComponent<SphereCollider>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<MeshRenderer>().enabled = false;
-        StartCoroutine(DelayDestroy());
+
+        Collider[] hit = Physics.OverlapSphere(transform.position, 2f);
+        foreach (Collider c in hit) {
+            Rigidbody rigid = c.GetComponent<Rigidbody>();
+            if (rigid != null) {
+                rigid.AddExplosionForce(explosionForce, transform.position - new Vector3(0, -1f), explosionRadius);
+            }
+
+            if (c.tag == "Player" && entity.isOwner) {
+                PlayerHit pHit = PlayerHit.Create(c.GetComponent<BoltEntity>());
+                pHit.Damage = damage;
+                pHit.Send();
+            }
+        }
     }
 
     IEnumerator DelayDestroy() {

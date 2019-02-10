@@ -49,7 +49,8 @@ MonoBehaviour:
   MaxLaunchVelocity: 7
   Angle: 60
   PointsInArc: 100
-  projectile: {fileID: 257, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
+  projectile: {fileID: 256, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
+  FireTime: 1.25
 --- !u!120 &7119080873938650761
 LineRenderer:
   m_ObjectHideFlags: 0
