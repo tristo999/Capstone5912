@@ -3,10 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[BoltGlobalBehaviour]
+[BoltGlobalBehaviour(BoltNetworkModes.Server, "WizardFightGame")]
 public class NetworkCallbacks : Bolt.GlobalEventListener
 {
-    public override void SceneLoadLocalDone(string map) {
+
+    private void Awake() {
+        WizardFightPlayerRegistry.CreateServerPlayer();
+    }
+
+    public override void Connected(BoltConnection connection) {
+        WizardFightPlayerRegistry.CreateClientPlayer(connection);
+    }
+
+    /*public override void SceneLoadLocalDone(string map) {
         // randomize a position
         var spawnPosition = new Vector3(Random.Range(-4, 4), 4, Random.Range(-4, 4));
 
@@ -16,9 +25,5 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
         pj.Player = spawned;
         pj.Send();
         GameObject.FindGameObjectWithTag("CameraTarget").GetComponent<NetworkTargetting>().AddAllPlayers();
-    }
-
-    public override void ControlOfEntityGained(BoltEntity entity) {
-        
-    }
+    }*/
 }
