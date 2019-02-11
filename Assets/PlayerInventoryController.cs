@@ -42,32 +42,29 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void FireDownTrigger() {
-        if (entity.isOwner)
             wizardWeapon.FireDown();
     }
 
     private void FireHeldTrigger() {
-        if (entity.isOwner)
             wizardWeapon.FireHold();
     }
 
     private void FireReleaseTrigger() {
-        if (entity.isOwner)
             wizardWeapon.FireRelease();
     }
 
     private void ActiveDownTrigger() {
-        if (activeItem != null && entity.isOwner)
+        if (activeItem != null)
             activeItem.ActiveDown();
     }
 
     private void ActiveHoldTrigger() {
-        if (activeItem != null && entity.isOwner)
+        if (activeItem != null)
             activeItem.ActivateHold();
     }
 
     private void ActiveReleaseTrigger() {
-        if (activeItem != null && entity.isOwner)
+        if (activeItem != null)
             activeItem.ActivateRelease();
     }
 

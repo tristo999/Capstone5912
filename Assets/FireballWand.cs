@@ -50,14 +50,17 @@ public class FireballWand : WizardWeapon
             Owner.state.Speed += 0.75f;
         }
         beganFiring = false;
-        spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;
-        BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
-        proj.GetComponent<FireballProjectile>().owner = transform.parent.gameObject;
-        proj.GetComponent<Rigidbody>().velocity = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity;
 
-        currentVelocity = 0f;
-        line.SetPositions(new Vector3[PointsInArc]);
-        timer = FireTime * Owner.state.FireRate;
+        if (Owner.entity.isOwner) {
+            spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;
+            BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
+            proj.GetComponent<FireballProjectile>().owner = transform.parent.gameObject;
+            proj.GetComponent<Rigidbody>().velocity = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity;
+
+            currentVelocity = 0f;
+            line.SetPositions(new Vector3[PointsInArc]);
+            timer = FireTime * Owner.state.FireRate;
+        }
     }
 
     private void Update() {

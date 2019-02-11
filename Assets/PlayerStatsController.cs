@@ -1,19 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
 {
+    public Canvas HealthCanvas;
+    public float StartingHealth;
     private PlayerMovementController movementController;
+    private TextMeshProUGUI healthText;
 
     public override void Attached() {
-        movementController = GetComponent<PlayerMovementController>();
+        if (entity.isOwner) {
+            healthText = Instantiate(HealthCanvas).GetComponentInChildren<TextMeshProUGUI>();
+            movementController = GetComponent<PlayerMovementController>();
 
-        state.Speed = 1f;
-        state.FireRate = 1f;
-        state.ProjectileSpeed = 1f;
-        state.ProjectileDamage = 1f;
-
+            state.Speed = 1f;
+            state.FireRate = 1f;
+            state.ProjectileSpeed = 1f;
+            state.ProjectileDamage = 1f;
+            state.Health = StartingHealth;
+        }
+        
         state.AddCallback("Health", HealthChanged);
         state.AddCallback("Speed", SpeedChanged);
         state.AddCallback("FireRate", FireRateChanged);
@@ -22,7 +30,9 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void HealthChanged() {
-
+        if (entity.isOwner) {
+            healthText.text = state.Health.ToString();
+        }
     }
 
     private void SpeedChanged() {
@@ -42,8 +52,6 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     }
 
     public override void OnEvent(PlayerHit evnt) {
-        if (entity.isOwner) {
-            state.Health -= evnt.Damage;
-        }
+        state.Health -= evnt.Damage;
     }
 }

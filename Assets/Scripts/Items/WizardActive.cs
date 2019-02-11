@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class WizardActive : HeldItem
 {
-    private int uses;
-    private float timeout;
+    public abstract int Uses { get; set; }
+    public abstract float Timeout { get; set; }
 
     public abstract void OnEquip();
     public abstract void ActiveDown();

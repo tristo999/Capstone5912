@@ -28,7 +28,7 @@ public class FireballProjectile : Bolt.EntityBehaviour<IProjectileState>
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<MeshRenderer>().enabled = false;
 
-        Collider[] hit = Physics.OverlapSphere(transform.position, 2f);
+        Collider[] hit = Physics.OverlapSphere(transform.position, 1f);
         foreach (Collider c in hit) {
             Rigidbody rigid = c.GetComponent<Rigidbody>();
             if (rigid != null) {

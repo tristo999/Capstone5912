@@ -15,7 +15,7 @@ public class BasicWand : WizardWeapon
     }
 
     public override void FireHold() {
-        if (timer < 0f) {
+        if (timer < 0f && Owner.entity.isOwner) {
             Vector3 spawnPos = transform.position + transform.forward * .3f;
             spawnPos.y += .8f;
             BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
