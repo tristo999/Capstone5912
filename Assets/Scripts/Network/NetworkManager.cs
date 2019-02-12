@@ -20,7 +20,7 @@ public class NetworkManager : Bolt.GlobalEventListener
             string matchName = Guid.NewGuid().ToString();
 
             BoltNetwork.SetServerInfo(matchName, null);
-            BoltNetwork.LoadScene("CassNinjaMoves");
+            BoltNetwork.LoadScene("Lobby");
             SceneLoader.Instance.LoadScreenAsync(BoltNetwork.CurrentAsyncOperation);
         }
     }

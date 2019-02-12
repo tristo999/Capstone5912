@@ -1,8 +1,12 @@
-﻿
+﻿using Rewired;
 
 [BoltGlobalBehaviour("WizardFightGame")]
 class PlayerCallbacks : Bolt.GlobalEventListener
 {
+    private void Awake() {
+        
+    }
+
     public override void SceneLoadLocalDone(string scene) {
         GameStateManager.GameState = GameStateManager.State.Online;
     }
