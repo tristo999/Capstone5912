@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WizardFightPlayerObject
 {
+    public int numberPlayers;
     public List<BoltEntity> characters = new List<BoltEntity>();
     public BoltConnection connection;
 
@@ -27,7 +28,5 @@ public class WizardFightPlayerObject
                 characters[id].AssignControl(connection);
             }
         }
-
-        
     }
 }

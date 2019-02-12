@@ -5,7 +5,9 @@ using UnityEngine;
 
 public static class WizardFightPlayerRegistry
 {
+    public static Dictionary<BoltConnection, List<LobbyPlayer>> lobbyPlayers = new Dictionary<BoltConnection, List<LobbyPlayer>>();
     static List<WizardFightPlayerObject> players = new List<WizardFightPlayerObject>();
+
 
     static WizardFightPlayerObject CreatePlayer(BoltConnection connection) {
         WizardFightPlayerObject player = new WizardFightPlayerObject();
