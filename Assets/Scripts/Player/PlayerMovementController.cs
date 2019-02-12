@@ -113,7 +113,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
             objectInFocus.DoInteract(entity);
     }
 
-    public void GetPickup(ItemPickup pickup) {
+    public void GetPickup(DroppedItemPickup pickup) {
         PlayerGotItem evnt = PlayerGotItem.Create(entity);
         evnt.PickupId = pickup.Id;
         evnt.Send();

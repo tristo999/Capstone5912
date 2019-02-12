@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ItemCreationUtil : EditorWindow
 {
-    public WizardFightItem item;
+    public ItemDefinition item;
 
     // Add menu item named "My Window" to the Window menu
     [MenuItem("Window/Wizard Fight/Item Creation Util")]
@@ -15,29 +15,29 @@ public class ItemCreationUtil : EditorWindow
     }
 
     private void OnEnable() {
-        item = CreateInstance<WizardFightItem>();
+        item = CreateInstance<ItemDefinition>();
     }
 
     void OnGUI() {
         SerializedObject obj = new SerializedObject(item);
-        SerializedProperty worldModel = obj.FindProperty("WorldModel");
+        SerializedProperty droppedModel = obj.FindProperty("DroppedModel");
         SerializedProperty heldModel = obj.FindProperty("HeldModel");
 
         item.ItemName = EditorGUILayout.TextField(item.ItemName);
         item.ItemDescription = EditorGUILayout.TextField(item.ItemDescription);
-        item.Type = (WizardFightItem.ItemType)EditorGUILayout.EnumPopup(item.Type);
+        item.Type = (ItemDefinition.ItemType)EditorGUILayout.EnumPopup(item.Type);
         
-        EditorGUILayout.PropertyField(worldModel);
+        EditorGUILayout.PropertyField(droppedModel);
         EditorGUILayout.PropertyField(heldModel);
 
         obj.ApplyModifiedProperties();
 
-        if (item.WorldModel != null) {
-            if (item.WorldModel.GetComponent<Item>() == null) {
-                GUILayout.Label("Error, WorldModel lacks Item");
-                item.WorldModel = null;
+        if (item.DroppedModel != null) {
+            if (item.DroppedModel.GetComponent<DroppedItem>() == null) {
+                GUILayout.Label("Error, DroppedModel lacks Item");
+                item.DroppedModel = null;
             } else {
-                item.ItemScript = item.WorldModel.GetComponent<Item>();
+                item.DroppedScript = item.DroppedModel.GetComponent<DroppedItem>();
             }
         }
 
@@ -56,13 +56,13 @@ public class ItemCreationUtil : EditorWindow
     }
 
     private void GenerateItem() {
-        AssetDatabase.CreateAsset(item, "Assets/Items/" + item.ItemName + ".asset");
+        AssetDatabase.CreateAsset(item, "Assets/ItemDefinitions/" + item.ItemName + ".asset");
         AssetDatabase.SaveAssets();
         ItemMaster iM = new ItemMaster();
         iM.OnEnable();
-        WizardFightItem loaded = AssetDatabase.LoadAssetAtPath<WizardFightItem>("Assets/Items/" + item.ItemName + ".asset");
+        ItemDefinition loaded = AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/ItemDefinitions/" + item.ItemName + ".asset");
         iM.Items.Add(loaded);
         iM.OnDisable();
-        item = CreateInstance<WizardFightItem>();
+        item = CreateInstance<ItemDefinition>();
     }
 }
