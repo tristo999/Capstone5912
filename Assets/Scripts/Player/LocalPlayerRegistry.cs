@@ -20,6 +20,10 @@ public static class LocalPlayerRegistry
         }
     }
 
+    public static Player PlayerFromId(int id) {
+        return Players[PlayerNumbers.IndexOf(id)];
+    }
+
     public static int IdFromPlayer(Player player) {
         return PlayerNumbers[Players.IndexOf(player)];
     }

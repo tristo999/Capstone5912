@@ -12,12 +12,14 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
         state.ActiveId = -1;
         state.AddCallback("WeaponId", WeaponIdChanged);
         state.AddCallback("ActiveId", ActiveIdChanged);
+        // Since these triggers are set to local, activation should only happen for controller.
         state.OnFireDown += FireDownTrigger;
         state.OnFireHold += FireHeldTrigger;
         state.OnFireRelease += FireReleaseTrigger;
         state.OnActiveDown += ActiveDownTrigger;
         state.OnActiveHold += ActiveHoldTrigger;
         state.OnActiveRelease += ActiveReleaseTrigger;
+
         WeaponIdChanged();
     }
 
@@ -84,7 +86,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     private void DropActive() {
         if (activeItem != null) {
             Destroy(activeItem.gameObject);
-            if (entity.isOwner) {
+            if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = activeItem.Id;
                 evnt.Position = transform.position;
@@ -97,7 +99,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     private void DropWeapon() {
         if (wizardWeapon != null) {
             Destroy(wizardWeapon.gameObject);
-            if (entity.isOwner) {
+            if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = wizardWeapon.Id;
                 evnt.Position = transform.position + transform.forward * .4f + transform.up * .5f;

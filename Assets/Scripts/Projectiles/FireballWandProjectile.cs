@@ -35,7 +35,7 @@ public class FireballWandProjectile : Bolt.EntityBehaviour<IProjectileState>
                 rigid.AddExplosionForce(explosionForce, transform.position - new Vector3(0, -1f), explosionRadius);
             }
 
-            if (c.tag == "Player" && entity.isOwner) {
+            if (c.tag == "Player" && entity.isControllerOrOwner) {
                 PlayerHit pHit = PlayerHit.Create(c.GetComponent<BoltEntity>());
                 pHit.Damage = damage;
                 pHit.Send();

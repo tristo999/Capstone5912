@@ -32,7 +32,7 @@ public class CloakOfInvisibility : ActiveItem
         oldMats = new List<Material>();
         foreach (MeshRenderer ren in renderers) {
             oldMats.Add(ren.material);
-            if (Owner.entity.isOwner) {
+            if (Owner.entity.isControllerOrOwner) {
                 ren.material = TransparentMaterial;
             } else {
                 ren.material = InvisibleMaterial;

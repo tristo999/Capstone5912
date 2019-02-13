@@ -9,7 +9,7 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
 
     public List<ItemDefinition> items = new List<ItemDefinition>();
 
-    private void Start() {
+    public override void Attached() {
         Instance = this;
         Debug.Log("XXX: " + items.Count);
         AssignIds();

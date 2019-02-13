@@ -51,16 +51,14 @@ public class FireballWand : Weapon
         }
         beganFiring = false;
 
-        if (Owner.entity.isOwner) {
-            spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;
-            BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
-            proj.GetComponent<FireballWandProjectile>().owner = transform.parent.gameObject;
-            proj.GetComponent<Rigidbody>().velocity = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity;
+        spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;
+        BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
+        proj.GetComponent<FireballWandProjectile>().owner = transform.parent.gameObject;
+        proj.GetComponent<Rigidbody>().velocity = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity;
 
-            currentVelocity = 0f;
-            line.SetPositions(new Vector3[PointsInArc]);
-            timer = FireTime * Owner.state.FireRate;
-        }
+        currentVelocity = 0f;
+        line.SetPositions(new Vector3[PointsInArc]);
+        timer = FireTime * Owner.state.FireRate;
     }
 
     private void Update() {
@@ -76,7 +74,7 @@ public class FireballWand : Weapon
     private float TimeOfImpact(Vector3 dir) {
         float time = 0f;
         bool collided = false;
-        
+
         while (!collided) {
             time += .05f;
             Vector3 pos = spawnPos + dir * time + Physics.gravity * time * time * .5f;

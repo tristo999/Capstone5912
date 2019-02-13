@@ -11,7 +11,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     private TextMeshProUGUI healthText;
 
     public override void Attached() {
-        if (entity.isOwner) {
+        if (entity.isControllerOrOwner) {
             healthText = Instantiate(HealthCanvas).GetComponentInChildren<TextMeshProUGUI>();
             movementController = GetComponent<PlayerMovementController>();
 
@@ -20,17 +20,18 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
             state.ProjectileSpeed = 1f;
             state.ProjectileDamage = 1f;
             state.Health = StartingHealth;
+
+            // Move these out of the isControllerOrOwner statement if you want all players to receive these callbacks.
+            state.AddCallback("Health", HealthChanged);
+            state.AddCallback("Speed", SpeedChanged);
+            state.AddCallback("FireRate", FireRateChanged);
+            state.AddCallback("ProjectileSpeed", ProjectileSpeedChanged);
+            state.AddCallback("ProjectileDamage", ProjectileDamageChanged);
         }
-        
-        state.AddCallback("Health", HealthChanged);
-        state.AddCallback("Speed", SpeedChanged);
-        state.AddCallback("FireRate", FireRateChanged);
-        state.AddCallback("ProjectileSpeed", ProjectileSpeedChanged);
-        state.AddCallback("ProjectileDamage", ProjectileDamageChanged);
     }
 
     private void HealthChanged() {
-        if (entity.isOwner) {
+        if (entity.isControllerOrOwner) {
             healthText.text = state.Health.ToString();
         }
     }

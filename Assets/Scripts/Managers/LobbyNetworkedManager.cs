@@ -84,6 +84,11 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
         state.Players[state.NumPlayers].Present = true;
         state.Players[state.NumPlayers].Name = "Player " + (state.NumPlayers + 1);
         state.Players[state.NumPlayers].Color = Random.ColorHSV();
+        if (evnt.RaisedBy == null) {
+            WizardFightPlayerRegistry.AddServerPlayer(state.Players[state.NumPlayers]);
+        } else {
+            WizardFightPlayerRegistry.AddLobbyPlayer(evnt.RaisedBy, state.Players[state.NumPlayers]);
+        }
         state.NumPlayers++;
     }
 
@@ -99,6 +104,18 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
             LocalPlayerRegistry.PlayerNumbers.Add(state.NumPlayers);
             LocalPlayerRegistry.LobbyPlayers.Add(state.Players[state.NumPlayers]);
             LobbyPlayerJoined.Create(entity).Send();
+        }
+    }
+
+    public void RemovePlayersFromConnection(BoltConnection connection) {
+        List<WizardFightPlayerObject> disconnected = WizardFightPlayerRegistry.Players.Where(p => p.connection == connection).ToList();
+        for (int i = 0; i < state.Players.Length; i++) {
+            if (disconnected.Any(p => p.PlayerId == state.Players[i].PlayerId)) {
+                state.Players[i].Color = Color.white;
+                state.Players[i].Name = null;
+                state.Players[i].Present = false;
+                state.Players[i].Ready = false;
+            }
         }
     }
 }
