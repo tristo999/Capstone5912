@@ -10,7 +10,6 @@ public static class LocalPlayerRegistry
 
     public static List<Player> Players { get; } = new List<Player>();
     public static List<int> PlayerNumbers { get; } = new List<int>();
-    public static List<LobbyPlayer> LobbyPlayers { get; } = new List<LobbyPlayer>();
 
     public static IEnumerable<BoltEntity> PlayerEntities
     {

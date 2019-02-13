@@ -20,6 +20,13 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
         state.OnActiveHold += ActiveHoldTrigger;
         state.OnActiveRelease += ActiveReleaseTrigger;
 
+        StartCoroutine("WaitForItemManager");
+    }
+
+    IEnumerator WaitForItemManager() {
+        while (ItemManager.Instance == null) {
+            yield return new WaitForSeconds(0.1f);
+        }
         WeaponIdChanged();
     }
 

@@ -13,7 +13,6 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
         BoltNetwork.Instantiate(BoltPrefabs.ItemManager);
         // Begin dungeon generation. 
         readyConnections++;
-        GameObject cube = BoltNetwork.Instantiate(GameObject.CreatePrimitive(PrimitiveType.Plane));
         TryStartMatch();
     }
 

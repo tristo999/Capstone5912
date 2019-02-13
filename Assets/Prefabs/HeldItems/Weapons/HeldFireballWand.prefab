@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7682894439513003783}
   - component: {fileID: 7119080873938650761}
   m_Layer: 0
-  m_Name: FireballWand
+  m_Name: HeldFireballWand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   MaxLaunchVelocity: 7
   Angle: 60
   PointsInArc: 100
-  projectile: {fileID: 256, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
+  projectile: {fileID: 260, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
   FireTime: 1.25
 --- !u!120 &7119080873938650761
 LineRenderer:

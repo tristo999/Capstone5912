@@ -49,7 +49,6 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
             }
         }
         
-
         foreach (Player player in ReInput.players.Players) {
             if (!player.isPlaying && player.GetAnyButton()) {
                 AttemptAddPlayer(player);
@@ -84,6 +83,7 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
         state.Players[state.NumPlayers].Present = true;
         state.Players[state.NumPlayers].Name = "Player " + (state.NumPlayers + 1);
         state.Players[state.NumPlayers].Color = Random.ColorHSV();
+        state.Players[state.NumPlayers].PlayerId = state.NumPlayers;
         if (evnt.RaisedBy == null) {
             WizardFightPlayerRegistry.AddServerPlayer(state.Players[state.NumPlayers]);
         } else {
@@ -102,7 +102,6 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
             player.isPlaying = true;
             LocalPlayerRegistry.Players.Add(player);
             LocalPlayerRegistry.PlayerNumbers.Add(state.NumPlayers);
-            LocalPlayerRegistry.LobbyPlayers.Add(state.Players[state.NumPlayers]);
             LobbyPlayerJoined.Create(entity).Send();
         }
     }
