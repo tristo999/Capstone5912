@@ -18,12 +18,10 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     public void Update() {
-        if (!entity.isOwner) return;
-
-        if (localPlayer == null) {
-            CheckForPlayer();
-            return;
-        }
+        // Since we're using Rewired we cannot use Bolt's SimulateController as Rewired won't be able to get input.
+        // Hence we have to do a check here. localPlayer == null will prevent the server from throwing exceptions when it gets
+        // upset that it can't control client's players.
+        if (!entity.isControllerOrOwner || localPlayer == null) return;
         DoMovement();
         DoLook();
         CheckInteract();
@@ -113,14 +111,14 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
             objectInFocus.DoInteract(entity);
     }
 
-    public void GetPickup(ItemPickup pickup) {
+    public void GetPickup(DroppedItemPickup pickup) {
         PlayerGotItem evnt = PlayerGotItem.Create(entity);
         evnt.PickupId = pickup.Id;
         evnt.Send();
     }
 
     public void AssignPlayer(int id) {
-        if (entity.isOwner) {
+        if (entity.isControllerOrOwner) {
             Debug.LogFormat("Assigning player id {0}", id);
             localPlayer = ReInput.players.GetPlayer(id);
             localPlayer.isPlaying = true;

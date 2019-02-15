@@ -7,42 +7,37 @@ public static class WizardFightPlayerRegistry
 {
     static List<WizardFightPlayerObject> players = new List<WizardFightPlayerObject>();
 
-    static WizardFightPlayerObject CreatePlayer(BoltConnection connection) {
-        WizardFightPlayerObject player = new WizardFightPlayerObject();
-        player.connection = connection;
-
-        if (player.connection != null) {
-            player.connection.UserData = player;
-        }
-
-        players.Add(player);
-
-        return player;
-    }
-
-    public static IEnumerable<WizardFightPlayerObject> AllPlayers
+    public static IEnumerable<WizardFightPlayerObject> Players
     {
-        get { return players; }
-    }
-
-    public static WizardFightPlayerObject ServerPlayer
-    {
-        get { return players.First(player => player.IsServer); }
-    }
-
-    public static WizardFightPlayerObject CreateServerPlayer() {
-        return CreatePlayer(null);
-    }
-
-    public static WizardFightPlayerObject CreateClientPlayer(BoltConnection connection) {
-        return CreatePlayer(connection);
-    }
-
-    public static WizardFightPlayerObject GetWizardFightPlayer(BoltConnection connection) {
-        if (connection == null) {
-            return ServerPlayer;
+        get
+        {
+            return players;
         }
+    }
 
-        return (WizardFightPlayerObject)connection.UserData;
+    public static int NumberConnections
+    {
+        get
+        {
+            return players.Select(p => p.connection).Distinct().Count();
+        }
+    }
+
+    public static void AddLobbyPlayer(BoltConnection c, LobbyPlayer p) {
+        WizardFightPlayerObject newPlayer = new WizardFightPlayerObject();
+        newPlayer.connection = c;
+        newPlayer.PlayerName = p.Name;
+        newPlayer.PlayerColor = p.Color;
+        newPlayer.PlayerId = p.PlayerId;
+        players.Add(newPlayer);
+    }
+
+    public static void AddServerPlayer(LobbyPlayer p) {
+        WizardFightPlayerObject newPlayer = new WizardFightPlayerObject();
+        newPlayer.connection = null;
+        newPlayer.PlayerName = p.Name;
+        newPlayer.PlayerColor = p.Color;
+        newPlayer.PlayerId = p.PlayerId;
+        players.Add(newPlayer);
     }
 }

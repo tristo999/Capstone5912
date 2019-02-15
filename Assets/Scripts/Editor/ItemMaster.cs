@@ -7,7 +7,7 @@ public class ItemMaster : EditorWindow
 {
     private GameObject ManagerPrefab;
     private ItemManager itemManager;
-    public List<WizardFightItem> Items = new List<WizardFightItem>();
+    public List<ItemDefinition> Items = new List<ItemDefinition>();
 
     // Add menu item named "My Window" to the Window menu
     [MenuItem("Window/Wizard Fight/Wizard Fight Items")]
@@ -20,7 +20,7 @@ public class ItemMaster : EditorWindow
         var data = EditorPrefs.GetString("WFItems", JsonUtility.ToJson(this, false));
         JsonUtility.FromJsonOverwrite(data, this);
         if (ManagerPrefab == null) {
-            ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/ItemManager.prefab");
+            ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Managers/ItemManager.prefab");
             itemManager = ManagerPrefab.GetComponent<ItemManager>();
         }
     }
@@ -51,9 +51,9 @@ public class ItemMaster : EditorWindow
     }
 
     public void FixPrefabs() {
-        foreach (WizardFightItem item in Items) {
+        foreach (ItemDefinition item in Items) {
             item.HeldScript = item.HeldModel.GetComponent<HeldItem>();
-            item.ItemScript = item.WorldModel.GetComponent<Item>();
+            item.DroppedScript = item.DroppedModel.GetComponent<DroppedItem>();
         }
     }
 

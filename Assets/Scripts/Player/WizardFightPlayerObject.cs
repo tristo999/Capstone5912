@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WizardFightPlayerObject
 {
-    public List<BoltEntity> characters = new List<BoltEntity>();
     public BoltConnection connection;
 
     public bool IsServer
@@ -17,17 +16,17 @@ public class WizardFightPlayerObject
         get { return connection != null; }
     }
 
-    public void Spawn(int id) {
-        if (!characters[id]) {
-            characters[id] = BoltNetwork.Instantiate(BoltPrefabs.Player);
+    public string PlayerName { get; set; }
+    public int PlayerId { get; set; }
+    public Color PlayerColor { get; set; }
 
-            if (IsServer) {
-                characters[id].TakeControl();
-            } else {
-                characters[id].AssignControl(connection);
-            }
-        }
-
-        
+    public BoltEntity Spawn() {
+        BoltEntity playerEntity = BoltNetwork.Instantiate(BoltPrefabs.Player);
+        playerEntity.transform.position = new Vector3(0, 2, 0);
+        IPlayerState playerState = playerEntity.GetComponent<PlayerMovementController>().state; ;
+        playerState.Color = PlayerColor;
+        playerState.Name = PlayerName;
+        playerState.PlayerId = PlayerId;
+        return playerEntity;
     }
 }
