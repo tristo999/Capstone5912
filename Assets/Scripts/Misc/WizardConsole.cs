@@ -12,7 +12,7 @@ public class CommandEvent : UnityEvent<string[]>
 {
 }
 
-public class WizardConsole : MonoBehaviour
+public class WizardConsole : Bolt.GlobalEventListener
 {
     public GameObject ConsoleBox;
     public TextMeshProUGUI EntryBox;
@@ -147,6 +147,7 @@ public class WizardConsole : MonoBehaviour
     {
         distortion.enabled.value = !distortion.enabled.value;
     }
+
 
     public IEnumerator raveCoroutine()
     {

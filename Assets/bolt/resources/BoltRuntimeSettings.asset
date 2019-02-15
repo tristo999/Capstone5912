@@ -19,7 +19,7 @@ MonoBehaviour:
     maxEntityPriority: 65536
     maxPropertyPriority: 2048
     scopeMode: 0
-    logTargets: 3
+    logTargets: 2
     disableDejitterBuffer: 0
     clientSendRate: 3
     clientDejitterDelay: 6
@@ -29,7 +29,7 @@ MonoBehaviour:
     serverDejitterDelay: 6
     serverDejitterDelayMin: 3
     serverDejitterDelayMax: 9
-    serverConnectionLimit: 32
+    serverConnectionLimit: 4
     serverConnectionAcceptMode: 0
     commandQueueSize: 60
     commandRedundancy: 6
@@ -42,9 +42,9 @@ MonoBehaviour:
     connectionTimeout: 10000
     connectionRequestTimeout: 500
     connectionRequestAttempts: 20
-  debugClientCount: 2
+  debugClientCount: 3
   debugStartPort: 50538
-  debugStartMapName: PhotonGame
+  debugStartMapName: Lobby
   debugPlayAsServer: 0
   showDebugInfo: 1
   overrideTimeScale: 1

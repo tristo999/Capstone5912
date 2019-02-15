@@ -2,20 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class InteractiveObject : MonoBehaviour
+public abstract class InteractiveObject : Bolt.EntityEventListener<IInteractiveState>
 {
     public Material highlightMaterial;
 
     private Material originalMaterial;
     private bool isHighlighted;
+    private Renderer ren;
 
-    void Awake()
-    {
-        originalMaterial = GetComponent<Renderer>().material;
+    public abstract void DoInteract(BoltEntity entity);
+
+    public virtual void FocusGained() {
+        AddHighlight();
+    }
+
+    public virtual void FocusLost() {
+        RemoveHighlight();
     }
 
     public virtual void AddHighlight()
     {
+        originalMaterial = GetComponent<Renderer>().sharedMaterial;
         GetComponent<Renderer>().sharedMaterial = highlightMaterial;
         isHighlighted = true;
     }

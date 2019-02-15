@@ -3,45 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementController : Bolt.EntityBehaviour<IPlayerState>
+public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 {
-    public List<WizardWeapon> Weapons = new List<WizardWeapon>();
-    public List<WizardActive> ActiveItems = new List<WizardActive>();
-
     private Rigidbody rb;
-    public float speed;
+    public float BaseSpeed;
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
     private Player localPlayer;
-
-    private WizardActive activeItem;
-    private WizardWeapon wizardWeapon;
+    private InteractiveObject objectInFocus;
 
     public override void Attached()
     {
         rb = GetComponent<Rigidbody>();
         state.SetTransforms(state.transform, transform);
-        state.ActiveItem = -1;
-        state.AddCallback("WeaponId", WizardWeaponChanged);
-        state.AddCallback("ActiveItem", ActiveItemChanged);
-        // We have to call this as the state defaults to 0;
-        WizardWeaponChanged();
     }
 
     public void Update() {
-        if (!entity.isOwner) return;
-
-        if (localPlayer == null) {
-            CheckForPlayer();
-            return;
-        }
+        // Since we're using Rewired we cannot use Bolt's SimulateController as Rewired won't be able to get input.
+        // Hence we have to do a check here. localPlayer == null will prevent the server from throwing exceptions when it gets
+        // upset that it can't control client's players.
+        if (!entity.isControllerOrOwner || localPlayer == null) return;
         DoMovement();
         DoLook();
-        if (localPlayer.GetButtonDown("Fire")) wizardWeapon.Fire();
-        if (activeItem != null && localPlayer.GetButtonDown("UseActive")) activeItem.Activate();
+        CheckInteract();
+        if (localPlayer.GetButtonDown("Interact")) DoInteract();
+        if (localPlayer.GetButtonDown("Fire")) state.FireDown();
+        if (localPlayer.GetButton("Fire")) state.FireHold();
+        if (localPlayer.GetButtonUp("Fire")) state.FireRelease();
+        if (localPlayer.GetButtonDown("UseActive")) state.ActiveDown();
+        if (localPlayer.GetButton("UseActive")) state.ActiveHold();
+        if (localPlayer.GetButtonUp("UseActive")) state.ActiveRelease();
     }
 
     private void CheckForPlayer() {
         foreach (Player p in ReInput.players.Players) {
+            if (p.GetAnyButton()) {
+                Debug.LogFormat("{0}: {1}", p.id, p.GetAnyButton());
+            }
+            
             if (p.GetAnyButton() && !p.isPlaying) {
                 AssignPlayer(p.id);
             }
@@ -52,7 +50,7 @@ public class PlayerMovementController : Bolt.EntityBehaviour<IPlayerState>
         float moveHorizontal = localPlayer.GetAxis("Horizontal");
         float moveVertical = localPlayer.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.MovePosition(transform.position + movement * speed * BoltNetwork.FrameDeltaTime);
+        rb.MovePosition(transform.position + movement * BaseSpeed * Time.deltaTime * state.Speed);
     }
 
     private void DoLook() {
@@ -76,29 +74,51 @@ public class PlayerMovementController : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    private void ActiveItemChanged() {
-        if (activeItem != null)
-            activeItem.gameObject.SetActive(false);
-        if (state.ActiveItem > -1) {
-            activeItem = ActiveItems[state.ActiveItem];
-            activeItem.gameObject.SetActive(true);
-            activeItem.OnEquip();
-        } else {
-            activeItem = null;
+    private void CheckInteract() {
+        Vector3 boxSize = new Vector3(.35f, 1f, .4f);
+        Collider[] overlap = Physics.OverlapBox(transform.position + transform.forward * .26f + transform.up * .51f, boxSize / 2, transform.rotation);
+        InteractiveObject closest = null;
+
+        // Check for interactive.
+        foreach (Collider c in overlap) {
+            if (c.tag == "Interactive") {
+                InteractiveObject io = c.GetComponent<InteractiveObject>();
+                if (io != null) {
+                    if (closest == null || Vector3.Distance(transform.position, c.transform.position) < Vector3.Distance(transform.position, io.transform.position))
+                        closest = io;
+                } 
+            }
+        }
+
+        // Update Highlights.
+        if (closest != null) {
+            if (objectInFocus != null && objectInFocus != closest) {
+                objectInFocus.FocusLost();
+                objectInFocus = closest;
+                objectInFocus.FocusGained();
+            } else if (objectInFocus == null) {
+                objectInFocus = closest;
+                closest.FocusGained();
+            }
+        } else if (objectInFocus != null) {
+            objectInFocus.FocusLost();
+            objectInFocus = null;
         }
     }
 
-    private void WizardWeaponChanged() {
-        Debug.Log("Set weapon to " + state.WeaponId);
-        if (wizardWeapon != null)
-            wizardWeapon.gameObject.SetActive(false);
-        wizardWeapon = Weapons[state.WeaponId];
-        wizardWeapon.gameObject.SetActive(true);
-        wizardWeapon.OnEquip();
+    private void DoInteract() {
+        if (objectInFocus != null)
+            objectInFocus.DoInteract(entity);
+    }
+
+    public void GetPickup(DroppedItemPickup pickup) {
+        PlayerGotItem evnt = PlayerGotItem.Create(entity);
+        evnt.PickupId = pickup.Id;
+        evnt.Send();
     }
 
     public void AssignPlayer(int id) {
-        if (entity.isOwner) {
+        if (entity.isControllerOrOwner) {
             Debug.LogFormat("Assigning player id {0}", id);
             localPlayer = ReInput.players.GetPlayer(id);
             localPlayer.isPlaying = true;

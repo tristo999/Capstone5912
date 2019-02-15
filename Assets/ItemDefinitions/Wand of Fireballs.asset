@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fefb70c7568dea4e8c5ba3aa027b199, type: 3}
+  m_Name: Wand of Fireballs
+  m_EditorClassIdentifier: 
+  ItemName: Wand of Fireballs
+  ItemDescription: Explosive fun!
+  Type: 0
+  DroppedModel: {fileID: 263, guid: 6cdc8a68c486bad4c9e70d3a79a2d03a, type: 3}
+  DroppedScript: {fileID: 908, guid: 6cdc8a68c486bad4c9e70d3a79a2d03a, type: 3}
+  HeldModel: {fileID: 5720748155591841518, guid: 8537f430b02e498499cff75b7d52ee14,
+    type: 3}
+  HeldScript: {fileID: 7682894439513003783, guid: 8537f430b02e498499cff75b7d52ee14,
+    type: 3}

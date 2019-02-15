@@ -7,37 +7,40 @@ public abstract class Chest : InteractiveObject
     public GameObject closedChestModel;
     public GameObject openChestModel;
 
-    public bool IsOpen { get; set; } = false;
-
-    void Start()
-    {
-        CloseChest();
+    public override void Attached() {
+        state.SetTransforms(state.transform, transform);
+        state.AddCallback("Open", OpenChange);
     }
 
-    public virtual bool TryOpen()
-    {
-        if (!IsOpen)
-        {
-            OnOpen();
-            return true;
-        }
-        return false;
+    public abstract void OnOpen();
+
+    public override void DoInteract(BoltEntity bEntity) {
+        OpenChest evnt = OpenChest.Create(entity);
+        evnt.Send();
     }
 
-    public virtual void OnOpen()
-    {
-        OpenChest();
+    private void OpenChange() {
+        if (state.Open) 
+            ChestOpen();
+        else
+            ChestClose();
     }
 
-    protected void CloseChest()
+
+    protected void ChestClose()
     {
         GetComponent<MeshFilter>().mesh = closedChestModel.GetComponent<MeshFilter>().sharedMesh;
-        IsOpen = false;
     }
 
-    protected void OpenChest()
+    protected void ChestOpen()
     {
         GetComponent<MeshFilter>().mesh = openChestModel.GetComponent<MeshFilter>().sharedMesh;
-        IsOpen = true;
+        OnOpen();
     }
+
+    public override void OnEvent(OpenChest evnt) {
+        if (entity.isOwner)
+            state.Open = !state.Open;
+    }
+
 }
