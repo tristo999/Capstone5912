@@ -2872,10 +2872,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5566001328881604370}
     m_Modifications:
-    - target: {fileID: 1000013026526382, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Double-Cupboard_Full-03
-      objectReference: {fileID: 0}
     - target: {fileID: 4000010205435732, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7
@@ -2932,6 +2928,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013026526382, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Double-Cupboard_Full-03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
 --- !u!1 &5565856734852641727 stripped
@@ -2953,11 +2953,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5566001328881604370}
     m_Modifications:
-    - target: {fileID: 6868977233102942531, guid: dfebb3257b6a40a41be1aed545953cfb,
-        type: 3}
-      propertyPath: m_Name
-      value: StuffSpawner
-      objectReference: {fileID: 0}
     - target: {fileID: 6868977233102942529, guid: dfebb3257b6a40a41be1aed545953cfb,
         type: 3}
       propertyPath: m_RootOrder
@@ -3003,6 +2998,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 7.55
       objectReference: {fileID: 0}
+    - target: {fileID: 6868977233102942531, guid: dfebb3257b6a40a41be1aed545953cfb,
+        type: 3}
+      propertyPath: m_Name
+      value: StuffSpawner
+      objectReference: {fileID: 0}
     - target: {fileID: 6868977233102942530, guid: dfebb3257b6a40a41be1aed545953cfb,
         type: 3}
       propertyPath: folder
@@ -3023,10 +3023,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5566001328881604370}
     m_Modifications:
-    - target: {fileID: 1000013026526382, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Double-Cupboard_Full-03 (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 4000010205435732, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.5
@@ -3082,6 +3078,10 @@ PrefabInstance:
     - target: {fileID: 4000010205435732, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
       propertyPath: m_LocalScale.z
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013026526382, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Double-Cupboard_Full-03 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
@@ -3179,11 +3179,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5566001328881604370}
     m_Modifications:
-    - target: {fileID: 6868977233102942531, guid: dfebb3257b6a40a41be1aed545953cfb,
-        type: 3}
-      propertyPath: m_Name
-      value: TableSpawner
-      objectReference: {fileID: 0}
     - target: {fileID: 6868977233102942529, guid: dfebb3257b6a40a41be1aed545953cfb,
         type: 3}
       propertyPath: m_RootOrder
@@ -3219,6 +3214,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 10.05
       objectReference: {fileID: 0}
+    - target: {fileID: 6868977233102942531, guid: dfebb3257b6a40a41be1aed545953cfb,
+        type: 3}
+      propertyPath: m_Name
+      value: TableSpawner
+      objectReference: {fileID: 0}
     - target: {fileID: 6868977233102942530, guid: dfebb3257b6a40a41be1aed545953cfb,
         type: 3}
       propertyPath: folder
@@ -3239,11 +3239,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5566001328881604370}
     m_Modifications:
-    - target: {fileID: 6868977233102942531, guid: dfebb3257b6a40a41be1aed545953cfb,
-        type: 3}
-      propertyPath: m_Name
-      value: StuffSpawner2
-      objectReference: {fileID: 0}
     - target: {fileID: 6868977233102942529, guid: dfebb3257b6a40a41be1aed545953cfb,
         type: 3}
       propertyPath: m_RootOrder
@@ -3288,6 +3283,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 13.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6868977233102942531, guid: dfebb3257b6a40a41be1aed545953cfb,
+        type: 3}
+      propertyPath: m_Name
+      value: StuffSpawner2
       objectReference: {fileID: 0}
     - target: {fileID: 6868977233102942530, guid: dfebb3257b6a40a41be1aed545953cfb,
         type: 3}
