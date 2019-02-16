@@ -6,6 +6,7 @@ public class Spawner : MonoBehaviour
 {
     public string folder;
     private GameObject spawned;
+    public bool debug = true;
 
     Object[] LoadFromFolder(string folder){
         Object[] objs = Resources.LoadAll(folder);
@@ -27,8 +28,10 @@ public class Spawner : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetMouseButtonDown(0))
+        if(debug){
+            if (Input.GetMouseButtonDown(0))
             DemoRespawn();
+        }
     }
 
     private void DemoRespawn() {
