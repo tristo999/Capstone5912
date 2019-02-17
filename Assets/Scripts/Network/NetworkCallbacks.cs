@@ -32,7 +32,8 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
                     playerEntity.AssignControl(player.connection);
                 else {
                     //PlayerCamera.Instantiate();
-                    playerEntity.GetComponent<PlayerMovementController>().AssignPlayer(LocalPlayerRegistry.PlayerFromId(player.PlayerId).id);
+                    //playerEntity.GetComponent<PlayerMovementController>().AssignPlayer(LocalPlayerRegistry.PlayerFromId(player.PlayerId).id);
+                    playerEntity.TakeControl();
                 }
             }
         }
