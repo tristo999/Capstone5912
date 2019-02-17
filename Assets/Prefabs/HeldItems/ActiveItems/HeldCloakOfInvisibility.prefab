@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3928749656041856786}
   - component: {fileID: 4036389208153752077}
   m_Layer: 0
-  m_Name: CloakOfInvisibility
+  m_Name: HeldCloakOfInvisibility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,8 +79,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.000008106232, y: -0.011237264, z: -0.000017166138}
-    m_Extent: {x: 4.999956, y: 0, z: 4.9998274}
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 5, y: 0, z: 5}
   m_DirtyAABB: 0
 --- !u!183 &3928749656041856786
 Cloth:

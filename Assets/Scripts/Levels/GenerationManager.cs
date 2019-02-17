@@ -15,6 +15,9 @@ public struct DungeonCell
 public class GenerationManager : MonoBehaviour
 {
     public List<DungeonCell> possibleCells = new List<DungeonCell>();
+    public List<GameObject> roomPrefabs = new List<GameObject>();
+
+    public float roomSize;
 
     private bool[,] dungeon;
     private GameObject mazeObject;
@@ -86,9 +89,9 @@ public class GenerationManager : MonoBehaviour
             for (int i = room.x; i < room.x + room.width; i++) {
                 for (int j = room.y; j < room.y + room.height; j++) {
                     dungeon[i, j] = true;
-                    GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    GameObject obj = Instantiate(roomPrefabs[Random.Range(0,roomPrefabs.Count)]);
                     obj.transform.parent = mazeObject.transform;
-                    obj.transform.position = new Vector3(i, 0, j);
+                    obj.transform.position = new Vector3(i * roomSize, 0, j * roomSize);
                 }
             }
             yield return new WaitForEndOfFrame();
@@ -104,25 +107,24 @@ public class GenerationManager : MonoBehaviour
         this.height = height;
         dungeon = new bool[width, height];
         dungeon[width / 2, height / 2] = true;
-        GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject obj = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
         obj.transform.parent = mazeObject.transform;
-        obj.transform.position = new Vector3(width / 2, 0, height / 2);
+        obj.transform.position = new Vector3(width / 2, 0, height / 2) * roomSize;
 
         for (int i = 0; i < generationAttempts; i++) {
             Vector2 existingCell = randomExistingNotSurrounded();
             List<Vector2> possible = OpenNeighbors((int)existingCell.x, (int)existingCell.y);
             Vector2 newCell = possible[Random.Range(0, possible.Count)];
-            Debug.LogFormat("Existing: {0}, New: {1}", existingCell, newCell);
             dungeon[(int)newCell.x, (int)newCell.y] = true;
             int mirrorX = width - 1 - (int)newCell.x;
             int mirrorY = height - 1 - (int)newCell.y;
-            GameObject newRoom = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            newRoom.transform.position = new Vector3(newCell.x, 0, newCell.y);
+            GameObject newRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
+            newRoom.transform.position = new Vector3(newCell.x, 0, newCell.y) * roomSize;
             newRoom.transform.parent = mazeObject.transform;
             if (adjacentToRoom(mirrorX, mirrorY) && Random.Range(0.0f, 1.0f) > .05f) {
                 dungeon[mirrorX, mirrorY] = true;
-                newRoom = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                newRoom.transform.position = new Vector3(mirrorX, 0, mirrorY);
+                newRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
+                newRoom.transform.position = new Vector3(mirrorX, 0, mirrorY) * roomSize;
                 newRoom.transform.parent = mazeObject.transform;
             }
             yield return new WaitForEndOfFrame();
@@ -140,9 +142,9 @@ public class GenerationManager : MonoBehaviour
         this.height = height;
         dungeon = new bool[width, height];
         dungeon[width / 2, height / 2] = true;
-        GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject obj = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
         obj.transform.parent = mazeObject.transform;
-        obj.transform.position = new Vector3(width/2, 0, height/2);
+        obj.transform.position = new Vector3(width/2, 0, height/2) * roomSize;
         for (int i = 0; i < generationAttempts; i++)
         {
             int x = Random.Range(0, width-1);
@@ -150,8 +152,8 @@ public class GenerationManager : MonoBehaviour
             if (!dungeon[x,y] && adjacentToRoom(x,y))
             {
                 dungeon[x, y] = true;
-                obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                obj.transform.position = new Vector3(x, 0, y);
+                obj = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
+                obj.transform.position = new Vector3(x, 0, y) * roomSize;
                 obj.transform.parent = mazeObject.transform;
                 if (Random.Range(0.0f,1.0f) > 0.2f)
                 {
@@ -160,8 +162,8 @@ public class GenerationManager : MonoBehaviour
                     if (adjacentToRoom(mirrorX, mirrorY))
                     {
                         dungeon[width - 1 - x, height - 1 - y] = true;
-                        obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                        obj.transform.position = new Vector3(width - x, 0, width - y);
+                        obj = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
+                        obj.transform.position = new Vector3(width - x, 0, width - y) * roomSize;
                         obj.transform.parent = mazeObject.transform;
                     }
                 }

@@ -189,7 +189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323985815}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 50, y: 100, z: 50}
+  m_LocalPosition: {x: 1000, y: 500, z: 1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -292,9 +292,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f159da52a154b6d4dad3ee2a8729ff28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomPrefabs:
+  - {fileID: 5566001328881604371, guid: 725d5b742557f164084d785ec7de92e1, type: 3}
+  - {fileID: 8328265573824355578, guid: 2f866da9f8a44d945afc54d7b60396bd, type: 3}
+  - {fileID: 8216286624087478468, guid: c6e9e5965b8c24f498b39c8f20e9bcd6, type: 3}
+  - {fileID: 6488916508861655503, guid: a2be29f26234ded4994c6030cefdf1cb, type: 3}
+  - {fileID: 8177244467068099610, guid: 3322e9977e5f9854a8c2fb832d014a78, type: 3}
+  - {fileID: 22408527646317928, guid: 54342b4e36784a84691494284144100c, type: 3}
+  roomSize: 20
   width: 100
   height: 100
-  generationAttempts: 100
+  generationAttempts: 300
   maxRoomWidth: 15
   maxRoomHeight: 15
   minRooms: 40

@@ -28,11 +28,11 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
         if (readyConnections >= connections) {
             foreach (WizardFightPlayerObject player in WizardFightPlayerRegistry.Players) {
                 BoltEntity playerEntity = player.Spawn();
+                playerEntity.transform.position = new Vector3(Random.Range(-2f, 2f), 3, Random.Range(-2f, 2f));
                 if (player.connection != null)
                     playerEntity.AssignControl(player.connection);
                 else {
-                    //PlayerCamera.Instantiate();
-                    playerEntity.GetComponent<PlayerMovementController>().AssignPlayer(LocalPlayerRegistry.PlayerFromId(player.PlayerId).id);
+                    playerEntity.TakeControl();
                 }
             }
         }

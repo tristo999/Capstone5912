@@ -9,30 +9,29 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     public float StartingHealth;
     private PlayerMovementController movementController;
     private TextMeshProUGUI healthText;
+    private PlayerUI ui;
 
     public override void Attached() {
-        if (entity.isControllerOrOwner) {
-            healthText = Instantiate(HealthCanvas).GetComponentInChildren<TextMeshProUGUI>();
-            movementController = GetComponent<PlayerMovementController>();
+        movementController = GetComponent<PlayerMovementController>();
+        ui = GetComponent<PlayerUI>();
 
-            state.Speed = 1f;
-            state.FireRate = 1f;
-            state.ProjectileSpeed = 1f;
-            state.ProjectileDamage = 1f;
-            state.Health = StartingHealth;
+        state.Speed = 1f;
+        state.FireRate = 1f;
+        state.ProjectileSpeed = 1f;
+        state.ProjectileDamage = 1f;
+        state.Health = StartingHealth;
 
-            // Move these out of the isControllerOrOwner statement if you want all players to receive these callbacks.
-            state.AddCallback("Health", HealthChanged);
-            state.AddCallback("Speed", SpeedChanged);
-            state.AddCallback("FireRate", FireRateChanged);
-            state.AddCallback("ProjectileSpeed", ProjectileSpeedChanged);
-            state.AddCallback("ProjectileDamage", ProjectileDamageChanged);
-        }
+        // Move these out of the isControllerOrOwner statement if you want all players to receive these callbacks.
+        state.AddCallback("Health", HealthChanged);
+        state.AddCallback("Speed", SpeedChanged);
+        state.AddCallback("FireRate", FireRateChanged);
+        state.AddCallback("ProjectileSpeed", ProjectileSpeedChanged);
+        state.AddCallback("ProjectileDamage", ProjectileDamageChanged);
     }
 
     private void HealthChanged() {
-        if (entity.isControllerOrOwner) {
-            healthText.text = state.Health.ToString();
+        if (entity.hasControl) {
+            ui.SetHealth(state.Health);
         }
     }
 
