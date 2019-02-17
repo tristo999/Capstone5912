@@ -90,7 +90,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 63b242ffbbe49554498b7596dd2e02ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1992,6 +1992,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   folder: DungeonAssets/Clusters
   debug: 1
+--- !u!114 &6581106909985440417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581106909468628400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19432ef87c8563d4a89df4913afa5175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probability: 15
+--- !u!114 &6581106909985440418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581106909468628400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d61893a88852374c95a4fadaacc0047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 0.3661445, g: 0.6415094, b: 0.39952204, a: 1}
+  - {r: 0.5754717, g: 0.059983805, b: 0, a: 0.50980395}
+  - {r: 1, g: 1, b: 1, a: 0}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 0.54901963}
+  - {r: 0.8962264, g: 0.37643182, b: 0, a: 0.50980395}
+  - {r: 0.4056604, g: 0, b: 0, a: 0.88235295}
+  - {r: 1, g: 0.6179246, b: 0.9440618, a: 1}
+  debug: 1
 --- !u!1 &6581106909842857986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,41 +2071,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   folder: DungeonAssets/Clusters
-  debug: 1
---- !u!114 &6581106909985440417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6581106909468628400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19432ef87c8563d4a89df4913afa5175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  probability: 15
---- !u!114 &6581106909985440418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6581106909468628400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d61893a88852374c95a4fadaacc0047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colors:
-  - {r: 0.3661445, g: 0.6415094, b: 0.39952204, a: 1}
-  - {r: 0.5754717, g: 0.059983805, b: 0, a: 0.50980395}
-  - {r: 1, g: 1, b: 1, a: 0}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 0.54901963}
-  - {r: 0.8962264, g: 0.37643182, b: 0, a: 0.50980395}
-  - {r: 0.4056604, g: 0, b: 0, a: 0.88235295}
-  - {r: 1, g: 0.6179246, b: 0.9440618, a: 1}
   debug: 1
 --- !u!1 &6581106910273514375
 GameObject:
@@ -2221,7 +2221,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 63b242ffbbe49554498b7596dd2e02ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

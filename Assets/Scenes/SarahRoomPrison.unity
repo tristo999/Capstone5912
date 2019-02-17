@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -195,6 +195,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Version: 1
   shadowResolution: 512
   shadowDimmer: 1
@@ -240,6 +244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   version: 3
   m_Version: 3
   directionalIntensity: 3.1415927
@@ -277,13 +285,17 @@ MonoBehaviour:
   blockerSampleCount: 24
   filterSampleCount: 16
   minFilterSize: 0.00001
+  m_WillRenderShadows: 1
+  m_ShadowRequestIndices: 000000000100000002000000030000000000000000000000
+  _ShadowData: {fileID: 184421578}
+  _light: {fileID: 184421576}
 --- !u!43 &492376534
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9700
+  m_Name: pb_Mesh-1488
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -443,7 +455,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9830
+  m_Name: pb_Mesh-1294
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -603,7 +615,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9832
+  m_Name: pb_Mesh-1296
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -763,7 +775,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9092
+  m_Name: pb_Mesh-1692
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -923,7 +935,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9710
+  m_Name: pb_Mesh-1490
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1108,6 +1120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c2871f720b2af4e9210febdac74517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Version: 1
   shadowResolution: 512
   shadowDimmer: 1
@@ -1153,6 +1169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   version: 3
   m_Version: 3
   directionalIntensity: 3.1415927
@@ -1190,6 +1210,10 @@ MonoBehaviour:
   blockerSampleCount: 24
   filterSampleCount: 16
   minFilterSize: 0.00001
+  m_WillRenderShadows: 0
+  m_ShadowRequestIndices: 
+  _ShadowData: {fileID: 1514987082}
+  _light: {fileID: 1514987084}
 --- !u!108 &1514987084
 Light:
   m_ObjectHideFlags: 0
@@ -1428,13 +1452,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c1ce4fb46143f46bc5cb5224c934f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Version: 1
+  m_camera: {fileID: 1834995495}
   clearColorMode: 0
-  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
+  backgroundColorHDR:
+    r: 0.025
+    g: 0.07
+    b: 0.19
+    a: 0
   clearDepth: 1
   renderingPath: 0
   volumeLayerMask:
-    serializedVersion: 2
     m_Bits: 4294967295
   volumeAnchorOverride: {fileID: 0}
   aperture: 8
@@ -1484,13 +1516,63 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 1
       enableBigTilePrepass: 1
       isFptlEnabled: 1
+    m_LitShaderModeEnumIndex: 0
+  m_FrameSettingsRuntime:
+    overrides: 0
+    enableShadow: 1
+    enableContactShadows: 1
+    enableShadowMask: 1
+    enableSSR: 0
+    enableSSAO: 1
+    enableSubsurfaceScattering: 1
+    enableTransmission: 1
+    enableAtmosphericScattering: 1
+    enableVolumetrics: 1
+    enableReprojectionForVolumetrics: 1
+    enableLightLayers: 1
+    diffuseGlobalDimmer: 1
+    specularGlobalDimmer: 1
+    shaderLitMode: 1
+    enableDepthPrepassWithDeferredRendering: 0
+    enableTransparentPrepass: 1
+    enableMotionVectors: 1
+    enableObjectMotionVectors: 1
+    enableDecals: 1
+    enableRoughRefraction: 1
+    enableTransparentPostpass: 1
+    enableDistortion: 1
+    enablePostprocess: 1
+    enableOpaqueObjects: 1
+    enableTransparentObjects: 1
+    enableRealtimePlanarReflection: 1
+    enableMSAA: 0
+    enableAsyncCompute: 1
+    runLightListAsync: 1
+    runSSRAsync: 1
+    runSSAOAsync: 1
+    runContactShadowsAsync: 1
+    runVolumeVoxelizationAsync: 1
+    lightLoopSettings:
+      overrides: 0
+      enableTileAndCluster: 1
+      enableComputeLightEvaluation: 1
+      enableComputeLightVariants: 1
+      enableComputeMaterialVariants: 1
+      enableFptlForForwardOpaque: 1
+      enableBigTilePrepass: 1
+      isFptlEnabled: 1
+    m_LitShaderModeEnumIndex: 0
+  m_frameSettingsIsDirty: 0
+  m_IsDebugRegistered: 0
+  m_CameraRegisterName: Main Camera
+  <isEditorCameraPreview>k__BackingField: 0
 --- !u!43 &1987204519
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-9094
+  m_Name: pb_Mesh-1696
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1656,6 +1738,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room_2
       objectReference: {fileID: 0}
+    - target: {fileID: 3055096158814450668, guid: 815a9ca99f68df142a44a8ca45a7d3a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3055096158814450667, guid: 815a9ca99f68df142a44a8ca45a7d3a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1720,12 +1807,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 646254982}
+      objectReference: {fileID: 0}
     - target: {fileID: 2569019652712045784, guid: 815a9ca99f68df142a44a8ca45a7d3a6,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 507813777}
+    - target: {fileID: 3055096159481229697, guid: 815a9ca99f68df142a44a8ca45a7d3a6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f1f57886b87372842940b721cfb4e99d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 815a9ca99f68df142a44a8ca45a7d3a6, type: 3}
 --- !u!1001 &6581106910139168844
@@ -1809,7 +1901,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 492376534}
+      objectReference: {fileID: 0}
     - target: {fileID: 2681435485814729255, guid: 98e983bcd0378b74b9765b9c07da936f,
         type: 3}
       propertyPath: m_Mesh
@@ -1832,7 +1924,7 @@ PrefabInstance:
     - target: {fileID: 7131830694083181797, guid: ac4feac1462b078479e4f76a95ec527c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7131830694083181796, guid: ac4feac1462b078479e4f76a95ec527c,
         type: 3}
@@ -1898,7 +1990,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1987204519}
+      objectReference: {fileID: 0}
     - target: {fileID: 7131830692515533606, guid: ac4feac1462b078479e4f76a95ec527c,
         type: 3}
       propertyPath: m_Mesh

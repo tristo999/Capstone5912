@@ -32,48 +32,6 @@ Transform:
   m_Father: {fileID: 3055096158814450667}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &3055096159243317621
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3055248439675246998}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &3055096159243317620
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3055248439675246998}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.526959, y: 1.3258176, z: 0.4547751}
-  m_Center: {x: -0.3551127, y: 0.664096, z: -0.002168931}
---- !u!114 &3055096158517056698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3055248439675246998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19432ef87c8563d4a89df4913afa5175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  probability: 80
 --- !u!1 &3055096158814450668
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +113,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   folder: DungeonAssets/Clusters
   debug: 1
+--- !u!114 &3055096159483390445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055096159483424577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19432ef87c8563d4a89df4913afa5175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probability: 15
 --- !u!114 &3055096159483390446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,19 +148,6 @@ MonoBehaviour:
   - {r: 0.4056604, g: 0, b: 0, a: 0.88235295}
   - {r: 1, g: 0.6179246, b: 0.9440618, a: 1}
   debug: 1
---- !u!114 &3055096159483390445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3055096159483424577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19432ef87c8563d4a89df4913afa5175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  probability: 15
 --- !u!1 &3055096159886546525
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +235,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   probability: 80
+--- !u!54 &3055096159243317621
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055248439675246998}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &3055096159243317620
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055248439675246998}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.526959, y: 1.3258176, z: 0.4547751}
+  m_Center: {x: -0.3551127, y: 0.664096, z: -0.002168931}
+--- !u!114 &3055096158517056698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055248439675246998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19432ef87c8563d4a89df4913afa5175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  probability: 80
 --- !u!1 &3423252595659028952
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +335,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 63b242ffbbe49554498b7596dd2e02ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2215,7 +2215,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 63b242ffbbe49554498b7596dd2e02ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
