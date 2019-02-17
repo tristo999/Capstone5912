@@ -27,6 +27,11 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
         state.AddCallback("FireRate", FireRateChanged);
         state.AddCallback("ProjectileSpeed", ProjectileSpeedChanged);
         state.AddCallback("ProjectileDamage", ProjectileDamageChanged);
+        state.AddCallback("Color", ColorChanged);
+    }
+
+    private void ColorChanged() {
+        GetComponentInChildren<Renderer>().material.color = state.Color;
     }
 
     private void HealthChanged() {
