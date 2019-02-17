@@ -17,11 +17,12 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     public enemyState currentState;
     public float roomWidth = 30;
     public float attackTimer = 0f;
-    public float attackCooldown = 5f;
-    public float animationLength = 1f;
+    public float attackCooldown = 6f;
+    public float animationLength = 3f;
     public float animationTimer = 0f;
     public bool inAttackRange;
     public bool inHitRange;
+    public Animator enemyAnimator;
     // Start is called before the first frame update
     public override void Attached()
     {
@@ -31,10 +32,12 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         players = GameObject.FindGameObjectsWithTag("Player");
         intPosition = transform.position;
         currentState = enemyState.idle;
-        attackTimer = 0f;
+        attackTimer = 100f;
         animationTimer = 0f;
         inAttackRange = false;
         inHitRange = false;
+        enemyAnimator = GetComponentInChildren<Animator>();
+        enemyAnimator.SetInteger("Animation", 0);
     }
 
     // Update is called once per frame
@@ -47,19 +50,25 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
                 if (currentPlayer != null)
                 {
                     currentState = enemyState.chasing;
+                    enemyAnimator.SetInteger("Animation", 1);
                 }
                 break;
             case enemyState.chasing:
                 findCurrentPlayer();
                 if (currentPlayer != null)
                 {
+                    enemyAnimator.SetInteger("Animation", 1);
                     if (inAttackRange)
                     {
                         if (attackTimer > attackCooldown)
                         {
                             currentState = enemyState.attacking;
+                            enemyAnimator.SetInteger("Animation", 2);
                             nav.SetDestination(transform.position);
                             attackTimer = 0;
+                        } else
+                        {
+                            enemyAnimator.SetInteger("Animation", 0);
                         }
                     }
                     else
@@ -70,6 +79,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
                 else
                 {
                     currentState = enemyState.returning;
+                    enemyAnimator.SetInteger("Animation", 1);
                 }
                 break;
             case enemyState.attacking:
@@ -79,29 +89,36 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
                     {
                         //Do Damage
                     }
+                    currentState = enemyState.idle;
                     animationTimer = 0;
-                    currentState = enemyState.chasing;
+                    enemyAnimator.SetInteger("Animation", 0);
                 } else
                 {
                     animationTimer += Time.deltaTime;
+                    enemyAnimator.SetInteger("Animation", 0);
                 }
                 break;
 
             case enemyState.returning:
                 findCurrentPlayer();
+                                        nav.SetDestination(intPosition);
                 if (currentPlayer)
                 {
                     currentState = enemyState.chasing;
+                    enemyAnimator.SetInteger("Animation", 1);
                 }
                 else
                 {
-                    if (transform.position.x == intPosition.x && transform.position.z == intPosition.z)
+                    if (!nav.pathPending)
                     {
-                        currentState = enemyState.idle;
-                    }
-                    else
-                    {
-                        nav.SetDestination(intPosition);
+                        if (nav.remainingDistance <= nav.stoppingDistance)
+                        {
+                            if (!nav.hasPath || nav.velocity.sqrMagnitude == 0f)
+                            {
+                                currentState = enemyState.idle;
+                                enemyAnimator.SetInteger("Animation", 0);
+                            }
+                        }
                     }
                 }
                 break;
