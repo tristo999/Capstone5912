@@ -12,7 +12,7 @@ class PlayerCallbacks : Bolt.GlobalEventListener
         IPlayerState playerState = entity.GetComponent<PlayerMovementController>().state;
         int localPlayerId = LocalPlayerRegistry.PlayerFromId(playerState.PlayerId).id;
         entity.GetComponent<PlayerMovementController>().AssignPlayer(localPlayerId);
-        SplitscreenManager.instance.CreatePlayerCamera(entity.transform);
+        entity.GetComponent<PlayerUI>().ScreenNumber = SplitscreenManager.instance.CreatePlayerCamera(entity.transform);
     }
 }
 

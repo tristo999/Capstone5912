@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 2994632896309635006}
   - component: {fileID: 6584371274656172087}
   m_Layer: 5
-  m_Name: PlayerHealthCanvas
+  m_Name: PlayerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,7 +209,7 @@ Canvas:
   m_GameObject: {fileID: 3504446288043251347}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0

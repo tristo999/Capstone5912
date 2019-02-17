@@ -9,9 +9,11 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     public float StartingHealth;
     private PlayerMovementController movementController;
     private TextMeshProUGUI healthText;
+    private PlayerUI ui;
 
     public override void Attached() {
         movementController = GetComponent<PlayerMovementController>();
+        ui = GetComponent<PlayerUI>();
 
         state.Speed = 1f;
         state.FireRate = 1f;
@@ -27,13 +29,9 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
         state.AddCallback("ProjectileDamage", ProjectileDamageChanged);
     }
 
-    public override void ControlGained() {
-        healthText = Instantiate(HealthCanvas).GetComponentInChildren<TextMeshProUGUI>();
-    }
-
     private void HealthChanged() {
         if (entity.hasControl) {
-            healthText.text = state.Health.ToString();
+            ui.SetHealth(state.Health);
         }
     }
 
