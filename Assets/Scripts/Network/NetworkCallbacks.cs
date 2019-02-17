@@ -27,13 +27,17 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
     private void TryStartMatch() {
         if (readyConnections >= connections) {
             foreach (WizardFightPlayerObject player in WizardFightPlayerRegistry.Players) {
-                BoltEntity playerEntity = player.Spawn();
-                playerEntity.transform.position = new Vector3(Random.Range(-2f, 2f), 3, Random.Range(-2f, 2f));
-                if (player.connection != null)
-                    playerEntity.AssignControl(player.connection);
-                else {
-                    playerEntity.TakeControl();
+                SpawnPlayer spawnPlayer;
+                if (player.connection) {
+                    spawnPlayer = SpawnPlayer.Create(player.connection);
+                } else {
+                    spawnPlayer = SpawnPlayer.Create(Bolt.GlobalTargets.OnlySelf);
                 }
+                spawnPlayer.PlayerId = player.PlayerId;
+                spawnPlayer.Name = player.PlayerName;
+                spawnPlayer.Color = player.PlayerColor;
+                spawnPlayer.Position = new Vector3(Random.Range(-2f, 2f), 3f, Random.Range(-2f, 2f));
+                spawnPlayer.Send();
             }
         }
     }

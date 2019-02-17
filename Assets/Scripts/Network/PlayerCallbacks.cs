@@ -14,5 +14,15 @@ class PlayerCallbacks : Bolt.GlobalEventListener
         entity.GetComponent<PlayerMovementController>().AssignPlayer(localPlayerId);
         entity.GetComponent<PlayerUI>().ScreenNumber = SplitscreenManager.instance.CreatePlayerCamera(entity.transform);
     }
+
+    public override void OnEvent(SpawnPlayer evnt) {
+        BoltEntity playerEntity = BoltNetwork.Instantiate(BoltPrefabs.Player);
+        playerEntity.transform.position = evnt.Position;
+        IPlayerState playerState = playerEntity.GetComponent<PlayerMovementController>().state; ;
+        playerState.Color = evnt.Color;
+        playerState.Name = evnt.Name;
+        playerState.PlayerId = evnt.PlayerId;
+        playerEntity.TakeControl();
+    }
 }
 

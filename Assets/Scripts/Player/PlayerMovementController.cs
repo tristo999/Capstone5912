@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 {
+
     private Rigidbody rb;
     public float BaseSpeed;
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
@@ -21,7 +22,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         // Since we're using Rewired we cannot use Bolt's SimulateController as Rewired won't be able to get input.
         // Hence we have to do a check here. localPlayer == null will prevent the server from throwing exceptions when it gets
         // upset that it can't control client's players.
-        if (!entity.hasControl || localPlayer == null) return;
+        if (!entity.isOwner || localPlayer == null) return;
         DoMovement();
         DoLook();
         CheckInteract();

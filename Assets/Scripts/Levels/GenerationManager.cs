@@ -10,6 +10,7 @@ public struct DungeonCell
     public bool WestExit { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
+    public int Generation { get; set; }
 }
 
 public class GenerationManager : MonoBehaviour
