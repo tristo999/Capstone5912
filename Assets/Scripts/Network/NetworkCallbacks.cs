@@ -11,7 +11,9 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
 
     public override void SceneLoadLocalDone(string scene) {
         BoltNetwork.Instantiate(BoltPrefabs.ItemManager);
-        // Begin dungeon generation. 
+        GenerationManager.Instantiate();
+        Physics.autoSimulation = false;
+        GenerationManager.instance.GenerateStemmingMaze();
         readyConnections++;
         TryStartMatch();
     }
@@ -26,6 +28,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
 
     private void TryStartMatch() {
         if (readyConnections >= connections) {
+            Physics.autoSimulation = true;
             foreach (WizardFightPlayerObject player in WizardFightPlayerRegistry.Players) {
                 SpawnPlayer spawnPlayer;
                 if (player.connection) {
@@ -36,7 +39,8 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
                 spawnPlayer.PlayerId = player.PlayerId;
                 spawnPlayer.Name = player.PlayerName;
                 spawnPlayer.Color = player.PlayerColor;
-                spawnPlayer.Position = new Vector3(Random.Range(-2f, 2f), 3f, Random.Range(-2f, 2f));
+                Vector3 pos = GenerationManager.instance.rooms[Random.Range(0, GenerationManager.instance.rooms.Count)].transform.position + new Vector3(GenerationManager.instance.roomSize / 2, 2, GenerationManager.instance.roomSize / 2);
+                spawnPlayer.Position = pos;
                 spawnPlayer.Send();
             }
         }

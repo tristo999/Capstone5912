@@ -8,31 +8,33 @@ public class Spawner : MonoBehaviour
     private GameObject spawned;
     public bool debug = true;
 
-    Object[] LoadFromFolder(string folder){
-        Object[] objs = Resources.LoadAll(folder);
-        /*
-        foreach(Object o in objs){
-            Debug.Log(o.name);
-        }
-        */
+    GameObject[] LoadFromFolder(string folder){
+        GameObject[] objs = Resources.LoadAll<GameObject>(folder);
         return objs;
     }
     
-    GameObject SpawnObject(Object[] prefabs){
+    GameObject SpawnObject(GameObject[] prefabs){
+        Debug.LogFormat("Attempting to spawn from {0}", folder);
         Transform pos = GetComponent<Transform>();
-        return Instantiate(prefabs[Random.Range(0, prefabs.Length)], transform) as GameObject;
+        GameObject toSpawn = prefabs[Random.Range(0, prefabs.Length)];
+        if (toSpawn.GetComponent<BoltEntity>())
+            return BoltNetwork.Instantiate(toSpawn, transform.position, Quaternion.identity);
+        else
+            return Instantiate(toSpawn, transform.position, Quaternion.identity);
     }
 
     void Awake(){
-        spawned = SpawnObject(LoadFromFolder(folder));
+        if (BoltNetwork.IsServer)
+            spawned = SpawnObject(LoadFromFolder(folder));
     }
 
+    /*
     private void Update() {
         if(debug){
             if (Input.GetMouseButtonDown(0))
             DemoRespawn();
         }
-    }
+    }*/
 
     private void DemoRespawn() {
         Destroy(spawned);

@@ -6,15 +6,17 @@ public class RandomRotate : MonoBehaviour
 {
     public bool debug = true;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        DoRotation();
+        if (BoltNetwork.IsServer)
+            DoRotation();
     }
 
     void DoRotation(){
          transform.Rotate(new Vector3(transform.rotation.x, Random.Range(0, 359), transform.rotation.z));
     }
 
+    /*
     // Update is called once per frame
     void Update()
     {
@@ -22,4 +24,5 @@ public class RandomRotate : MonoBehaviour
             if (Input.GetMouseButtonDown(0)) DoRotation();
         }
     }
+    */
 }

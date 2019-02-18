@@ -9,17 +9,21 @@ public class PlayerCamera : MonoBehaviour
 
     public CinemachineTargetGroup targetGroup;
 
+    private Transform currentRoom;
+
     private void Awake() {
         camera = GetComponentInChildren<Camera>();
         targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
     }
 
     public void AddRoomToCamera(Transform room) {
-        targetGroup.AddMember(room, 1f, 3f);
+        targetGroup.RemoveMember(currentRoom);
+        currentRoom = room;
+        targetGroup.AddMember(room, 1f, 10f);
     }
 
     public void AddPlayerToCamera(Transform player) {
-        targetGroup.AddMember(player, 1f, 1f);
+        targetGroup.AddMember(player, 1f, 7f);
     }
 
     public void RemoveTarget(Transform t) {

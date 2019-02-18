@@ -2,23 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomDestroy : MonoBehaviour
+public class RandomDestroy : Bolt.EntityBehaviour<IRoomObject>
 {
     [Tooltip("Probability of object existing")]
     [Range(0, 100)]
     public int probability;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void Attached()
     {
-        if(Random.Range(0,100) > probability){
-            Destroy(gameObject);
+        if (entity.isOwner) {
+            if (Random.Range(0, 100) > probability) {
+                BoltNetwork.Destroy(entity);
+            }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

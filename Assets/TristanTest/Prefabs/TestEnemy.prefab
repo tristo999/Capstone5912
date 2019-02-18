@@ -239,8 +239,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.71, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 462}
   - {fileID: 463}
@@ -320,7 +320,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 200
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -344,8 +344,7 @@ MonoBehaviour:
   nav: {fileID: 0}
   currentPlayer: {fileID: 0}
   intPosition: {x: 0, y: 0, z: 0}
-  currentState: 0
-  roomWidth: 40
+  roomWidth: 20
   attackTimer: 0
   attackCooldown: 5
   animationLength: 1
@@ -381,9 +380,9 @@ MonoBehaviour:
   m_Script: {fileID: -36112512, guid: 5b00bf8b25851d440940a40ec23344f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneGuid: 
+  _sceneGuid: 0fc299b1-6cd0-4502-9950-208dd478a90f
   _serializerGuid: 7619fc06-2867-406c-8acf-2256b9e7ed66
-  _prefabId: 10
+  _prefabId: 26
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1

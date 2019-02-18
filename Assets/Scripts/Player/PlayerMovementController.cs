@@ -11,11 +11,14 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
     private Player localPlayer;
     private InteractiveObject objectInFocus;
+    private PlayerUI playerUI;
 
     public override void Attached()
     {
         rb = GetComponent<Rigidbody>();
         state.SetTransforms(state.transform, transform);
+        if (entity.isOwner)
+            playerUI = GetComponent<PlayerUI>();
     }
 
     public void Update() {
@@ -76,8 +79,8 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void CheckInteract() {
-        Vector3 boxSize = new Vector3(.35f, 1f, .4f);
-        Collider[] overlap = Physics.OverlapBox(transform.position + transform.forward * .26f + transform.up * .51f, boxSize / 2, transform.rotation);
+        Vector3 boxSize = new Vector3(1f, 1f, 1.2f);
+        Collider[] overlap = Physics.OverlapBox(transform.position + transform.forward * .7f + transform.up * .51f, boxSize / 2, transform.rotation);
         InteractiveObject closest = null;
 
         // Check for interactive.
@@ -125,6 +128,13 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
             localPlayer.isPlaying = true;
         } else {
             Debug.Log("Please only assign local player as networked owner.");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (!entity.isOwner) return;
+        if (other.tag == "Room") {
+            SplitscreenManager.instance.playerCameras[playerUI.ScreenNumber - 1].AddRoomToCamera(other.transform.Find("Focus"));
         }
     }
 }

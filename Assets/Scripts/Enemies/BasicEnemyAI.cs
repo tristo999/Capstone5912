@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
 {
-    public NavMeshAgent nav;
-    public GameObject currentPlayer;
-    public Vector3 intPosition;
+    private NavMeshAgent nav;
+    private GameObject currentPlayer;
+    private Vector3 intPosition;
     private GameObject[] players;
     public bool inAttackAnim
     {
@@ -27,8 +28,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     public bool inHitRange;
     public Animator enemyAnimator;
 
-    public override void Attached()
-    {
+    public override void Attached() {
         state.SetTransforms(state.transform, transform);
         enemyAnimator = GetComponentInChildren<Animator>();
         state.SetAnimator(enemyAnimator);
@@ -36,7 +36,6 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         if (!entity.isOwner) return;
         state.OnAttack += Attack;
         nav = this.GetComponent<NavMeshAgent>();
-        players = GameObject.FindGameObjectsWithTag("Player");
         intPosition = transform.position;
         attackTimer = 100f;
         animationTimer = 0f;
@@ -44,18 +43,18 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         inHitRange = false;
     }
 
-    private void Attack()
-    {
+    private void Attack() {
         Debug.Log("Enemy attacking.");
         attackTimer = 0f;
         nav.isStopped = true;
     }
 
     // Update is called once per frame
-    public override void SimulateOwner()
-    {
-        //state.Animation = (int)currentState;
-        currentPlayer = findCurrentPlayer();
+    public override void SimulateOwner() {
+        if (players == null || players.Length == 0)
+            players = GameObject.FindGameObjectsWithTag("Player");
+        else
+            currentPlayer = findCurrentPlayer();
         state.Moving = !nav.isStopped;
         CheckAttack();
         CheckMove();
@@ -64,62 +63,39 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
             attackTimer += BoltNetwork.FrameDeltaTime;
     }
 
-    private void CheckAttack()
-    {
-        if (!inAttackAnim && inAttackRange)
-        {
+    private void CheckAttack() {
+        if (!inAttackAnim && inAttackRange) {
             //Do Damage.
         }
 
-        if (currentPlayer && inAttackRange && attackTimer > attackCooldown)
-        {
+        if (currentPlayer && inAttackRange && attackTimer > attackCooldown) {
             state.Attack();
         }
     }
 
-    private void CheckMove()
-    {
+    private void CheckMove() {
         if (inAttackAnim || enemyAnimator.IsInTransition(0)) return;
 
-        if (currentPlayer && !inAttackRange)
-        {
+        if (currentPlayer && !inAttackRange) {
             nav.SetDestination(currentPlayer.transform.position);
             nav.isStopped = false;
         }
 
-        if (!currentPlayer)
-        {
+        if (!currentPlayer) {
             nav.SetDestination(intPosition);
-            if (nav.remainingDistance <= nav.stoppingDistance)
-            {
+            if (nav.remainingDistance <= nav.stoppingDistance) {
                 nav.isStopped = true;
-            } else
-            {
+            } else {
                 nav.isStopped = false;
             }
         }
     }
 
-    private GameObject findCurrentPlayer()
-    {
+    private GameObject findCurrentPlayer() {
         GameObject pObj = null;
-        foreach (GameObject x in players)
-        {
-            if (x.transform.position.x < intPosition.x + (roomWidth / 2) && x.transform.position.x > intPosition.x - (roomWidth / 2) && x.transform.position.z < (intPosition.z + roomWidth) / 2 && x.transform.position.z > intPosition.z - (roomWidth / 2))
-            {
-                if (pObj == null)
-                {
-                    pObj = x;
-                }
-                else
-                {
-                    if (Vector3.Distance(transform.position, pObj.transform.position) > Vector3.Distance(transform.position, x.transform.position))
-                    {
-                        pObj = x;
-                    }
-                }
-            }
-        }
+        GameObject closestPlayer = players.Aggregate((curMin, x) => (curMin == null || Vector3.Distance(x.transform.position, transform.position) < Vector3.Distance(curMin.transform.position, transform.position)) ? x : curMin);
+        if (Vector3.Distance(closestPlayer.transform.position, intPosition) < roomWidth / 2)
+            pObj = closestPlayer;
         return pObj;
     }
 }

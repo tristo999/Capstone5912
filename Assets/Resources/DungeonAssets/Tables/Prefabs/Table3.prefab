@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 915610179}
   - component: {fileID: 915610178}
   - component: {fileID: 915610177}
+  - component: {fileID: 78809381715285752}
+  - component: {fileID: 1702700925745147903}
+  - component: {fileID: 3519201534491592928}
   m_Layer: 0
   m_Name: Table3
   m_TagString: Untagged
@@ -90,7 +93,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -108,3 +111,60 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4903717, y: 0.33724946, z: 0.5297507}
   m_Center: {x: -0.018277645, y: 0.18287651, z: 0.007366558}
+--- !u!114 &78809381715285752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915610176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -36112512, guid: 5b00bf8b25851d440940a40ec23344f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneGuid: 
+  _serializerGuid: a409f26c-51f4-4b4c-b2f3-97516ee882e4
+  _prefabId: 22
+  _updateRate: 1
+  _autoFreezeProxyFrames: 0
+  _clientPredicted: 1
+  _allowInstantiateOnClient: 1
+  _persistThroughSceneLoads: 0
+  _sceneObjectDestroyOnDetach: 1
+  _sceneObjectAutoAttach: 1
+  _alwaysProxy: 0
+  _detachOnDisable: 1
+  _allowFirstReplicationWhenFrozen: 0
+  _autoRemoveChildEntities: 0
+  _entityBehaviourQueryOption: 0
+  _entityPriorityCalculatorQueryOption: 0
+  _entityReplicationFilterQueryOption: 0
+--- !u!114 &1702700925745147903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915610176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf88108c906b95c4fb1544a42a9b1dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!208 &3519201534491592928
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915610176}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.28500003, y: 0.18, z: 0.28300002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.002, y: 0.171, z: 0.0050000004}
+  m_TimeToStationary: 0.5

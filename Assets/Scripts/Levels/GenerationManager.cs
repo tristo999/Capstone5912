@@ -13,10 +13,11 @@ public struct DungeonCell
     public int Generation { get; set; }
 }
 
-public class GenerationManager : MonoBehaviour
+public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 {
     public List<DungeonCell> possibleCells = new List<DungeonCell>();
     public List<GameObject> roomPrefabs = new List<GameObject>();
+    public List<GameObject> rooms = new List<GameObject>();
 
     public float roomSize;
 
@@ -31,86 +32,15 @@ public class GenerationManager : MonoBehaviour
     public int minRooms;
     public int maxRooms;
 
-
-    public void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(GenerateGuessMaze(width, height));
-        }
-
-        if (Input.GetKeyDown(KeyCode.S)) {
-            StartCoroutine(GenerateStemmingMaze(width, height));
-        }
-
-        if (Input.GetKeyDown(KeyCode.D)) {
-            StartCoroutine(DwarfGen(width, height, maxRoomWidth, maxRoomHeight, minRooms, maxRooms));
-        }
-    }
-
-    struct DwarfGenComplex
-    {
-        public int x;
-        public int y;
-        public int width;
-        public int height;
-
-        public List<DwarfGenComplex> connectedRooms;
-    }
-
-    public IEnumerator DwarfGen(int width, int height, int roomWidth, int roomHeight, int minRooms, int maxRooms) {
+    public void GenerateStemmingMaze() {
         if (mazeObject != null) {
             Destroy(mazeObject);
         }
         mazeObject = new GameObject();
-        this.width = width;
-        this.height = height;
-        dungeon = new bool[width, height];
-
-        List<DwarfGenComplex> rooms = new List<DwarfGenComplex>();
-        int numRooms = Random.Range(minRooms, maxRooms);
-
-        for (int i = 0; i < numRooms; i++) {
-            DwarfGenComplex room = new DwarfGenComplex();
-            room.width = Random.Range(2, roomWidth);
-            room.height = Random.Range(2, roomHeight);
-            room.x = Random.Range(0, width - room.width);
-            room.y = Random.Range(0, height - room.height);
-            room.connectedRooms = new List<DwarfGenComplex>();
-            rooms.Add(room);
-        }
-
-        foreach (DwarfGenComplex room in rooms) {
-            Debug.LogFormat("Room: x: {0}, y: {1}, width: {2}, height: {3}", room.x, room.y, room.width, room.height);
-            for (int i = room.x; i < room.x + room.width; i++) {
-                for (int j = room.y; j < room.y + room.height; j++) {
-                    dungeon[i, j] = true;
-                    GameObject obj = Instantiate(roomPrefabs[Random.Range(0,roomPrefabs.Count)]);
-                    obj.transform.parent = mazeObject.transform;
-                    obj.transform.position = new Vector3(i * roomSize, 0, j * roomSize);
-                }
-            }
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
-    public IEnumerator GenerateStemmingMaze(int width, int height) {
-        if (mazeObject != null) {
-            Destroy(mazeObject);
-        }
-        mazeObject = new GameObject();
-        this.width = width;
-        this.height = height;
         dungeon = new bool[width, height];
         dungeon[width / 2, height / 2] = true;
-        GameObject obj = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
-        obj.transform.parent = mazeObject.transform;
-        obj.transform.position = new Vector3(width / 2, 0, height / 2) * roomSize;
+        GameObject obj = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], Vector3.zero, Quaternion.identity);
+        rooms.Add(obj);
 
         for (int i = 0; i < generationAttempts; i++) {
             Vector2 existingCell = randomExistingNotSurrounded();
@@ -119,16 +49,15 @@ public class GenerationManager : MonoBehaviour
             dungeon[(int)newCell.x, (int)newCell.y] = true;
             int mirrorX = width - 1 - (int)newCell.x;
             int mirrorY = height - 1 - (int)newCell.y;
-            GameObject newRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
-            newRoom.transform.position = new Vector3(newCell.x, 0, newCell.y) * roomSize;
-            newRoom.transform.parent = mazeObject.transform;
+            Vector3 pos = new Vector3(newCell.x, 0, newCell.y) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
+            GameObject newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+            rooms.Add(newRoom);
             if (adjacentToRoom(mirrorX, mirrorY) && Random.Range(0.0f, 1.0f) > .05f) {
                 dungeon[mirrorX, mirrorY] = true;
-                newRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
-                newRoom.transform.position = new Vector3(mirrorX, 0, mirrorY) * roomSize;
-                newRoom.transform.parent = mazeObject.transform;
+                pos = new Vector3(mirrorX, 0, mirrorY) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize); 
+                newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+                rooms.Add(newRoom);
             }
-            yield return new WaitForEndOfFrame();
         }
     }
 
