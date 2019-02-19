@@ -75,9 +75,9 @@ public class FireballWand : Weapon
         bool collided = false;
 
         while (!collided) {
-            time += .1f;
+            time += .05f;
             Vector3 pos = spawnPos + dir * time + Physics.gravity * time * time * .5f;
-            collided = Physics.CheckSphere(pos, .15f) && time > 10000;
+            collided = Physics.CheckSphere(pos, .15f, ~(1 << 12)) || time > 500;
         }
 
         return time;

@@ -16,6 +16,13 @@ public class FireballWandProjectile : Bolt.EntityBehaviour<IProjectileState>
         state.SetTransforms(state.transform, transform);
     }
 
+    public override void SimulateOwner() {
+        if (transform.position.y <= 0) {
+            Explode();
+            StartCoroutine(DelayDestroy());
+        }
+    }
+
     private void OnCollisionEnter(Collision collision) {
         Explode();
         StartCoroutine(DelayDestroy());

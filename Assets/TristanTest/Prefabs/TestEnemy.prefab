@@ -341,9 +341,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2577d3c6ecf66924d9d1aa7a7460c2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nav: {fileID: 0}
-  currentPlayer: {fileID: 0}
-  intPosition: {x: 0, y: 0, z: 0}
   roomWidth: 20
   attackTimer: 0
   attackCooldown: 5
@@ -380,7 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: -36112512, guid: 5b00bf8b25851d440940a40ec23344f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneGuid: 0fc299b1-6cd0-4502-9950-208dd478a90f
+  _sceneGuid: 
   _serializerGuid: 7619fc06-2867-406c-8acf-2256b9e7ed66
   _prefabId: 26
   _updateRate: 1

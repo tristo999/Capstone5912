@@ -1,6 +1,8 @@
-﻿using Cinemachine;
+﻿using Bolt;
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using UdpKit;
 using UnityEngine;
 
 [BoltGlobalBehaviour(BoltNetworkModes.Server, "WizardFightGame")]
@@ -24,6 +26,10 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
         readyConnections++;
         Debug.LogFormat("Remote connection complete, expecting {0} total connections, have {1}", connections, readyConnections);
         TryStartMatch();
+    }
+
+    public override void ConnectRequest(UdpEndPoint endpoint, IProtocolToken token) {
+        BoltNetwork.Refuse(endpoint);
     }
 
     private void TryStartMatch() {

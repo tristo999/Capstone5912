@@ -53,8 +53,10 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     public override void SimulateOwner() {
         if (players == null || players.Length == 0)
             players = GameObject.FindGameObjectsWithTag("Player");
-        else
+        else {
+            players = GameObject.FindGameObjectsWithTag("Player");
             currentPlayer = findCurrentPlayer();
+        }
         state.Moving = !nav.isStopped;
         CheckAttack();
         CheckMove();
