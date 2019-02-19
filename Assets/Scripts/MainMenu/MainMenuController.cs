@@ -42,9 +42,18 @@ public class MainMenuController : MonoBehaviour
 
     public void OptionsTransition()
     {
+        source.PlayOneShot(click);
         TopMenu.DOAnchorPosX(-1100, 1.5f);
         BottomMenu.DOAnchorPosX(1100, 1.5f);
         Title.DOFade(0f, 1.5f);
+    }
+
+    public void OptionsExitTransition(){
+        source.PlayOneShot(click);
+        TopMenu.DOAnchorPosX(0, 1.5f);
+        BottomMenu.DOAnchorPosX(0, 1.5f);
+        Title.DOFade(1f, 1.5f);
+        onMenu = true;
     }
 
     public void CreditsFlyIn()
