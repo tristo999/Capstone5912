@@ -2,23 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorRandomizer : MonoBehaviour
+public class ColorRandomizer : Bolt.EntityBehaviour<IColoredRoomObject>
 {
     public Color[] colors;
     public bool debug = true;
-    // Start is called before the first frame update
-    void Start()
+    
+    public override void Attached()
     {
-        ChangeColor();
+        state.AddCallback("Color", ChangeColor);
+        if (entity.isOwner) {
+            state.Color = colors[Random.Range(0, colors.Length)];
+        }
     }
 
-    // Update is called once per frame
+    /*
     void Update()
     {
         if(debug){
             if (Input.GetMouseButtonDown(0)) ChangeColor();
         }
     }
+    */
 
     void ChangeColor(){
 
@@ -26,6 +30,6 @@ public class ColorRandomizer : MonoBehaviour
 
         //Set the main Color of the Material to green
         //rend.material.shader = Shader.Find("HDRP/Lit");
-        rend.material.SetColor("_BaseColor", colors[Random.Range(0, colors.Length)]); 
+        rend.material.SetColor("_BaseColor", state.Color); 
     }
 }

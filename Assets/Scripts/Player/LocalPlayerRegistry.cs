@@ -27,6 +27,10 @@ public static class LocalPlayerRegistry
         return PlayerNumbers[Players.IndexOf(player)];
     }
 
+    public static bool OwnPlayer(int id) {
+        return PlayerNumbers.Contains(id);
+    }
+
     public static void SpawnPlayer(int id) {
         Player player = ReInput.players.GetPlayer(id);
         player.isPlaying = true;

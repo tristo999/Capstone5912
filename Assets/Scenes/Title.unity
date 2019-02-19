@@ -8994,8 +8994,6 @@ GameObject:
   m_Component:
   - component: {fileID: 986374788}
   - component: {fileID: 986374787}
-  - component: {fileID: 986374786}
-  - component: {fileID: 986374785}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -9077,7 +9075,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 88, y: -90, z: 0}
 --- !u!4 &987346237 stripped
 Transform:
@@ -12811,7 +12809,6 @@ GameObject:
   - component: {fileID: 1378433586}
   - component: {fileID: 1378433589}
   - component: {fileID: 1378433590}
-  - component: {fileID: 1378433591}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -13796,7 +13793,7 @@ PrefabInstance:
     - target: {fileID: 5141881508984012941, guid: b58aa1bc476b8044c8c2fe250967591c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5141881508984012941, guid: b58aa1bc476b8044c8c2fe250967591c,
         type: 3}
@@ -20088,7 +20085,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2073592587 stripped
 Transform:

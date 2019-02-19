@@ -29,7 +29,7 @@ public class FireballWand : Weapon
             Owner.state.Speed -= 0.75f;
             beganFiring = true;
         }
-        spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;
+        spawnPos = transform.position + transform.forward * 1.2f + Vector3.up * .6f;
         if (currentVelocity < MaxLaunchVelocity * Owner.state.ProjectileSpeed)
             currentVelocity += 0.05f * Owner.state.ProjectileSpeed;
         Vector3[] positions = new Vector3[PointsInArc];
@@ -51,7 +51,6 @@ public class FireballWand : Weapon
         }
         beganFiring = false;
 
-        spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;
         BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
         proj.GetComponent<FireballWandProjectile>().owner = transform.parent.gameObject;
         proj.GetComponent<Rigidbody>().velocity = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity;
@@ -78,7 +77,7 @@ public class FireballWand : Weapon
         while (!collided) {
             time += .05f;
             Vector3 pos = spawnPos + dir * time + Physics.gravity * time * time * .5f;
-            collided = Physics.CheckSphere(pos, .2f) || time > 10f;
+            collided = Physics.CheckSphere(pos, .15f, ~(1 << 12)) || time > 500;
         }
 
         return time;

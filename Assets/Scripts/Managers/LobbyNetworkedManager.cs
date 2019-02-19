@@ -45,7 +45,8 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
             if (BoltNetwork.IsServer && BoltNetwork.ServerFrame >= waitFrame + 120) {
                 BoltNetwork.LoadScene("WizardFightGame");
             } else {
-                ReadyWheel.fillAmount = (BoltNetwork.ServerFrame - waitFrame) / 120f;
+                if (ReadyWheel)
+                    ReadyWheel.fillAmount = (BoltNetwork.ServerFrame - waitFrame) / 120f;
             }
         }
         
@@ -72,7 +73,7 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
         for (int i = 0; i < 8; i++) {
             if (i < state.NumPlayers) {
                 PlayerModels[i].SetActive(true);
-                PlayerModels[i].GetComponentInChildren<Renderer>().material.SetColor("_BaseColor", state.Players[i].Color);
+                PlayerModels[i].GetComponentInChildren<Renderer>().material.color = state.Players[i].Color;
                 PlayerNames[i].text = state.Players[i].Name;
                 ReadyObjects[i].SetActive(state.Players[i].Ready);
             }
@@ -82,7 +83,7 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
     public override void OnEvent(LobbyPlayerJoined evnt) {
         state.Players[state.NumPlayers].Present = true;
         state.Players[state.NumPlayers].Name = "Player " + (state.NumPlayers + 1);
-        state.Players[state.NumPlayers].Color = Random.ColorHSV();
+        state.Players[state.NumPlayers].Color = Random.ColorHSV(0f, 1f, .5f, 1f, .5f, 1f);
         state.Players[state.NumPlayers].PlayerId = state.NumPlayers;
         if (evnt.RaisedBy == null) {
             WizardFightPlayerRegistry.AddServerPlayer(state.Players[state.NumPlayers]);

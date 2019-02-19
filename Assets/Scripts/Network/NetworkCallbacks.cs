@@ -1,6 +1,8 @@
-﻿using Cinemachine;
+﻿using Bolt;
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using UdpKit;
 using UnityEngine;
 
 [BoltGlobalBehaviour(BoltNetworkModes.Server, "WizardFightGame")]
@@ -11,7 +13,9 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
 
     public override void SceneLoadLocalDone(string scene) {
         BoltNetwork.Instantiate(BoltPrefabs.ItemManager);
-        // Begin dungeon generation. 
+        GenerationManager.Instantiate();
+        Physics.autoSimulation = false;
+        GenerationManager.instance.GenerateStemmingMaze();
         readyConnections++;
         TryStartMatch();
     }
@@ -21,19 +25,34 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
 
         readyConnections++;
         Debug.LogFormat("Remote connection complete, expecting {0} total connections, have {1}", connections, readyConnections);
+        StartCoroutine(WaitThenStart());
+    }
+
+    IEnumerator WaitThenStart() {
+        yield return new WaitForSeconds(1f);
         TryStartMatch();
+    }
+
+    public override void ConnectRequest(UdpEndPoint endpoint, IProtocolToken token) {
+        BoltNetwork.Refuse(endpoint);
     }
 
     private void TryStartMatch() {
         if (readyConnections >= connections) {
+            Physics.autoSimulation = true;
             foreach (WizardFightPlayerObject player in WizardFightPlayerRegistry.Players) {
-                BoltEntity playerEntity = player.Spawn();
-                playerEntity.transform.position = new Vector3(Random.Range(-2f, 2f), 3, Random.Range(-2f, 2f));
-                if (player.connection != null)
-                    playerEntity.AssignControl(player.connection);
-                else {
-                    playerEntity.TakeControl();
+                SpawnPlayer spawnPlayer;
+                if (player.connection) {
+                    spawnPlayer = SpawnPlayer.Create(player.connection);
+                } else {
+                    spawnPlayer = SpawnPlayer.Create(Bolt.GlobalTargets.OnlySelf);
                 }
+                spawnPlayer.PlayerId = player.PlayerId;
+                spawnPlayer.Name = player.PlayerName;
+                spawnPlayer.Color = player.PlayerColor;
+                Vector3 pos = GenerationManager.instance.rooms[Random.Range(0, GenerationManager.instance.rooms.Count)].transform.position + new Vector3(GenerationManager.instance.roomSize / 2, 2, GenerationManager.instance.roomSize / 2);
+                spawnPlayer.Position = pos;
+                spawnPlayer.Send();
             }
         }
     }

@@ -1,133 +1,103 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
 {
-    public NavMeshAgent nav;
-    public GameObject currentPlayer;
-    public Vector3 intPosition;
+    private NavMeshAgent nav;
+    private GameObject currentPlayer;
+    private Vector3 intPosition;
     private GameObject[] players;
-    public enum enemyState
+    public bool inAttackAnim
     {
-        idle, chasing, attacking, returning
-    };
-    public enemyState currentState;
+        get
+        {
+            return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attacking");
+        }
+    }
+
     public float roomWidth = 30;
-    public float attackTimer = 0f;
-    public float attackCooldown = 5f;
-    public float animationLength = 1f;
+    public float attackTimer = 6f;
+    public float attackCooldown = 6f;
+    public float animationLength = 3f;
     public float animationTimer = 0f;
     public bool inAttackRange;
     public bool inHitRange;
-    // Start is called before the first frame update
-    public override void Attached()
-    {
+    public Animator enemyAnimator;
+
+    public override void Attached() {
         state.SetTransforms(state.transform, transform);
+        enemyAnimator = GetComponentInChildren<Animator>();
+        state.SetAnimator(enemyAnimator);
+
         if (!entity.isOwner) return;
+        state.OnAttack += Attack;
         nav = this.GetComponent<NavMeshAgent>();
-        players = GameObject.FindGameObjectsWithTag("Player");
         intPosition = transform.position;
-        currentState = enemyState.idle;
-        attackTimer = 0f;
+        attackTimer = 100f;
         animationTimer = 0f;
         inAttackRange = false;
         inHitRange = false;
     }
 
-    // Update is called once per frame
-    public override void SimulateOwner()
-    {
-        switch (currentState)
-        {
-            case enemyState.idle:
-                findCurrentPlayer();
-                if (currentPlayer != null)
-                {
-                    currentState = enemyState.chasing;
-                }
-                break;
-            case enemyState.chasing:
-                findCurrentPlayer();
-                if (currentPlayer != null)
-                {
-                    if (inAttackRange)
-                    {
-                        if (attackTimer > attackCooldown)
-                        {
-                            currentState = enemyState.attacking;
-                            nav.SetDestination(transform.position);
-                            attackTimer = 0;
-                        }
-                    }
-                    else
-                    {
-                        nav.SetDestination(currentPlayer.transform.position);
-                    }
-                }
-                else
-                {
-                    currentState = enemyState.returning;
-                }
-                break;
-            case enemyState.attacking:
-                if (animationTimer > animationLength)
-                {
-                    if (inHitRange)
-                    {
-                        //Do Damage
-                    }
-                    animationTimer = 0;
-                    currentState = enemyState.chasing;
-                } else
-                {
-                    animationTimer += Time.deltaTime;
-                }
-                break;
-
-            case enemyState.returning:
-                findCurrentPlayer();
-                if (currentPlayer)
-                {
-                    currentState = enemyState.chasing;
-                }
-                else
-                {
-                    if (transform.position.x == intPosition.x && transform.position.z == intPosition.z)
-                    {
-                        currentState = enemyState.idle;
-                    }
-                    else
-                    {
-                        nav.SetDestination(intPosition);
-                    }
-                }
-                break;
-        }
-        attackTimer += Time.deltaTime;
+    private void Attack() {
+        Debug.Log("Enemy attacking.");
+        attackTimer = 0f;
+        nav.isStopped = true;
     }
 
-    private void findCurrentPlayer()
-    {
-        currentPlayer = null;
-        foreach (GameObject x in players)
-        {
-            if (x.transform.position.x < intPosition.x + (roomWidth / 2) && x.transform.position.x > intPosition.x - (roomWidth / 2) && x.transform.position.z < (intPosition.z + roomWidth) / 2 && x.transform.position.z > intPosition.z - (roomWidth / 2))
-            {
-                if (currentPlayer == null)
-                {
-                    currentPlayer = x;
-                }
-                else
-                {
-                    if (Vector3.Distance(transform.position, currentPlayer.transform.position) > Vector3.Distance(transform.position, x.transform.position))
-                    {
-                        currentPlayer = x;
-                    }
-                }
+    // Update is called once per frame
+    public override void SimulateOwner() {
+        if (players == null || players.Length == 0)
+            players = GameObject.FindGameObjectsWithTag("Player");
+        else {
+            players = GameObject.FindGameObjectsWithTag("Player");
+            currentPlayer = findCurrentPlayer();
+        }
+        state.Moving = !nav.isStopped;
+        CheckAttack();
+        CheckMove();
+
+        if (attackTimer < attackCooldown)
+            attackTimer += BoltNetwork.FrameDeltaTime;
+    }
+
+    private void CheckAttack() {
+        if (!inAttackAnim && inAttackRange) {
+            //Do Damage.
+        }
+
+        if (currentPlayer && inAttackRange && attackTimer > attackCooldown) {
+            state.Attack();
+        }
+    }
+
+    private void CheckMove() {
+        if (inAttackAnim || enemyAnimator.IsInTransition(0)) return;
+
+        if (currentPlayer && !inAttackRange) {
+            nav.SetDestination(currentPlayer.transform.position);
+            nav.isStopped = false;
+        }
+
+        if (!currentPlayer) {
+            nav.SetDestination(intPosition);
+            if (nav.remainingDistance <= nav.stoppingDistance) {
+                nav.isStopped = true;
+            } else {
+                nav.isStopped = false;
             }
         }
+    }
+
+    private GameObject findCurrentPlayer() {
+        GameObject pObj = null;
+        GameObject closestPlayer = players.Aggregate((curMin, x) => (curMin == null || Vector3.Distance(x.transform.position, transform.position) < Vector3.Distance(curMin.transform.position, transform.position)) ? x : curMin);
+        if (Vector3.Distance(closestPlayer.transform.position, intPosition) < roomWidth / 2)
+            pObj = closestPlayer;
+        return pObj;
     }
 }
