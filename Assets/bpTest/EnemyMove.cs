@@ -5,8 +5,10 @@ using UnityEngine;
 public class EnemyMove : MonoBehaviour
 {
     Animator anim;
-    int speedHash;
-    Vector3 position;
+    int speedHash, turnHash, comboHash, numClicks;
+    Vector3 position, forward = Vector3.forward;
+    public float speed;
+    bool canAttack = true;
 
 
     // Start is called before the first frame update
@@ -14,6 +16,9 @@ public class EnemyMove : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         speedHash = Animator.StringToHash("Speed");
+        turnHash = Animator.StringToHash("Turn");
+        comboHash = Animator.StringToHash("ComboNum");
+
     }
 
 
@@ -21,14 +26,25 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Attack();
+        }
 
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
+        float rotateY = Input.GetAxis("Horizontal") * speed;
+
         float moveVertical = Input.GetAxis("Vertical");
-        anim.SetFloat(speedHash, moveHorizontal);
+
+        if (moveVertical < 0)
+            moveVertical *= -1;
 
 
-        gameObject.transform.Translate(Vector3.forward * Time.deltaTime * moveHorizontal * 5f);
+        anim.SetFloat(speedHash, moveVertical);
+
+        transform.eulerAngles += new Vector3(0.0f, rotateY, 0.0f);
+        
+        gameObject.transform.Translate(forward *Time.deltaTime * moveVertical * speed);
 
     }
     private void OnTriggerEnter(Collider other)
@@ -38,13 +54,26 @@ public class EnemyMove : MonoBehaviour
 
     public void Attack()
     {
+       
 
+        if (canAttack)
+        {
+            numClicks++;
+            anim.SetInteger(comboHash, numClicks);
+
+        }
+
+        if (numClicks >= 3)
+            numClicks = 0;
     }
 
-    public void TurnAround() {
-        
+   
 
+  
 
+    private IEnumerator playAnimation(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 
 }

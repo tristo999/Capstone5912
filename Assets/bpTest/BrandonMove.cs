@@ -34,9 +34,9 @@ public class BrandonMove : MonoBehaviour
     {
         BrandonEnemyHealth health;
 
-        if (health = other.GetComponent<BrandonEnemyHealth>())
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            health.ChangeHealth(-6);
+         
             playerHealth.ChangeHealth(-4);
         }
     }
