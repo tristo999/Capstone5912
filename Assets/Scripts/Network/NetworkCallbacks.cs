@@ -25,6 +25,11 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
 
         readyConnections++;
         Debug.LogFormat("Remote connection complete, expecting {0} total connections, have {1}", connections, readyConnections);
+        StartCoroutine(WaitThenStart());
+    }
+
+    IEnumerator WaitThenStart() {
+        yield return new WaitForSeconds(1f);
         TryStartMatch();
     }
 
