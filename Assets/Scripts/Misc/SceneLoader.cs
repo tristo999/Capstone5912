@@ -19,6 +19,11 @@ public class SceneLoader : MonoBehaviour
         if (Instance != null) Destroy(this);
         else Instance = this;
         DontDestroyOnLoad(gameObject);
+        canvas = Instantiate(loadingCanvas);
+        statusText = canvas.GetComponentsInChildren<TextMeshProUGUI>()[1];
+        statusText.text = vanityLoadingMessages[Random.Range(0, vanityLoadingMessages.Count - 1)];
+        DontDestroyOnLoad(canvas);
+        canvas.SetActive(false);
     }
 
     private void Update()
@@ -36,18 +41,36 @@ public class SceneLoader : MonoBehaviour
     public void LoadSceneWithScreen(string scene)
     {
         if (loadingScene) return;
-        canvas = Instantiate(loadingCanvas);
-        statusText = canvas.GetComponentsInChildren<TextMeshProUGUI>()[1];
-        statusText.text = vanityLoadingMessages[Random.Range(0, vanityLoadingMessages.Count - 1)];
+        if (!canvas) {
+            canvas = Instantiate(loadingCanvas);
+            statusText = canvas.GetComponentsInChildren<TextMeshProUGUI>()[1];
+            statusText.text = vanityLoadingMessages[Random.Range(0, vanityLoadingMessages.Count - 1)];
+        }
         loadingScene = true;
         StartCoroutine(LoadScene(scene));
     }
 
     public void LoadScreenAsync(AsyncOperation async) {
-        canvas = Instantiate(loadingCanvas);
-        statusText = canvas.GetComponentsInChildren<TextMeshProUGUI>()[1];
-        statusText.text = vanityLoadingMessages[Random.Range(0, vanityLoadingMessages.Count - 1)];
+        if (!canvas) {
+            canvas = Instantiate(loadingCanvas);
+            statusText = canvas.GetComponentsInChildren<TextMeshProUGUI>()[1];
+            statusText.text = vanityLoadingMessages[Random.Range(0, vanityLoadingMessages.Count - 1)];
+        }
         StartCoroutine(LoadScreenUntilAsync(async));
+    }
+
+    public void StartLoadScreen() {
+        loadingScene = true;
+        if (!canvas) {
+            canvas = Instantiate(loadingCanvas);
+            statusText = canvas.GetComponentsInChildren<TextMeshProUGUI>()[1];
+            statusText.text = vanityLoadingMessages[Random.Range(0, vanityLoadingMessages.Count - 1)];
+        }
+    }
+
+    public void CancelLoadScreen() {
+        loadingScene = false;
+        canvas.SetActive(false);
     }
 
     public IEnumerator LoadScreenUntilAsync(AsyncOperation async) {
@@ -56,7 +79,7 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
         loadingScene = false;
-        Destroy(canvas);
+        canvas.SetActive(false);
     }
 
     IEnumerator LoadScene(string scene)
@@ -69,6 +92,6 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
         loadingScene = false;
-        Destroy(canvas);
+        canvas.SetActive(false);
     }
 }

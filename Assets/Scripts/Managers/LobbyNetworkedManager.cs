@@ -43,8 +43,13 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
 
         if (state.GameStarting) {
             if (BoltNetwork.IsServer && BoltNetwork.ServerFrame >= waitFrame + 120) {
+                SceneLoader.Instance.StartLoadScreen();
                 BoltNetwork.LoadScene("WizardFightGame");
             } else {
+                if (!BoltNetwork.IsServer && BoltNetwork.ServerFrame >= waitFrame + 115) {
+                    SceneLoader.Instance.StartLoadScreen();
+                }
+
                 if (ReadyWheel)
                     ReadyWheel.fillAmount = (BoltNetwork.ServerFrame - waitFrame) / 120f;
             }

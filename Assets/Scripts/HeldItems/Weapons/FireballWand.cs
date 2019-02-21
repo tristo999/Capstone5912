@@ -50,14 +50,14 @@ public class FireballWand : Weapon
             Owner.state.Speed += 0.75f;
         }
         beganFiring = false;
-
-        BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
-        proj.GetComponent<FireballWandProjectile>().owner = transform.parent.gameObject;
-        proj.GetComponent<Rigidbody>().velocity = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity;
-
         currentVelocity = 0f;
         line.SetPositions(new Vector3[PointsInArc]);
         timer = FireTime * Owner.state.FireRate;
+        if (Owner.entity.isOwner) {
+            BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
+            proj.GetComponent<FireballWandProjectile>().owner = transform.parent.gameObject;
+            proj.GetComponent<Rigidbody>().velocity = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity;
+        }
     }
 
     private void Update() {

@@ -15,6 +15,7 @@ public class BasicWand : Weapon
     }
 
     public override void FireHold() {
+        if (!Owner.entity.isOwner) return;
         if (timer < 0f) {
             Vector3 spawnPos = transform.position + transform.forward * 1f;
             spawnPos.y += .8f;

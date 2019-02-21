@@ -13,6 +13,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
 
     public override void SceneLoadLocalDone(string scene) {
         BoltNetwork.Instantiate(BoltPrefabs.ItemManager);
+        GameMaster.Instantiate();
         GenerationManager.Instantiate();
         Physics.autoSimulation = false;
         GenerationManager.instance.GenerateStemmingMaze();
@@ -45,7 +46,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
                 if (player.connection) {
                     spawnPlayer = SpawnPlayer.Create(player.connection);
                 } else {
-                    spawnPlayer = SpawnPlayer.Create(Bolt.GlobalTargets.OnlySelf);
+                    spawnPlayer = SpawnPlayer.Create(GlobalTargets.OnlySelf);
                 }
                 spawnPlayer.PlayerId = player.PlayerId;
                 spawnPlayer.Name = player.PlayerName;
@@ -55,6 +56,8 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
                 spawnPlayer.Send();
             }
         }
+        GameStart evnt = GameStart.Create();
+        evnt.Send();
     }
 
     private void Update() {

@@ -7,22 +7,30 @@ using System.Linq;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 
-[System.Serializable]
-public class CommandEvent : UnityEvent<string[]>
-{
-}
+public delegate void CommandHandler(string[] args);
 
 public class WizardConsole : Bolt.GlobalEventListener
 {
-    public GameObject ConsoleBox;
+    class WizardCommand
+    {
+        public string command { get; private set; }
+        public CommandHandler handler { get; private set; }
+        public string help { get; private set; }
+
+        public WizardCommand(string command, CommandHandler handler, string help) {
+            this.command = command;
+            this.handler = handler;
+            this.help = help;
+        }
+    }
+
+    public GameObject ConsoleCanvas;
     public TextMeshProUGUI EntryBox;
     public TextMeshProUGUI HistoryBox;
-    public TextMeshProUGUI TitleText;
-    public PostProcessVolume postProcessVolume;
     public KeyCode ConsoleKey = KeyCode.BackQuote;
     public KeyCode DismissKey = KeyCode.Escape;
     public KeyCode AcceptKey = KeyCode.Return;
-    public List<CommandEvent> commandEvents = new List<CommandEvent>();
+    private List<WizardCommand> commands = new List<WizardCommand>();
 
     private List<string> previousCommands = new List<string>();
     private string currentCommand = "";
@@ -30,71 +38,86 @@ public class WizardConsole : Bolt.GlobalEventListener
     private LensDistortion distortion;
     private bool raving;
     private Coroutine rave;
+    private int gettingHistory = -1;
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        postProcessVolume.profile.TryGetSettings<ColorGrading>(out grading);
-        postProcessVolume.profile.TryGetSettings(out distortion);
-        SceneManager.sceneLoaded += SceneLoaded;
+        DontDestroyOnLoad(ConsoleCanvas);
+        RegisterCommand("spawn", ItemSpawn, "Spawn item at position");
+        RegisterCommand("playerinfo", PlayerInfo, "Get player information.");
+        RegisterCommand("listplayers", ListPlayers, "List current players");
+        RegisterCommand("tp", Teleport, "Teleport player");
+    }
+
+    public void RegisterCommand(string command, CommandHandler handler, string help) {
+        commands.Add(new WizardCommand(command, handler, help));
+    }
+
+    public void Log(string log) {
+        previousCommands.Insert(0, log);
+        RefreshHistory();
+    }
+
+    private void ExecuteCommand(string com) {
+        string[] args = com.Split(' ');
+        WizardCommand command = commands.First(c => c.command == args[0].ToLower());
+        command.handler.Invoke(args.Skip(1).ToArray());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (ConsoleBox.activeInHierarchy)
+        if (ConsoleCanvas.activeInHierarchy)
         {
-            if (Input.GetKeyDown(DismissKey))
-            {
+            if (Input.GetKeyDown(DismissKey)) {
                 EntryBox.text = "_";
-                ConsoleBox.SetActive(false);
+                ConsoleCanvas.SetActive(false);
                 currentCommand = "";
-            }
-            else if (Input.GetKeyDown(AcceptKey))
-            {
-                if (currentCommand.Length > 0)
-                {
+                gettingHistory = -1;
+            } else if (Input.GetKeyDown(AcceptKey)) {
+                if (currentCommand.Length > 0) {
                     previousCommands.Insert(0, currentCommand);
                     ExecuteCommand(currentCommand);
                     currentCommand = "";
                     EntryBox.text = "_";
+                    gettingHistory = -1;
                     RefreshHistory();
                 }
-            } else if (Input.GetKeyDown(KeyCode.Backspace))
-            {
-                if (currentCommand.Length > 0)
-                {
+            } else if (Input.GetKeyDown(KeyCode.Backspace)) {
+                if (currentCommand.Length > 0) {
                     currentCommand = currentCommand.Substring(0, currentCommand.Length - 1);
                     EntryBox.text = currentCommand + "_";
                 }
-            } else if (Input.anyKeyDown)
-            {
+            } else if (Input.GetKeyDown(KeyCode.UpArrow)) {
+                if (gettingHistory < previousCommands.Count - 1) {
+                    gettingHistory++;
+                    currentCommand = previousCommands[gettingHistory];
+                    EntryBox.text = currentCommand + "_";
+                }
+            } else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+                if (gettingHistory > 0) {
+                    gettingHistory--;
+                    currentCommand = previousCommands[gettingHistory];
+                } else {
+                    currentCommand = "";
+                }
+                EntryBox.text = currentCommand + "_";
+            } else if (Input.anyKeyDown) {
                 currentCommand += Input.inputString;
                 EntryBox.text = currentCommand + "_";
-            }
+            } 
         } else if (Input.GetKeyDown(ConsoleKey))
         {
-            ConsoleBox.SetActive(true);
+            ConsoleCanvas.SetActive(true);
             RefreshHistory();
-            if (PongManager.Instance != null)
-            {
-                PongManager.Instance.PauseGame();
-            }
         }
-    }
-
-    private void SceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        postProcessVolume = GameObject.FindGameObjectWithTag("Post Processing").GetComponent<PostProcessVolume>();
-        postProcessVolume.profile.TryGetSettings<ColorGrading>(out grading);
-        postProcessVolume.profile.TryGetSettings(out distortion);
-        previousCommands.Insert(0, "New scene loaded: " + scene.name);
     }
 
     private void RefreshHistory()
     {
         string history = "";
-        for (int i = 9; i > 0; i--)
+        for (int i = 40; i > 0; i--)
         {
             if (i < previousCommands.Count) 
                 history += previousCommands[i] + "\n";
@@ -104,68 +127,39 @@ public class WizardConsole : Bolt.GlobalEventListener
         HistoryBox.text = history;
     }
 
-    private void ExecuteCommand(string com)
-    {
-        string[] comArgs = com.Split(' ');
-        string[] args = comArgs.Skip(1).Take(comArgs.Length - 1).ToArray();
-        CommandEvent ev = commandEvents.FirstOrDefault(x => x.GetPersistentMethodName(0).ToLower() == comArgs[0].ToLower());
-        if (ev != null)
-        {
-            ev.Invoke(args);
-        } else
-        {
-            previousCommands.Insert(0, "<color=red>Command " + comArgs[0] + " not recognized.</color>");
-            RefreshHistory();
+    private void ItemSpawn(string[] args) {
+        SpawnItem evt = SpawnItem.Create(ItemManager.Instance.entity);
+        evt.ItemId = int.Parse(args[0]);
+        if (args.Length > 1) {
+            float x, y, z;
+            x = float.Parse(args[1]);
+            y = float.Parse(args[2]);
+            z = float.Parse(args[3]);
+            evt.Position = new Vector3(x, y, z);
+        }
+        evt.Send();
+    }
+
+    private void PlayerInfo(string[] args) {
+        BoltEntity player = GameMaster.instance.players[int.Parse(args[0])];
+        IPlayerState playerState = player.GetState<IPlayerState>();
+        Log(playerState.PlayerId + "- Name: " + playerState.Name + ", Position: " + player.transform.position + ", Health: " + playerState.Health);
+    }
+
+    private void ListPlayers(string[] args) {
+        foreach (KeyValuePair<int, BoltEntity> pair in GameMaster.instance.players) {
+            Log(pair.Key + "- Name: " + pair.Value.GetState<IPlayerState>().Name);
         }
     }
 
-    public void SarahKyne(string[] args)
-    {
-        TitleText.text = "David does\nall the\nwork";
-    }
-
-    public void ChangeTitle (string[] args)
-    {
-        TitleText.text = string.Join(" ", args);
-    }
-
-    public void Rave(string[] args)
-    {
-        if (!raving)
-        {
-            raving = true;
-            rave = StartCoroutine("raveCoroutine");
-        } else
-        {
-            raving = false;
-            StopCoroutine(rave);
-            grading.colorFilter.value = Color.white;
-        }
-    }
-
-    public void Fisheye(string[] args)
-    {
-        distortion.enabled.value = !distortion.enabled.value;
-    }
-
-
-    public IEnumerator raveCoroutine()
-    {
-        while (true)
-        {
-            float h;
-            float s;
-            float v;
-            Color.RGBToHSV(grading.colorFilter.value, out h, out s, out v);
-            h += .05f;
-            s = 1f;
-            v = 1f;
-            if (h > 1f)
-            {
-                h = 0f;
-            }
-            grading.colorFilter.value = Random.ColorHSV(0, 1, .5f, 1f, .8f, 1f);
-            yield return new WaitForSeconds(0.1f);
-        }
+    private void Teleport(string[] args) {
+        BoltEntity player = GameMaster.instance.players[int.Parse(args[0])];
+        TeleportPlayer evnt = TeleportPlayer.Create(player);
+        float x, y, z;
+        x = float.Parse(args[1]);
+        y = float.Parse(args[2]);
+        z = float.Parse(args[3]);
+        evnt.position = new Vector3(x, y, z);
+        evnt.Send();
     }
 }

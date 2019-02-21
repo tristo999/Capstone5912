@@ -22,5 +22,9 @@ class PlayerCallbacks : Bolt.GlobalEventListener
         playerState.PlayerId = evnt.PlayerId;
         playerEntity.TakeControl();
     }
+
+    public override void OnEvent(GameStart evnt) {
+        SceneLoader.Instance.CancelLoadScreen();
+    }
 }
 
