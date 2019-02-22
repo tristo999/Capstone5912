@@ -14,25 +14,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ComboNum
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Dead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Turn
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -454,7 +454,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Move Forward
+  m_Name: Motion Blend
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -625,13 +625,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102174351649035246}
-    m_Position: {x: 12, y: -84, z: 0}
+    m_Position: {x: -444, y: -132, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102126288309413104}
     m_Position: {x: 12, y: -360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102321598503777956}
-    m_Position: {x: -492, y: 204, z: 0}
+    m_Position: {x: -336, y: 168, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102666614865023002}
     m_Position: {x: -36, y: 204, z: 0}
@@ -643,7 +643,7 @@ AnimatorStateMachine:
     m_Position: {x: 708, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102827225414365160}
-    m_Position: {x: 708, y: 96, z: 0}
+    m_Position: {x: 696, y: 108, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
