@@ -48,6 +48,7 @@ public class WizardConsole : Bolt.GlobalEventListener
         RegisterCommand("playerinfo", PlayerInfo, "Get player information.");
         RegisterCommand("listplayers", ListPlayers, "List current players");
         RegisterCommand("tp", Teleport, "Teleport player");
+        RegisterCommand("listitems", ListItems, "List all registered items.");
     }
 
     public void RegisterCommand(string command, CommandHandler handler, string help) {
@@ -161,5 +162,12 @@ public class WizardConsole : Bolt.GlobalEventListener
         z = float.Parse(args[3]);
         evnt.position = new Vector3(x, y, z);
         evnt.Send();
+    }
+
+    private void ListItems(string[] args) {
+        for (int i = 0; i < ItemManager.Instance.items.Count; i++) {
+            ItemDefinition item = ItemManager.Instance.items[i];
+            Log(i + " " + item.Rarity.ToString() + ": " + item.ItemName + " - " + item.ItemDescription);
+        }
     }
 }

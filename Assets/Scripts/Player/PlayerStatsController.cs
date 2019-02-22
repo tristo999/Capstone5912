@@ -29,6 +29,28 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
         state.AddCallback("ProjectileDamage", ProjectileDamageChanged);
         state.AddCallback("Color", ColorChanged);
         state.AddCallback("PlayerId", IdChanged);
+        if (entity.isOwner) {
+            state.AddCallback("WeaponId", WeaponIdChanged);
+            state.AddCallback("ActiveId", ActiveIdChanged);
+        }
+    }
+
+    private void WeaponIdChanged() {
+        ItemDefinition item = ItemManager.Instance.items[state.WeaponId];
+        state.Health += item.HealthModifier;
+        state.Speed += item.SpeedModifier;
+        state.FireRate += item.FireRateModifier;
+        state.ProjectileSpeed += item.ProjectileSpeedModifier;
+        state.ProjectileDamage += item.DamageModifier;
+    }
+
+    private void ActiveIdChanged() {
+        ItemDefinition item = ItemManager.Instance.items[state.ActiveId];
+        state.Health += item.HealthModifier;
+        state.Speed += item.SpeedModifier;
+        state.FireRate += item.FireRateModifier;
+        state.ProjectileSpeed += item.ProjectileSpeedModifier;
+        state.ProjectileDamage += item.DamageModifier;
     }
 
     private void IdChanged() {
