@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fefb70c7568dea4e8c5ba3aa027b199, type: 3}
+  m_Name: Additional Testing
+  m_EditorClassIdentifier: 
+  ItemName: Additional Testing
+  ItemDescription: Unknown Item
+  Type: 0
+  Rarity: 0
+  DroppedModel: {fileID: 215, guid: b289866a0b3b2c64fa1ab56e4136bd76, type: 3}
+  DroppedScript: {fileID: 1348, guid: b289866a0b3b2c64fa1ab56e4136bd76, type: 3}
+  HeldModel: {fileID: 4547380477446255212, guid: 2e55277322124994fa3359d7056f9f21,
+    type: 3}
+  HeldScript: {fileID: 986467736761545732, guid: 2e55277322124994fa3359d7056f9f21,
+    type: 3}
+  SpeedModifier: 0
+  HealthModifier: 0
+  FireRateModifier: 0
+  ProjectileSpeedModifier: 0
+  DamageModifier: 0

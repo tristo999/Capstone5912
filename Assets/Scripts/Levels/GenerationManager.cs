@@ -32,6 +32,13 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public int minRooms;
     public int maxRooms;
 
+    public bool debug;
+
+    private void Update() {
+        if (debug && Input.GetKeyDown(KeyCode.S))
+            StartCoroutine(DebugStemmingMaze());
+    }
+
     public void GenerateStemmingMaze() {
         if (mazeObject != null) {
             Destroy(mazeObject);
@@ -58,6 +65,37 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                 newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
                 rooms.Add(newRoom);
             }
+        }
+    }
+
+    public IEnumerator DebugStemmingMaze() {
+        Physics.autoSimulation = false;
+        if (mazeObject != null) {
+            Destroy(mazeObject);
+        }
+        mazeObject = new GameObject();
+        dungeon = new bool[width, height];
+        dungeon[width / 2, height / 2] = true;
+        GameObject obj = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], Vector3.zero, Quaternion.identity);
+        rooms.Add(obj);
+
+        for (int i = 0; i < generationAttempts; i++) {
+            Vector2 existingCell = randomExistingNotSurrounded();
+            List<Vector2> possible = OpenNeighbors((int)existingCell.x, (int)existingCell.y);
+            Vector2 newCell = possible[Random.Range(0, possible.Count)];
+            dungeon[(int)newCell.x, (int)newCell.y] = true;
+            int mirrorX = width - 1 - (int)newCell.x;
+            int mirrorY = height - 1 - (int)newCell.y;
+            Vector3 pos = new Vector3(newCell.x, 0, newCell.y) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
+            GameObject newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+            rooms.Add(newRoom);
+            if (adjacentToRoom(mirrorX, mirrorY) && Random.Range(0.0f, 1.0f) > .05f) {
+                dungeon[mirrorX, mirrorY] = true;
+                pos = new Vector3(mirrorX, 0, mirrorY) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
+                newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+                rooms.Add(newRoom);
+            }
+            yield return new WaitForEndOfFrame();
         }
     }
 

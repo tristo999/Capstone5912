@@ -6,7 +6,7 @@ public class DetectAttackRange : Bolt.EntityBehaviour<IEnemyState>
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (!entity.isOwner) return;
+        if (entity.isAttached && !entity.isOwner) return;
         if (other.gameObject.tag == "Player")
         {
             GetComponentInParent<BasicEnemyAI>().inAttackRange = true;
@@ -15,7 +15,7 @@ public class DetectAttackRange : Bolt.EntityBehaviour<IEnemyState>
 
     private void OnTriggerExit(Collider other)
     {
-        if (!entity.isOwner) return;
+        if (entity.isAttached && !entity.isOwner) return;
         if (other.gameObject.tag == "Player")
         {
             GetComponentInParent<BasicEnemyAI>().inAttackRange = false;

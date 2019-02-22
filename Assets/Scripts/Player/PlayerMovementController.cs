@@ -137,4 +137,9 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
             SplitscreenManager.instance.playerCameras[playerUI.ScreenNumber - 1].AddRoomToCamera(other.transform.Find("Focus"));
         }
     }
+
+    public override void OnEvent(TeleportPlayer evnt) {
+        if (entity.isOwner)
+            transform.position = evnt.position;
+    }
 }

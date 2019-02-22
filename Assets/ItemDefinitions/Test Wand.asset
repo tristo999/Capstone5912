@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fefb70c7568dea4e8c5ba3aa027b199, type: 3}
+  m_Name: Test Wand
+  m_EditorClassIdentifier: 
+  ItemName: Test Wand
+  ItemDescription: It's a test! <3 David
+  Type: 0
+  Rarity: -1
+  DroppedModel: {fileID: 215, guid: a319a59eca2732840b7ff4c1008e5496, type: 3}
+  DroppedScript: {fileID: 1348, guid: a319a59eca2732840b7ff4c1008e5496, type: 3}
+  HeldModel: {fileID: 4547380477446255212, guid: 1eaf918fa2938114c90cc848027a6f01,
+    type: 3}
+  HeldScript: {fileID: 986467736761545732, guid: 1eaf918fa2938114c90cc848027a6f01,
+    type: 3}
+  SpeedModifier: 2
+  HealthModifier: 999
+  FireRateModifier: 999
+  ProjectileSpeedModifier: 998
+  DamageModifier: 999

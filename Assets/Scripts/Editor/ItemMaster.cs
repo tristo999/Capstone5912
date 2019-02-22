@@ -17,27 +17,20 @@ public class ItemMaster : EditorWindow
     }
 
     public void OnEnable() {
-        var data = EditorPrefs.GetString("WFItems", JsonUtility.ToJson(this, false));
-        JsonUtility.FromJsonOverwrite(data, this);
-        if (ManagerPrefab == null) {
-            ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Managers/ItemManager.prefab");
-            itemManager = ManagerPrefab.GetComponent<ItemManager>();
-        }
+        Load();   
     }
 
     public void OnDisable() {
-        var data = JsonUtility.ToJson(this, false);
-        EditorPrefs.SetString("WFItems", data);
-        if (itemManager != null) {
-            itemManager.items = Items.ToList();
-        }
+        Save();
     }
 
     private void OnLostFocus() {
         UpdatePrefab();
+        Save();
     }
 
     void OnGUI() {
+        Load();
         if (GUILayout.Button("Fix Prefabs")) {
             FixPrefabs();
         }
@@ -48,6 +41,7 @@ public class ItemMaster : EditorWindow
         bool noManager = ManagerPrefab == null;
         obj.ApplyModifiedProperties();
         UpdatePrefab();
+        Save();
     }
 
     public void FixPrefabs() {
@@ -60,5 +54,22 @@ public class ItemMaster : EditorWindow
     private void UpdatePrefab() {
         itemManager.items = Items.ToList();
         EditorUtility.SetDirty(ManagerPrefab);
+    }
+
+    public void Load() {
+        var data = EditorPrefs.GetString("WFItems", JsonUtility.ToJson(this, false));
+        JsonUtility.FromJsonOverwrite(data, this);
+        if (ManagerPrefab == null) {
+            ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Managers/ItemManager.prefab");
+            itemManager = ManagerPrefab.GetComponent<ItemManager>();
+        }
+    }
+
+    public void Save() {
+        var data = JsonUtility.ToJson(this, false);
+        EditorPrefs.SetString("WFItems", data);
+        if (itemManager != null) {
+            itemManager.items = Items.ToList();
+        }
     }
 }

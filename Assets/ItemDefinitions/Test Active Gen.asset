@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fefb70c7568dea4e8c5ba3aa027b199, type: 3}
+  m_Name: Test Active Gen
+  m_EditorClassIdentifier: 
+  ItemName: Test Active Gen
+  ItemDescription: Wow, look another test!
+  Type: 1
+  Rarity: -1
+  DroppedModel: {fileID: 217, guid: a2b99a1ef27b9fb4286a1fd28f81749c, type: 3}
+  DroppedScript: {fileID: 1350, guid: a2b99a1ef27b9fb4286a1fd28f81749c, type: 3}
+  HeldModel: {fileID: 8815563781034413229, guid: cb559ffee4deb11449a7a2d4fd723152,
+    type: 3}
+  HeldScript: {fileID: 4036389208153752077, guid: cb559ffee4deb11449a7a2d4fd723152,
+    type: 3}
+  SpeedModifier: 0
+  HealthModifier: 0
+  FireRateModifier: 0
+  ProjectileSpeedModifier: 0
+  DamageModifier: 0
