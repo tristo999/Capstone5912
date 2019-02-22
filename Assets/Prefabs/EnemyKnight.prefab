@@ -357,10 +357,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 817}
     m_Modifications:
-    - target: {fileID: 334639933, guid: 683f4ad5c94297e49b6a320eb93f1063, type: 3}
-      propertyPath: m_Name
-      value: castle_guard_01
-      objectReference: {fileID: 0}
     - target: {fileID: 334639935, guid: 683f4ad5c94297e49b6a320eb93f1063, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -404,6 +400,10 @@ PrefabInstance:
     - target: {fileID: 334639935, guid: 683f4ad5c94297e49b6a320eb93f1063, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 334639933, guid: 683f4ad5c94297e49b6a320eb93f1063, type: 3}
+      propertyPath: m_Name
+      value: castle_guard_01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 683f4ad5c94297e49b6a320eb93f1063, type: 3}

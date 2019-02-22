@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -57,7 +58,12 @@ public class ItemMaster : EditorWindow
     }
 
     public void Load() {
-        var data = EditorPrefs.GetString("WFItems", JsonUtility.ToJson(this, false));
+        string data;
+        if (File.Exists("Assets/Resources/WizardFightData/ItemData.json")) {
+            data = File.ReadAllText("Assets/Resources/WizardFightData/ItemData.json");
+        } else {
+            data = EditorPrefs.GetString("WFItems", JsonUtility.ToJson(this, false));
+        }
         JsonUtility.FromJsonOverwrite(data, this);
         if (ManagerPrefab == null) {
             ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Managers/ItemManager.prefab");
@@ -67,7 +73,12 @@ public class ItemMaster : EditorWindow
 
     public void Save() {
         var data = JsonUtility.ToJson(this, false);
-        EditorPrefs.SetString("WFItems", data);
+        using (FileStream fs = new FileStream("Assets/Resources/WizardFightData/ItemData.json", FileMode.Create)) {
+            using (StreamWriter writer = new StreamWriter(fs)) {
+                writer.Write(data);
+            }
+        }
+            EditorPrefs.SetString("WFItems", data);
         if (itemManager != null) {
             itemManager.items = Items.ToList();
         }
