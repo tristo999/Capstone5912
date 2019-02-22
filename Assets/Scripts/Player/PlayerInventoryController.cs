@@ -7,12 +7,14 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     public ActiveItem activeItem;
     public Weapon wizardWeapon;
 
+    private List<HeldPassive> passiveItems = new List<HeldPassive>();
+
     public override void Attached() {
         state.WeaponId = 0;
         state.ActiveId = -1;
         state.AddCallback("WeaponId", WeaponIdChanged);
         state.AddCallback("ActiveId", ActiveIdChanged);
-        // Since these triggers are set to local, activation should only happen for controller.
+        state.OnAddPassive += AddPassive;
         state.OnFireDown += FireDownTrigger;
         state.OnFireHold += FireHeldTrigger;
         state.OnFireRelease += FireReleaseTrigger;
@@ -28,6 +30,15 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
             yield return new WaitForSeconds(0.1f);
         }
         WeaponIdChanged();
+    }
+
+    private void AddPassive() {
+        GameObject newPassive = Instantiate(ItemManager.Instance.items[state.NewPassiveId].HeldModel, transform);
+        HeldPassive passive = newPassive.GetComponent<HeldPassive>();
+        passive.Id = state.NewPassiveId;
+        passive.Owner = this;
+        passiveItems.Add(passive);
+        passive.OnEquip();
     }
 
     private void WeaponIdChanged() {

@@ -7,11 +7,11 @@ public class ItemCreationUtil : EditorWindow
 {
     public ItemDefinition item;
     public string baseWeapon = "Assets/Prefabs/HeldItems/Weapons/HeldBasicWand.prefab";
-    public string baseActive;
-    public string basePassive;
+    public string baseActive = "Assets/Prefabs/HeldItems/ActiveItems/HeldCloakOfInvisibility.prefab";
+    public string basePassive = "Assets/Prefabs/HeldItems/HeldBasePassive.prefab";
     public string baseDroppedWeapon = "Assets/Prefabs/InteractiveObjects/DroppedItems/Weapons/DroppedBasicWand.prefab";
-    public string baseDroppedActive;
-    public string baseDroppedPassive;
+    public string baseDroppedActive = "Assets/Prefabs/InteractiveObjects/Droppeditems/ActiveItems/DroppedCloakOfInvisibility.prefab";
+    public string baseDroppedPassive = "Assets/Prefabs/InteractiveObjects/DroppedItems/DroppedBasePassive.prefab";
 
     // Add menu item named "My Window" to the Window menu
     [MenuItem("Window/Wizard Fight/Item Creation Util")]
@@ -83,6 +83,8 @@ public class ItemCreationUtil : EditorWindow
         ItemDefinition loaded = AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/ItemDefinitions/" + item.ItemName + ".asset");
         iM.Items.Add(loaded);
         iM.OnDisable();
+        BoltMenuItems.UpdatePrefabDatabase();
+        EditorUtility.DisplayDialog(item.ItemName + " Generated!", "You did it!\nDropped Prefab At: " + AssetDatabase.GetAssetPath(item.DroppedModel) + "\nHeld Prefab At: " + AssetDatabase.GetAssetPath(item.HeldModel), "Gee thanks!");
         item = CreateInstance<ItemDefinition>();
     }
 
