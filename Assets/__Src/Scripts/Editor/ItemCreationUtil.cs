@@ -6,12 +6,12 @@ using UnityEngine;
 public class ItemCreationUtil : EditorWindow
 {
     public ItemDefinition item;
-    public string baseWeapon = "Assets/Prefabs/HeldItems/Weapons/HeldBasicWand.prefab";
-    public string baseActive = "Assets/Prefabs/HeldItems/ActiveItems/HeldCloakOfInvisibility.prefab";
-    public string basePassive = "Assets/Prefabs/HeldItems/HeldBasePassive.prefab";
-    public string baseDroppedWeapon = "Assets/Prefabs/InteractiveObjects/DroppedItems/Weapons/DroppedBasicWand.prefab";
-    public string baseDroppedActive = "Assets/Prefabs/InteractiveObjects/Droppeditems/ActiveItems/DroppedCloakOfInvisibility.prefab";
-    public string baseDroppedPassive = "Assets/Prefabs/InteractiveObjects/DroppedItems/DroppedBasePassive.prefab";
+    public string baseWeapon = "Assets/__Src/Prefabs/HeldItems/Weapons/HeldBasicWand.prefab";
+    public string baseActive = "Assets/__Src/Prefabs/HeldItems/ActiveItems/HeldCloakOfInvisibility.prefab";
+    public string basePassive = "Assets/__Src/Prefabs/HeldItems/HeldBasePassive.prefab";
+    public string baseDroppedWeapon = "Assets/__Src/Prefabs/InteractiveObjects/DroppedItems/Weapons/DroppedBasicWand.prefab";
+    public string baseDroppedActive = "Assets/__Src/Prefabs/InteractiveObjects/Droppeditems/ActiveItems/DroppedCloakOfInvisibility.prefab";
+    public string baseDroppedPassive = "Assets/__Src/Prefabs/InteractiveObjects/DroppedItems/DroppedBasePassive.prefab";
 
     // Add menu item named "My Window" to the Window menu
     [MenuItem("Window/Wizard Fight/Item Creation Util")]
@@ -76,11 +76,11 @@ public class ItemCreationUtil : EditorWindow
     }
 
     private void GenerateItem() {
-        AssetDatabase.CreateAsset(item, "Assets/ItemDefinitions/" + item.ItemName + ".asset");
+        AssetDatabase.CreateAsset(item, "Assets/__Src/ItemDefinitions/" + item.ItemName + ".asset");
         AssetDatabase.SaveAssets();
         ItemMaster iM = new ItemMaster();
         iM.OnEnable();
-        ItemDefinition loaded = AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/ItemDefinitions/" + item.ItemName + ".asset");
+        ItemDefinition loaded = AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/__Src/ItemDefinitions/" + item.ItemName + ".asset");
         iM.Items.Add(loaded);
         iM.OnDisable();
         BoltMenuItems.UpdatePrefabDatabase();
@@ -104,8 +104,8 @@ public class ItemCreationUtil : EditorWindow
         string sanitizedName = item.ItemName.Replace(" ", "");
         heldPre.name = "Held" + sanitizedName;
         droppedPre.name = "Dropped" + sanitizedName;
-        item.HeldModel = PrefabUtility.SaveAsPrefabAsset(heldPre, "Assets/Prefabs/HeldItems/" + heldPre.name + ".prefab");
-        item.DroppedModel = PrefabUtility.SaveAsPrefabAsset(droppedPre, "Assets/Prefabs/InteractiveObjects/DroppedItems/" + droppedPre.name + ".prefab");
+        item.HeldModel = PrefabUtility.SaveAsPrefabAsset(heldPre, "Assets/__Src/Prefabs/HeldItems/" + heldPre.name + ".prefab");
+        item.DroppedModel = PrefabUtility.SaveAsPrefabAsset(droppedPre, "Assets/__Src/Prefabs/InteractiveObjects/DroppedItems/" + droppedPre.name + ".prefab");
         PrefabUtility.UnloadPrefabContents(heldPre);
         PrefabUtility.UnloadPrefabContents(droppedPre);
     }

@@ -66,7 +66,7 @@ public class ItemMaster : EditorWindow
         }
         JsonUtility.FromJsonOverwrite(data, this);
         if (ManagerPrefab == null) {
-            ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Managers/ItemManager.prefab");
+            ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/__Src/Prefabs/Managers/ItemManager.prefab");
             itemManager = ManagerPrefab.GetComponent<ItemManager>();
         }
     }
