@@ -26,11 +26,6 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
 
         readyConnections++;
         Debug.LogFormat("Remote connection complete, expecting {0} total connections, have {1}", connections, readyConnections);
-        StartCoroutine(WaitThenStart());
-    }
-
-    IEnumerator WaitThenStart() {
-        yield return new WaitForSeconds(1f);
         TryStartMatch();
     }
 
@@ -48,6 +43,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
                 } else {
                     spawnPlayer = SpawnPlayer.Create(GlobalTargets.OnlySelf);
                 }
+                spawnPlayer.WaitForRooms = GenerationManager.instance.rooms.Count;
                 spawnPlayer.PlayerId = player.PlayerId;
                 spawnPlayer.Name = player.PlayerName;
                 spawnPlayer.Color = player.PlayerColor;

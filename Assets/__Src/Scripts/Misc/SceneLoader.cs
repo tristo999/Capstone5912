@@ -19,11 +19,13 @@ public class SceneLoader : MonoBehaviour
         if (Instance != null) Destroy(this);
         else Instance = this;
         DontDestroyOnLoad(gameObject);
-        canvas = Instantiate(loadingCanvas);
-        statusText = canvas.GetComponentsInChildren<TextMeshProUGUI>()[1];
-        statusText.text = vanityLoadingMessages[Random.Range(0, vanityLoadingMessages.Count - 1)];
-        DontDestroyOnLoad(canvas);
-        canvas.SetActive(false);
+        if (!canvas) {
+            canvas = Instantiate(loadingCanvas);
+            statusText = canvas.GetComponentsInChildren<TextMeshProUGUI>()[1];
+            statusText.text = vanityLoadingMessages[Random.Range(0, vanityLoadingMessages.Count - 1)];
+            DontDestroyOnLoad(canvas);
+            canvas.SetActive(false);
+        }
     }
 
     private void Update()
@@ -66,6 +68,7 @@ public class SceneLoader : MonoBehaviour
             statusText = canvas.GetComponentsInChildren<TextMeshProUGUI>()[1];
             statusText.text = vanityLoadingMessages[Random.Range(0, vanityLoadingMessages.Count - 1)];
         }
+        canvas.SetActive(true);
     }
 
     public void CancelLoadScreen() {

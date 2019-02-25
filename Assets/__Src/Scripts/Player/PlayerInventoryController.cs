@@ -43,11 +43,14 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void WeaponIdChanged() {
         DropWeapon();
-        GameObject newWep = Instantiate(ItemManager.Instance.items[state.WeaponId].HeldModel, transform);
-        newWep.GetComponent<HeldItem>().Id = state.WeaponId;
-        wizardWeapon = newWep.GetComponent<Weapon>();
-        wizardWeapon.Owner = this;
-        wizardWeapon.OnEquip();
+        if (state.WeaponId >= 0) {
+            Debug.Log(state.WeaponId);
+            GameObject newWep = Instantiate(ItemManager.Instance.items[state.WeaponId].HeldModel, transform);
+            newWep.GetComponent<HeldItem>().Id = state.WeaponId;
+            wizardWeapon = newWep.GetComponent<Weapon>();
+            wizardWeapon.Owner = this;
+            wizardWeapon.OnEquip();
+        }
     }
 
     private void ActiveIdChanged() {
