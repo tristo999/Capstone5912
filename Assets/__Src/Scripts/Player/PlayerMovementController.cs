@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 {
-
-    private Rigidbody rb;
     public float BaseSpeed;
     public float BaseAccel;
     public float BaseFriction;
+    public Transform RenderTransform;
+    private Rigidbody rb;
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
     private Player localPlayer;
     private InteractiveObject objectInFocus;
@@ -18,7 +18,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     public override void Attached()
     {
         rb = GetComponent<Rigidbody>();
-        state.SetTransforms(state.transform, transform);
+        state.SetTransforms(state.transform, transform, RenderTransform);
         if (entity.isOwner)
             playerUI = GetComponent<PlayerUI>();
     }

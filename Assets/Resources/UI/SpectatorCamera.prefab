@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4615777282976588624}
-  - component: {fileID: 6786624945591740702}
+  - component: {fileID: 1130637194051382910}
   m_Layer: 0
-  m_Name: PlayerCamera
+  m_Name: SpectatorCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6786624945591740702
+--- !u!114 &1130637194051382910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,10 +43,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6447110946835875925}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffa0494520e9084f926fd53022c72bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 18def8a1a8f8b8c48af5cfaa3ab06d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetGroup: {fileID: 7319261845700747058}
 --- !u!1 &7319261845315823191
 GameObject:
   m_ObjectHideFlags: 0

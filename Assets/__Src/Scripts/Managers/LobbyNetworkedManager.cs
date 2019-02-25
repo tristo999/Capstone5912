@@ -14,16 +14,20 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
     public List<TextMeshProUGUI> PlayerNames = new List<TextMeshProUGUI>();
     public List<GameObject> ReadyObjects = new List<GameObject>();
     public Image ReadyWheel;
+    public TMP_InputField ServerName;
 
     private int waitFrame;
 
     public override void Attached() {
         Instance = this;
-
+        SceneLoader.Instance.CancelLoadScreen();
         // Todo: remove this once a way to set max players is established.
         if (entity.isOwner) {
             Debug.Log("Setting Max Players");
             state.MaxPlayers = 4;
+        } else {
+            // Add some stuff to change the lobby name for clients later.
+            ServerName.interactable = false;
         }
 
         state.AddCallback("Players[]", PlayersChanged);
@@ -44,6 +48,12 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
         if (state.GameStarting) {
             if (BoltNetwork.IsServer && BoltNetwork.ServerFrame >= waitFrame + 120) {
                 SceneLoader.Instance.StartLoadScreen();
+                LobbyProtocol lobbyProtocol = new LobbyProtocol();
+                lobbyProtocol.maxPlayers = state.MaxPlayers;
+                lobbyProtocol.currentPlayers = state.NumPlayers;
+                lobbyProtocol.inLobby = false;
+                lobbyProtocol.lobbyName = ServerName.text;
+                BoltNetwork.SetServerInfo(ServerName.text, lobbyProtocol);
                 BoltNetwork.LoadScene("WizardFightGame");
             } else {
                 if (!BoltNetwork.IsServer && BoltNetwork.ServerFrame >= waitFrame + 115) {
@@ -75,6 +85,14 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
     }
 
     private void PlayersChanged(Bolt.IState boltState, string path, Bolt.ArrayIndices indices) {
+        if (BoltNetwork.IsServer) {
+            LobbyProtocol lobbyProtocol = new LobbyProtocol();
+            lobbyProtocol.maxPlayers = state.MaxPlayers;
+            lobbyProtocol.currentPlayers = state.NumPlayers;
+            lobbyProtocol.inLobby = true;
+            lobbyProtocol.lobbyName = ServerName.text;
+            BoltNetwork.SetServerInfo(ServerName.text, lobbyProtocol);
+        }
         for (int i = 0; i < 8; i++) {
             if (i < state.NumPlayers) {
                 PlayerModels[i].SetActive(true);
@@ -122,5 +140,14 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
                 state.Players[i].Ready = false;
             }
         }
+    }
+
+    public void LobbyNameChange() {
+        LobbyProtocol lobbyProtocol = new LobbyProtocol();
+        lobbyProtocol.maxPlayers = state.MaxPlayers;
+        lobbyProtocol.currentPlayers = state.NumPlayers;
+        lobbyProtocol.inLobby = true;
+        lobbyProtocol.lobbyName = ServerName.text;
+        BoltNetwork.SetServerInfo(ServerName.text, lobbyProtocol);
     }
 }

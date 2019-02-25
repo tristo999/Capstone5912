@@ -13,7 +13,7 @@ public class BasicWandProjectile : Bolt.EntityBehaviour<IProjectileState>
 
     private void OnCollisionEnter(Collision collision) {
         if (!entity.isAttached || !entity.isOwner) return;
-        if (collision.gameObject.GetComponent<BoltEntity>()) {
+        if (collision.gameObject.GetComponent<BoltEntity>() && collision.gameObject.GetComponent<BoltEntity>().isAttached) {
             DamageEntity DamageEntity = DamageEntity.Create(collision.gameObject.GetComponent<BoltEntity>());
             DamageEntity.Damage = damage;
             DamageEntity.Send();

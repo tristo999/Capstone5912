@@ -47,6 +47,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     private void UpdateCompassDirection()
     {
+        if (!entity.isOwner) return;
         Vector2 direction = new Vector2(-transform.position.x, -transform.position.z);
         float angle = Vector2.Angle(direction, new Vector2(1, 0)) - 90;
         if (transform.position.z > 0)

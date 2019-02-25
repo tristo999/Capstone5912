@@ -45,6 +45,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void ActiveIdChanged() {
+        if (state.ActiveId < 0) return;
         ItemDefinition item = ItemManager.Instance.items[state.ActiveId];
         state.Health += item.HealthModifier;
         state.Speed += item.SpeedModifier;
