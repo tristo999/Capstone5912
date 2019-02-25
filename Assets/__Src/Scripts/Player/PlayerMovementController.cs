@@ -8,6 +8,8 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
     private Rigidbody rb;
     public float BaseSpeed;
+    public float BaseAccel;
+    public float BaseFriction;
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
     private Player localPlayer;
     private InteractiveObject objectInFocus;
@@ -54,7 +56,33 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         float moveHorizontal = localPlayer.GetAxis("Horizontal");
         float moveVertical = localPlayer.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.MovePosition(transform.position + movement * BaseSpeed * Time.deltaTime * state.Speed);
+
+        UpdateMovementFriction();
+        UpdateMovementInputAcceleration(movement);
+    }
+
+    private void UpdateMovementFriction()
+    {
+        float speed = rb.velocity.magnitude;
+        if (speed != 0) 
+        {
+            float drop = speed * BaseFriction * Time.deltaTime;
+            rb.velocity *= Mathf.Max(speed - drop, 0) / speed; 
+        }
+    }
+
+    private void UpdateMovementInputAcceleration(Vector3 movement)
+    {
+        Vector3 accelDir = movement.normalized;
+        float accelAmount = Mathf.Min(movement.magnitude, 1) * state.Speed * BaseSpeed * BaseAccel;
+        float maxVelocity = state.Speed * BaseSpeed;
+
+        float projVel = Vector3.Dot(rb.velocity, accelDir);
+        float accelVel = accelAmount * Time.deltaTime;
+
+        if (projVel + accelVel > maxVelocity) accelVel = maxVelocity - projVel;
+
+        rb.velocity = rb.velocity + accelDir * accelVel;
     }
 
     private void DoLook() {
