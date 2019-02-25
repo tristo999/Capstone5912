@@ -16,7 +16,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
         GameMaster.Instantiate();
         GenerationManager.Instantiate();
         Physics.autoSimulation = false;
-        GenerationManager.instance.GenerateStemmingMaze();
+        GenerationManager.instance.GenerateStemmingMazeGraph();
         readyConnections++;
         TryStartMatch();
     }
@@ -47,7 +47,8 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
                 spawnPlayer.PlayerId = player.PlayerId;
                 spawnPlayer.Name = player.PlayerName;
                 spawnPlayer.Color = player.PlayerColor;
-                Vector3 pos = GenerationManager.instance.rooms[Random.Range(0, GenerationManager.instance.rooms.Count)].transform.position + new Vector3(GenerationManager.instance.roomSize / 2, 2, GenerationManager.instance.roomSize / 2);
+                Vector3 pos = GenerationManager.instance.SpawnPositions(1)[0];
+                //Vector3 pos = GenerationManager.instance.rooms[Random.Range(0, GenerationManager.instance.rooms.Count)].transform.position + new Vector3(GenerationManager.instance.roomSize / 2, 2, GenerationManager.instance.roomSize / 2);
                 spawnPlayer.Position = pos;
                 spawnPlayer.Send();
             }
