@@ -14,11 +14,15 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     private Player localPlayer;
     private InteractiveObject objectInFocus;
     private PlayerUI playerUI;
+    private Animator anim;
 
     public override void Attached()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
         state.SetTransforms(state.transform, transform, RenderTransform);
+        state.SetAnimator(anim);
+        anim.applyRootMotion = entity.isOwner;
         if (entity.isOwner)
             playerUI = GetComponent<PlayerUI>();
     }
@@ -59,6 +63,9 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
         UpdateMovementFriction();
         UpdateMovementInputAcceleration(movement);
+
+        state.ForwardMovement = Vector3.Dot(rb.velocity, transform.forward) / (state.Speed * BaseSpeed);
+        state.RightMovement = Vector3.Dot(rb.velocity, transform.right) / (state.Speed * BaseSpeed);
     }
 
     private void UpdateMovementFriction()

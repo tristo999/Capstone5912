@@ -7,6 +7,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
 {
     public Canvas HealthCanvas;
     public float StartingHealth;
+    public Renderer robeAndHat;
     private PlayerMovementController movementController;
     private TextMeshProUGUI healthText;
     private PlayerUI ui;
@@ -61,7 +62,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void ColorChanged() {
-        GetComponentInChildren<Renderer>().material.color = state.Color;
+        robeAndHat.material.color = state.Color;
     }
 
     private void HealthChanged() {
