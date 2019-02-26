@@ -6,6 +6,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 {
     public ActiveItem activeItem;
     public Weapon wizardWeapon;
+    private Transform playerHand;
 
     private List<HeldPassive> passiveItems = new List<HeldPassive>();
 
@@ -21,7 +22,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
         state.OnActiveDown += ActiveDownTrigger;
         state.OnActiveHold += ActiveHoldTrigger;
         state.OnActiveRelease += ActiveReleaseTrigger;
-
+        playerHand = GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.RightHand);
         StartCoroutine("WaitForItemManager");
     }
 
@@ -45,7 +46,11 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
         DropWeapon();
         if (state.WeaponId >= 0) {
             Debug.Log(state.WeaponId);
-            GameObject newWep = Instantiate(ItemManager.Instance.items[state.WeaponId].HeldModel, transform);
+            Vector3 handOffset = new Vector3(-2.65f, -1.7f, .63f);
+            Quaternion handRotation = Quaternion.Euler(-26.35f, -13.78f, -31.65f);
+            GameObject newWep = Instantiate(ItemManager.Instance.items[state.WeaponId].HeldModel, playerHand);
+            newWep.transform.localPosition = handOffset;
+            newWep.transform.localRotation = handRotation;
             newWep.GetComponent<HeldItem>().Id = state.WeaponId;
             wizardWeapon = newWep.GetComponent<Weapon>();
             wizardWeapon.Owner = this;

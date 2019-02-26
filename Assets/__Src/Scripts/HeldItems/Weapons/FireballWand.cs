@@ -29,11 +29,11 @@ public class FireballWand : Weapon
             Owner.state.Speed -= 0.75f;
             beganFiring = true;
         }
-        spawnPos = transform.position + transform.forward * 1.2f + Vector3.up * .6f;
+        spawnPos = transform.position + Owner.transform.forward * 1.2f + Vector3.up * .6f;
         if (currentVelocity < MaxLaunchVelocity * Owner.state.ProjectileSpeed)
             currentVelocity += 0.05f * Owner.state.ProjectileSpeed;
         Vector3[] positions = new Vector3[PointsInArc];
-        Vector3 dir = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity + Owner.GetComponent<Rigidbody>().velocity * .8f;
+        Vector3 dir = (Quaternion.AngleAxis(-Angle, Owner.transform.right) * Owner.transform.forward).normalized * currentVelocity + Owner.GetComponent<Rigidbody>().velocity * .8f;
         float timeToImpact = TimeOfImpact(dir);
         float step = timeToImpact / PointsInArc;
         for (int i = 0; i < PointsInArc; i++) {
@@ -55,8 +55,8 @@ public class FireballWand : Weapon
         timer = FireTime * Owner.state.FireRate;
         if (Owner.entity.isOwner) {
             BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
-            proj.GetComponent<FireballWandProjectile>().owner = transform.parent.gameObject;
-            proj.GetComponent<Rigidbody>().velocity = (Quaternion.AngleAxis(-Angle, transform.right) * transform.forward).normalized * currentVelocity;
+            proj.GetComponent<FireballWandProjectile>().owner = Owner.gameObject;
+            proj.GetComponent<Rigidbody>().velocity = (Quaternion.AngleAxis(-Angle, Owner.transform.right) * Owner.transform.forward).normalized * currentVelocity;
         }
     }
 

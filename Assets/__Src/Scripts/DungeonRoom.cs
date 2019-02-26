@@ -9,9 +9,19 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     public GameObject eastWall;
     public GameObject southWall;
     public GameObject westWall;
+    public GameObject northWallFlat;
+    public GameObject eastWallFlat;
+    public GameObject southWallFlat;
+    public GameObject westWallFlat;
+    public GameObject northWallDestroyed;
+    public GameObject eastWallDestroyed;
+    public GameObject southWallDestroyed;
+    public GameObject westWallDestroyed;
     public GameObject carpet;
     [Range(0.0f,1.0f)]
     public float chanceDestroyCarpet;
+
+    public enum WallState { Door=1, Open=2, Closed=0, Destroyed=3 }
 
     public override void Attached() {
         if (entity.isOwner) {
@@ -23,11 +33,6 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
             }
         }
 
-        state.NorthWall = true;
-        state.EastWall = true;
-        state.SouthWall = true;
-        state.WestWall = true;
-
         state.AddCallback("NorthWall", NorthWallChange);
         state.AddCallback("SouthWall", SouthWallChange);
         state.AddCallback("EastWall", EastWallChange);
@@ -37,26 +42,63 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     }
 
     private void NorthWallChange() {
-        Debug.Log("Wall Changed: " + state.NorthWall);
-        northWall.SetActive(state.NorthWall);
+        WallState wallState = (WallState)state.NorthWall;
+        Debug.LogFormat("Set north wall to: {0}", wallState.ToString());
+        northWall.SetActive(false);
+        northWallFlat.SetActive(false);
+        northWallDestroyed.SetActive(false);
+        if (wallState == WallState.Open) {
+            northWall.SetActive(true);
+        } else if (wallState == WallState.Closed) {
+            northWallFlat.SetActive(true);
+        } else if (wallState == WallState.Destroyed) {
+            northWallDestroyed.SetActive(true);
+        }
     }
 
     private void EastWallChange() {
-        Debug.Log("Wall Changed: " + state.EastWall);
-
-        eastWall.SetActive(state.NorthWall);
+        WallState wallState = (WallState)state.EastWall;
+        Debug.LogFormat("Set east wall to: {0}", wallState.ToString());
+        eastWall.SetActive(false);
+        eastWallFlat.SetActive(false);
+        eastWallDestroyed.SetActive(false);
+        if (wallState == WallState.Open) {
+            eastWall.SetActive(true);
+        } else if (wallState == WallState.Closed) {
+            eastWallFlat.SetActive(true);
+        } else if (wallState == WallState.Destroyed) {
+            eastWallDestroyed.SetActive(true);
+        }
     }
 
     private void SouthWallChange() {
-        Debug.Log("Wall Changed: " + state.SouthWall);
-
-        southWall.SetActive(state.NorthWall);
+        WallState wallState = (WallState)state.SouthWall;
+        Debug.LogFormat("Set south wall to: {0}", wallState.ToString());
+        southWall.SetActive(false);
+        southWallFlat.SetActive(false);
+        southWallDestroyed.SetActive(false);
+        if (wallState == WallState.Open) {
+            southWall.SetActive(true);
+        } else if (wallState == WallState.Closed) {
+            southWallFlat.SetActive(true);
+        } else if (wallState == WallState.Destroyed) {
+            southWallDestroyed.SetActive(true);
+        }
     }
 
     private void WestWallChange() {
-        Debug.Log("Wall Changed: " + state.WestWall);
-
-        westWall.SetActive(state.NorthWall);
+        WallState wallState = (WallState)state.WestWall;
+        Debug.LogFormat("Set west wall to: {0}", wallState.ToString());
+        westWall.SetActive(false);
+        westWallFlat.SetActive(false);
+        westWallDestroyed.SetActive(false);
+        if (wallState == WallState.Open) {
+            westWall.SetActive(true);
+        } else if (wallState == WallState.Closed) {
+            westWallFlat.SetActive(true);
+        } else if (wallState == WallState.Destroyed) {
+            westWallDestroyed.SetActive(true);
+        }
     }
 
     private void CarpetChange() {

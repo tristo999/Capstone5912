@@ -49,7 +49,7 @@ MonoBehaviour:
   MaxLaunchVelocity: 15
   Angle: 60
   PointsInArc: 100
-  projectile: {fileID: 213, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
+  projectile: {fileID: 228, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
   FireTime: 1.25
 --- !u!120 &7119080873938650761
 LineRenderer:
@@ -170,13 +170,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8692606276666135787}
-  m_LocalRotation: {x: 0.34719568, y: -0, z: -0, w: 0.9377928}
-  m_LocalPosition: {x: 0.501, y: 0.907, z: 0.442}
-  m_LocalScale: {x: 0.099999994, y: 0.50000006, z: 0.10000001}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 7711465964295657296}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 40.632004, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1141550541920915092
 MeshFilter:
   m_ObjectHideFlags: 0

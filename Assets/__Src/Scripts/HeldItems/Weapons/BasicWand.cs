@@ -21,7 +21,7 @@ public class BasicWand : Weapon
             spawnPos.y += .8f;
             BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
             proj.GetComponent<BasicWandProjectile>().owner = Owner.gameObject;
-            proj.GetComponent<Rigidbody>().velocity = transform.forward * launchVelocity * Owner.state.ProjectileSpeed + Owner.GetComponent<Rigidbody>().velocity * .8f;
+            proj.GetComponent<Rigidbody>().velocity = Owner.transform.forward * launchVelocity * Owner.state.ProjectileSpeed + Owner.GetComponent<Rigidbody>().velocity * .2f;
             timer = FireTime * Owner.state.FireRate;
         } 
     }

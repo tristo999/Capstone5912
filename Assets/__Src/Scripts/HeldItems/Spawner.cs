@@ -14,7 +14,6 @@ public class Spawner : MonoBehaviour
     }
     
     GameObject SpawnObject(GameObject[] prefabs){
-        Debug.LogFormat("Attempting to spawn from {0}", folder);
         Transform pos = GetComponent<Transform>();
         GameObject toSpawn = prefabs[Random.Range(0, prefabs.Length)];
         if (toSpawn.GetComponent<BoltEntity>())
