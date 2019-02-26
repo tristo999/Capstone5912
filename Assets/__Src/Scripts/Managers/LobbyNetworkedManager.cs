@@ -35,7 +35,7 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
     }
 
     public override void SimulateOwner() {
-        if (state.NumPlayers > 1 && state.Players.All(p => p.Ready ||  !p.Present)) {
+        if (state.NumPlayers > 0 && state.Players.All(p => p.Ready ||  !p.Present)) {
             state.GameStarting = true;
         } else if (state.GameStarting) {
             state.GameStarting = false;
