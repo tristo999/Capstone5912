@@ -34,7 +34,6 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         state.SetTransforms(state.transform, transform);
         enemyAnimator = GetComponentInChildren<Animator>();
         state.SetAnimator(enemyAnimator);
-        enemyAnimator.applyRootMotion = entity.isOwner;
 
         if (!entity.isOwner) return;
         state.Health = 5f;

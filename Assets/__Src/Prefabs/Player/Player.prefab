@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &212
+--- !u!1 &227
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,14 +8,14 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 532}
-  - component: {fileID: 1188}
-  - component: {fileID: 1286}
-  - component: {fileID: 1347}
-  - component: {fileID: 1359}
-  - component: {fileID: 1358}
-  - component: {fileID: 1342}
-  - component: {fileID: 1362}
+  - component: {fileID: 598}
+  - component: {fileID: 1322}
+  - component: {fileID: 1439}
+  - component: {fileID: 1506}
+  - component: {fileID: 1536}
+  - component: {fileID: 1535}
+  - component: {fileID: 1501}
+  - component: {fileID: 1539}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -23,13 +23,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &532
+--- !u!4 &598
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212}
+  m_GameObject: {fileID: 227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -38,13 +38,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &1188
+--- !u!54 &1322
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212}
+  m_GameObject: {fileID: 227}
   serializedVersion: 2
   m_Mass: 50
   m_Drag: 0
@@ -54,13 +54,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &1286
+--- !u!136 &1439
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212}
+  m_GameObject: {fileID: 227}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -68,13 +68,13 @@ CapsuleCollider:
   m_Height: 2.325
   m_Direction: 1
   m_Center: {x: 0, y: 1.155, z: 0}
---- !u!114 &1347
+--- !u!114 &1506
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212}
+  m_GameObject: {fileID: 227}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 929aeecf1c1bbac4289af9a5061b8f2e, type: 3}
@@ -84,13 +84,13 @@ MonoBehaviour:
   BaseAccel: 15
   BaseFriction: 6
   RenderTransform: {fileID: 7021021104516568779}
---- !u!114 &1359
+--- !u!114 &1536
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212}
+  m_GameObject: {fileID: 227}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37db5f9a280fbcc45ae748ba7c6993b5, type: 3}
@@ -100,13 +100,13 @@ MonoBehaviour:
     type: 3}
   StartingHealth: 100
   robeAndHat: {fileID: 7021021104528164781}
---- !u!114 &1358
+--- !u!114 &1535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212}
+  m_GameObject: {fileID: 227}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c4891b6f7590d24488c4f3a8a57c962, type: 3}
@@ -114,13 +114,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeItem: {fileID: 0}
   wizardWeapon: {fileID: 0}
---- !u!114 &1342
+--- !u!114 &1501
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212}
+  m_GameObject: {fileID: 227}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -36112512, guid: 5b00bf8b25851d440940a40ec23344f4, type: 3}
@@ -143,13 +143,13 @@ MonoBehaviour:
   _entityBehaviourQueryOption: 0
   _entityPriorityCalculatorQueryOption: 0
   _entityReplicationFilterQueryOption: 0
---- !u!114 &1362
+--- !u!114 &1539
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212}
+  m_GameObject: {fileID: 227}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bee493de6305a7e4983c5b5e75b29209, type: 3}
@@ -160,7 +160,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 532}
+    m_TransformParent: {fileID: 598}
     m_Modifications:
     - target: {fileID: 100068, guid: 3295502fa21058840a96bf552e490129, type: 3}
       propertyPath: m_Name

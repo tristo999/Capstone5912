@@ -22,7 +22,6 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         anim = GetComponentInChildren<Animator>();
         state.SetTransforms(state.transform, transform, RenderTransform);
         state.SetAnimator(anim);
-        anim.applyRootMotion = entity.isOwner;
         if (entity.isOwner)
             playerUI = GetComponent<PlayerUI>();
     }

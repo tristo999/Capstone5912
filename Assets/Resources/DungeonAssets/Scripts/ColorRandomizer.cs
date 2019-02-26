@@ -30,6 +30,6 @@ public class ColorRandomizer : Bolt.EntityBehaviour<IColoredRoomObject>
 
         //Set the main Color of the Material to green
         //rend.material.shader = Shader.Find("HDRP/Lit");
-        rend.material.SetColor("_BaseColor", state.Color); 
+        rend.material.color = state.Color;
     }
 }

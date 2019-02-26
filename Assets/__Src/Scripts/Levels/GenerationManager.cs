@@ -24,6 +24,9 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public List<DungeonRoom> rooms = new List<DungeonRoom>();
 
     public float roomSize;
+    [Range(0f,1f)]
+    public float wallKnockoutChance;
+    public int amountWallsKnockout;
 
     private bool[,] dungeon;
     private GameObject mazeObject;
@@ -47,44 +50,28 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
     public void GenerateStemmingMazeGraph() {
         dungeonGraph = new AdjacencyGraph<DungeonRoom, Edge<DungeonRoom>>();
+        GenerateStemmingMaze();
 
-        DungeonRoom centerRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], Vector3.zero, Quaternion.identity).GetComponent<DungeonRoom>();
-        centerRoom.DistanceFromCenter = 0;
-        dungeonGraph.AddVertex(centerRoom);
+        DungeonRoom centerRoom;
 
-        for (int i = 0; i < generationAttempts; i++) {
-            IEnumerable<DungeonRoom> possibleRooms = dungeonGraph.Vertices.Where(v => dungeonGraph.OutEdges(v).Count() < 4);
-            DungeonRoom chosenRoom = possibleRooms.ToArray()[Random.Range(0, possibleRooms.Count())];
-            IEnumerable<Edge<DungeonRoom>> edges = dungeonGraph.OutEdges(chosenRoom);
-            List<int> openEdges = new List<int>(new int[]{0, 1, 2, 3});
-            foreach (Edge<DungeonRoom> edge in edges) {
-                TaggedEdge<DungeonRoom, int> taggedEdge = (TaggedEdge<DungeonRoom, int>)edge;
-                if (openEdges.Contains(taggedEdge.Tag)) {
-                    openEdges.Remove(taggedEdge.Tag);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                Vector3 pos = new Vector3(i, 0, j) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
+                DungeonRoom room = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity).GetComponent<DungeonRoom>();
+                if (i == width/2 && j == height/2) {
+                    centerRoom = room;
+                    centerRoom.DistanceFromCenter = 0;
                 }
-            }
-            int chosenEdge = openEdges[Random.Range(0, openEdges.Count)];
-            Vector3 position = chosenRoom.transform.position;
-            if (chosenEdge == 0) {
-                position.z += roomSize;
-            } else if (chosenEdge == 1) {
-                position.x += roomSize;
-            } else if (chosenEdge == 2) {
-                position.z -= roomSize;
-            } else {
-                position.x -= roomSize;
-            }
-            DungeonRoom newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], position, Quaternion.identity).GetComponent<DungeonRoom>();
-
-            var newEdge = new TaggedEdge<DungeonRoom, int>(chosenRoom, newRoom, chosenEdge);
-            dungeonGraph.AddVerticesAndEdge(newEdge);
-        }
-        System.Func<Edge<DungeonRoom>, double> edgeCost = e => 1;
-        TryFunc<DungeonRoom, IEnumerable<Edge<DungeonRoom>>> tryGetPaths = dungeonGraph.ShortestPathsDijkstra(edgeCost, centerRoom);
-        foreach (DungeonRoom room in dungeonGraph.Vertices) {
-            IEnumerable<Edge<DungeonRoom>> path;
-            if (tryGetPaths(room, out path)) {
-                room.DistanceFromCenter = path.Count();
+                dungeonGraph.AddVertex(room);
+                try {
+                    for (int a = -1; a <= 1; a++) {
+                        for (int b = -1; b <= 1; b++) {
+                            if (dungeon[i+a,j+b]) {
+                                //dungeonGraph.AddEdge()
+                            }
+                        }
+                    }
+                } catch (System.IndexOutOfRangeException e) {}
             }
         }
     }
@@ -101,13 +88,13 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         if (mazeObject != null) {
             Destroy(mazeObject);
         }
-        mazeObject = new GameObject();
+        //mazeObject = new GameObject();
         dungeon = new bool[width, height];
         dungeon[width / 2, height / 2] = true;
-        GameObject obj = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], Vector3.zero, Quaternion.identity);
-        DungeonRoom centerRoom = obj.GetComponent<DungeonRoom>();
-        centerRoom.DistanceFromCenter = 0;
-        rooms.Add(centerRoom);
+        //GameObject obj = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], Vector3.zero, Quaternion.identity);
+        //DungeonRoom centerRoom = obj.GetComponent<DungeonRoom>();
+        //centerRoom.DistanceFromCenter = 0;
+        //rooms.Add(centerRoom);
 
         for (int i = 0; i < generationAttempts; i++) {
             Vector2 existingCell = randomExistingNotSurrounded();
@@ -116,16 +103,16 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             dungeon[(int)newCell.x, (int)newCell.y] = true;
             int mirrorX = width - 1 - (int)newCell.x;
             int mirrorY = height - 1 - (int)newCell.y;
-            Vector3 pos = new Vector3(newCell.x, 0, newCell.y) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
-            GameObject newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
-            DungeonRoom room = newRoom.GetComponent<DungeonRoom>();
-            rooms.Add(room);
+            //Vector3 pos = new Vector3(newCell.x, 0, newCell.y) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
+            //GameObject newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+            //DungeonRoom room = newRoom.GetComponent<DungeonRoom>();
+            //rooms.Add(room);
             if (adjacentToRoom(mirrorX, mirrorY) && Random.Range(0.0f, 1.0f) > .05f) {
                 dungeon[mirrorX, mirrorY] = true;
-                pos = new Vector3(mirrorX, 0, mirrorY) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize); 
-                newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
-                room = newRoom.GetComponent<DungeonRoom>();
-                rooms.Add(room);
+                //pos = new Vector3(mirrorX, 0, mirrorY) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize); 
+                //newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+                //room = newRoom.GetComponent<DungeonRoom>();
+                //rooms.Add(room);
             }
         }
     }
