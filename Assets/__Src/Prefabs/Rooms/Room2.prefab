@@ -2813,8 +2813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648392caf02643142b601fa09234ebf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 212, guid: a9a0043841421214b8e3d3589b443cff, type: 3}
-  ChanceSpawn: 0.1
+  entity: {fileID: 0}
+  ChanceSpawn: 1
 --- !u!54 &8328265575605938688
 Rigidbody:
   m_ObjectHideFlags: 0

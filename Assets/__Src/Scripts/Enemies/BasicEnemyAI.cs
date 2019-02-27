@@ -29,6 +29,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     public bool inHitRange;
     public Animator enemyAnimator;
     private bool attackStarted;
+    public GameObject chest;
 
     public override void Attached() {
         state.SetTransforms(state.transform, transform);
@@ -72,6 +73,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     
     private void HealthChanged() {
         if (state.Health <= 0f) {
+            BoltNetwork.Instantiate(chest, new Vector3 (transform.position.x, 0, transform.position.z), transform.rotation);
             BoltNetwork.Destroy(entity);
         }
     }
@@ -95,6 +97,10 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         if (currentPlayer && !inAttackRange) {
             nav.SetDestination(currentPlayer.transform.position);
             nav.isStopped = false;
+        } else
+        {
+            nav.SetDestination(transform.position);
+            nav.isStopped = true;
         }
 
         if (!currentPlayer) {
