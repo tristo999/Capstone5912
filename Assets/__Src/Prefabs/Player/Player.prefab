@@ -61,7 +61,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: bbb0cc5396d9e314fbe0d53a2c9a4b4b, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.35
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseSpeed: 10
   BaseAccel: 15
-  BaseFriction: 6
+  BaseFriction: 8
   RenderTransform: {fileID: 7021021104516568779}
 --- !u!114 &1536
 MonoBehaviour:
@@ -114,7 +114,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeItem: {fileID: 0}
   wizardWeapon: {fileID: 0}
-  playerHand: {fileID: 0}
 --- !u!114 &1501
 MonoBehaviour:
   m_ObjectHideFlags: 0
