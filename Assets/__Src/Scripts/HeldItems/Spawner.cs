@@ -17,9 +17,9 @@ public class Spawner : MonoBehaviour
         Transform pos = GetComponent<Transform>();
         GameObject toSpawn = prefabs[Random.Range(0, prefabs.Length)];
         if (toSpawn.GetComponent<BoltEntity>())
-            return BoltNetwork.Instantiate(toSpawn, transform.position, Quaternion.identity);
+            return BoltNetwork.Instantiate(toSpawn, transform.position, transform.rotation);
         else
-            return Instantiate(toSpawn, transform.position, Quaternion.identity);
+            return Instantiate(toSpawn, transform.position, transform.rotation);
     }
 
     void Awake(){
