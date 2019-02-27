@@ -121,6 +121,7 @@ Transform:
   - {fileID: 634}
   - {fileID: 653}
   - {fileID: 631}
+  - {fileID: 4618432686793720710}
   - {fileID: 8634248066009787897}
   - {fileID: 8137031662138132783}
   - {fileID: 6143340326658701894}
@@ -170,8 +171,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 19, y: 10, z: 19}
-  m_Center: {x: 10, y: 5, z: 10}
+  m_Size: {x: 28.5, y: 15, z: 28.5}
+  m_Center: {x: 15, y: 7.5, z: 15}
 --- !u!114 &1617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5042,6 +5043,51 @@ Transform:
   m_Father: {fileID: 640}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4182486697864351813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4618432686793720710}
+  - component: {fileID: 4676744474479018099}
+  m_Layer: 0
+  m_Name: LightSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4618432686793720710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4182486697864351813}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.0000059604645}
+  m_LocalPosition: {x: 16.15, y: 0, z: 16.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 641}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 539.999, z: 0}
+--- !u!114 &4676744474479018099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4182486697864351813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948bc558fcb05594ba9e60118b3fde42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  folder: DungeonAssets/Clusters/LightClusters
+  debug: 1
 --- !u!1 &5055211653844175992
 GameObject:
   m_ObjectHideFlags: 0
@@ -7562,7 +7608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9bd705eb80ed0540abdd82316724f13, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9bd705eb80ed0540abdd82316724f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7783,7 +7829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9bd705eb80ed0540abdd82316724f13, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9bd705eb80ed0540abdd82316724f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9796,7 +9842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9bd705eb80ed0540abdd82316724f13, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9bd705eb80ed0540abdd82316724f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9956,7 +10002,7 @@ PrefabInstance:
     - target: {fileID: 3419393234617980408, guid: 1eb38f0eb72b09e4dbfeda3f108ff943,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3419393234617980408, guid: 1eb38f0eb72b09e4dbfeda3f108ff943,
         type: 3}
@@ -10404,7 +10450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9bd705eb80ed0540abdd82316724f13, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9bd705eb80ed0540abdd82316724f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10625,7 +10671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9bd705eb80ed0540abdd82316724f13, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9bd705eb80ed0540abdd82316724f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

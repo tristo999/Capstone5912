@@ -20,10 +20,13 @@ public abstract class DroppedItem : InteractiveObject
 
     private void Update() {
         if (nameText == null) return;
-        nameText.transform.position = transform.position + Vector3.up * .5f;
-        descriptionText.transform.position = transform.position + Vector3.up * .2f;
+        nameText.transform.position = transform.position + Vector3.up * 1.5f;
+        descriptionText.transform.position = transform.position + Vector3.up * .6f;
         nameText.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
         descriptionText.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+
+        nameText.transform.position = transform.position + nameText.transform.up * .4f; // TEMP since I can't keep working right now.
+        descriptionText.transform.position = transform.position + nameText.transform.up * (-.4f);
     }
 
     public override void FocusGained() {
