@@ -168,14 +168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2577d3c6ecf66924d9d1aa7a7460c2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nav: {fileID: 0}
-  currentPlayer: {fileID: 0}
-  intPosition: {x: 0, y: 0, z: 0}
   roomWidth: 30
   attackTimer: 0
   attackCooldown: 5
   animationLength: 1
   animationTimer: 0
+  attackDamage: 3
   inAttackRange: 0
   inHitRange: 0
   enemyAnimator: {fileID: 0}
@@ -853,14 +851,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2577d3c6ecf66924d9d1aa7a7460c2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nav: {fileID: 0}
-  currentPlayer: {fileID: 0}
-  intPosition: {x: 0, y: 0, z: 0}
   roomWidth: 30
   attackTimer: 0
   attackCooldown: 5
   animationLength: 1
   animationTimer: 0
+  attackDamage: 3
   inAttackRange: 0
   inHitRange: 0
   enemyAnimator: {fileID: 0}
@@ -2103,14 +2099,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2577d3c6ecf66924d9d1aa7a7460c2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nav: {fileID: 0}
-  currentPlayer: {fileID: 0}
-  intPosition: {x: 0, y: 0, z: 0}
   roomWidth: 30
   attackTimer: 0
   attackCooldown: 5
   animationLength: 1
   animationTimer: 0
+  attackDamage: 3
   inAttackRange: 0
   inHitRange: 0
   enemyAnimator: {fileID: 0}
@@ -6738,6 +6732,10 @@ PrefabInstance:
     - target: {fileID: 464, guid: a9a0043841421214b8e3d3589b443cff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1542, guid: a9a0043841421214b8e3d3589b443cff, type: 3}
+      propertyPath: _sceneGuid
+      value: 3f65c6aa-b2ae-411f-9c8d-8455ba3f1fee
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9a0043841421214b8e3d3589b443cff, type: 3}
