@@ -30,6 +30,8 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     private TextMeshProUGUI healthTextElement;
     private TextMeshProUGUI weaponSlotNameTextElement;
     private TextMeshProUGUI activeItemSlotNameTextElement;
+    private TextMeshProUGUI itemNameTextElement;
+    private TextMeshProUGUI itemDescriptionTextElement;
 
     public override void ControlGained() {
         GameObject pref = Resources.Load<GameObject>("UI/PlayerUI");
@@ -42,6 +44,8 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         healthTextElement = GetCanvasChildByName("Health").GetComponentInChildren<TextMeshProUGUI>();
         weaponSlotNameTextElement = GetCanvasChildByName("Weapon Slot").GetComponentInChildren<TextMeshProUGUI>();
         activeItemSlotNameTextElement = GetCanvasChildByName("Active Item Slot").GetComponentInChildren<TextMeshProUGUI>();
+        itemNameTextElement = GetCanvasChildByName("Item Name").GetComponentInChildren<TextMeshProUGUI>();
+        itemDescriptionTextElement = GetCanvasChildByName("Item Description").GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public void SetHealth(float health) {
@@ -69,6 +73,21 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         else
         {
             activeItemSlotNameTextElement.text = EMPTY_SLOT_TEXT;
+        }
+    }
+
+    public void SetItemFullDescription(int itemId)
+    {
+        if (itemId >= 0)
+        {
+            ItemDefinition item = ItemManager.Instance.items[itemId];
+            itemNameTextElement.text = item.ItemName;
+            itemDescriptionTextElement.text = item.ItemDescription;
+        }
+        else
+        {
+            itemNameTextElement.text = "";
+            itemDescriptionTextElement.text = "";
         }
     }
 

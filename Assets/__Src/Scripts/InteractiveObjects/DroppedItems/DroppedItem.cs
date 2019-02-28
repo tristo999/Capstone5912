@@ -9,10 +9,7 @@ public abstract class DroppedItem : InteractiveObject
     public int Id { get; set; }
 
     public GameObject ItemNameText;
-    public GameObject ItemDescriptionText;
-
     private TextMeshPro nameText;
-    private TextMeshPro descriptionText;
 
     private void Start() {
         
@@ -21,27 +18,19 @@ public abstract class DroppedItem : InteractiveObject
     private void Update() {
         if (nameText == null) return;
         nameText.transform.position = transform.position + Vector3.up * 1.5f;
-        descriptionText.transform.position = transform.position + Vector3.up * .6f;
         nameText.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-        descriptionText.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
 
-        nameText.transform.position = transform.position + nameText.transform.up * .4f; // TEMP since I can't keep working right now.
-        descriptionText.transform.position = transform.position + nameText.transform.up * (-.4f);
+        nameText.transform.position = transform.position + nameText.transform.up * .4f; 
     }
 
     public override void FocusGained() {
         nameText = Instantiate(ItemNameText).GetComponent<TextMeshPro>();
-        descriptionText = Instantiate(ItemDescriptionText).GetComponent<TextMeshPro>();
         nameText.text = ItemManager.Instance.items[Id].ItemName;
-        descriptionText.text = ItemManager.Instance.items[Id].ItemDescription;
         base.FocusGained();
     }
 
     public override void FocusLost() {
-        if (descriptionText != null)
-            Destroy(descriptionText.gameObject);
-        if (nameText != null)
-            Destroy(nameText.gameObject);
+        if (nameText != null) Destroy(nameText.gameObject);
         base.FocusLost();
     }
 
@@ -57,18 +46,12 @@ public abstract class DroppedItem : InteractiveObject
 
     public override void OnEvent(DestroyPickup evnt)
     {
-        if (descriptionText != null)
-            Destroy(descriptionText.gameObject);
-        if (nameText != null)
-            Destroy(nameText.gameObject);
+        if (nameText != null) Destroy(nameText.gameObject);
         BoltNetwork.Destroy(gameObject);
     }
 
     private void IdChanged() {
         Id = state.ItemId;
-        if (descriptionText != null)
-            descriptionText.text = ItemManager.Instance.items[Id].ItemDescription;
-        if (nameText != null)
-            nameText.text = ItemManager.Instance.items[Id].ItemName;
+        if (nameText != null) nameText.text = ItemManager.Instance.items[Id].ItemName;
     }
 }

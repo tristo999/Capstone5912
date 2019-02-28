@@ -12,8 +12,34 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     private Rigidbody rb;
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
     private Player localPlayer;
-    private InteractiveObject objectInFocus;
-    private PlayerUI playerUI;
+
+    private InteractiveObject objectInFocusField;
+    private InteractiveObject ObjectInFocus
+    {
+        get
+        {
+            return objectInFocusField;
+        }
+        set
+        {
+            objectInFocusField = value;
+
+            // Update item description in UI.
+            if (entity.hasControl)
+            {
+                if (value is DroppedItem)
+                {
+                    ui.SetItemFullDescription(((DroppedItem)value).Id);
+                }
+                else
+                {
+                    ui.SetItemFullDescription(-1);
+                }
+            }
+        }
+    }
+
+    private PlayerUI ui;
     private Animator anim;
     private bool thirdPerson;
 
@@ -23,8 +49,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         anim = GetComponentInChildren<Animator>();
         state.SetTransforms(state.transform, transform, RenderTransform);
         state.SetAnimator(anim);
-        if (entity.isOwner)
-            playerUI = GetComponent<PlayerUI>();
+        if (entity.isOwner) ui = GetComponent<PlayerUI>();
     }
 
     public void Update() {
@@ -133,23 +158,31 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
         // Update Highlights.
         if (closest != null) {
-            if (objectInFocus != null && objectInFocus != closest) {
-                objectInFocus.FocusLost();
-                objectInFocus = closest;
-                objectInFocus.FocusGained();
-            } else if (objectInFocus == null) {
-                objectInFocus = closest;
+            if (ObjectInFocus != null && ObjectInFocus != closest) {
+                ObjectInFocus.FocusLost();
+                ObjectInFocus = closest;
+                ObjectInFocus.FocusGained();
+            } else if (ObjectInFocus == null) {
+                ObjectInFocus = closest;
                 closest.FocusGained();
             }
-        } else if (objectInFocus != null) {
-            objectInFocus.FocusLost();
-            objectInFocus = null;
+        } else if (ObjectInFocus != null) {
+            ObjectInFocus.FocusLost();
+            ObjectInFocus = null;
         }
     }
 
     private void DoInteract() {
-        if (objectInFocus != null)
-            objectInFocus.DoInteract(entity);
+        if (ObjectInFocus != null)
+        {
+            ObjectInFocus.DoInteract(entity);
+
+            // Clear UI description. 
+            if (ObjectInFocus is DroppedItem)
+            {
+                ObjectInFocus = null;
+            }
+        }
     }
 
     public void GetPickup(DroppedItemPickup pickup) {
@@ -162,7 +195,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         if (entity.isControllerOrOwner) {
             Debug.LogFormat("Assigning player id {0}", id);
             localPlayer = ReInput.players.GetPlayer(id);
-            SplitscreenManager.instance.playerCameras[playerUI.ScreenNumber - 1].PlayerId = localPlayer.id;
+            SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].PlayerId = localPlayer.id;
             localPlayer.isPlaying = true;
         } else {
             Debug.Log("Please only assign local player as networked owner.");
@@ -172,7 +205,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     private void OnTriggerEnter(Collider other) {
         if (!entity.isOwner) return;
         if (other.tag == "Room") {
-            SplitscreenManager.instance.playerCameras[playerUI.ScreenNumber - 1].AddRoomToCamera(other.transform.Find("Focus"));
+            SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].AddRoomToCamera(other.transform.Find("Focus"));
         }
     }
 
@@ -180,9 +213,9 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         if (!entity.isOwner) return;
         thirdPerson = !thirdPerson;
         if (thirdPerson)
-            SplitscreenManager.instance.playerCameras[playerUI.ScreenNumber - 1].SwitchToThirdPerson();
+            SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].SwitchToThirdPerson();
         else
-            SplitscreenManager.instance.playerCameras[playerUI.ScreenNumber - 1].SwitchToOverview();
+            SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].SwitchToOverview();
     }
 
     public override void OnEvent(TeleportPlayer evnt) {
