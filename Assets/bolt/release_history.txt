@@ -1,3 +1,23 @@
+1.2.6
+Added: "Leave Review" button on the Wizard Window.
+Added: Bolt now has a new default serialization method. All Bolt Assets will be serialized into JSON format, removing the need for XML or binary formats.
+Added: Add new Binary channel to BoltConnection. Look at the new StreamingData Sample (https://github.com/BoltEngine/Bolt-Sample/tree/master/StreamingData) to see how to use it.
+Added: New "GlobalEventListener.ShutdownBegin" with an extra parameter describing the Shutdown reason.
+Added: New Bolt Setting to disable remote scene autoloading. By default, when the Bolt Host changes scenes, all clients will load the same scene, now you can disable this behavior.
+Changed: Prompt developers to run the Bolt Compile Assembly after finishing the Wizard, this prevents errors when importing the samples package.
+Changed: Bolt Menu Items are now merged. The access point to Bolt Settings, Assets and other windows are now inside a "Bolt" menu on the top-level of the toolbar.
+Changed: When using a "PhotonRoomProperties" to setup the Photon Room, it is now by default "Open" and "Visible". Before it was "Closed" and "Invisible".
+Changed: Bolt now has support to IPv6.
+Changed: Updated internal Photon Realtime to vesion 4.1.1.21.
+Changed: Removed hardcoded paths when creating new assets on Bolt, and uses relative paths instead.
+Fixed: Exception (KeyNotFoundException) when creating and raising events after Bolt was shutdown. Now, if it's not possible to create a particular Event (by using it's Factory), the "Create()" method will return "null".
+Fixed: Update the Animator properties every update has bad performance. Now the update process is performed only on the value changes.
+Fixed: Removing all Bolt Logging from settings doesn't work. Removed the check that forces at least one logger.
+Fixed: Issues with Bolt and the new Prefab System on Unity 2018.3.x.
+Fixed: Exception when compiling Bolt with a State Asset with a missing parent. Now, if a State has a parent and this is deleted, the child State will be updated properly to an empty parent GUID.
+Fixed: Issue when trying to register the same IProtocolToken when reloading a scene. Now the registration of the same Token is just ignored, without raising an exception.
+Fixed: Server frame will reset on shutdown
+
 1.2.5
 Fixed: Connect Token null on the host when using Accept Mode Manual.
 Fixed: Issues with Bolt IDs when using Unity 2018.3 with the new Prefabs Workflow.
@@ -8,8 +28,8 @@ Added: Command can now be marked as Instant. This forces immediate execution of 
 Added: Optional Enable Frame Limit for command. This allows to queue only one input per command per frame, preventing speed hacks.
 Added: Delta Compression for command inputs and results.
 Added: Link to license terms
-Update: Public API Naming. Several methods and functions were refactored to agree  with the C# Coding Guidelines. The old symbols are still present, but with a obsolete marking and will be removed in a future version.
-Update: Semantic versioning (1.2.4 instead of 1.2.0.4)
+Changed: Public API Naming. Several methods and functions were refactored to agree  with the C# Coding Guidelines. The old symbols are still present, but with a obsolete marking and will be removed in a future version.
+Changed: Semantic versioning (1.2.4 instead of 1.2.0.4)
 Fixed: Exception in Debug Start
 Fixed: Initial position issue
 Fixed: Samples are now compatible with both Unity 2017 and 2018
@@ -32,7 +52,7 @@ Fixed: Single Player mode
 Fixed: MaxConnection session property always 0
 Fixed: Use BoltLog in all debug messages
 
-Update: Steam sample are now available only on the Bolt Samples repository
+Changed: Steam sample are now available only on the Bolt Samples repository
 
 1.2.0.2
 Fixed: BoltLauncher selecting the wrong UdpPlatform on Bolt initialization
@@ -58,8 +78,8 @@ Fixed: Maintain connection with Photon cloud even when the game is paused.
 Fixed: Support mobile platforms: Android and iOS.
 Fixed: MaxConnection when using PhotonPlatform to use the general Bolt Settings.
 
-Update: Incorporation of all Photon related code to internal DLLs.
-Update: Exposed session type when listing all available sessions from Bolt.
+Changed: Incorporation of all Photon related code to internal DLLs.
+Changed: Exposed session type when listing all available sessions from Bolt.
 
 Added: New Wizard window with basic steps to get Bolt running.
 Added: Bolt setting for enabling Client Metrics.

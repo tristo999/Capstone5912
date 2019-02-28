@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UdpKit;
 using UnityEngine;
@@ -184,6 +185,9 @@ public static class BoltLauncher
 
 static class BoltDynamicData
 {
+	static readonly string ASSEMBLY_CSHARP = "Assembly-CSharp";
+	static readonly string ASSEMBLY_CSHARP_FIRST = "Assembly-CSharp-firstpass";
+
     public static void Setup()
     {
         BoltNetworkInternal.DebugDrawer = new BoltInternal.UnityDebugDrawer();
@@ -214,30 +218,35 @@ static class BoltDynamicData
     static public List<STuple<BoltGlobalBehaviourAttribute, Type>> GetGlobalBehaviourTypes()
     {
 #if UNITY_WSA
-        Assembly asm = typeof(BoltLauncher).GetTypeInfo().Assembly;
+		Assembly[] assemblies = { typeof(BoltLauncher).GetTypeInfo().Assembly };
 #else
-        Assembly asm = Assembly.GetExecutingAssembly();
+		Assembly[] assemblies = { GetAssemblyByName(ASSEMBLY_CSHARP), GetAssemblyByName(ASSEMBLY_CSHARP_FIRST) };
 #endif
 
-        List<STuple<BoltGlobalBehaviourAttribute, Type>> result = new List<STuple<BoltGlobalBehaviourAttribute, Type>>();
+		List<STuple<BoltGlobalBehaviourAttribute, Type>> result = new List<STuple<BoltGlobalBehaviourAttribute, Type>>();
 
         try
         {
-            foreach (Type type in asm.GetTypes())
-            {
-                if (typeof(MonoBehaviour).IsAssignableFrom(type))
+			foreach(Assembly asm in assemblies)
+			{
+				if (asm == null) { continue; }
+
+                foreach (Type type in asm.GetTypes())
                 {
-#if UNITY_WSA
-          var attrs = (BoltGlobalBehaviourAttribute[])type.GetTypeInfo().GetCustomAttributes(typeof(BoltGlobalBehaviourAttribute), false);
-#else
-                    var attrs = (BoltGlobalBehaviourAttribute[])type.GetCustomAttributes(typeof(BoltGlobalBehaviourAttribute), false);
-#endif
-                    if (attrs.Length == 1)
+                    if (typeof(MonoBehaviour).IsAssignableFrom(type))
                     {
-                        result.Add(new STuple<BoltGlobalBehaviourAttribute, Type>(attrs[0], type));
+#if UNITY_WSA
+                        var attrs = (BoltGlobalBehaviourAttribute[])type.GetTypeInfo().GetCustomAttributes(typeof(BoltGlobalBehaviourAttribute), false);
+#else
+                        var attrs = (BoltGlobalBehaviourAttribute[])type.GetCustomAttributes(typeof(BoltGlobalBehaviourAttribute), false);
+#endif
+                        if (attrs.Length == 1)
+                        {
+                            result.Add(new STuple<BoltGlobalBehaviourAttribute, Type>(attrs[0], type));
+                        }
                     }
                 }
-            }
+			}
         }
         catch (Exception e)
         {
@@ -246,4 +255,9 @@ static class BoltDynamicData
 
         return result;
     }
+
+	static Assembly GetAssemblyByName(string name)
+	{
+		return AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(assembly => assembly.GetName().Name == name);
+	}
 }
