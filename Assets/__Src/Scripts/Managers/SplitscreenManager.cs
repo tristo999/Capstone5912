@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
@@ -15,6 +16,10 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
 
     private void Awake() {
         playerCamPrefab = Resources.Load("UI/PlayerCamera") as GameObject;
+    }
+    
+    public PlayerCamera GetEntityCamera(BoltEntity entity) {
+        return playerCameras.First(p => p.CameraPlayer == entity);
     }
 
     public int CreatePlayerCamera(Transform player) {

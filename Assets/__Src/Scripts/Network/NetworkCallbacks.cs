@@ -17,6 +17,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
         GenerationManager.Instantiate();
         Physics.autoSimulation = false;
         GenerationManager.instance.GenerateStemmingMazeGraph();
+        GameMaster.instance.SetRoomLayers(GenerationManager.instance.rooms);
         readyConnections++;
         TryStartMatch();
     }
