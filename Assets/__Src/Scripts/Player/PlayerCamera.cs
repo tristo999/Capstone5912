@@ -53,11 +53,13 @@ public class PlayerCamera : MonoBehaviour
         thirdPerson = true;
         overviewCam.gameObject.SetActive(!thirdPerson);
         freeLookCam.gameObject.SetActive(thirdPerson);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void SwitchToOverview() {
         thirdPerson = false;
         overviewCam.gameObject.SetActive(!thirdPerson);
         freeLookCam.gameObject.SetActive(thirdPerson);
+        Cursor.lockState = CursorLockMode.None;
     }
 }

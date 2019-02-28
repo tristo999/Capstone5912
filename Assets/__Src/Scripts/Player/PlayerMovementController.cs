@@ -58,8 +58,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         // upset that it can't control client's players.
         if (!entity.isOwner || localPlayer == null) return;
         DoMovement();
-        if (!thirdPerson)
-            DoLook();
+        DoLook();
         CheckInteract();
         if (localPlayer.GetButtonDown("Interact")) DoInteract();
         if (localPlayer.GetButtonDown("Fire")) state.FireDown();
@@ -87,7 +86,10 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         float moveHorizontal = localPlayer.GetAxis("Horizontal");
         float moveVertical = localPlayer.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
+        if (thirdPerson) {
+            movement = SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].camera.transform.TransformDirection(movement);
+            movement.y = 0;
+        }
         UpdateMovementFriction();
         UpdateMovementInputAcceleration(movement);
 
@@ -120,22 +122,30 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void DoLook() {
-        if (localPlayer.id == 0) {
-            // Player is using kbm.
-            float distance;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (aimPlane.Raycast(ray, out distance)) {
-                Vector3 target = ray.GetPoint(distance);
-                target.y = gameObject.transform.position.y;
-                gameObject.transform.LookAt(target);
-            }
+        if (thirdPerson) {
+            float lookAngle = SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].camera.transform.eulerAngles.y;
+            Vector3 lookEuler = transform.eulerAngles;
+            lookEuler.y = lookAngle;
+            transform.eulerAngles = lookEuler;
+            Debug.Log(lookAngle);
         } else {
-            // Player is using gamepad.
-            float lookHorizontal = localPlayer.GetAxis("LookHorizontal");
-            float lookVertical = localPlayer.GetAxis("LookVertical");
-            Vector3 lookDir = new Vector3(lookHorizontal, 0f, lookVertical);
-            if (lookDir.magnitude > 0f) {
-                transform.LookAt(transform.position + lookDir);
+            if (localPlayer.id == 0) {
+                // Player is using kbm.
+                float distance;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (aimPlane.Raycast(ray, out distance)) {
+                    Vector3 target = ray.GetPoint(distance);
+                    target.y = gameObject.transform.position.y;
+                    gameObject.transform.LookAt(target);
+                }
+            } else {
+                // Player is using gamepad.
+                float lookHorizontal = localPlayer.GetAxis("LookHorizontal");
+                float lookVertical = localPlayer.GetAxis("LookVertical");
+                Vector3 lookDir = new Vector3(lookHorizontal, 0f, lookVertical);
+                if (lookDir.magnitude > 0f) {
+                    transform.LookAt(transform.position + lookDir);
+                }
             }
         }
     }
