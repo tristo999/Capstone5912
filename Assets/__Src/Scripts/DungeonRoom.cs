@@ -20,8 +20,10 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     public GameObject carpet;
     [Range(0.0f,1.0f)]
     public float chanceDestroyCarpet;
+    private List<PlayerCamera> camerasInRoom = new List<PlayerCamera>();
 
     public enum WallState { Door=1, Open=2, Closed=0, Destroyed=3 }
+    public enum DestructionState { Normal, Danger, Destroyed }
 
     public override void Attached() {
         if (entity.isOwner) {
@@ -39,6 +41,7 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
         state.AddCallback("WestWall", WestWallChange);
         state.AddCallback("Carpet", CarpetChange);
         state.AddCallback("CarpetColor", CarpetColorChange);
+        state.AddCallback("DestructionState", DestructionStateChange);
     }
 
     private void NorthWallChange() {
@@ -98,6 +101,43 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
             westWallFlat.SetActive(true);
         } else if (wallState == WallState.Destroyed) {
             westWallDestroyed.SetActive(true);
+        }
+    }
+
+    private void DestructionStateChange() {
+        if (state.DestructionState == (int)DestructionState.Danger) {
+            foreach (PlayerCamera cam in camerasInRoom) {
+                cam.ActivateShake();
+            }
+        }
+
+        if (state.DestructionState == (int)DestructionState.Destroyed) {
+            if (state.NorthWall != (int)WallState.Closed)
+                state.NorthWall = (int)WallState.Destroyed;
+            if (state.EastWall != (int)WallState.Closed)
+                state.EastWall = (int)WallState.Destroyed;
+            if (state.WestWall != (int)WallState.Closed)
+                state.WestWall = (int)WallState.Destroyed;
+            if (state.SouthWall != (int)WallState.Closed)
+                state.SouthWall = (int)WallState.Destroyed;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "Player" && other.GetComponent<BoltEntity>().isOwner) {
+            PlayerCamera cam = SplitscreenManager.instance.GetEntityCamera(other.GetComponent<BoltEntity>());
+            camerasInRoom.Add(cam);
+            if (state.DestructionState == (int)DestructionState.Danger) {
+                cam.ActivateShake();
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.tag == "Player" && other.GetComponent<BoltEntity>().isOwner) {
+            PlayerCamera cam = SplitscreenManager.instance.GetEntityCamera(other.GetComponent<BoltEntity>());
+            camerasInRoom.Remove(cam);
+            cam.DeactivateShake();
         }
     }
 

@@ -85,7 +85,6 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void PlayerDied() {
-        Debug.Log("Hey, a player died. Good shit");
         InputDisabled = true;
         
     }
