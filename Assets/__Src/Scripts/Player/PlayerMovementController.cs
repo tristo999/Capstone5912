@@ -8,6 +8,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     public float BaseSpeed;
     public float BaseAccel;
     public float BaseFriction;
+    public bool InputDisabled;
     public Transform RenderTransform;
     private Rigidbody rb;
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
@@ -49,6 +50,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         anim = GetComponentInChildren<Animator>();
         state.SetTransforms(state.transform, transform, RenderTransform);
         state.SetAnimator(anim);
+        state.AddCallback("Dead", PlayerDied);
         if (entity.isOwner) ui = GetComponent<PlayerUI>();
     }
 
@@ -56,7 +58,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         // Since we're using Rewired we cannot use Bolt's SimulateController as Rewired won't be able to get input.
         // Hence we have to do a check here. localPlayer == null will prevent the server from throwing exceptions when it gets
         // upset that it can't control client's players.
-        if (!entity.isOwner || localPlayer == null) return;
+        if (!entity.isOwner || localPlayer == null || InputDisabled) return;
         DoMovement();
         DoLook();
         CheckInteract();
@@ -80,6 +82,12 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
                 AssignPlayer(p.id);
             }
         }
+    }
+
+    private void PlayerDied() {
+        Debug.Log("Hey, a player died. Good shit");
+        InputDisabled = true;
+        
     }
 
     private void DoMovement() {

@@ -71,8 +71,14 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void HealthChanged() {
-        if (entity.hasControl) {
+        if (entity.isOwner) {
+            if (state.Health < 0) {
+                state.Health = 0;
+            }
             ui.SetHealth(state.Health);
+            if (state.Health == 0) {
+                state.Dead = true;
+            }
         }
     }
 

@@ -18,6 +18,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
         state.ActiveId = -1;
         state.AddCallback("WeaponId", WeaponIdChanged);
         state.AddCallback("ActiveId", ActiveIdChanged);
+        state.AddCallback("Dead", PlayerDied);
 
         state.OnAddPassive += AddPassive;
         state.OnFireDown += FireDownTrigger;
@@ -45,6 +46,11 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
         ActiveIdChanged();
 
         GrantStarterItems();
+    }
+
+    private void PlayerDied() {
+        DropActive();
+        DropWeapon();
     }
 
     private void AddPassive() {

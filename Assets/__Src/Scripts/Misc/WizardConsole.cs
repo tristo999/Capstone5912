@@ -49,6 +49,7 @@ public class WizardConsole : Bolt.GlobalEventListener
         RegisterCommand("listplayers", ListPlayers, "List current players");
         RegisterCommand("tp", Teleport, "Teleport player");
         RegisterCommand("listitems", ListItems, "List all registered items.");
+        RegisterCommand("hpmod", ModifyPlayerHealth, "Modify a player's health");
     }
 
     public void RegisterCommand(string command, CommandHandler handler, string help) {
@@ -169,5 +170,12 @@ public class WizardConsole : Bolt.GlobalEventListener
             ItemDefinition item = ItemManager.Instance.items[i];
             Log(i + " " + item.Rarity.ToString() + ": " + item.ItemName + " - " + item.ItemDescription);
         }
+    }
+
+    private void ModifyPlayerHealth(string[] args) {
+        BoltEntity player = GameMaster.instance.players[int.Parse(args[0])];
+        DamageEntity evnt = DamageEntity.Create(player);
+        evnt.Damage = float.Parse(args[1]);
+        evnt.Send();
     }
 }
