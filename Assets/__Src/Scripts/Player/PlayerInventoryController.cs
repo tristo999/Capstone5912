@@ -7,14 +7,18 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     public ActiveItem activeItem;
     public Weapon wizardWeapon;
     private Transform playerHand;
+    private PlayerUI ui;
 
     private List<HeldPassive> passiveItems = new List<HeldPassive>();
 
     public override void Attached() {
-        state.WeaponId = 0;
+        ui = GetComponent<PlayerUI>();
+
+        state.WeaponId = -1;
         state.ActiveId = -1;
         state.AddCallback("WeaponId", WeaponIdChanged);
         state.AddCallback("ActiveId", ActiveIdChanged);
+
         state.OnAddPassive += AddPassive;
         state.OnFireDown += FireDownTrigger;
         state.OnFireHold += FireHeldTrigger;
@@ -22,15 +26,25 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
         state.OnActiveDown += ActiveDownTrigger;
         state.OnActiveHold += ActiveHoldTrigger;
         state.OnActiveRelease += ActiveReleaseTrigger;
+
         playerHand = GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.RightHand);
         StartCoroutine("WaitForItemManager");
+    }
+
+    private void GrantStarterItems()
+    {
+        state.WeaponId = 0;
     }
 
     IEnumerator WaitForItemManager() {
         while (ItemManager.Instance == null) {
             yield return new WaitForSeconds(0.1f);
         }
+        // Update initial UI.
         WeaponIdChanged();
+        ActiveIdChanged();
+
+        GrantStarterItems();
     }
 
     private void AddPassive() {
@@ -44,11 +58,14 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void WeaponIdChanged() {
         DropWeapon();
+        if (entity.hasControl) ui.SetWeapon(state.WeaponId);
+
         if (state.WeaponId >= 0) {
-            Debug.Log(state.WeaponId);
+            ItemDefinition item = ItemManager.Instance.items[state.WeaponId];
+
             Vector3 handOffset = new Vector3(-2.65f, -1.7f, .63f);
             Quaternion handRotation = Quaternion.Euler(-26.35f, -13.78f, -31.65f);
-            GameObject newWep = Instantiate(ItemManager.Instance.items[state.WeaponId].HeldModel, playerHand);
+            GameObject newWep = Instantiate(item.HeldModel, playerHand);
             newWep.transform.localPosition = handOffset;
             newWep.transform.localRotation = handRotation;
             newWep.GetComponent<HeldItem>().Id = state.WeaponId;
@@ -60,8 +77,13 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void ActiveIdChanged() {
         DropActive();
-        if (state.ActiveId >= 0) {
-            GameObject newActive = Instantiate(ItemManager.Instance.items[state.ActiveId].HeldModel, transform);
+        if (entity.hasControl) ui.SetActiveItem(state.ActiveId);
+
+        if (state.ActiveId >= 0)
+        {
+            ItemDefinition item = ItemManager.Instance.items[state.ActiveId];
+
+            GameObject newActive = Instantiate(item.HeldModel, transform);
             newActive.GetComponent<HeldItem>().Id = state.ActiveId;
             activeItem = newActive.GetComponent<ActiveItem>();
             activeItem.Owner = this;

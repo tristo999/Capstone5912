@@ -9,7 +9,6 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     public float StartingHealth;
     public Renderer robeAndHat;
     private PlayerMovementController movementController;
-    private TextMeshProUGUI healthText;
     private PlayerUI ui;
 
     public override void Attached() {
@@ -36,23 +35,29 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
         }
     }
 
-    private void WeaponIdChanged() {
-        ItemDefinition item = ItemManager.Instance.items[state.WeaponId];
-        state.Health += item.HealthModifier;
-        state.Speed += item.SpeedModifier;
-        state.FireRate += item.FireRateModifier;
-        state.ProjectileSpeed += item.ProjectileSpeedModifier;
-        state.ProjectileDamage += item.DamageModifier;
+    private void WeaponIdChanged()
+    {
+        if (state.WeaponId >= 0)
+        {
+            ItemDefinition item = ItemManager.Instance.items[state.WeaponId];
+            state.Health += item.HealthModifier;
+            state.Speed += item.SpeedModifier;
+            state.FireRate += item.FireRateModifier;
+            state.ProjectileSpeed += item.ProjectileSpeedModifier;
+            state.ProjectileDamage += item.DamageModifier;
+        }
     }
 
     private void ActiveIdChanged() {
-        if (state.ActiveId < 0) return;
-        ItemDefinition item = ItemManager.Instance.items[state.ActiveId];
-        state.Health += item.HealthModifier;
-        state.Speed += item.SpeedModifier;
-        state.FireRate += item.FireRateModifier;
-        state.ProjectileSpeed += item.ProjectileSpeedModifier;
-        state.ProjectileDamage += item.DamageModifier;
+        if (state.ActiveId >= 0)
+        {
+            ItemDefinition item = ItemManager.Instance.items[state.ActiveId];
+            state.Health += item.HealthModifier;
+            state.Speed += item.SpeedModifier;
+            state.FireRate += item.FireRateModifier;
+            state.ProjectileSpeed += item.ProjectileSpeedModifier;
+            state.ProjectileDamage += item.DamageModifier;
+        }
     }
 
     private void IdChanged() {

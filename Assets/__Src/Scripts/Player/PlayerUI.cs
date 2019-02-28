@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -20,9 +21,15 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
+    private static readonly string EMPTY_SLOT_TEXT = "Empty";
+
     private Canvas canvas;
     private int screenNumber;
-    private GameObject compassArrow;
+
+    private GameObject compassArrowElement;
+    private TextMeshProUGUI healthTextElement;
+    private TextMeshProUGUI weaponSlotNameTextElement;
+    private TextMeshProUGUI activeItemSlotNameTextElement;
 
     public override void ControlGained() {
         GameObject pref = Resources.Load<GameObject>("UI/PlayerUI");
@@ -31,18 +38,43 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         canvas.worldCamera = SplitscreenManager.instance.playerCameras[ScreenNumber - 1].camera;
         canvas.planeDistance = .5f;
 
-        compassArrow = canvas.gameObject.transform.GetChild(1).GetChild(0).gameObject;
+        compassArrowElement = GetCanvasChildByName("Compass").transform.GetChild(0).gameObject;
+        healthTextElement = GetCanvasChildByName("Health").GetComponentInChildren<TextMeshProUGUI>();
+        weaponSlotNameTextElement = GetCanvasChildByName("Weapon Slot").GetComponentInChildren<TextMeshProUGUI>();
+        activeItemSlotNameTextElement = GetCanvasChildByName("Active Item Slot").GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public void SetHealth(float health) {
-        canvas.GetComponentInChildren<TextMeshProUGUI>().text = health.ToString();
+        healthTextElement.text = health.ToString();
     }
 
-    private void SetLayerRecursive(GameObject root, int layer) {
-        root.layer = layer;
-        foreach (Transform child in root.transform) {
-            SetLayerRecursive(child.gameObject, layer);
+    public void SetWeapon(int weaponId)
+    {
+        if (weaponId >= 0)
+        {
+            weaponSlotNameTextElement.text = ItemManager.Instance.items[weaponId].ItemName;
         }
+        else
+        {
+            weaponSlotNameTextElement.text = EMPTY_SLOT_TEXT;
+        }
+    }
+
+    public void SetActiveItem(int activeItemId)
+    {
+        if (activeItemId >= 0)
+        {
+            activeItemSlotNameTextElement.text = ItemManager.Instance.items[activeItemId].ItemName;
+        }
+        else
+        {
+            activeItemSlotNameTextElement.text = EMPTY_SLOT_TEXT;
+        }
+    }
+
+    private void Update()
+    {
+        UpdateCompassDirection();
     }
 
     private void UpdateCompassDirection()
@@ -54,12 +86,26 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         {
             angle = 180 - angle;
         }
-        
-        compassArrow.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        compassArrowElement.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
-    private void Update()
+    private void SetLayerRecursive(GameObject root, int layer) {
+        root.layer = layer;
+        foreach (Transform child in root.transform) {
+            SetLayerRecursive(child.gameObject, layer);
+        }
+    }
+
+    private GameObject GetCanvasChildByName(string name)
     {
-        UpdateCompassDirection();
+        foreach (Transform child in canvas.gameObject.transform)
+        {
+            if (String.Equals(child.gameObject.name, name))
+            {
+                return child.gameObject;
+            }
+        }
+        return null;
     }
 }
