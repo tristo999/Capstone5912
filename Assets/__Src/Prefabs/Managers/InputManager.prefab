@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5141881508984012941}
   - component: {fileID: 8832222344814306043}
+  - component: {fileID: 9151255733761139375}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -387,6 +388,15 @@ MonoBehaviour:
       _behaviorId: 0
       _userAssignable: 1
       _categoryId: 0
+    - _id: 9
+      _name: ChangeView
+      _type: 1
+      _descriptiveName: Change View
+      _positiveDescriptiveName: 
+      _negativeDescriptiveName: 
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 0
     actionCategories:
     - _name: Default
       _descriptiveName: Default
@@ -396,7 +406,7 @@ MonoBehaviour:
     actionCategoryMap:
       list:
       - categoryId: 0
-        actionIds: 000000000100000002000000030000000400000005000000060000000700000008000000
+        actionIds: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
     inputBehaviors:
     - _id: 0
       _name: Default
@@ -3977,6 +3987,17 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 9
+        _elementType: 1
+        _elementIdentifierId: -1
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 99
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     mouseMaps:
     - id: 0
       categoryId: 0
@@ -3996,10 +4017,32 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 6
+        _elementType: 0
+        _elementIdentifierId: 0
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 7
+        _elementType: 0
+        _elementIdentifierId: 1
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     customControllerMaps: []
     customControllers: []
     playerIdCounter: 12
-    actionIdCounter: 9
+    actionIdCounter: 10
     actionCategoryIdCounter: 1
     inputBehaviorIdCounter: 1
     mapCategoryIdCounter: 1
@@ -4014,3 +4057,52 @@ MonoBehaviour:
     customControllerIdCounter: 1
   _controllerDataFiles: {fileID: 11400000, guid: d21d2b20df8369642b76aafbb2576ba7,
     type: 2}
+--- !u!114 &9151255733761139375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3824507632564389321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da862f6a3ad61334aae68294036536aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rewiredInputManager: {fileID: 0}
+  _absoluteAxisSensitivity: 30
+  _scaleAbsoluteAxesToScreen: 0
+  _runInEditMode: 0
+  _playerMappings:
+  - _playerId: 0
+    _actionMappings:
+    - _cinemachineAxis: Player0LookX
+      _rewiredActionName: Mouse X
+      _rewiredActionId: 6
+    - _cinemachineAxis: Player0LookY
+      _rewiredActionName: Mouse Y
+      _rewiredActionId: 7
+  - _playerId: 1
+    _actionMappings:
+    - _cinemachineAxis: Player1LookX
+      _rewiredActionName: Mouse X
+      _rewiredActionId: 6
+    - _cinemachineAxis: Player1LookY
+      _rewiredActionName: Mouse Y
+      _rewiredActionId: 7
+  - _playerId: 2
+    _actionMappings:
+    - _cinemachineAxis: Player2LookX
+      _rewiredActionName: Mouse X
+      _rewiredActionId: 6
+    - _cinemachineAxis: Player2LookY
+      _rewiredActionName: Mouse Y
+      _rewiredActionId: 7
+  - _playerId: 3
+    _actionMappings:
+    - _cinemachineAxis: Player3LookX
+      _rewiredActionName: Mouse X
+      _rewiredActionId: 6
+    - _cinemachineAxis: Player3LookY
+      _rewiredActionName: Mouse Y
+      _rewiredActionId: 7

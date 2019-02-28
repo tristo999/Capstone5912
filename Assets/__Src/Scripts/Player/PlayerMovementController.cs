@@ -15,6 +15,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     private InteractiveObject objectInFocus;
     private PlayerUI playerUI;
     private Animator anim;
+    private bool thirdPerson;
 
     public override void Attached()
     {
@@ -32,7 +33,8 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         // upset that it can't control client's players.
         if (!entity.isOwner || localPlayer == null) return;
         DoMovement();
-        DoLook();
+        if (!thirdPerson)
+            DoLook();
         CheckInteract();
         if (localPlayer.GetButtonDown("Interact")) DoInteract();
         if (localPlayer.GetButtonDown("Fire")) state.FireDown();
@@ -41,6 +43,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         if (localPlayer.GetButtonDown("UseActive")) state.ActiveDown();
         if (localPlayer.GetButton("UseActive")) state.ActiveHold();
         if (localPlayer.GetButtonUp("UseActive")) state.ActiveRelease();
+        if (localPlayer.GetButtonDown("ChangeView")) ToggleView();
     }
 
     private void CheckForPlayer() {
@@ -159,6 +162,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         if (entity.isControllerOrOwner) {
             Debug.LogFormat("Assigning player id {0}", id);
             localPlayer = ReInput.players.GetPlayer(id);
+            SplitscreenManager.instance.playerCameras[playerUI.ScreenNumber - 1].PlayerId = localPlayer.id;
             localPlayer.isPlaying = true;
         } else {
             Debug.Log("Please only assign local player as networked owner.");
@@ -170,6 +174,15 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         if (other.tag == "Room") {
             SplitscreenManager.instance.playerCameras[playerUI.ScreenNumber - 1].AddRoomToCamera(other.transform.Find("Focus"));
         }
+    }
+
+    private void ToggleView() {
+        if (!entity.isOwner) return;
+        thirdPerson = !thirdPerson;
+        if (thirdPerson)
+            SplitscreenManager.instance.playerCameras[playerUI.ScreenNumber - 1].SwitchToThirdPerson();
+        else
+            SplitscreenManager.instance.playerCameras[playerUI.ScreenNumber - 1].SwitchToOverview();
     }
 
     public override void OnEvent(TeleportPlayer evnt) {
