@@ -111,11 +111,27 @@ namespace Aura2API
                 SceneView.RepaintAll();
             }
             EditorGUILayout.Separator();
-            EditorGUI.BeginChangeCheck();
+            //EditorGUI.BeginChangeCheck();
+            EditorGUI.BeginDisabledGroup(true);
             GuiHelpers.DrawToggleChecker(AuraEditorPrefs.DisplayAuraGuiInParentComponents, " Display Aura buttons in Camera/Light components");
+            EditorGUI.EndDisabledGroup();
+            //if (EditorGUI.EndChangeCheck())
+            //{
+            //    AuraEditorPrefs.DisplayAuraGuiInParentComponents = !AuraEditorPrefs.DisplayAuraGuiInParentComponents;
+            //}
+            EditorGUILayout.Separator();
+            EditorGUI.BeginChangeCheck();
+            GuiHelpers.DrawToggleChecker(AuraEditorPrefs.DisplayGizmosWhenSelected, " Display gizmos when objects are selected");
             if (EditorGUI.EndChangeCheck())
             {
-                AuraEditorPrefs.DisplayAuraGuiInParentComponents = !AuraEditorPrefs.DisplayAuraGuiInParentComponents;
+                AuraEditorPrefs.DisplayGizmosWhenSelected = !AuraEditorPrefs.DisplayGizmosWhenSelected;
+            }
+            EditorGUILayout.Separator();
+            EditorGUI.BeginChangeCheck();
+            GuiHelpers.DrawToggleChecker(AuraEditorPrefs.DisplayGizmosWhenUnselected, " Display gizmos when objects are unselected");
+            if (EditorGUI.EndChangeCheck())
+            {
+                AuraEditorPrefs.DisplayGizmosWhenUnselected = !AuraEditorPrefs.DisplayGizmosWhenUnselected;
             }
             EditorGUILayout.EndVertical();
 
@@ -190,11 +206,11 @@ namespace Aura2API
             EditorGUILayout.Separator();
 
             EditorGUILayout.BeginVertical(GuiStyles.Background);
-            GUILayout.Label(new GUIContent(" SceneView Vizualisation", Aura.ResourcesCollection.cameraIconTexture), GuiStyles.LabelBoldCenteredBig);
+            GUILayout.Label(new GUIContent(" SceneView Visualization", Aura.ResourcesCollection.cameraIconTexture), GuiStyles.LabelBoldCenteredBig);
             EditorGUILayout.Separator();
             EditorGUI.BeginChangeCheck();
 
-            AuraEditorPrefs.EnableAuraInSceneView = GuiHelpers.DrawToggleChecker(AuraEditorPrefs.EnableAuraInSceneView, "Enable vizualisation in SceneView");
+            AuraEditorPrefs.EnableAuraInSceneView = GuiHelpers.DrawToggleChecker(AuraEditorPrefs.EnableAuraInSceneView, "Enable visualization in SceneView");
 
             EditorGUILayout.Separator();
             GuiHelpers.DrawHelpBox("Enabling Aura in the SceneView may break the SceneView rendering when loading a scene or building player.\n\nTo get the SceneView rendering back, <b>disable then re-enable back</b> post-effects rendering in the toggle dropdown located in the top border of the SceneView.", HelpBoxType.Experimental);

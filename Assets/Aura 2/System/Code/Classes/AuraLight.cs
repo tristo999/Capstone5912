@@ -844,6 +844,12 @@ namespace Aura2API
         static void DrawGizmoForAuraLight(AuraLight component, GizmoType gizmoType)
         {
             bool isFaded = (int)gizmoType == (int)GizmoType.NonSelected || (int)gizmoType == (int)GizmoType.NotInSelectionHierarchy || (int)gizmoType == (int)GizmoType.NonSelected + (int)GizmoType.NotInSelectionHierarchy;
+
+            if(isFaded && !AuraEditorPrefs.DisplayGizmosWhenUnselected || !isFaded && !AuraEditorPrefs.DisplayGizmosWhenSelected)
+            {
+                return;
+            }
+
             float opacity = isFaded ? 0.15f : 1.0f;
 
             DrawGizmo(component, opacity);
@@ -867,7 +873,7 @@ namespace Aura2API
                         const int stepAmount = 8;
                         const float width = 1.0f;
                         const float length = 3.0f;
-                        CustomGizmo.DrawCircle(Matrix4x4.TRS(component.transform.position, Quaternion.LookRotation(component.transform.up), Vector3.one * size * width), color, CustomGizmo.pixelWidth);
+                        CustomGizmo.DrawCircle(Matrix4x4.TRS(component.transform.position, component.transform.rotation * Quaternion.AngleAxis(90, Vector3.right), Vector3.one * size * width), color, CustomGizmo.pixelWidth);
                         for(int i = 0; i < stepAmount; ++i)
                         {
                             float ratio = (float)i / (float)stepAmount * 2.0f * Mathf.PI;

@@ -35,11 +35,11 @@ namespace Aura2API
         {
             get
             {
-                return XRSettings.enabled &&
+                return UnityEngine.XR.XRSettings.enabled &&
 #if UNITY_EDITOR
                 Application.isPlaying && PlayerSettings.virtualRealitySupported && PlayerSettings.stereoRenderingPath == StereoRenderingPath.SinglePass;
 #else
-                XRSettings.eyeTextureDesc.vrUsage == VRTextureUsage.TwoEyes;
+                UnityEngine.XR.XRSettings.eyeTextureDesc.vrUsage == VRTextureUsage.TwoEyes;
 #endif
             }
         }

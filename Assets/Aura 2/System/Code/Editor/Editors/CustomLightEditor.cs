@@ -25,7 +25,7 @@ namespace Aura2API
     /// <summary>
     /// Custom Inspector for Light class
     /// </summary>
-    [CustomEditor(typeof(Light))]
+    //[CustomEditor(typeof(Light))]
     [CanEditMultipleObjects]
     public class CustomLightEditor : Editor
     {
@@ -43,40 +43,44 @@ namespace Aura2API
 
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
-            _defaultEditor.OnInspectorGUI();
-            serializedObject.ApplyModifiedProperties();
-            
-            if (AuraEditorPrefs.DisplayAuraGuiInParentComponents)
+            try
             {
-                EditorGUILayout.Separator();    
-                EditorGUILayout.BeginVertical(GuiStyles.Background);
-
-                AuraLight component = _targetObject.gameObject.GetComponent<AuraLight>();
-                if(component == null)
+                serializedObject.Update();
+                _defaultEditor.OnInspectorGUI();
+                serializedObject.ApplyModifiedProperties();
+            
+                if (AuraEditorPrefs.DisplayAuraGuiInParentComponents)
                 {
-                    if(GUILayout.Button(new GUIContent(" Add <b>Aura Light</b>", Aura.ResourcesCollection.cameraUiIconTexture), new GUIStyle(GuiStyles.ButtonNoBorder) { fontSize = 18 }, GUILayout.Height(32)))
-                    {
-                        Undo.AddComponent<AuraLight>(_targetObject.gameObject);
-                    }
-                }
-                else
-                {
-                    EditorGUILayout.BeginHorizontal();
-                    if(GUILayout.Button(new GUIContent((component.enabled ? " Disable" : " Enable") +  " <b>Aura Light</b>", Aura.ResourcesCollection.cameraUiIconTexture), new GUIStyle(GuiStyles.ButtonNoBorder) { fontSize = 18 }, GUILayout.Height(32)))
-                    {
-                        component.enabled = !component.enabled;
-                    }
-                    //if(GUILayout.Button(new GUIContent(Aura.ResourcesCollection.removeIconTexture, "Remove Aura Light"), GuiStyles.ButtonImageOnlyNoBorder, GUILayout.Width(32), GUILayout.Height(32)))
-                    //{
-                    //    component.Destroy();
-                    //}
-                    EditorGUILayout.EndHorizontal();
-                }
+                    EditorGUILayout.Separator();    
+                    EditorGUILayout.BeginVertical(GuiStyles.Background);
 
-                EditorGUILayout.EndVertical();
-                EditorGUILayout.Separator();
+                    AuraLight component = _targetObject.gameObject.GetComponent<AuraLight>();
+                    if(component == null)
+                    {
+                        if(GUILayout.Button(new GUIContent(" Add <b>Aura Light</b>", Aura.ResourcesCollection.cameraUiIconTexture), new GUIStyle(GuiStyles.ButtonNoBorder) { fontSize = 18 }, GUILayout.Height(32)))
+                        {
+                            Undo.AddComponent<AuraLight>(_targetObject.gameObject);
+                        }
+                    }
+                    else
+                    {
+                        EditorGUILayout.BeginHorizontal();
+                        if(GUILayout.Button(new GUIContent((component.enabled ? " Disable" : " Enable") +  " <b>Aura Light</b>", Aura.ResourcesCollection.cameraUiIconTexture), new GUIStyle(GuiStyles.ButtonNoBorder) { fontSize = 18 }, GUILayout.Height(32)))
+                        {
+                            component.enabled = !component.enabled;
+                        }
+                        if(GUILayout.Button(new GUIContent(Aura.ResourcesCollection.removeIconTexture, "Remove Aura Light"), GuiStyles.ButtonImageOnlyNoBorder, GUILayout.Width(32), GUILayout.Height(32)))
+                        {
+                            component.Destroy();
+                        }
+                        EditorGUILayout.EndHorizontal();
+                    }
+
+                    EditorGUILayout.EndVertical();
+                    EditorGUILayout.Separator();
+                }
             }
+            catch{}
         }
         #endregion
     }

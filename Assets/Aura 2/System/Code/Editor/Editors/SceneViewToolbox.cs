@@ -359,11 +359,11 @@ namespace Aura2API
         {
             get
             {
-                return AuraEditorPrefs.DisplayToolboxNotifications;
+                return AuraEditorPrefs.ShowToolboxNotifications;
             }
             set
             {
-                AuraEditorPrefs.DisplayToolboxNotifications = value;
+                AuraEditorPrefs.ShowToolboxNotifications = value;
             }
         }
 
@@ -864,7 +864,7 @@ namespace Aura2API
             _focusAfterCreation = GUILayout.Toggle(_focusAfterCreation, _focusAfterCreationToggleContent, _focusAfterCreation ? GuiStyles.ButtonPressedImageOnlyNoBorder : GuiStyles.ButtonImageOnlyNoBorder, GUILayout.Width(_buttonWidth), GUILayout.Height(_buttonWidth));
             if (EditorGUI.EndChangeCheck())
             {
-                ShowNotification(new GUIContent((_focusAfterCreation ? " Enabling" : " Disabling") + " Focus After Creation", Aura.ResourcesCollection.logoIconTexture));
+                ShowNotification(new GUIContent(" Focus After Creation" + (_focusAfterCreation ? " Enabled" : " Disabled"), Aura.ResourcesCollection.logoIconTexture));
             }
             GUILayout.EndHorizontal();
             pixelsVerticalOffset += 32;
@@ -1653,6 +1653,7 @@ namespace Aura2API
             }
             else
             {
+                
                 FrameCreatedObjectAndStopEditing(sceneView);
             }
         }
@@ -1904,6 +1905,19 @@ namespace Aura2API
         /// <param name="sceneView">The current scene view</param>
         private static void FrameCreatedObjectAndStopEditing(SceneView sceneView)
         {
+            if(_creationType == ToolboxCreationType.Camera)
+            {
+                ShowNotification(new GUIContent(" Camera Created", Aura.ResourcesCollection.cameraUiIconTexture));
+            }
+            else if(_creationType == ToolboxCreationType.Light)
+            {
+                ShowNotification(new GUIContent(" " + _lightType + " Light Created", Aura.ResourcesCollection.lightUiIconTexture));
+            }
+            else if(_creationType == ToolboxCreationType.Volume)
+            {
+                ShowNotification(new GUIContent(" " + _volumeType + " Volume Created", Aura.ResourcesCollection.volumeUiIconTexture));
+            }
+
             if (_focusAfterCreation)
             {
                 Selection.activeGameObject = _createdObject;

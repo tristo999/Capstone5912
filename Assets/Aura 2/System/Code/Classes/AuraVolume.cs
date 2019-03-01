@@ -651,6 +651,12 @@ namespace Aura2API
         static void DrawGizmoForAuraVolume(AuraVolume component, GizmoType gizmoType)
         {
             bool isFaded = (int)gizmoType == (int)GizmoType.NonSelected || (int)gizmoType == (int)GizmoType.NotInSelectionHierarchy || (int)gizmoType == (int)GizmoType.NonSelected + (int)GizmoType.NotInSelectionHierarchy;
+
+            if(isFaded && !AuraEditorPrefs.DisplayGizmosWhenUnselected || !isFaded && !AuraEditorPrefs.DisplayGizmosWhenSelected)
+            {
+                return;
+            }
+            
             float opacity = isFaded ? 0.5f : 1.0f;
 
             DrawGizmo(component, opacity);

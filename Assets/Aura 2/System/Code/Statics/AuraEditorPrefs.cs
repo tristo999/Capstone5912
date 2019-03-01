@@ -33,13 +33,15 @@ namespace Aura2API
         private const string _displayVolumeIntroductionScreenString = "AURA2_DisplayVolumeIntroductionScreen";
         private const string _displayToolboxString = "AURA2_DisplayToolbox";
         private const string _expandToolboxString = "AURA2_ExpandToolbox";
-        private const string _displayToolboxNotificationsString = "AURA2_DisplayToolboxNotifications";
+        private const string _showToolboxNotificationsString = "AURA2_ShowToolboxNotifications";
         private const string _toolboxPositionString = "AURA2_ToolboxPosition";
         private const string _toolboxPresetsPreviewsPerRowString = "AURA2_ToolboxPresetsPreviewsPerRow";
         private const string _displayCameraSlicesInEditionString = "AURA2_DisplayCameraSlicesInEdition";
         private const string _displayDebugPanelInToolboxString = "AURA2_DisplayDebugPanelInToolbox";
         private const string _enableAuraInSceneViewString = "AURA2_EnableAuraInSceneView";
-        private const string _displayAuraGuiInParentComponentsString = "AURA2_DisplayAuraGuiInParentComponentsString";
+        private const string _displayAuraGuiInParentComponentsString = "AURA2_DisplayAuraGuiInParentComponents";
+        private const string _displayGizmosWhenSelectedString = "AURA2_DisplayGizmosWhenSelected";
+        private const string _displayGizmosWhenUnselectedString = "AURA2_DisplayGizmosWhenUnselected";
         #endregion
 
         #region Properties
@@ -115,15 +117,15 @@ namespace Aura2API
             }
         }
 
-        public static bool DisplayToolboxNotifications
+        public static bool ShowToolboxNotifications
         {
             get
             {
-                return EditorPrefs.GetBool(_displayToolboxNotificationsString, false);
+                return EditorPrefs.GetBool(_showToolboxNotificationsString, true);
             }
             set
             {
-                EditorPrefs.SetBool(_displayToolboxNotificationsString, value);
+                EditorPrefs.SetBool(_showToolboxNotificationsString, value);
             }
         }
 
@@ -196,6 +198,30 @@ namespace Aura2API
             set
             {
                 EditorPrefs.SetBool(_displayAuraGuiInParentComponentsString, value);
+            }
+        }
+
+        public static bool DisplayGizmosWhenSelected
+        {
+            get
+            {
+                return EditorPrefs.GetBool(_displayGizmosWhenSelectedString, true);
+            }
+            set
+            {
+                EditorPrefs.SetBool(_displayGizmosWhenSelectedString, value);
+            }
+        }
+
+        public static bool DisplayGizmosWhenUnselected
+        {
+            get
+            {
+                return EditorPrefs.GetBool(_displayGizmosWhenUnselectedString, true);
+            }
+            set
+            {
+                EditorPrefs.SetBool(_displayGizmosWhenUnselectedString, value);
             }
         }
         #endregion
