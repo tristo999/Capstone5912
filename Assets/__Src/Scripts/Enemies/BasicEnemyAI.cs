@@ -94,7 +94,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     
     private void HealthChanged() {
         if (state.Health <= 0f && !inDeathAnim) {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Vector3 tossForce = 3000f * gameObject.transform.forward + 4000f * gameObject.transform.up;
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
