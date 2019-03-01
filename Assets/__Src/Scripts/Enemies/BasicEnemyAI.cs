@@ -18,6 +18,20 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
             return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attacking");
         }
     }
+    public bool inDeathAnim
+    {
+        get
+        {
+            return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Dying");
+        }
+    }
+    public bool isDead
+    {
+        get
+        {
+            return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Death");
+        }
+    }
 
     public float roomWidth = 30;
     public float attackTimer = 6f;
@@ -46,6 +60,8 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         animationTimer = 0f;
         inAttackRange = false;
         inHitRange = false;
+        state.Dying = false;
+        state.Death = false;
     }
 
     private void Attack() {
@@ -57,24 +73,39 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
 
     // Update is called once per frame
     public override void SimulateOwner() {
-        if (players == null || players.Length == 0)
+        if (!inDeathAnim)
+        {
+            if (players == null || players.Length == 0)
             players = GameObject.FindGameObjectsWithTag("Player");
         else {
             players = GameObject.FindGameObjectsWithTag("Player");
             currentPlayer = findCurrentPlayer();
         }
-        state.Moving = !nav.isStopped;
-        CheckAttack();
-        CheckMove();
+            state.Moving = !nav.isStopped;
+            CheckAttack();
+            CheckMove();
 
-        if (attackTimer < attackCooldown)
-            attackTimer += BoltNetwork.FrameDeltaTime;
+            if (attackTimer < attackCooldown)
+                attackTimer += BoltNetwork.FrameDeltaTime;
+        }
+        if (isDead)
+            BoltNetwork.Destroy(gameObject);
     }
     
     private void HealthChanged() {
-        if (state.Health <= 0f) {
-            BoltNetwork.Instantiate(chest, new Vector3 (transform.position.x, 0, transform.position.z), transform.rotation);
-            BoltNetwork.Destroy(entity);
+        if (state.Health <= 0f && !inDeathAnim) {
+            for (int i = 0; i < 3; i++)
+            {
+                Vector3 tossForce = 3000f * gameObject.transform.forward + 4000f * gameObject.transform.up;
+                SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
+                evnt.Position = transform.position + new Vector3(0, 1f, 0f);
+                evnt.Force = tossForce;
+                evnt.ItemId = -1;
+                evnt.Send();
+            }
+            nav.SetDestination(transform.position);
+            state.Dying = true;
+            //BoltNetwork.Destroy(entity);
         }
     }
 
