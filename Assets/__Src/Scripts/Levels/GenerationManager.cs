@@ -21,7 +21,6 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 {
     public List<DungeonCell> possibleCells = new List<DungeonCell>();
     public List<GameObject> roomPrefabs = new List<GameObject>();
-    public List<DungeonRoom> rooms = new List<DungeonRoom>();
 
     public float roomSize;
     [Range(0f,1f)]
@@ -43,7 +42,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
     public bool debug;
 
-    private AdjacencyGraph<DungeonRoom, Edge<DungeonRoom>> dungeonGraph;
+    public AdjacencyGraph<DungeonRoom, Edge<DungeonRoom>> dungeonGraph;
 
     private void Update() {
         //if (debug && Input.GetKeyDown(KeyCode.S))
@@ -65,12 +64,14 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                         edge.Source.state.EastWall = (int)DungeonRoom.WallState.Open;
                         edge.Target.state.WestWall = (int)DungeonRoom.WallState.Open;
                         dungeonGraph.AddVerticesAndEdge(edge);
+                        dungeonGraph.AddEdge(new Edge<DungeonRoom>(edge.Target, edge.Source));
                     }
                     if (j < height && dungeon[i,j+1]) {
                         Edge<DungeonRoom> edge = new Edge<DungeonRoom>(vertices[i, j], vertices[i, j + 1]);
                         edge.Source.state.NorthWall = (int)DungeonRoom.WallState.Open;
                         edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Open;
                         dungeonGraph.AddVerticesAndEdge(edge);
+                        dungeonGraph.AddEdge(new Edge<DungeonRoom>(edge.Target, edge.Source));
                     }
                 }
             }
@@ -82,6 +83,8 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             IEnumerable<Edge<DungeonRoom>> edges;
             if (tryDijkstra(vertex, out edges)) {
                 vertex.DistanceFromCenter = edges.Count();
+            } else if (vertex != centerRoom) {
+                Debug.Log("Path doesn't exist to room!?");
             }
         }
     }

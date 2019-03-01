@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 {
@@ -32,6 +33,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     private TextMeshProUGUI activeItemSlotNameTextElement;
     private TextMeshProUGUI itemNameTextElement;
     private TextMeshProUGUI itemDescriptionTextElement;
+    private TextMeshProUGUI messageElement;
 
     public override void ControlGained() {
         GameObject pref = Resources.Load<GameObject>("UI/PlayerUI");
@@ -46,6 +48,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         activeItemSlotNameTextElement = GetCanvasChildByName("Active Item Slot").GetComponentInChildren<TextMeshProUGUI>();
         itemNameTextElement = GetCanvasChildByName("Item Name").GetComponentInChildren<TextMeshProUGUI>();
         itemDescriptionTextElement = GetCanvasChildByName("Item Description").GetComponentInChildren<TextMeshProUGUI>();
+        messageElement = GetCanvasChildByName("Message").GetComponent<TextMeshProUGUI>();
     }
 
     public void SetHealth(float health) {
@@ -89,6 +92,16 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
             itemNameTextElement.text = "";
             itemDescriptionTextElement.text = "";
         }
+    }
+
+    public void DisplayMessage(string message, float displayInterval) {
+        messageElement.text = message;
+        Sequence fadeSeq = DOTween.Sequence();
+        fadeSeq.Append(messageElement.DOFade(1f, 2f));
+        fadeSeq.AppendInterval(displayInterval);
+        fadeSeq.Append(messageElement.DOFade(0f, 2f));
+        fadeSeq.AppendCallback(() => messageElement.text = "");
+        fadeSeq.Play();
     }
 
     private void Update()

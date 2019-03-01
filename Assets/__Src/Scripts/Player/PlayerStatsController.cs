@@ -29,6 +29,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
         state.AddCallback("ProjectileDamage", ProjectileDamageChanged);
         state.AddCallback("Color", ColorChanged);
         state.AddCallback("PlayerId", IdChanged);
+        state.AddCallback("Dead", PlayerDied);
         if (entity.isOwner) {
             state.AddCallback("WeaponId", WeaponIdChanged);
             state.AddCallback("ActiveId", ActiveIdChanged);
@@ -78,6 +79,14 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
             ui.SetHealth(state.Health);
             if (state.Health == 0) {
                 state.Dead = true;
+            }
+        }
+    }
+
+    private void PlayerDied() {
+        if (entity.isOwner) {
+            if (state.Dead) {
+                ui.DisplayMessage("You Died Fucker.", 4f);
             }
         }
     }

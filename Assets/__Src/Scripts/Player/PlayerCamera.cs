@@ -21,8 +21,7 @@ public class PlayerCamera : MonoBehaviour
         targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
     }
 
-    public void AddRoomToCamera(Transform room) {
-        DeactivateShake();
+    public void AddRoomToCamera(Transform room) { 
         targetGroup.RemoveMember(currentRoom);
         currentRoom = room;
         targetGroup.AddMember(room, 1f, 10f);
@@ -67,19 +66,14 @@ public class PlayerCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    public void ActivateShake(float ampGain = 1f, float freqGain = 1f) {
-        overviewCam.AddCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_NoiseProfile = noiseProfile;
-        overviewCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = ampGain;
-        overviewCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = freqGain;
+    public void SetShake(float ampGain = 1f, float freqGain = 1f) {
+        CinemachineBasicMultiChannelPerlin noise = overviewCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        noise.m_AmplitudeGain = ampGain;
+        noise.m_FrequencyGain = freqGain;
+        /*
         freeLookCam.GetRig(0).AddCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_NoiseProfile = noiseProfile;
         freeLookCam.GetRig(1).AddCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_NoiseProfile = noiseProfile;
         freeLookCam.GetRig(2).AddCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_NoiseProfile = noiseProfile;
-    }
-    
-    public void DeactivateShake() {
-        overviewCam.DestroyCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        freeLookCam.GetRig(0).DestroyCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        freeLookCam.GetRig(1).DestroyCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        freeLookCam.GetRig(2).DestroyCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        */
     }
 }

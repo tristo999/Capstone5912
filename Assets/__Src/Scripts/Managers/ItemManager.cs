@@ -11,7 +11,6 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
 
     public override void Attached() {
         Instance = this;
-        Debug.Log("XXX: " + items.Count);
         AssignIds();
     }
 

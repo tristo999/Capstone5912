@@ -8,11 +8,11 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
 
     private int _startFrame;
     private int dangerTime;
-    private int destructionTime;
+    private int destructionTime; 
     public Dictionary<int, BoltEntity> players { get; private set; } = new Dictionary<int, BoltEntity>();
     public Dictionary<int,List<DungeonRoom>> RoomLayers = new Dictionary<int,List<DungeonRoom>>();
-    public int RoomDropTime;
-    public int RoomDangerTime;
+    public int RoomDropTime = 15;
+    public int RoomDangerTime = 5;
     public int RoomLayer;
     public int GameTime
     {
@@ -39,17 +39,24 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
         if (!BoltNetwork.IsServer) return;
         if (RoomLayer > 0) {
             if (GameTime == dangerTime) {
+                Debug.Log("ITS DANGER TIME FOR LAYER " + RoomLayer);
                 SetLayerDanger();
             }
             if (GameTime == destructionTime) {
+                Debug.Log("ITS DESTRUCTION TIME FOR LAYER " + RoomLayer);
                 DestroyLayer();
             }
         }
     }
 
-    public void SetRoomLayers(List<DungeonRoom> rooms) {
+    public void SetRoomLayers(IEnumerable<DungeonRoom> rooms) {
         foreach (DungeonRoom room in rooms) {
+            if (!RoomLayers.ContainsKey(room.DistanceFromCenter)) {
+                RoomLayers.Add(room.DistanceFromCenter, new List<DungeonRoom>());
+            }
             RoomLayers[room.DistanceFromCenter].Add(room);
+            if (room.DistanceFromCenter > RoomLayer)
+                RoomLayer = room.DistanceFromCenter;
         }
     }
 

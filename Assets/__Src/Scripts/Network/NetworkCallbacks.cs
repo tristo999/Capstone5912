@@ -2,6 +2,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UdpKit;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
         GenerationManager.Instantiate();
         Physics.autoSimulation = false;
         GenerationManager.instance.GenerateStemmingMazeGraph();
-        GameMaster.instance.SetRoomLayers(GenerationManager.instance.rooms);
+        GameMaster.instance.SetRoomLayers(GenerationManager.instance.dungeonGraph.Vertices);
         readyConnections++;
         TryStartMatch();
     }
@@ -44,7 +45,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
                 } else {
                     spawnPlayer = SpawnPlayer.Create(GlobalTargets.OnlySelf);
                 }
-                spawnPlayer.WaitForRooms = GenerationManager.instance.rooms.Count;
+                spawnPlayer.WaitForRooms = GenerationManager.instance.dungeonGraph.Vertices.Count();
                 spawnPlayer.PlayerId = player.PlayerId;
                 spawnPlayer.Name = player.PlayerName;
                 spawnPlayer.Color = player.PlayerColor;

@@ -21,6 +21,7 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     [Range(0.0f,1.0f)]
     public float chanceDestroyCarpet;
     private List<PlayerCamera> camerasInRoom = new List<PlayerCamera>();
+    private float shakeTime = 1f;
 
     public enum WallState { Door=1, Open=2, Closed=0, Destroyed=3 }
     public enum DestructionState { Normal, Danger, Destroyed }
@@ -46,7 +47,6 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
 
     private void NorthWallChange() {
         WallState wallState = (WallState)state.NorthWall;
-        Debug.LogFormat("Set north wall to: {0}", wallState.ToString());
         northWall.SetActive(false);
         northWallFlat.SetActive(false);
         northWallDestroyed.SetActive(false);
@@ -61,7 +61,6 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
 
     private void EastWallChange() {
         WallState wallState = (WallState)state.EastWall;
-        Debug.LogFormat("Set east wall to: {0}", wallState.ToString());
         eastWall.SetActive(false);
         eastWallFlat.SetActive(false);
         eastWallDestroyed.SetActive(false);
@@ -76,7 +75,6 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
 
     private void SouthWallChange() {
         WallState wallState = (WallState)state.SouthWall;
-        Debug.LogFormat("Set south wall to: {0}", wallState.ToString());
         southWall.SetActive(false);
         southWallFlat.SetActive(false);
         southWallDestroyed.SetActive(false);
@@ -91,7 +89,6 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
 
     private void WestWallChange() {
         WallState wallState = (WallState)state.WestWall;
-        Debug.LogFormat("Set west wall to: {0}", wallState.ToString());
         westWall.SetActive(false);
         westWallFlat.SetActive(false);
         westWallDestroyed.SetActive(false);
@@ -107,7 +104,7 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     private void DestructionStateChange() {
         if (state.DestructionState == (int)DestructionState.Danger) {
             foreach (PlayerCamera cam in camerasInRoom) {
-                cam.ActivateShake();
+                cam.SetShake();
             }
         }
 
@@ -120,6 +117,10 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
                 state.WestWall = (int)WallState.Destroyed;
             if (state.SouthWall != (int)WallState.Closed)
                 state.SouthWall = (int)WallState.Destroyed;
+            foreach (PlayerCamera cam in camerasInRoom) {
+                cam.CameraPlayer.GetState<IPlayerState>().Dead = true;
+                cam.SetShake(0f);
+            }
         }
     }
 
@@ -128,7 +129,9 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
             PlayerCamera cam = SplitscreenManager.instance.GetEntityCamera(other.GetComponent<BoltEntity>());
             camerasInRoom.Add(cam);
             if (state.DestructionState == (int)DestructionState.Danger) {
-                cam.ActivateShake();
+                cam.SetShake(1f);
+            } else {
+                cam.SetShake(0f);
             }
         }
     }
@@ -137,7 +140,15 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
         if (other.tag == "Player" && other.GetComponent<BoltEntity>().isOwner) {
             PlayerCamera cam = SplitscreenManager.instance.GetEntityCamera(other.GetComponent<BoltEntity>());
             camerasInRoom.Remove(cam);
-            cam.DeactivateShake();
+        }
+    }
+
+    private void Update() {
+        if (state.DestructionState == (int)DestructionState.Danger) {
+            foreach (PlayerCamera cam in camerasInRoom) {
+                cam.SetShake(shakeTime, 1f);
+            }
+            shakeTime += 0.05f;
         }
     }
 
