@@ -3142,6 +3142,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88d3951d48455104e8742e5ce568be05, type: 3}
+--- !u!1 &463337656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 2013277804}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2013277805}
+  m_Layer: 0
+  m_Name: RG-Dungeon_Candlestick (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &466915443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 88d3951d48455104e8742e5ce568be05,
@@ -3621,7 +3637,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5513917026753001189, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
 --- !u!4 &582867937 stripped
 Transform:
@@ -4851,7 +4868,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5513917026753001189, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
 --- !u!4 &807085801 stripped
 Transform:
@@ -6625,6 +6643,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88d3951d48455104e8742e5ce568be05, type: 3}
+--- !u!1 &1104839238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 2013277804}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1104839239}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1104839239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 2013277804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104839238}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2013277805}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1107495338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9163,7 +9211,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5513917026753001189, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
 --- !u!4 &1475109285 stripped
 Transform:
@@ -10439,7 +10488,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5513917026753001189, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
 --- !u!4 &1702755196 stripped
 Transform:
@@ -12105,11 +12155,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb44702d8db67c245801daed0517cfce, type: 3}
---- !u!4 &2013277805 stripped
+--- !u!4 &2013277805
 Transform:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 2013277804}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463337656}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1104839239}
+  m_Father: {fileID: 1998985679}
+  m_RootOrder: 147
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2014548650
 PrefabInstance:
   m_ObjectHideFlags: 0

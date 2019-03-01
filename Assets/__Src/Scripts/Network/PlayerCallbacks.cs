@@ -38,7 +38,9 @@ class PlayerCallbacks : Bolt.GlobalEventListener
         Debug.Log("Must wait for " + evnt.WaitForRooms + " room spawns.");
         if (BoltNetwork.IsServer || receivedRooms >= evnt.WaitForRooms) {
             FinallySpawnPlayer();
-        } 
+        } else {
+            waitFor = evnt.WaitForRooms;
+        }
     }
 
     private void FinallySpawnPlayer() {
