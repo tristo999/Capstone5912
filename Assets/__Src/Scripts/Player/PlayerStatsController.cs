@@ -86,7 +86,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     private void PlayerDied() {
         if (entity.isOwner) {
             if (state.Dead) {
-                ui.DisplayMessage("You Died Fucker.", 4f);
+                ui.DisplayMessage("You Died.", 4f, 2f);
             }
         }
     }

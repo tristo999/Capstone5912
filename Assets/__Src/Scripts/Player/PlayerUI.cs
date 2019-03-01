@@ -94,9 +94,10 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    public void DisplayMessage(string message, float displayInterval) {
+    public void DisplayMessage(string message, float displayInterval, float displayIntroDelay = 0f) {
         messageElement.text = message;
         Sequence fadeSeq = DOTween.Sequence();
+        fadeSeq.AppendInterval(displayIntroDelay);
         fadeSeq.Append(messageElement.DOFade(1f, 2f));
         fadeSeq.AppendInterval(displayInterval);
         fadeSeq.Append(messageElement.DOFade(0f, 2f));
