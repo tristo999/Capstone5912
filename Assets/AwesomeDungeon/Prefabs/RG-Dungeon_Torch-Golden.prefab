@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000012239269174}
   - component: {fileID: 108000010623696196}
-  - component: {fileID: 5513917026753001189}
+  - component: {fileID: 1655176289}
   m_Layer: 0
   m_Name: Point light
   m_TagString: Untagged
@@ -42,9 +42,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 1, g: 0.78823525, b: 0.4705882, a: 1}
-  m_Intensity: 2.79
-  m_Range: 2
+  m_Color: {r: 1, g: 0.7115703, b: 0.2971698, a: 1}
+  m_Intensity: 3
+  m_Range: 4
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -54,7 +54,7 @@ Light:
     m_Strength: 1
     m_Bias: 0.21
     m_NormalBias: 0.08
-    m_NearPlane: 0.03
+    m_NearPlane: 0.049999997
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
@@ -65,12 +65,12 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 1.5
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 2
   m_ShadowAngle: 0
---- !u!114 &5513917026753001189
+--- !u!114 &1655176289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,8 +82,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 0.5
-  scatteringBias: -0.45
+  strength: 1
+  scatteringBias: 0
   overrideColor: 0
   overridingColor: {r: 0.999999, g: 0.999998, b: 0.999998, a: 1}
   useShadow: 1
@@ -94,7 +94,7 @@ MonoBehaviour:
   outOfPhaseColorStrength: 0.1
   outOfPhaseColor: {r: 0, g: 1, b: 1, a: 1}
   shadowDataRenderTexture: {fileID: 0}
-  customDistanceFalloffThreshold: 0.5
+  customDistanceFalloffThreshold: 0.528
   customDistanceFalloffPower: 2
   customCookieDistanceFalloffStartThreshold: 0.1
   customCookieDistanceFalloffEndThreshold: 0.25
@@ -5118,7 +5118,7 @@ ParticleSystem:
         m_RotationOrder: 0
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -5171,7 +5171,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -5224,7 +5224,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -5277,7 +5277,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:

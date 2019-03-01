@@ -17,8 +17,9 @@ public class BasicWand : Weapon
     public override void FireHold() {
         if (!Owner.entity.isOwner) return;
         if (timer < 0f) {
-            Vector3 spawnPos = transform.position + transform.forward * 1f;
-            spawnPos.y += .8f;
+            Vector3 spawnPos = transform.position + Owner.transform.forward * 1f;
+            //spawnPos.y += .8f;
+            Owner.state.FireAnim();
             BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
             proj.GetComponent<BasicWandProjectile>().owner = Owner.gameObject;
             proj.GetComponent<Rigidbody>().velocity = Owner.transform.forward * launchVelocity * Owner.state.ProjectileSpeed + Owner.GetComponent<Rigidbody>().velocity * .2f;

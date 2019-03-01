@@ -35,17 +35,19 @@ public class FireballWandProjectile : Bolt.EntityBehaviour<IProjectileState>
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<MeshRenderer>().enabled = false;
 
-        Collider[] hit = Physics.OverlapSphere(transform.position, 1f);
-        foreach (Collider c in hit) {
-            Rigidbody rigid = c.GetComponent<Rigidbody>();
-            if (rigid != null) {
-                rigid.AddExplosionForce(explosionForce, transform.position - new Vector3(0, -1f), explosionRadius);
-            }
+        if (entity.isOwner) {
+            Collider[] hit = Physics.OverlapSphere(transform.position, 1f);
+            foreach (Collider c in hit) {
+                Rigidbody rigid = c.GetComponent<Rigidbody>();
+                if (rigid != null) {
+                    rigid.AddExplosionForce(explosionForce, transform.position - new Vector3(0, -1f), explosionRadius);
+                }
 
-            if (c.gameObject.GetComponent<BoltEntity>() && entity.isControllerOrOwner) {
-                DamageEntity pHit = DamageEntity.Create(c.GetComponent<BoltEntity>());
-                pHit.Damage = damage;
-                pHit.Send();
+                if (c.gameObject.GetComponent<BoltEntity>()) {
+                    DamageEntity pHit = DamageEntity.Create(c.GetComponent<BoltEntity>());
+                    pHit.Damage = damage;
+                    pHit.Send();
+                }
             }
         }
     }

@@ -96,7 +96,7 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
         for (int i = 0; i < 8; i++) {
             if (i < state.NumPlayers) {
                 PlayerModels[i].SetActive(true);
-                PlayerModels[i].GetComponentInChildren<Renderer>().material.color = state.Players[i].Color;
+                PlayerModels[i].GetComponentsInChildren<SkinnedMeshRenderer>()[1].material.color = state.Players[i].Color;
                 PlayerNames[i].text = state.Players[i].Name;
                 ReadyObjects[i].SetActive(state.Players[i].Ready);
             }

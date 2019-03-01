@@ -239,7 +239,6 @@
             "ExtrapolationErrorTolerance": 0.25,
             "_ExtrapolationCorrectionFrames": 6,
             "ExtrapolationMaxFrames": 9,
-            "MecanimMode": 1,
             "MecanimDirection": 1,
             "MecanimLayer": 1,
             "SnapMagnitude": 10.0
@@ -507,6 +506,26 @@
             "ExtrapolationMaxFrames": 9,
             "MecanimMode": 1,
             "MecanimDirection": 1,
+            "SnapMagnitude": 10.0
+          }
+        },
+        {
+          "Name": "FireAnim",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeTrigger, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",
+            "ExtrapolationErrorTolerance": 0.25,
+            "_ExtrapolationCorrectionFrames": 6,
+            "ExtrapolationMaxFrames": 9,
+            "MecanimMode": 1,
+            "MecanimDirection": 1,
+            "MecanimLayer": 1,
             "SnapMagnitude": 10.0
           }
         }
