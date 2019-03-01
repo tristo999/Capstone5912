@@ -24,8 +24,9 @@ public abstract class DroppedItem : InteractiveObject
     }
 
     public override void FocusGained() {
-        nameText = Instantiate(ItemNameText).GetComponent<TextMeshPro>();
-        nameText.text = ItemManager.Instance.items[Id].ItemName;
+        // TEMP: Disabling the text attached to dropped items this simple way for Timebox 4.
+        // nameText = Instantiate(ItemNameText).GetComponent<TextMeshPro>();
+        // nameText.text = ItemManager.Instance.items[Id].ItemName;
         base.FocusGained();
     }
 
