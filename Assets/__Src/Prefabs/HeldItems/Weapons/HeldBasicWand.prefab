@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2737251845010929054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8125974975194198037}
+  m_Layer: 0
+  m_Name: LaunchTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8125974975194198037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2737251845010929054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 63363818804689890}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4547380477446255212
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +40,8 @@ GameObject:
   m_Component:
   - component: {fileID: 63363818804689890}
   - component: {fileID: 986467736761545732}
+  - component: {fileID: 6037907363681876947}
+  - component: {fileID: 8110142123676282328}
   m_Layer: 0
   m_Name: HeldBasicWand
   m_TagString: Untagged
@@ -29,6 +61,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 733665747850291087}
+  - {fileID: 8125974975194198037}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -44,9 +77,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f022ed9a725964dac6168d5c8a3738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 229, guid: 905ce62d2e15e1f46b1b286f5f7a0b87, type: 3}
-  launchVelocity: 12
-  FireTime: 0.5
+--- !u!114 &6037907363681876947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547380477446255212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eeaf7a6a9e857141924e224c4c5ac15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 0.5
+--- !u!114 &8110142123676282328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547380477446255212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad0a3c2fffc6ec24080ac81616b8fcfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Projectile: {fileID: 3620, guid: 905ce62d2e15e1f46b1b286f5f7a0b87, type: 3}
+  LaunchPosition: {fileID: 8125974975194198037}
+  LaunchDirection: {x: 0, y: 0, z: 0}
+  LaunchForce: 5
 --- !u!1 &8526370755868103645
 GameObject:
   m_ObjectHideFlags: 0

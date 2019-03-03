@@ -2,73 +2,68 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(WeaponCooldown))]
+[RequireComponent(typeof(WeaponLaunchProjectile))]
 public class FireballWand : Weapon
 {
     public float BaseLaunchVelocity;
     public float MaxLaunchVelocity;
-    public float Angle;
     public int PointsInArc;
-    public GameObject projectile;
 
     private float currentVelocity;
     private LineRenderer line;
-    private Vector3 spawnPos;
 
     private bool beganFiring;
 
-    private float timer;
-    public float FireTime = 1.25f;
+    private WeaponCooldown cooldown;
+    private WeaponLaunchProjectile launchProjectile;
+
+    private void Awake() {
+        cooldown = GetComponent<WeaponCooldown>();
+        launchProjectile = GetComponent<WeaponLaunchProjectile>();
+    }
 
     public override void FireDown() {
-        currentVelocity = BaseLaunchVelocity * Owner.state.ProjectileSpeed;
+        launchProjectile.LaunchForce = BaseLaunchVelocity;
     }
 
     public override void FireHold() {
-        if (timer > 0) return;
+        if (!cooldown.Ready) return;
         if (!beganFiring) {
             Owner.state.Speed -= 0.75f;
             beganFiring = true;
         }
-        spawnPos = transform.position + Owner.transform.forward * .8f + Vector3.up * .4f;
         if (currentVelocity < MaxLaunchVelocity * Owner.state.ProjectileSpeed)
-            currentVelocity += 0.05f * Owner.state.ProjectileSpeed;
+            launchProjectile.LaunchForce += 0.05f;
         Vector3[] positions = new Vector3[PointsInArc];
-        Vector3 dir = (Quaternion.AngleAxis(-Angle, Owner.transform.right) * Owner.transform.forward).normalized * currentVelocity + Owner.GetComponent<Rigidbody>().velocity * .8f;
-        float timeToImpact = TimeOfImpact(dir);
+        float timeToImpact = TimeOfImpact(launchProjectile.LaunchPosition.forward);
         float step = timeToImpact / PointsInArc;
         for (int i = 0; i < PointsInArc; i++) {
-            positions[i] = spawnPos + dir * i * step + Physics.gravity * i * i * step * step * .5f;
+            positions[i] = launchProjectile.LaunchPosition.position + launchProjectile.LaunchPosition.forward * i * step + Physics.gravity * i * i * step * step * .5f;
         }
 
         line.SetPositions(positions);
     }
 
     public override void FireRelease() {
-        if (timer > 0) return;
+        if (!cooldown.Ready) return;
         if (beganFiring) {
             // Sometimes firerelease gets called twice so we need to check to make sure the speed up is not applied twice.
             Owner.state.Speed += 0.75f;
         }
+        cooldown.ResetCooldown();
         beganFiring = false;
         line.SetPositions(new Vector3[PointsInArc]);
-        timer = FireTime * Owner.state.FireRate;
         if (Owner.entity.isOwner) {
+            launchProjectile.Launch();
             Owner.state.FireAnim();
-            BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
-            proj.GetComponent<FireballWandProjectile>().owner = Owner.gameObject;
-            proj.GetComponent<Rigidbody>().velocity = (Quaternion.AngleAxis(-Angle, Owner.transform.right) * Owner.transform.forward).normalized * currentVelocity;
             currentVelocity = 0f;
         }
-    }
-
-    private void Update() {
-        timer -= Time.deltaTime;
     }
 
     public override void OnEquip() {
         line = GetComponent<LineRenderer>();
         line.positionCount = PointsInArc;
-        spawnPos = transform.position + transform.forward * .3f + Vector3.up * .8f;
     }
 
     private float TimeOfImpact(Vector3 dir) {
@@ -77,7 +72,7 @@ public class FireballWand : Weapon
 
         while (!collided) {
             time += .025f;
-            Vector3 pos = spawnPos + dir * time + Physics.gravity * time * time * .5f;
+            Vector3 pos = launchProjectile.LaunchPosition.position + launchProjectile.LocalLaunchDir * time + Physics.gravity * time * time * .5f;
             collided = Physics.CheckSphere(pos, .15f, ~(1 << 12)) || time > 1000;
         }
 

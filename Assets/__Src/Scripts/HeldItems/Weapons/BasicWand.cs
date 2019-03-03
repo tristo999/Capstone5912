@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(WeaponCooldown))]
+[RequireComponent(typeof(WeaponLaunchProjectile))]
 public class BasicWand : Weapon
 {
-    public GameObject projectile;
-    public float launchVelocity;
+    private WeaponCooldown cooldown;
+    private WeaponLaunchProjectile launchProj;
 
-    public float FireTime = .5f;
-    private float timer = 0.0f;
+    private void Awake() {
+        cooldown = GetComponent<WeaponCooldown>();
+        launchProj = GetComponent<WeaponLaunchProjectile>();
+    }
 
     public override void FireDown() {
         
@@ -16,14 +20,9 @@ public class BasicWand : Weapon
 
     public override void FireHold() {
         if (!Owner.entity.isOwner) return;
-        if (timer < 0f) {
-            Vector3 spawnPos = transform.position + Owner.transform.forward * 1f;
-            //spawnPos.y += .8f;
-            Owner.state.FireAnim();
-            BoltEntity proj = BoltNetwork.Instantiate(projectile, spawnPos, Quaternion.identity);
-            proj.GetComponent<BasicWandProjectile>().owner = Owner.gameObject;
-            proj.GetComponent<Rigidbody>().velocity = Owner.transform.forward * launchVelocity * Owner.state.ProjectileSpeed + Owner.GetComponent<Rigidbody>().velocity * .2f;
-            timer = FireTime * Owner.state.FireRate;
+        if (cooldown.Ready) {
+            launchProj.Launch();
+            cooldown.ResetCooldown();
         } 
     }
 
@@ -33,9 +32,5 @@ public class BasicWand : Weapon
 
     public override void OnEquip() {
 
-    }
-
-    private void Update() {
-        timer -= Time.deltaTime;
     }
 }
