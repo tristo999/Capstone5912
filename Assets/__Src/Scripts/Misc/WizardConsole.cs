@@ -133,11 +133,15 @@ public class WizardConsole : Bolt.GlobalEventListener
         SpawnItem evt = SpawnItem.Create(ItemManager.Instance.entity);
         evt.ItemId = int.Parse(args[0]);
         if (args.Length > 1) {
-            float x, y, z;
-            x = float.Parse(args[1]);
-            y = float.Parse(args[2]);
-            z = float.Parse(args[3]);
-            evt.Position = new Vector3(x, y, z);
+            if (args.Length == 2) {
+                evt.Position = GameMaster.instance.players[int.Parse(args[1])].transform.position + Vector3.up;
+            } else {
+                float x, y, z;
+                x = float.Parse(args[1]);
+                y = float.Parse(args[2]);
+                z = float.Parse(args[3]);
+                evt.Position = new Vector3(x, y, z);
+            }
         }
         evt.Send();
     }

@@ -70,7 +70,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
             ItemDefinition item = ItemManager.Instance.items[state.WeaponId];
 
             Vector3 handOffset = new Vector3(-2.65f, -1.7f, .63f);
-            Quaternion handRotation = Quaternion.Euler(-26.35f, -13.78f, -31.65f);
+            Quaternion handRotation = Quaternion.Euler(-26.35f, -13.78f, 148.35f);
             GameObject newWep = Instantiate(item.HeldModel, playerHand);
             newWep.transform.localPosition = handOffset;
             newWep.transform.localRotation = handRotation;

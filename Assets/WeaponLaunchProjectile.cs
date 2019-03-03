@@ -6,7 +6,7 @@ public class WeaponLaunchProjectile : MonoBehaviour
 {
     public BoltEntity Projectile;
     public Transform LaunchPosition;
-    public Vector3 LaunchDirection;
+    public float LaunchAngle;
     [HideInInspector]
     public float ModifiedLaunchForce
     {
@@ -20,7 +20,7 @@ public class WeaponLaunchProjectile : MonoBehaviour
     {
         get
         {
-            return Quaternion.Euler(LaunchDirection) * weaponBase.Owner.transform.forward;
+            return (Quaternion.AngleAxis(-LaunchAngle, weaponBase.Owner.transform.right) * weaponBase.Owner.transform.forward).normalized;
         }
     }
     public float LaunchForce;

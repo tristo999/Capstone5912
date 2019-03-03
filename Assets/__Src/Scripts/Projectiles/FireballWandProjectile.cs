@@ -12,6 +12,8 @@ public class FireballWandProjectile : Bolt.EntityBehaviour<IProjectileState>
     public float explosionRadius;
     public float explosionForce;
 
+    private bool exploded;
+
     public override void Attached() {
         state.SetTransforms(state.transform, transform);
     }
@@ -24,11 +26,13 @@ public class FireballWandProjectile : Bolt.EntityBehaviour<IProjectileState>
     }
 
     private void OnCollisionEnter(Collision collision) {
+        if (exploded) return;
         Explode();
         StartCoroutine(DelayDestroy());
     }
 
     private void Explode() {
+        exploded = true;
         trail.SetActive(false);
         explosion.SetActive(true);
         GetComponent<SphereCollider>().enabled = false;

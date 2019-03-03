@@ -36,10 +36,10 @@ public class FireballWand : Weapon
         if (currentVelocity < MaxLaunchVelocity * Owner.state.ProjectileSpeed)
             launchProjectile.LaunchForce += 0.05f;
         Vector3[] positions = new Vector3[PointsInArc];
-        float timeToImpact = TimeOfImpact(launchProjectile.LaunchPosition.forward);
+        float timeToImpact = TimeOfImpact(launchProjectile.LocalLaunchDir * launchProjectile.LaunchForce);
         float step = timeToImpact / PointsInArc;
         for (int i = 0; i < PointsInArc; i++) {
-            positions[i] = launchProjectile.LaunchPosition.position + launchProjectile.LaunchPosition.forward * i * step + Physics.gravity * i * i * step * step * .5f;
+            positions[i] = launchProjectile.LaunchPosition.position + launchProjectile.LocalLaunchDir * launchProjectile.LaunchForce * i * step + Physics.gravity * i * i * step * step * .5f;
         }
 
         line.SetPositions(positions);
@@ -72,8 +72,8 @@ public class FireballWand : Weapon
 
         while (!collided) {
             time += .025f;
-            Vector3 pos = launchProjectile.LaunchPosition.position + launchProjectile.LocalLaunchDir * time + Physics.gravity * time * time * .5f;
-            collided = Physics.CheckSphere(pos, .15f, ~(1 << 12)) || time > 1000;
+            Vector3 pos = launchProjectile.LaunchPosition.position + dir * time + Physics.gravity * time * time * .5f;
+            collided = Physics.CheckSphere(pos, .2f, ~(1 << 12)) || time > 1000;
         }
 
         return time;
