@@ -13,7 +13,7 @@ public class PlayerCamera : MonoBehaviour
     public int PlayerId;
     public NoiseSettings noiseProfile;
     public BoltEntity CameraPlayer;
-    private Transform currentRoom;
+    public Transform currentRoom;
     private bool thirdPerson;
 
     private void Awake() {
@@ -25,6 +25,7 @@ public class PlayerCamera : MonoBehaviour
         targetGroup.RemoveMember(currentRoom);
         currentRoom = room;
         targetGroup.AddMember(room, 1f, 10f);
+        SplitscreenManager.instance.DoRoomCulling();
     }
 
     public void AddPlayerToCamera(Transform player) {

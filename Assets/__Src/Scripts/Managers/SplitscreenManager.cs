@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using QuickGraph;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,12 +13,13 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
 
     public List<PlayerCamera> playerCameras { get; private set; } = new List<PlayerCamera>();
     public PlayerCamera previewCamera { get; private set; }
+    private List<Renderer> renderers = new List<Renderer>();
     private GameObject playerCamPrefab;
 
     private void Awake() {
         playerCamPrefab = Resources.Load("UI/PlayerCamera") as GameObject;
     }
-    
+
     public PlayerCamera GetEntityCamera(BoltEntity entity) {
         return playerCameras.First(p => p.CameraPlayer == entity);
     }
@@ -89,4 +91,27 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
             Debug.LogFormat("{0} is not a valid number of players.", playerCount);
         }
     }
+
+    public void DoRoomCulling() {
+        if (renderers.Count == 0) {
+            Renderer[] rend = Resources.FindObjectsOfTypeAll<Renderer>();
+            renderers.AddRange(rend.Where(r => r.gameObject.layer == 14 || r.gameObject.layer == 15 || r.gameObject.layer == 16));
+            Debug.LogFormat("Added {0} renderers to cull.", renderers.Count);
+        }
+
+        Debug.LogFormat("Culling {0} renderers.", renderers.Count);
+        foreach (Renderer ren in renderers) {
+            ren.enabled = false;
+        }
+
+        foreach (PlayerCamera cam in playerCameras) {
+            foreach (Collider col in Physics.OverlapSphere(cam.CameraPlayer.transform.position, GenerationManager.instance.roomSize * 1.25f, (1 << 14) | (1 << 15) | (1 << 16), QueryTriggerInteraction.Collide)) {
+                foreach (Renderer ren in col.GetComponentsInChildren<Renderer>()) {
+                    ren.enabled = true;
+                }
+            }
+        }
+    }
 }
+
+
