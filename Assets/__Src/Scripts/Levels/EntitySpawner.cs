@@ -2,11 +2,11 @@
 
 public class EntitySpawner : MonoBehaviour
 {
-    public GameObject entity;
+    public BoltEntity entity;
     [Range(0.0f,1.0f)]
     public float ChanceSpawn;
 
-    private void Awake() {
+    private void Start() {
         if (BoltNetwork.IsServer) {
             if (Random.Range(0.0f,1.0f) < ChanceSpawn) {
                 BoltNetwork.Instantiate(entity, transform.position, Quaternion.identity);

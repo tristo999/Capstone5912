@@ -2313,7 +2313,7 @@
           }
         },
         {
-          "Name": "WaitForRooms",
+          "Name": "WaitForEntities",
           "Enabled": true,
           "Expanded": true,
           "ReplicationMode": 1,
@@ -2343,7 +2343,7 @@
           "Enabled": true,
           "Expanded": true,
           "ReplicationMode": 1,
-          "Priority": 2,
+          "Priority": 1,
           "PropertyType": {
             "$type": "Bolt.Compiler.PropertyTypeTransform, bolt.compiler",
             "PositionSelection": 14,
@@ -2877,7 +2877,7 @@
           "Name": "transform",
           "Enabled": true,
           "Expanded": true,
-          "Priority": 1,
+          "Priority": 2,
           "PropertyType": {
             "$type": "Bolt.Compiler.PropertyTypeTransform, bolt.compiler",
             "PositionSelection": 14,
@@ -2948,6 +2948,7 @@
           },
           "AssetSettings": {
             "$type": "Bolt.Compiler.PropertyStateSettings, bolt.compiler",
+            "SmoothingAlgorithm": 2,
             "ExtrapolationErrorTolerance": 0.25,
             "_ExtrapolationCorrectionFrames": 6,
             "ExtrapolationMaxFrames": 9,
@@ -3260,6 +3261,52 @@
       "GlobalSenders": 3,
       "Name": "TeleportPlayer",
       "Guid": "834bd7f9-f851-4995-b6b5-68cded85c7e4",
+      "Groups": [
+        "WizardFight"
+      ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [],
+      "EntitySenders": 3,
+      "Name": "FreezeDistant",
+      "Guid": "1d6cdb0f-2ea8-4a5e-9462-65f11a681a62",
+      "Groups": [
+        "WizardFight"
+      ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "NumberEntities",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
+            "MaxValue": 255
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "EntitySenders": 3,
+      "GlobalSenders": 1,
+      "Name": "WaitForMap",
+      "Guid": "03afbf61-e446-4ba3-8c59-47c3d749d634",
+      "Groups": [
+        "WizardFight"
+      ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [],
+      "EntitySenders": 3,
+      "Name": "ReadySpawn",
+      "Guid": "bfd4ea2a-6055-4b0a-bab1-a718bed44cf1",
       "Groups": [
         "WizardFight"
       ]

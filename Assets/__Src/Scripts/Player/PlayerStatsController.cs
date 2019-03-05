@@ -63,8 +63,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
 
     private void IdChanged() {
         if (state.PlayerId < 0) return;
-        if (BoltNetwork.IsServer)
-            GameMaster.instance.PlayerIdChange(entity, state.PlayerId);
+        GameMaster.instance.PlayerIdChange(entity, state.PlayerId);
     }
 
     private void ColorChanged() {

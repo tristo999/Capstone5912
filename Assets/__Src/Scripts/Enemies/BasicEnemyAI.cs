@@ -44,9 +44,10 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     public Animator enemyAnimator;
     private bool attackStarted;
     public GameObject chest;
+    public Transform renderTransform;
 
     public override void Attached() {
-        state.SetTransforms(state.transform, transform);
+        state.SetTransforms(state.transform, transform, renderTransform);
         enemyAnimator = GetComponentInChildren<Animator>();
         state.SetAnimator(enemyAnimator);
 
@@ -55,6 +56,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         state.AddCallback("Health", HealthChanged);
         state.OnAttack += Attack;
         nav = this.GetComponent<NavMeshAgent>();
+        nav.enabled = true;
         intPosition = transform.position;
         attackTimer = 100f;
         animationTimer = 0f;
@@ -65,7 +67,6 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     }
 
     private void Attack() {
-        Debug.Log("Enemy attacking.");
         attackTimer = 0f;
         nav.isStopped = true;
         attackStarted = true;

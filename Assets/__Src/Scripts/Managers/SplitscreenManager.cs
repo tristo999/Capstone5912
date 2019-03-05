@@ -93,13 +93,12 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
     }
 
     public void DoRoomCulling() {
+        FreezeDistant.Create().Send();
         if (renderers.Count == 0) {
             Renderer[] rend = Resources.FindObjectsOfTypeAll<Renderer>();
             renderers.AddRange(rend.Where(r => r.gameObject.layer == 14 || r.gameObject.layer == 15 || r.gameObject.layer == 16));
-            Debug.LogFormat("Added {0} renderers to cull.", renderers.Count);
         }
 
-        Debug.LogFormat("Culling {0} renderers.", renderers.Count);
         foreach (Renderer ren in renderers) {
             ren.enabled = false;
         }

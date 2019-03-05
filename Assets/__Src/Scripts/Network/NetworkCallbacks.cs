@@ -19,44 +19,55 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
         Physics.autoSimulation = false;
         GenerationManager.instance.GenerateStemmingMazeGraph();
         GameMaster.instance.SetRoomLayers(GenerationManager.instance.dungeonGraph.Vertices);
-        readyConnections++;
-        TryStartMatch();
+        Debug.Log("After generation there exist " + GameMaster.instance.roomsAndClutter.Count + " entities");
+        WaitForMap waitEvnt = WaitForMap.Create();
+        waitEvnt.NumberEntities = BoltNetwork.Entities.Count();
+        waitEvnt.Send();
     }
 
-    public override void SceneLoadRemoteDone(BoltConnection connection) {
-        // Track established connections, then once all are established or a timeout happens, spawn players and begin game.
-
+    public override void OnEvent(ReadySpawn evnt) {
         readyConnections++;
-        Debug.LogFormat("Remote connection complete, expecting {0} total connections, have {1}", connections, readyConnections);
-        TryStartMatch();
+        if (readyConnections >= BoltNetwork.Connections.Count() + 1) {
+            StartMatch();
+        }
     }
 
     public override void ConnectRequest(UdpEndPoint endpoint, IProtocolToken token) {
         BoltNetwork.Refuse(endpoint);
     }
 
-    private void TryStartMatch() {
-        if (readyConnections >= connections) {
-            Physics.autoSimulation = true;
-            foreach (WizardFightPlayerObject player in WizardFightPlayerRegistry.Players) {
-                SpawnPlayer spawnPlayer;
-                if (player.connection) {
-                    spawnPlayer = SpawnPlayer.Create(player.connection);
-                } else {
-                    spawnPlayer = SpawnPlayer.Create(GlobalTargets.OnlySelf);
-                }
-                spawnPlayer.WaitForRooms = GenerationManager.instance.dungeonGraph.Vertices.Count();
-                spawnPlayer.PlayerId = player.PlayerId;
-                spawnPlayer.Name = player.PlayerName;
-                spawnPlayer.Color = player.PlayerColor;
-                Vector3 pos = GenerationManager.instance.SpawnPositions(1)[0];
-                //Vector3 pos = GenerationManager.instance.rooms[Random.Range(0, GenerationManager.instance.rooms.Count)].transform.position + new Vector3(GenerationManager.instance.roomSize / 2, 2, GenerationManager.instance.roomSize / 2);
-                spawnPlayer.Position = pos;
-                spawnPlayer.Send();
+    private void StartMatch() {
+        Physics.autoSimulation = true;
+        foreach (WizardFightPlayerObject player in WizardFightPlayerRegistry.Players) {
+            SpawnPlayer spawnPlayer;
+            if (player.connection) {
+                spawnPlayer = SpawnPlayer.Create(player.connection);
+            } else {
+                spawnPlayer = SpawnPlayer.Create(GlobalTargets.OnlySelf);
             }
+            spawnPlayer.PlayerId = player.PlayerId;
+            spawnPlayer.Name = player.PlayerName;
+            spawnPlayer.Color = player.PlayerColor;
+            Vector3 pos = GenerationManager.instance.SpawnPositions(1)[0];
+            //Vector3 pos = GenerationManager.instance.rooms[Random.Range(0, GenerationManager.instance.rooms.Count)].transform.position + new Vector3(GenerationManager.instance.roomSize / 2, 2, GenerationManager.instance.roomSize / 2);
+            spawnPlayer.Position = pos;
+            spawnPlayer.Send();
         }
         GameStart evnt = GameStart.Create();
         evnt.Send();
+    }
+
+    public override void EntityAttached(BoltEntity entity) {
+        if (entity.gameObject.layer == 14 || entity.gameObject.layer == 15 || entity.gameObject.layer == 16) {
+            GameMaster.instance.roomsAndClutter.Add(entity);
+        }
+        if (entity.tag == "Player") {
+            GameMaster.instance.SpawnedPlayers++;
+        }
+    }
+
+    public override void OnEvent(FreezeDistant evnt) {
+        GameMaster.instance.FreezeDistantEntities();
     }
 
     private void Update() {

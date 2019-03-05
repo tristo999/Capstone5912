@@ -1,24 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [BoltGlobalBehaviour("WizardFightGame")]
 class PlayerCallbacks : Bolt.GlobalEventListener
 {
-    private int receivedRooms = 0;
-    private int waitFor;
-    private List<WizardFightPlayerObject> heldSpawnEvents = new List<WizardFightPlayerObject>();
-    private List<Vector3> positions = new List<Vector3>();
+    private int waitFor = 0;
+    private bool waiting = false;
 
     public override void SceneLoadLocalDone(string scene) {
         SplitscreenManager.Instantiate();
     }
 
     public override void EntityAttached(BoltEntity entity) {
-        if (entity.StateIs(typeof(IRoomObject))) {
-            receivedRooms++;
-            if (heldSpawnEvents.Count > 0 && receivedRooms >= waitFor) {
-                FinallySpawnPlayer();
-            }
+        if (waiting && BoltNetwork.Entities.Count() >= waitFor) {
+            ReadySpawn evnt = ReadySpawn.Create(Bolt.GlobalTargets.OnlyServer);
+            evnt.Send();
+            waiting = false;
         }
     }
 
@@ -28,33 +27,24 @@ class PlayerCallbacks : Bolt.GlobalEventListener
         entity.GetComponent<PlayerMovementController>().AssignPlayer(localPlayerId);
     }
 
-    public override void OnEvent(SpawnPlayer evnt) {
-        WizardFightPlayerObject obj = new WizardFightPlayerObject();
-        obj.PlayerName = evnt.Name;
-        obj.PlayerColor = evnt.Color;
-        obj.PlayerId = evnt.PlayerId;
-        heldSpawnEvents.Add(obj);
-        positions.Add(evnt.Position);
-        Debug.Log("Must wait for " + evnt.WaitForRooms + " room spawns.");
-        if (BoltNetwork.IsServer || receivedRooms >= evnt.WaitForRooms) {
-            FinallySpawnPlayer();
+    public override void OnEvent(WaitForMap evnt) {
+        if (BoltNetwork.Entities.Count() >= evnt.NumberEntities) {
+            ReadySpawn ready = ReadySpawn.Create(Bolt.GlobalTargets.OnlyServer);
+            ready.Send();
         } else {
-            waitFor = evnt.WaitForRooms;
+            waiting = true;
+            waitFor = evnt.NumberEntities;
         }
     }
 
-    private void FinallySpawnPlayer() {
-        for (int i = 0; i < heldSpawnEvents.Count; i++) {
-            BoltEntity playerEntity = BoltNetwork.Instantiate(BoltPrefabs.Player, positions[i], Quaternion.identity);
-            IPlayerState playerState = playerEntity.GetComponent<PlayerMovementController>().state;
-            playerEntity.GetComponent<PlayerUI>().ScreenNumber = SplitscreenManager.instance.CreatePlayerCamera(playerEntity.transform);
-            playerState.Color = heldSpawnEvents[i].PlayerColor;
-            playerState.Name = heldSpawnEvents[i].PlayerName;
-            playerState.PlayerId = heldSpawnEvents[i].PlayerId;
-            playerEntity.TakeControl();
-        }
-        heldSpawnEvents.Clear();
-        positions.Clear();
+    public override void OnEvent(SpawnPlayer evnt) {
+        BoltEntity playerEntity = BoltNetwork.Instantiate(BoltPrefabs.Player, evnt.Position, Quaternion.identity);
+        IPlayerState playerState = playerEntity.GetComponent<PlayerMovementController>().state;
+        playerEntity.GetComponent<PlayerUI>().ScreenNumber = SplitscreenManager.instance.CreatePlayerCamera(playerEntity.transform);
+        playerState.Color = evnt.Color;
+        playerState.Name = evnt.Name;
+        playerState.PlayerId = evnt.PlayerId;
+        playerEntity.TakeControl();
     }
 
     public override void OnEvent(GameStart evnt) {
