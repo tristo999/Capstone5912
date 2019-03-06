@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : BoltSingletonPrefab<GameMaster>
 {
@@ -53,6 +54,11 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
     }
 
     public void FixedUpdate() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            BoltLauncher.Shutdown();
+            SceneManager.LoadScene("Title");
+        }
+
         if (!BoltNetwork.IsServer) return;
         if (RoomLayer > 0) {
             if (GameTime == dangerTime) {

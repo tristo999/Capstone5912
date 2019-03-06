@@ -127,7 +127,7 @@ namespace Rewired.Integration.Cinemachine {
             }
 
             if(_instance != null) {
-                Debug.LogError("You cannot have multiple Rewired Cinemachine Bridges enabled in the scene.");
+                Debug.LogWarning("You cannot have multiple Rewired Cinemachine Bridges enabled in the scene. This warning can be ignored if loading a new scene which already has a Rewired Cinemachine Bridge.");
                 return;
             }
             _instance = this;
