@@ -20,8 +20,26 @@ public struct DungeonCell
 public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 {
     public List<DungeonCell> possibleCells = new List<DungeonCell>();
+    [Header("Room Generation Prefabs")]
     public List<GameObject> roomPrefabs = new List<GameObject>();
 
+    [Tooltip("CarpetSpawner tag.")]
+    public List<GameObject> carpetObjects = new List<GameObject>();
+    [Tooltip("CabinetClutter tag.")]
+    public List<GameObject> cabinetObjects = new List<GameObject>();
+    [Tooltip("EnemySpawn tag.")]
+    public List<GameObject> enemyEntities = new List<GameObject>();
+    [Tooltip("ChestSpawn tag.")]
+    public List<GameObject> chestEntities = new List<GameObject>();
+    [Tooltip("TableClutter tag.")]
+    public List<GameObject> tableObjects = new List<GameObject>();
+    [Tooltip("GroundClutter tag.")]
+    public List<GameObject> groundObjects = new List<GameObject>();
+    [Tooltip("ChildClutter tag.")]
+    public List<GameObject> childClutterObjects = new List<GameObject>();
+    [Space(20)]
+
+    [Header("Generation Settings")]
     public float roomSize;
     [Range(0f,1f)]
     public float wallKnockoutChance;
@@ -34,24 +52,17 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public int width;
     public int height;
     public int generationAttempts;
+    [Space(20)]
 
-    public int maxRoomWidth;
-    public int maxRoomHeight;
-    public int minRooms;
-    public int maxRooms;
-
+    [Tooltip("This does nothing right now. Sorry... <3 David")]
     public bool debug;
 
     public AdjacencyGraph<DungeonRoom, Edge<DungeonRoom>> dungeonGraph;
 
-    private void Update() {
-        //if (debug && Input.GetKeyDown(KeyCode.S))
-            //StartCoroutine(DebugStemmingMaze());
-    }
-
     public void GenerateStemmingMazeGraph() {
         dungeonGraph = new AdjacencyGraph<DungeonRoom, Edge<DungeonRoom>>();
         GenerateStemmingMaze();
+        PopulateTags();
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -97,6 +108,41 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         return positions;
     }
 
+    public void PopulateTags() {
+        SpawnTagFromList("CarpetSpawner", carpetObjects);
+        SpawnTagFromList("CabinetClutter", cabinetObjects);
+        SpawnTagFromList("EnemySpawn", enemyEntities);
+        SpawnTagFromList("ChestSpawn", chestEntities);
+        SpawnTagFromList("TableClutter", tableObjects);
+        SpawnTagFromList("GroundClutter", groundObjects);
+    }
+
+    private void SpawnTagFromList(string tag, List<GameObject> list) {
+        foreach (GameObject spawn in GameObject.FindGameObjectsWithTag(tag)) {
+            if (Random.Range(0f, 1f) <= spawn.GetComponent<SpawnChance>().Chance) {
+                BoltNetwork.Instantiate(list[Random.Range(0, list.Count)], spawn.transform.position, spawn.transform.rotation);
+                foreach (GameObject child in FindChildrenWithTag(spawn, "ChildClutter")) {
+                    if (Random.Range(0f, 1f) <= child.GetComponent<SpawnChance>().Chance) {
+                        BoltNetwork.Instantiate(childClutterObjects[Random.Range(0, childClutterObjects.Count)], child.transform.position, child.transform.rotation);
+                        BoltNetwork.Destroy(child);
+                    }
+                }
+            }
+            BoltNetwork.Destroy(spawn);
+        }
+    }
+
+    private GameObject[] FindChildrenWithTag(GameObject parent, string tag) {
+        List<GameObject> children = new List<GameObject>();
+        Transform t = parent.transform;
+        foreach (Transform tr in t) {
+            if (tr.tag == tag) {
+                children.Add(tr.gameObject);
+            }
+        }
+        return children.ToArray();
+    }
+
     public void GenerateStemmingMaze() {
         if (mazeObject != null) {
             Destroy(mazeObject);
@@ -127,47 +173,6 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                 newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
                 room = newRoom.GetComponent<DungeonRoom>();
                 vertices[mirrorX, mirrorY] = room;
-            }
-        }
-    }
-
-    public IEnumerator GenerateGuessMaze(int width, int height)
-    {
-        if (mazeObject != null)
-        {
-            Destroy(mazeObject);
-        }
-        mazeObject = new GameObject();
-        this.width = width;
-        this.height = height;
-        dungeon = new bool[width, height];
-        dungeon[width / 2, height / 2] = true;
-        GameObject obj = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
-        obj.transform.parent = mazeObject.transform;
-        obj.transform.position = new Vector3(width/2, 0, height/2) * roomSize;
-        for (int i = 0; i < generationAttempts; i++)
-        {
-            int x = Random.Range(0, width-1);
-            int y = Random.Range(0, height-1);
-            if (!dungeon[x,y] && adjacentToRoom(x,y))
-            {
-                dungeon[x, y] = true;
-                obj = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
-                obj.transform.position = new Vector3(x, 0, y) * roomSize;
-                obj.transform.parent = mazeObject.transform;
-                if (Random.Range(0.0f,1.0f) > 0.2f)
-                {
-                    int mirrorX = width - 1 - x;
-                    int mirrorY = height - 1 - y;
-                    if (adjacentToRoom(mirrorX, mirrorY))
-                    {
-                        dungeon[width - 1 - x, height - 1 - y] = true;
-                        obj = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)]);
-                        obj.transform.position = new Vector3(width - x, 0, width - y) * roomSize;
-                        obj.transform.parent = mazeObject.transform;
-                    }
-                }
-                yield return new WaitForSeconds(.1f);
             }
         }
     }

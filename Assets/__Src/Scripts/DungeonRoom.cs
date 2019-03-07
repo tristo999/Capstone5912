@@ -153,10 +153,10 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     }
 
     private void CarpetChange() {
-        carpet.SetActive(state.Carpet);
+        //carpet.SetActive(state.Carpet);
     }
 
     private void CarpetColorChange() {
-        carpet.GetComponent<Renderer>().material.color = state.CarpetColor;
+        //carpet.GetComponent<Renderer>().material.color = state.CarpetColor;
     }
 }
