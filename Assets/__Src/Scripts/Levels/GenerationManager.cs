@@ -132,13 +132,14 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         }
     }
 
-    private GameObject[] FindChildrenWithTag(GameObject parent, string tag) {
+    public GameObject[] FindChildrenWithTag(GameObject parent, string tag) {
         List<GameObject> children = new List<GameObject>();
         Transform t = parent.transform;
         foreach (Transform tr in t) {
             if (tr.tag == tag) {
                 children.Add(tr.gameObject);
             }
+            children.AddRange(FindChildrenWithTag(tr.gameObject, tag));
         }
         return children.ToArray();
     }

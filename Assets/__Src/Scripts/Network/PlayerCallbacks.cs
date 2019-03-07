@@ -14,10 +14,27 @@ class PlayerCallbacks : Bolt.GlobalEventListener
     }
 
     public override void EntityAttached(BoltEntity entity) {
+        if (!BoltNetwork.IsServer && entity.tag == "Room") {
+            DestroyWithTag(entity.gameObject, "CarpetSpawner");
+            DestroyWithTag(entity.gameObject, "CabinetClutter");
+            DestroyWithTag(entity.gameObject, "EnemySpawn");
+            DestroyWithTag(entity.gameObject, "TableClutter");
+            DestroyWithTag(entity.gameObject, "ChestSpawn");
+            DestroyWithTag(entity.gameObject, "GroundClutter");
+            DestroyWithTag(entity.gameObject, "ChildClutter");
+        }
+
+
         if (waiting && BoltNetwork.Entities.Count() >= waitFor) {
             ReadySpawn evnt = ReadySpawn.Create(Bolt.GlobalTargets.OnlyServer);
             evnt.Send();
             waiting = false;
+        }
+    }
+
+    private void DestroyWithTag(GameObject parent, string tag) {
+        foreach (GameObject gobj in GenerationManager.instance.FindChildrenWithTag(parent,tag)) {
+            Destroy(gobj);
         }
     }
 
