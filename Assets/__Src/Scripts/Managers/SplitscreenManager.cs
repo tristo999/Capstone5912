@@ -14,6 +14,7 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
     public List<PlayerCamera> playerCameras { get; private set; } = new List<PlayerCamera>();
     public PlayerCamera previewCamera { get; private set; }
     private List<Renderer> renderers = new List<Renderer>();
+    private List<Light> lights = new List<Light>();
     private GameObject playerCamPrefab;
 
     private void Awake() {
@@ -97,17 +98,27 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
         if (renderers.Count == 0) {
             Renderer[] rend = Resources.FindObjectsOfTypeAll<Renderer>();
             renderers.AddRange(rend.Where(r => r.gameObject.layer == 14 || r.gameObject.layer == 15 || r.gameObject.layer == 16));
+            lights = Resources.FindObjectsOfTypeAll<Light>().ToList();
         }
 
         foreach (Renderer ren in renderers) {
             ren.enabled = false;
         }
+        foreach (Light light in lights) {
+            light.enabled = false;
+        }
 
         foreach (PlayerCamera cam in playerCameras) {
-            foreach (Collider col in Physics.OverlapSphere(cam.CameraPlayer.transform.position, GenerationManager.instance.roomSize * 1.25f, (1 << 14) | (1 << 15) | (1 << 16), QueryTriggerInteraction.Collide)) {
-                foreach (Renderer ren in col.GetComponentsInChildren<Renderer>()) {
+            foreach (Renderer ren in renderers) {
+                if (Vector3.Distance(ren.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 1.25f) {
                     ren.enabled = true;
-                }
+                } 
+            }
+
+            foreach (Light light in lights) {
+                if (Vector3.Distance(light.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 1.25f) {
+                    light.enabled = true;
+                } 
             }
         }
     }
