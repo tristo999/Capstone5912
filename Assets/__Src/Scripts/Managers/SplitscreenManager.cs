@@ -110,13 +110,13 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
 
         foreach (PlayerCamera cam in playerCameras) {
             foreach (Renderer ren in renderers) {
-                if (Vector3.Distance(ren.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 1.25f) {
+                if (Vector3.Distance(ren.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 2f) {
                     ren.enabled = true;
                 } 
             }
 
             foreach (Light light in lights) {
-                if (Vector3.Distance(light.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 1.25f) {
+                if (Vector3.Distance(light.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 2f) {
                     light.enabled = true;
                 } 
             }

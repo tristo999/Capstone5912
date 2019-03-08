@@ -77,4 +77,11 @@ public class PlayerCamera : MonoBehaviour
         freeLookCam.GetRig(2).AddCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_NoiseProfile = noiseProfile;
         */
     }
+
+    private void Update() {
+        float dist = CameraPlayer.transform.position.z - (currentRoom.transform.position.z + GenerationManager.instance.roomSize * .375f);
+        float xRot = Mathf.Lerp(overviewCam.transform.eulerAngles.x, 60 - dist * 1.1f, Time.deltaTime * 2f);
+
+        overviewCam.transform.eulerAngles = new Vector3(xRot, 0, 0);
+    }
 }

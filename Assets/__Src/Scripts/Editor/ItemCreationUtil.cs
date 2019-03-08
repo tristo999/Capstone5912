@@ -33,6 +33,7 @@ public class ItemCreationUtil : EditorWindow
         item.ItemDescription = EditorGUILayout.TextField(item.ItemDescription);
         item.Type = (ItemDefinition.ItemType)EditorGUILayout.EnumPopup(item.Type);
         item.Rarity = (ItemDefinition.ItemRarity)EditorGUILayout.EnumPopup(item.Rarity);
+        GUILayout.Label(new GUIContent("Player Stat Modifiers", "Note, these are not the stats for your weapon, those should go on components in your weapon's held item."));
         GUILayout.Label("Speed Mod");
         item.SpeedModifier = EditorGUILayout.FloatField(item.SpeedModifier);
         GUILayout.Label("Health Mod");

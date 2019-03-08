@@ -54,7 +54,7 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
     }
 
     public void FixedUpdate() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.F1)) {
             BoltLauncher.Shutdown();
             SceneManager.LoadScene("Title");
         }

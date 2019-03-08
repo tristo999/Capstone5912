@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponLaunchProjectile : MonoBehaviour
 {
+    public AudioClip fireSound;
     public BoltEntity Projectile;
     public Transform LaunchPosition;
     public float LaunchAngle;
@@ -25,12 +26,22 @@ public class WeaponLaunchProjectile : MonoBehaviour
     }
     public float LaunchForce;
     private Weapon weaponBase;
+    public AudioSource audioSource;
 
     private void Awake() {
         weaponBase = GetComponent<Weapon>();
+        if (fireSound) {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = fireSound;
+        }
     }
 
     public void Launch() {
+        if (audioSource) {
+            audioSource.Stop();
+            audioSource.time = 0f;
+            audioSource.Play();
+        }
         BoltEntity proj = BoltNetwork.Instantiate(Projectile, LaunchPosition.position, Quaternion.identity);
         proj.GetComponent<Rigidbody>().velocity = LocalLaunchDir * LaunchForce * weaponBase.Owner.state.ProjectileSpeed;
         proj.GetState<IProjectileState>().Owner = weaponBase.Owner.entity;
