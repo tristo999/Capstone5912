@@ -23,12 +23,15 @@ public class ProjectileCreatePopup : EditorWindow
     private void OnGUI() {
         if (!EditorApplication.isCompiling && waitingForCompile) {
             waitingForCompile = false;
-            GameObject item = PrefabUtility.LoadPrefabContents(ItemCreationUtil.templateProjectile);
+            GameObject item = PrefabUtility.LoadPrefabContents(ItemCreationUtil.TEMPLATE_PROJECTILE_PREFAB);
             item.name = waitingName;
             item.AddComponent(AssetDatabase.LoadAssetAtPath<MonoScript>(waitingType).GetClass());
             PrefabUtility.SaveAsPrefabAsset(item, waitingPath);
             PrefabUtility.UnloadPrefabContents(item);
             Close();
+            if (EditorUtility.DisplayDialog("Do Bolt compile?", "Would you like to do a Bolt compile now to add the new prefab?", "Ye", "Nah")) {
+                BoltMenuItems.UpdatePrefabDatabase();
+            }
         } else {
             GUILayout.Label("Projectile Creation Wizard", EditorStyles.boldLabel);
             GUILayout.Label("Name:");
@@ -46,8 +49,8 @@ public class ProjectileCreatePopup : EditorWindow
     public void CreateProjectileFromTemplate() {
         waitingName = itemName;
         waitingPath = "Assets/__Src/Prefabs/Projectiles/" + itemName + ".prefab";
-        string templateLocation = Application.dataPath + ItemCreationUtil.templateScriptDir + "TemplateProjectile.cs";
-        string outputLocation = Application.dataPath + "/__Src/Scripts/Projectiles/" + itemName + ".cs";
+        string templateLocation = Application.dataPath + ItemCreationUtil.TEMPLATE_SCRIPT_DIR + "TemplateProjectile.cs";
+        string outputLocation = ItemCreationUtil.PROJECTILE_SCRIPT_OUTPUT_DIR + itemName + ".cs";
         ItemCreationUtil.CopyAndRenameScript(templateLocation, outputLocation);
         waitingType = "Assets/__Src/Scripts/Projectiles/" + itemName + ".cs";
         waitingForCompile = true;
