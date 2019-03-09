@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class CloakOfInvisibility : ActiveItem
 {
-    public override int Uses { get; set; } = -1;
-    public override float Timeout { get; set; } = 10f;
-
     public Material InvisibleMaterial;
     public Material TransparentMaterial;
 

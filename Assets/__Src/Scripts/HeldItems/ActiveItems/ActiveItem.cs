@@ -4,9 +4,6 @@ using UnityEngine;
 
 public abstract class ActiveItem : HeldItem
 {
-    public abstract int Uses { get; set; }
-    public abstract float Timeout { get; set; }
-
     public abstract void OnEquip();
     public abstract void ActiveDown();
     public abstract void ActivateHold();

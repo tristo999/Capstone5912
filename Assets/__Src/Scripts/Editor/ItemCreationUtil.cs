@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
 public class ItemCreationUtil : EditorWindow
 {
+    public readonly static string templateScriptDir = "/__Src/Scripts/Templates/";
+    public readonly static string projectileScriptDir = "";
+    public readonly static string weaponScriptDir = "";
+    public readonly static string activeScriptDir = "";
+    public readonly static string passiveScriptDir = "";
+
     public ItemDefinition item;
     public string baseWeapon = "Assets/__Src/Prefabs/HeldItems/Weapons/HeldBasicWand.prefab";
     public string baseActive = "Assets/__Src/Prefabs/HeldItems/ActiveItems/HeldCloakOfInvisibility.prefab";
@@ -13,8 +20,10 @@ public class ItemCreationUtil : EditorWindow
     public string baseDroppedActive = "Assets/__Src/Prefabs/InteractiveObjects/Droppeditems/ActiveItems/DroppedCloakOfInvisibility.prefab";
     public string baseDroppedPassive = "Assets/__Src/Prefabs/InteractiveObjects/DroppedItems/DroppedBasePassive.prefab";
 
+    public static string templateProjectile = "Assets/__Src/Prefabs/Projectiles/TemplateProjectile.prefab";
+
     // Add menu item named "My Window" to the Window menu
-    [MenuItem("Window/Wizard Fight/Item Creation Util")]
+    [MenuItem("Wizard Fight/Item Creation Util")]
     public static void ShowWindow() {
         //Show existing window instance. If one doesn't exist, make one.
         GetWindow(typeof(ItemCreationUtil));
@@ -109,5 +118,20 @@ public class ItemCreationUtil : EditorWindow
         item.DroppedModel = PrefabUtility.SaveAsPrefabAsset(droppedPre, "Assets/__Src/Prefabs/InteractiveObjects/DroppedItems/" + droppedPre.name + ".prefab");
         PrefabUtility.UnloadPrefabContents(heldPre);
         PrefabUtility.UnloadPrefabContents(droppedPre);
+    }
+
+    public static void CopyAndRenameScript(string inPath, string outPath) {
+        string templateText = File.ReadAllText(inPath);
+        inPath = inPath.Replace('\\', '/');
+        outPath = outPath.Replace('\\', '/');
+        int index = inPath.LastIndexOf('/');
+        int endIndex = inPath.LastIndexOf(".cs");
+        string inName = inPath.Substring(index+1, inPath.Length - index - 4);
+        index = outPath.LastIndexOf('/');
+        endIndex = outPath.LastIndexOf(".cs");
+        string outName = outPath.Substring(index+1, outPath.Length - index - 4);
+
+        templateText = templateText.Replace(inName, outName);
+        File.WriteAllText(outPath, templateText);
     }
 }

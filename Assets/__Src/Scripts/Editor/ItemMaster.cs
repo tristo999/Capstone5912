@@ -11,7 +11,7 @@ public class ItemMaster : EditorWindow
     public List<ItemDefinition> Items = new List<ItemDefinition>();
 
     // Add menu item named "My Window" to the Window menu
-    [MenuItem("Window/Wizard Fight/Wizard Fight Items")]
+    [MenuItem("Wizard Fight/Wizard Fight Items")]
     public static void ShowWindow() {
         //Show existing window instance. If one doesn't exist, make one.
         GetWindow(typeof(ItemMaster));
