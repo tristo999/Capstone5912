@@ -7,6 +7,7 @@ public class ItemDefinition : ScriptableObject
 {
     public enum ItemType { Weapon, Active, Passive }
     public enum ItemRarity { Common, Uncommon, Rare, Mythic, Legendary, Ludicrous, Busted, Debug = -1 }
+    public static Color[] RarityColors = { Color.white, Color.grey, Color.blue, new Color(255,0,255), Color.yellow, Color.green, Color.red, Color.black };
 
     public string ItemName = "???";
     public string ItemDescription = "Unknown Item";

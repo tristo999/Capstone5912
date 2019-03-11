@@ -80,7 +80,9 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
 
     private void TrackPlayerDeath(Bolt.IState state, string path, Bolt.ArrayIndices indices) {
         if (LivePlayers.Count == 1) {
-            Debug.Log("Hey, a player did a win!");
+            MatchComplete matchCompleteEvnt = MatchComplete.Create();
+            matchCompleteEvnt.Winner = LivePlayers.First();
+            matchCompleteEvnt.Send();
         }
     }
 
