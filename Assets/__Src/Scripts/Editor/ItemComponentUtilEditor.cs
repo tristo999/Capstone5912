@@ -11,14 +11,20 @@ public class ItemComponentUtilEditor : Editor
     public const string ComponentsFolder = "__Src/Scripts/ItemComponents/";
 
     public override void OnInspectorGUI() {
-        EditorGUILayout.LabelField("Super Cool Wizard Fight Item Util");
-        List<MonoScript> itemComponents = LoadAssetsAtPath<MonoScript>(ComponentsFolder + ((ItemComponentUtility)target).gameObject.tag);
-        foreach (MonoScript component in itemComponents) {
-            EditorGUI.BeginDisabledGroup(((ItemComponentUtility)target).gameObject.GetComponent(component.GetClass()));
-            if (GUILayout.Button(component.name)) {
-                ((ItemComponentUtility)target).gameObject.AddComponent(component.GetClass());
+        EditorGUILayout.LabelField("Super Cool Wizard Fight Item Component Util", EditorStyles.boldLabel);
+        if (Directory.Exists(Application.dataPath + "/" + ComponentsFolder + ((ItemComponentUtility)target).gameObject.tag)) {
+            List<MonoScript> itemComponents = LoadAssetsAtPath<MonoScript>(ComponentsFolder + ((ItemComponentUtility)target).gameObject.tag);
+            foreach (MonoScript component in itemComponents) {
+                if (component.GetClass() != null) {
+                    EditorGUI.BeginDisabledGroup(((ItemComponentUtility)target).gameObject.GetComponent(component.GetClass()));
+                    if (GUILayout.Button(component.name)) {
+                        ((ItemComponentUtility)target).gameObject.AddComponent(component.GetClass());
+                    }
+                    EditorGUI.EndDisabledGroup();
+                }
             }
-            EditorGUI.EndDisabledGroup();
+        } else {
+            EditorGUILayout.LabelField("Couldn't find item component folder " + ComponentsFolder + ((ItemComponentUtility)target).gameObject.tag);
         }
     }
 

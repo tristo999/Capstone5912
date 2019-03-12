@@ -27,10 +27,10 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
         if (evnt.ItemId == -1) {
             evnt.ItemId = Random.Range(0, items.Count);
         }
-        SpawnItem(evnt.Position, evnt.Force, items[evnt.ItemId].DroppedModel);
+        Spawn(evnt.Position, evnt.Force, items[evnt.ItemId].DroppedModel);
     }
 
-    private GameObject SpawnItem(Vector3 location, Vector3 force, GameObject itemPrefab)
+    private GameObject Spawn(Vector3 location, Vector3 force, GameObject itemPrefab)
     {
         GameObject newItem = BoltNetwork.Instantiate(itemPrefab, location, Quaternion.identity);
         newItem.GetComponent<DroppedItem>().state.ItemId = itemPrefab.GetComponent<DroppedItem>().Id;
@@ -38,5 +38,16 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
         newItem.GetComponent<Rigidbody>().AddTorque(force.magnitude / 4.0f * new Vector3(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)).normalized);
 
         return newItem;
+    }
+
+    public void SpawnItemFromRarity(ItemDefinition.ItemRarity rarity, Vector3 location) {
+        if (Random.Range(0f,1f) <= .05f && rarity != ItemDefinition.ItemRarity.Busted) {
+            rarity++;
+        }
+        ItemDefinition[] itemsOfRarity = items.Where(i => i.Rarity == rarity).ToArray();
+        SpawnItem evnt = SpawnItem.Create(entity);
+        evnt.ItemId = items.IndexOf(itemsOfRarity[Random.Range(0, itemsOfRarity.Length)]);
+        evnt.Position = location;
+        evnt.Send();
     }
 }

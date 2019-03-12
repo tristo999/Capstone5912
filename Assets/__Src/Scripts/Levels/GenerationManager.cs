@@ -22,6 +22,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public List<DungeonCell> possibleCells = new List<DungeonCell>();
     [Header("Room Generation Prefabs")]
     public List<GameObject> roomPrefabs = new List<GameObject>();
+    public List<GameObject> specialRooms = new List<GameObject>();
 
     [Tooltip("CarpetSpawner tag.")]
     public List<GameObject> carpetObjects = new List<GameObject>();
@@ -101,10 +102,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     }
 
     public List<Vector3> SpawnPositions(int amt) {
-        List<Vector3> positions = new List<Vector3>();
-        for (int i = 0; i < amt; i++) {
-            positions.Add(dungeonGraph.Vertices.ToArray()[Random.Range(0, dungeonGraph.Vertices.Count())].transform.position + new Vector3(roomSize/2f, 1.5f, roomSize/2f));
-        }
+        List<Vector3> positions = dungeonGraph.Vertices.OrderByDescending(r => r.DistanceFromCenter).Take(amt).Select(r => r.transform.position + new Vector3(15, 0, 15)).ToList();
         return positions;
     }
 
@@ -115,6 +113,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         SpawnTagFromList("ChestSpawn", chestEntities);
         SpawnTagFromList("TableClutter", tableObjects);
         SpawnTagFromList("GroundClutter", groundObjects);
+        SpawnDroppedItems();
     }
 
     private void SpawnTagFromList(string tag, List<GameObject> list) {
@@ -129,6 +128,16 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                 }
             }
             BoltNetwork.Destroy(spawn);
+        }
+    }
+
+    private void SpawnDroppedItems() {
+        foreach (GameObject spawner in GameObject.FindGameObjectsWithTag("DroppedItemSpawn")) {
+            DroppedItemSpawner spawnerScript = spawner.GetComponent<DroppedItemSpawner>();
+            if (Random.Range(0f,1f) <= spawnerScript.spawnChance) {
+                ItemManager.Instance.SpawnItemFromRarity(spawnerScript.preferredRarity, spawner.transform.position);
+            }
+            BoltNetwork.Destroy(spawner);
         }
     }
 
@@ -165,13 +174,22 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             int mirrorX = width - 1 - (int)newCell.x;
             int mirrorY = height - 1 - (int)newCell.y;
             Vector3 pos = new Vector3(newCell.x, 0, newCell.y) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
-            GameObject newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+            GameObject newRoom;
+            if (Random.Range(0f,1f) < .075f) {
+                newRoom = BoltNetwork.Instantiate(specialRooms[Random.Range(0, specialRooms.Count)], pos, Quaternion.identity);
+            } else {
+                newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+            }
             DungeonRoom room = newRoom.GetComponent<DungeonRoom>();
             vertices[(int)newCell.x, (int)newCell.y] = room;
             if (!dungeon[mirrorX, mirrorY] && adjacentToRoom(mirrorX, mirrorY) && Random.Range(0.0f, 1.0f) > .05f) {
                 dungeon[mirrorX, mirrorY] = true;
-                pos = new Vector3(mirrorX, 0, mirrorY) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize); 
-                newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+                pos = new Vector3(mirrorX, 0, mirrorY) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
+                if (Random.Range(0f, 1f) < .075f) {
+                    newRoom = BoltNetwork.Instantiate(specialRooms[Random.Range(0, specialRooms.Count)], pos, Quaternion.identity);
+                } else {
+                    newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+                }
                 room = newRoom.GetComponent<DungeonRoom>();
                 vertices[mirrorX, mirrorY] = room;
             }

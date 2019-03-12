@@ -375,17 +375,7 @@ ModelImporter:
     - name: WizardBoyULTRAEVERYTHINGCOMBINED@Standing 1H Magic Attack 02(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: WizardBoyBase
-      parentName: WizardBoyULTRAEVERYTHINGCOMBINED@Standing 1H Magic Attack 02(Clone)
-      position: {x: -0.16150999, y: 0.0006083138, z: 0}
-      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-      scale: {x: 1, y: 1, z: 1}
-    - name: WizardBoyRobes
-      parentName: WizardBoyBase
-      position: {x: 0.00000020861626, y: -0.00000027475846, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      rotation: {x: 0, y: 0.70709825, z: 0, w: 0.7071154}
       scale: {x: 1, y: 1, z: 1}
     - name: Bip001
       parentName: WizardBoyULTRAEVERYTHINGCOMBINED@Standing 1H Magic Attack 02(Clone)
@@ -399,7 +389,7 @@ ModelImporter:
       scale: {x: 1, y: 0.9999997, z: 0.9999997}
     - name: Bip001 Pelvis
       parentName: Bip001
-      position: {x: -0, y: 0, z: 0}
+      position: {x: 0.0000000018626091, y: -0.00000023841872, z: 1.9544519}
       rotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
       scale: {x: 1.0000012, y: 1.0000007, z: 1.0000019}
     - name: Bip001 Spine
@@ -407,31 +397,6 @@ ModelImporter:
       position: {x: -0.93305683, y: -0.0010038614, z: 0.00000085581905}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1.0000008, y: 1.0000001, z: 1.000001}
-    - name: Bip001 R Thigh
-      parentName: Bip001 Spine
-      position: {x: 0.915288, y: -0.18121886, z: -1.7359669}
-      rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-      scale: {x: 0.9999999, y: 0.9999999, z: 0.9999987}
-    - name: Bip001 R Calf
-      parentName: Bip001 R Thigh
-      position: {x: -5.6582603, y: -0.00000011920929, z: 0.00000011920929}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000001, y: 1.0000011, z: 1.0000008}
-    - name: Bip001 R Foot
-      parentName: Bip001 R Calf
-      position: {x: -2.450437, y: 0.000000059604645, z: -0.00000023841858}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1.0000002, y: 0.9999994, z: 0.9999994}
-    - name: Bip001 R Toe0
-      parentName: Bip001 R Foot
-      position: {x: -1.1372361, y: 1.4635733, z: 0}
-      rotation: {x: 0, y: 0, z: 0.7071068, w: -0.7071068}
-      scale: {x: 1, y: 1, z: 1}
-    - name: Bip001 R Toe0Nub
-      parentName: Bip001 R Toe0
-      position: {x: -0.14833522, y: 0.0000000018626451, z: 0.00000011920929}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
-      scale: {x: 1, y: 0.9999993, z: 0.9999995}
     - name: Bip001 L Thigh
       parentName: Bip001 Spine
       position: {x: 0.9152889, y: -0.18122852, z: 1.7359662}
@@ -457,6 +422,31 @@ ModelImporter:
       position: {x: -0.14833498, y: -0.0000000037252903, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: -0.9999999, y: -1.0000005, z: -1.0000011}
+    - name: Bip001 R Thigh
+      parentName: Bip001 Spine
+      position: {x: 0.915288, y: -0.18121886, z: -1.7359669}
+      rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+      scale: {x: 0.9999999, y: 0.9999999, z: 0.9999987}
+    - name: Bip001 R Calf
+      parentName: Bip001 R Thigh
+      position: {x: -5.6582603, y: -0.00000011920929, z: 0.00000011920929}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000011, z: 1.0000008}
+    - name: Bip001 R Foot
+      parentName: Bip001 R Calf
+      position: {x: -2.450437, y: 0.000000059604645, z: -0.00000023841858}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1.0000002, y: 0.9999994, z: 0.9999994}
+    - name: Bip001 R Toe0
+      parentName: Bip001 R Foot
+      position: {x: -1.1372361, y: 1.4635733, z: 0}
+      rotation: {x: 0, y: 0, z: 0.7071068, w: -0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bip001 R Toe0Nub
+      parentName: Bip001 R Toe0
+      position: {x: -0.14833522, y: 0.0000000018626451, z: 0.00000011920929}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 0.9999993, z: 0.9999995}
     - name: Bip001 Spine1
       parentName: Bip001 Spine
       position: {x: -1.285676, y: -0.0010182858, z: -0.0000000028244358}
@@ -547,6 +537,16 @@ ModelImporter:
       position: {x: -0.30903196, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: -1, y: -1, z: -1}
+    - name: WizardBoyBase
+      parentName: WizardBoyULTRAEVERYTHINGCOMBINED@Standing 1H Magic Attack 02(Clone)
+      position: {x: -0.16150999, y: 0.0006083138, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WizardBoyRobes
+      parentName: WizardBoyBase
+      position: {x: 0.00000020861626, y: -0.00000027475846, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5

@@ -39,13 +39,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7711465964295657296}
+  - component: {fileID: 3799809562164964969}
   - component: {fileID: 7682894439513003783}
   - component: {fileID: 2930411030406737018}
   - component: {fileID: 7172630985459751635}
   - component: {fileID: 7119080873938650761}
   m_Layer: 0
   m_Name: HeldFireballWand
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,6 +67,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3799809562164964969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720748155591841518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be17b00b98012f940ae0b784b762f759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7682894439513003783
 MonoBehaviour:
   m_ObjectHideFlags: 0

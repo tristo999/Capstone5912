@@ -14,7 +14,12 @@ GameObject:
   - component: {fileID: 3449}
   - component: {fileID: 4321}
   - component: {fileID: 3980}
+  - component: {fileID: 4970891667408650919}
   - component: {fileID: 4479}
+  - component: {fileID: 8288907226885408084}
+  - component: {fileID: 4862674231113899359}
+  - component: {fileID: 5423963448610159156}
+  - component: {fileID: 9069709104437546105}
   m_Layer: 0
   m_Name: TakywandProjectile
   m_TagString: Projectile
@@ -112,7 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 6b81f363-bd8f-433c-8040-b053ced204c7
-  _prefabId: 43
+  _prefabId: 44
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -140,6 +145,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.82
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4970891667408650919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be17b00b98012f940ae0b784b762f759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,9 +169,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238dc5c6a71de4641acb15b238e53cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
   maxSizeScale: 0.75
+--- !u!114 &8288907226885408084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e01e801bf3c6aa143a43323e43026058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollideWithPlayers: 1
+  CollideWithOwner: 0
+  CollideWithEnvironment: 1
+--- !u!114 &4862674231113899359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ebac9484acab8a48ae58d417b15d6b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  damageOwner: 0
+--- !u!114 &5423963448610159156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0967bb0e7a7476f478eb0a00908bc376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   knockback: 5000
+--- !u!114 &9069709104437546105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c876c76daea62a64e82a74bf1bbd081d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifespan: 0.42
 --- !u!1 &300
 GameObject:
   m_ObjectHideFlags: 0
