@@ -14,8 +14,11 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     public override void Attached() {
         ui = GetComponent<PlayerUI>();
 
-        state.WeaponId = -1;
-        state.ActiveId = -1;
+        if (entity.isOwner) {
+            state.WeaponId = -1;
+            state.ActiveId = -1;
+        }
+        
         state.AddCallback("WeaponId", WeaponIdChanged);
         state.AddCallback("ActiveId", ActiveIdChanged);
         state.AddCallback("Dead", PlayerDied);
@@ -34,7 +37,9 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void GrantStarterItems()
     {
-        state.WeaponId = 0;
+        if (entity.isOwner) {
+            state.WeaponId = 0;
+        }
     }
 
     IEnumerator WaitForItemManager() {

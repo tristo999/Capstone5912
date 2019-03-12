@@ -1,7 +1,11 @@
-﻿using System.Collections;
+﻿using Bolt;
+using Rewired;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UdpKit;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [BoltGlobalBehaviour("WizardFightGame")]
 class PlayerCallbacks : Bolt.GlobalEventListener
@@ -44,6 +48,13 @@ class PlayerCallbacks : Bolt.GlobalEventListener
         entity.GetComponent<PlayerMovementController>().AssignPlayer(localPlayerId);
     }
 
+    public override void BoltShutdownBegin(AddCallback registerDoneCallback, UdpConnectionDisconnectReason disconnectReason) {
+        Debug.Log("Bolt is shutting down");
+        foreach (Player controllerPlayer in ReInput.players.AllPlayers)
+            controllerPlayer.isPlaying = false;
+        SceneManager.LoadScene("Title");
+    }
+
     public override void OnEvent(WaitForMap evnt) {
         if (BoltNetwork.Entities.Count() >= evnt.NumberEntities) {
             ReadySpawn ready = ReadySpawn.Create(Bolt.GlobalTargets.OnlyServer);
@@ -55,17 +66,16 @@ class PlayerCallbacks : Bolt.GlobalEventListener
     }
 
     public override void OnEvent(SpawnPlayer evnt) {
-        BoltEntity playerEntity = BoltNetwork.Instantiate(BoltPrefabs.Player, evnt.Position, Quaternion.identity);
-        IPlayerState playerState = playerEntity.GetComponent<PlayerMovementController>().state;
-        playerEntity.GetComponent<PlayerUI>().ScreenNumber = SplitscreenManager.instance.CreatePlayerCamera(playerEntity.transform);
-        playerState.Color = evnt.Color;
-        playerState.Name = evnt.Name;
-        playerState.PlayerId = evnt.PlayerId;
-        playerEntity.TakeControl();
+        LocalPlayerRegistry.SpawnPlayer(evnt);
     }
 
     public override void OnEvent(GameStart evnt) {
         SceneLoader.Instance.CancelLoadScreen();
+    }
+
+    public override void OnEvent(MatchComplete evnt) {
+        bool amWinner = LocalPlayerRegistry.PlayerEntities.Contains(evnt.Winner);
+        EndScreen.Instance.OpenEndScreen(amWinner);
     }
 }
 

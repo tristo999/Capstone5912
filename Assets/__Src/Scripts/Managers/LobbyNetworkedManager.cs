@@ -19,6 +19,10 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
     private int waitFrame;
 
     public override void Attached() {
+        foreach (Player controllerPlayer in ReInput.players.AllPlayers)
+            controllerPlayer.isPlaying = false;
+        WizardFightPlayerRegistry.Reset();
+        LocalPlayerRegistry.Reset();
         Instance = this;
         SceneLoader.Instance.CancelLoadScreen();
         // Todo: remove this once a way to set max players is established.

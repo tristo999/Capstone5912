@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraCanvasScaler : CanvasScaler
@@ -6,6 +7,7 @@ public class CameraCanvasScaler : CanvasScaler
     // The log base doesn't have any influence on the results whatsoever, as long as the same base is used everywhere.
     public const float kLogBase = 2;
 
+    [NonSerialized]
     private Canvas m_Canvas;
 
     protected override void OnEnable() {

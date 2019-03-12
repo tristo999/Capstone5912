@@ -367,6 +367,21 @@ namespace Aura2API
             }
         }
 
+        /// <summary>
+        /// Tells if the toolbox should be animated
+        /// </summary>
+        public static bool EnableAnimations
+        {
+            get
+            {
+                return AuraEditorPrefs.EnableToolboxAnimations;
+            }
+            set
+            {
+                AuraEditorPrefs.EnableToolboxAnimations = value;
+            }
+        }
+
         private static bool ShouldRepaintSceneView
         {
             get
@@ -542,13 +557,26 @@ namespace Aura2API
                 toolbarRect = new Rect(_currentSceneView.position.width - _margin - _toolboxWidth, Mathf.Max(_margin + _axisCubeSize, (int)(_currentSceneView.position.height / 2) - (int)(ToolboxHeight / 2)), _toolboxWidth, ToolboxHeight);
             }
 
-            _toolboxApparitionWeight += _deltaTime / (IsVisible ? Aura.ResourcesCollection.customWindowsInMotionDuration : Aura.ResourcesCollection.customWindowsOutMotionDuration) * (IsVisible ? 1.0f : -1.0f);
-            _toolboxApparitionWeight = Mathf.Clamp01(_toolboxApparitionWeight);
-            float targetPos = toolbarRect.y;
-            AnimationCurve curve = IsVisible ? Aura.ResourcesCollection.customWindowsInMotionCurve : Aura.ResourcesCollection.customWindowsOutMotionCurve;
-            float weightFromCurve = curve.Evaluate(_toolboxApparitionWeight);
-            float startingPosition = _currentSceneView.position.height;
-            toolbarRect.y = Mathf.LerpUnclamped(startingPosition, targetPos, weightFromCurve);
+            float targetPos;
+            float startingPosition;
+            AnimationCurve curve;
+            float weightFromCurve;
+
+            targetPos = toolbarRect.y;
+            startingPosition = _currentSceneView.position.height;
+            if (EnableAnimations)
+            {
+                _toolboxApparitionWeight += _deltaTime / (IsVisible ? Aura.ResourcesCollection.customWindowsInMotionDuration : Aura.ResourcesCollection.customWindowsOutMotionDuration) * (IsVisible ? 1.0f : -1.0f);
+                _toolboxApparitionWeight = Mathf.Clamp01(_toolboxApparitionWeight);
+                curve = IsVisible ? Aura.ResourcesCollection.customWindowsInMotionCurve : Aura.ResourcesCollection.customWindowsOutMotionCurve;
+                weightFromCurve = curve.Evaluate(_toolboxApparitionWeight);
+                toolbarRect.y = Mathf.LerpUnclamped(startingPosition, targetPos, weightFromCurve);
+            }
+            else
+            {
+                _toolboxApparitionWeight = IsVisible ? 1.0f : 0.0f;
+                toolbarRect.y = IsVisible ? targetPos : startingPosition;
+            }
 
             // Toggle button
             _displayToggleButtonsRect = toolbarRect;
@@ -563,38 +591,44 @@ namespace Aura2API
             }
 
             // Toolbox
-            _toolboxExpansionWeight += _deltaTime / (IsExpanded ? Aura.ResourcesCollection.customWindowsInMotionDuration : Aura.ResourcesCollection.customWindowsOutMotionDuration) * (IsExpanded ? 1.0f : -1.0f);
-            _toolboxExpansionWeight = Mathf.Clamp01(_toolboxExpansionWeight);
             _toolboxWindowRect = toolbarRect;
             targetPos = _toolboxWindowRect.x;
-            curve = IsExpanded ? Aura.ResourcesCollection.customWindowsInMotionCurve : Aura.ResourcesCollection.customWindowsOutMotionCurve;
-            weightFromCurve = curve.Evaluate(_toolboxExpansionWeight);
             startingPosition = AuraEditorPrefs.ToolboxPosition == 0 ? -_toolboxWidth - _toolboxToggleDisplayButtonWidth : _currentSceneView.position.width + _toolboxWidth;
-            _toolboxWindowRect.x = Mathf.LerpUnclamped(startingPosition, targetPos, weightFromCurve);
+            if (EnableAnimations)
+            {
+                _toolboxExpansionWeight += _deltaTime / (IsExpanded ? Aura.ResourcesCollection.customWindowsInMotionDuration : Aura.ResourcesCollection.customWindowsOutMotionDuration) * (IsExpanded ? 1.0f : -1.0f);
+                _toolboxExpansionWeight = Mathf.Clamp01(_toolboxExpansionWeight);
+                curve = IsExpanded ? Aura.ResourcesCollection.customWindowsInMotionCurve : Aura.ResourcesCollection.customWindowsOutMotionCurve;
+                weightFromCurve = curve.Evaluate(_toolboxExpansionWeight);
+                _toolboxWindowRect.x = Mathf.LerpUnclamped(startingPosition, targetPos, weightFromCurve);
+            }
+            else
+            {
+                _toolboxExpansionWeight = IsExpanded ? 1.0f : 0.0f;
+                _toolboxWindowRect.x = IsExpanded ? targetPos : startingPosition;
+            }
 
             // Presets
-            //Rect presetsButtonRect = toolbarRect;
-            //presetsButtonRect.width = _toolboxWidth;
-            //presetsButtonRect.height = _toolboxWidth;
-            //presetsButtonRect.y += _buttonWidth / 2;
-            //_showPresets = presetsButtonRect.Contains(MousePosition) || _showPresets;
-            _presetsApparitionWeight += _deltaTime / (_showPresets ? Aura.ResourcesCollection.customWindowsInMotionDuration : Aura.ResourcesCollection.customWindowsOutMotionDuration) * (_showPresets ? 1.0f : -1.0f);
-            _presetsApparitionWeight = Mathf.Clamp01(_presetsApparitionWeight);
             _presetsWindowRect = toolbarRect;
             _presetsWindowRect.x = _presetsWindowRect.x + (AuraEditorPrefs.ToolboxPosition == 0 ? _presetsWindowRect.width : -_presetsWindowWidth);
             _presetsWindowRect.width = _presetsWindowWidth;
             targetPos = _presetsWindowRect.x;
-            curve = _showPresets ? Aura.ResourcesCollection.customWindowsInMotionCurve : Aura.ResourcesCollection.customWindowsOutMotionCurve;
-            weightFromCurve = curve.Evaluate(_presetsApparitionWeight * _toolboxExpansionWeight);
             startingPosition = AuraEditorPrefs.ToolboxPosition == 0 ? -_presetsWindowWidth : _currentSceneView.position.width + _presetsWindowWidth;
-            _presetsWindowRect.x = Mathf.LerpUnclamped(startingPosition, targetPos, weightFromCurve);
-            //Rect presetsWindowVisibleRect = toolbarRect;
-            //presetsWindowVisibleRect.x = _toolboxWindowRect.x + (AuraEditorPrefs.ToolboxPosition == 0 ? _toolboxWindowRect.width : -_presetsWindowRect.width);
-            //presetsWindowVisibleRect.y -= _buttonWidth / 2;
-            //presetsWindowVisibleRect.width = Mathf.Max(AuraEditorPrefs.ToolboxPosition == 0 ? (_presetsWindowRect.xMax - presetsWindowVisibleRect.x) : (_toolboxWindowRect.x - presetsWindowVisibleRect.x), 0);
-            //_showPresets = presetsWindowVisibleRect.Contains(MousePosition);
+            if (EnableAnimations)
+            {
+                _presetsApparitionWeight += _deltaTime / (_showPresets ? Aura.ResourcesCollection.customWindowsInMotionDuration : Aura.ResourcesCollection.customWindowsOutMotionDuration) * (_showPresets ? 1.0f : -1.0f);
+                _presetsApparitionWeight = Mathf.Clamp01(_presetsApparitionWeight);
+                curve = _showPresets ? Aura.ResourcesCollection.customWindowsInMotionCurve : Aura.ResourcesCollection.customWindowsOutMotionCurve;
+                weightFromCurve = curve.Evaluate(_presetsApparitionWeight * _toolboxExpansionWeight);
+                _presetsWindowRect.x = Mathf.LerpUnclamped(startingPosition, targetPos, weightFromCurve);
+            }
+            else
+            {
+                _presetsApparitionWeight = _showPresets ? 1.0f : 0.0f;
+                _presetsWindowRect.x = _showPresets ? targetPos : startingPosition;
+            }
 
-            if(_showPresets)
+            if (_showPresets)
             {
                 Rect cumulatedRects = AuraEditorPrefs.ToolboxPosition == 0 ? new Rect(_displayToggleButtonsRect.x, _displayToggleButtonsRect.y, _displayToggleButtonsRect.width + _toolboxWindowRect.width + _presetsWindowRect.width, _toolboxHeight) : new Rect(_presetsWindowRect.x, _presetsWindowRect.y, _displayToggleButtonsRect.width + _toolboxWindowRect.width + _presetsWindowRect.width, _toolboxHeight);
                 if(LeftClick && !cumulatedRects.Contains(MousePosition))

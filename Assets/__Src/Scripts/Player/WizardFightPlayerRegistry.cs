@@ -40,4 +40,8 @@ public static class WizardFightPlayerRegistry
         newPlayer.PlayerId = p.PlayerId;
         players.Add(newPlayer);
     }
+
+    public static void Reset() {
+        players.Clear();
+    }
 }

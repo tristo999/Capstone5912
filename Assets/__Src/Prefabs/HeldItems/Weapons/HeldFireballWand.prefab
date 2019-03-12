@@ -106,10 +106,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0a3c2fffc6ec24080ac81616b8fcfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 1502, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
+  fireSound: {fileID: 0}
+  Projectile: {fileID: 4267, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
   LaunchPosition: {fileID: 1864185642370842619}
   LaunchAngle: 50
   LaunchForce: 0
+  audioSource: {fileID: 0}
 --- !u!120 &7119080873938650761
 LineRenderer:
   m_ObjectHideFlags: 0

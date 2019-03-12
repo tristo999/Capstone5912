@@ -34,6 +34,7 @@ namespace Aura2API
         private const string _displayToolboxString = "AURA2_DisplayToolbox";
         private const string _expandToolboxString = "AURA2_ExpandToolbox";
         private const string _showToolboxNotificationsString = "AURA2_ShowToolboxNotifications";
+        private const string _enableToolboxAnimationsString = "AURA2_EnableToolboxAnimations";
         private const string _toolboxPositionString = "AURA2_ToolboxPosition";
         private const string _toolboxPresetsPreviewsPerRowString = "AURA2_ToolboxPresetsPreviewsPerRow";
         private const string _displayCameraSlicesInEditionString = "AURA2_DisplayCameraSlicesInEdition";
@@ -126,6 +127,18 @@ namespace Aura2API
             set
             {
                 EditorPrefs.SetBool(_showToolboxNotificationsString, value);
+            }
+        }
+
+        public static bool EnableToolboxAnimations
+        {
+            get
+            {
+                return EditorPrefs.GetBool(_enableToolboxAnimationsString, true);
+            }
+            set
+            {
+                EditorPrefs.SetBool(_enableToolboxAnimationsString, value);
             }
         }
 

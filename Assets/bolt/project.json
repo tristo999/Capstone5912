@@ -3329,9 +3329,20 @@
         }
       ],
       "EntitySenders": 3,
-      "GlobalSenders": 2,
+      "GlobalSenders": 1,
       "Name": "MatchComplete",
       "Guid": "a8348866-eef1-472c-bc42-37feb61803fd",
+      "Groups": [
+        "WizardFight"
+      ]
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [],
+      "EntitySenders": 3,
+      "GlobalSenders": 2,
+      "Name": "DisconnectPlayer",
+      "Guid": "417c5cb8-bf9f-45f0-a6d9-9958905befec",
       "Groups": [
         "WizardFight"
       ]

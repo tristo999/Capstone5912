@@ -561,11 +561,8 @@ namespace Aura2API
                 }
 
                 EditorGUILayout.Separator();
-
-                EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("Fade Falloff", GuiStyles.Label, GUILayout.MaxWidth(160));
-                GuiHelpers.DrawPositiveOnlyFloatField(ref _falloffFadeProperty);
-                EditorGUILayout.EndHorizontal();
+                
+                GuiHelpers.DrawPositiveOnlyFloatField(ref _falloffFadeProperty, new GUIContent("Fade Falloff", "The curve of the fading"));
             }
             EditorGUILayout.EndVertical();
         }
@@ -582,10 +579,7 @@ namespace Aura2API
             {
                 //EditorGUI.BeginDisabledGroup(!_noiseMaskBoolProperty.boolValue);
                 EditorGUILayout.BeginVertical(GuiStyles.EmptyMiddleAligned);
-                EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("Speed", GuiStyles.Label, GUILayout.MaxWidth(160));
-                GuiHelpers.DrawFloatField(ref _noiseMaskSpeedProperty);
-                EditorGUILayout.EndHorizontal();
+                GuiHelpers.DrawFloatField(ref _noiseMaskSpeedProperty, new GUIContent("Speed", "Speed of the morph"));
                 EditorGUILayout.Separator();
                 EditorGUILayout.Separator();
                 GuiHelpers.DrawTransformField(ref _noiseMaskTransformProperty);
@@ -734,10 +728,7 @@ namespace Aura2API
                 GUILayout.Label(new GUIContent(" Experimental Feature (PREVIEW)", Aura.ResourcesCollection.experimentalIconTexture), GuiStyles.LabelBoldCentered);
                 //EditorGUI.BeginDisabledGroup(!_useAsLightProbesProxyVolumeProperty.boolValue);
                 EditorGUILayout.BeginVertical(GuiStyles.EmptyMiddleAligned);
-                EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("Multiplier", GuiStyles.Label, GUILayout.MaxWidth(160));
-                GuiHelpers.DrawPositiveOnlyFloatField(ref _lightProbesMultiplierProperty);
-                EditorGUILayout.EndHorizontal();
+                GuiHelpers.DrawPositiveOnlyFloatField(ref _lightProbesMultiplierProperty, new GUIContent("Strength", "Multiplies the injected lighting"));
                 EditorGUILayout.EndVertical();
                 //EditorGUI.EndDisabledGroup();
             }

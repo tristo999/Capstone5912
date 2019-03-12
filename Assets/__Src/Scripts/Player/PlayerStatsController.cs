@@ -15,12 +15,14 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
         movementController = GetComponent<PlayerMovementController>();
         ui = GetComponent<PlayerUI>();
 
-        state.Speed = 1f;
-        state.FireRate = 1f;
-        state.ProjectileSpeed = 1f;
-        state.ProjectileDamage = 1f;
-        state.Health = StartingHealth;
-        state.PlayerId = -1;
+        if (entity.isOwner) {
+            state.Speed = 1f;
+            state.FireRate = 1f;
+            state.ProjectileSpeed = 1f;
+            state.ProjectileDamage = 1f;
+            state.Health = StartingHealth;
+            state.PlayerId = -1;
+        }
 
         state.AddCallback("Health", HealthChanged);
         state.AddCallback("Speed", SpeedChanged);
@@ -107,6 +109,8 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     }
 
     public override void OnEvent(DamageEntity evnt) {
-        state.Health -= evnt.Damage;
+        if (entity.isOwner) {
+            state.Health -= evnt.Damage;
+        }
     }
 }

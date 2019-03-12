@@ -203,11 +203,7 @@ namespace Aura2API
             GUILayout.Label(_commonSettingsTitleContent, new GUIStyle(GuiStyles.LabelBoldCenteredBig) { fontSize = 15 });
             EditorGUILayout.Separator();
 
-            GuiHelpers.DrawContextualHelpBox("The \"Strength\" parameter allows you to multiply the intensity of the light source in the system.");
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Strength", GuiStyles.Label, GUILayout.MaxWidth(160));
-            GuiHelpers.DrawFloatField(ref _strengthProperty);
-            EditorGUILayout.EndHorizontal();
+            GuiHelpers.DrawFloatField(ref _strengthProperty, new GUIContent("Strength", "Multiplies the intensity of the light source in the system"));
 
             EditorGUILayout.Separator();
             EditorGUILayout.Separator();
@@ -299,11 +295,7 @@ namespace Aura2API
                 EditorGUILayout.BeginVertical();
                 GuiHelpers.DrawContextualHelpBox("The color when the view direction is not towards the directional light.");
                 EditorGUILayout.PropertyField(_outOfPhaseColorProperty);
-                GuiHelpers.DrawContextualHelpBox("The strength of the color.");
-                EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("Strength", GuiStyles.Label, GUILayout.MaxWidth(160));
-                GuiHelpers.DrawFloatField(ref _outOfPhaseColorStrengthProperty);
-                EditorGUILayout.EndHorizontal();
+                GuiHelpers.DrawFloatField(ref _outOfPhaseColorStrengthProperty, new GUIContent("Strength", "Multiplies the intensity of the color"));
                 EditorGUILayout.EndVertical();
                 //EditorGUI.EndDisabledGroup();
             }
@@ -389,12 +381,8 @@ namespace Aura2API
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Separator();
-
-            GuiHelpers.DrawContextualHelpBox("The \"Exponent\" parameter is the curve of the fading.");
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Exponent", GuiStyles.Label, GUILayout.MaxWidth(160));
-            GuiHelpers.DrawPositiveOnlyFloatField(ref _customAngularFalloffPowerProperty);
-            EditorGUILayout.EndHorizontal();
+            
+            GuiHelpers.DrawPositiveOnlyFloatField(ref _customAngularFalloffPowerProperty, new GUIContent("Exponent", "The curve of the fading"));
 
             EditorGUILayout.Separator();
             EditorGUILayout.Separator();
@@ -427,13 +415,9 @@ namespace Aura2API
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Separator();
-
-            GuiHelpers.DrawContextualHelpBox("The \"Exponent\" parameter is the curve of the fading.");
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Exponent", GuiStyles.Label, GUILayout.MaxWidth(160));
-            GuiHelpers.DrawPositiveOnlyFloatField(ref _customDistanceFalloffPowerProperty);
-            EditorGUILayout.EndHorizontal();
             
+            GuiHelpers.DrawPositiveOnlyFloatField(ref _customDistanceFalloffPowerProperty, new GUIContent("Strength", "The curve of the fading"));
+
             EditorGUILayout.Separator();
             EditorGUILayout.Separator();
 
@@ -465,12 +449,8 @@ namespace Aura2API
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Separator();
-
-            GuiHelpers.DrawContextualHelpBox("The \"Exponent\" parameter is the curve of the fading.");
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Exponent", GuiStyles.Label, GUILayout.MaxWidth(160));
-            GuiHelpers.DrawPositiveOnlyFloatField(ref _customCookieDistanceFalloffPowerProperty);
-            EditorGUILayout.EndHorizontal();
+            
+            GuiHelpers.DrawPositiveOnlyFloatField(ref _customCookieDistanceFalloffPowerProperty, new GUIContent("Strength", "The curve of the fading"));
 
             EditorGUILayout.Separator();
             EditorGUILayout.Separator();

@@ -194,11 +194,8 @@ namespace Aura2API
         /// <param name="displayMask">Int mask to display texture/noise mask</param>
         public static void DrawInjectionField(ref SerializedProperty injectionProperty, bool displayNoiseParameters, bool displayTexture2DMaskParameters, bool displayTexture3DMaskParameters)
         {
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Strength", GuiStyles.Label, GUILayout.MaxWidth(160));
             SerializedProperty strengthProperty = injectionProperty.FindPropertyRelative("strength");
-            GuiHelpers.DrawFloatField(ref strengthProperty);
-            EditorGUILayout.EndHorizontal();
+            DrawFloatField(ref strengthProperty, new GUIContent("Strength", "Strength of the injected data. Can be set negative to remove data."));
 
             if (displayNoiseParameters)
             {
@@ -309,30 +306,21 @@ namespace Aura2API
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Separator();
-
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Contrast", GuiStyles.Label, GUILayout.MaxWidth(160));
+            
             SerializedProperty contrastProperty = levelsProperty.FindPropertyRelative("contrast");
-            GuiHelpers.DrawFloatField(ref contrastProperty);
-            EditorGUILayout.EndHorizontal();
+            DrawFloatField(ref contrastProperty, new GUIContent("Contrast", "Contrast the input mask"));
 
             EditorGUILayout.Separator();
 
             GuiHelpers.DrawContextualHelpBox("The \"Output\" parameters will rescale this new range\n\n0 will now equal the lower \"Output Value\" and 1 will now equal the higher.");
             EditorGUILayout.BeginHorizontal();
             GUILayout.Label("Output Range", GuiStyles.Label, GUILayout.MaxWidth(160));
-
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Min", GuiStyles.Label, GUILayout.Width(28));
+            
             SerializedProperty outputLowValueProperty = levelsProperty.FindPropertyRelative("outputLowValue");
-            GuiHelpers.DrawFloatField(ref outputLowValueProperty);
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Max", GuiStyles.Label, GUILayout.Width(30));
+            DrawFloatField(ref outputLowValueProperty, new GUIContent("Min", "Minimum value"));
+            
             SerializedProperty outputHiValueProperty = levelsProperty.FindPropertyRelative("outputHiValue");
-            GuiHelpers.DrawFloatField(ref outputHiValueProperty);
-            EditorGUILayout.EndHorizontal();
+            DrawFloatField(ref outputHiValueProperty, new GUIContent("Max", "Maximum value"));
 
             EditorGUILayout.EndHorizontal();
 
@@ -396,7 +384,7 @@ namespace Aura2API
         /// <param name="floatProperty">The related serialized property</param>
         public static void DrawFloatField(ref SerializedProperty floatProperty)
         {
-            GuiHelpers.DrawFloatField(ref floatProperty, null);
+            DrawFloatField(ref floatProperty, (GUIContent)null);
         }
 
         /// <summary>
@@ -406,7 +394,16 @@ namespace Aura2API
         /// <param name="label">The label to write</param>
         public static void DrawFloatField(ref SerializedProperty floatProperty, string label)
         {
-            if(label != null)
+            DrawFloatField(ref floatProperty, new GUIContent(label));
+        }
+        /// <summary>
+        /// Draws a float field
+        /// </summary>
+        /// <param name="floatProperty">The related serialized property</param>
+        /// <param name="label">The label to write</param>
+        public static void DrawFloatField(ref SerializedProperty floatProperty, GUIContent label)
+        {
+            if (label != null)
             {
                 floatProperty.floatValue = EditorGUILayout.FloatField(label, floatProperty.floatValue, GUILayout.MinWidth(15));
             }
@@ -422,8 +419,7 @@ namespace Aura2API
         /// <param name="floatProperty">The related serialized property</param>
         public static void DrawPositiveOnlyFloatField(ref SerializedProperty floatProperty)
         {
-            floatProperty.floatValue = EditorGUILayout.FloatField(floatProperty.floatValue, GUILayout.MinWidth(15));
-            floatProperty.floatValue = Mathf.Max(floatProperty.floatValue, 0);
+            DrawPositiveOnlyFloatField(ref floatProperty, (GUIContent)null);
         }
 
         /// <summary>
@@ -433,7 +429,25 @@ namespace Aura2API
         /// <param name="label">The label to write</param>
         public static void DrawPositiveOnlyFloatField(ref SerializedProperty floatProperty, string label)
         {
-            floatProperty.floatValue = EditorGUILayout.FloatField(label, floatProperty.floatValue, GUILayout.MinWidth(15));
+            DrawPositiveOnlyFloatField(ref floatProperty, new GUIContent(label));
+        }
+
+        /// <summary>
+        /// Draws a float field that cannot go under 0
+        /// </summary>
+        /// <param name="floatProperty">The related serialized property</param>
+        /// <param name="label">The label to write</param>
+        public static void DrawPositiveOnlyFloatField(ref SerializedProperty floatProperty, GUIContent label)
+        {
+            if(label !=null)
+            {
+                floatProperty.floatValue = EditorGUILayout.FloatField(label, floatProperty.floatValue, GUILayout.MinWidth(15));
+            }
+            else
+            {
+                floatProperty.floatValue = EditorGUILayout.FloatField(floatProperty.floatValue, GUILayout.MinWidth(15));
+            }
+
             floatProperty.floatValue = Mathf.Max(floatProperty.floatValue, 0);
         }
 

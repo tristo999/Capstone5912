@@ -70,6 +70,10 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
         GameMaster.instance.FreezeDistantEntities();
     }
 
+    public override void OnEvent(DisconnectPlayer evnt) {
+        evnt.RaisedBy.Disconnect();
+    }
+
     private void Update() {
 
     }

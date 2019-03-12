@@ -179,6 +179,13 @@ namespace Aura2API
                 SceneViewToolbox.DisplayNotifications = !SceneViewToolbox.DisplayNotifications;
             }
             EditorGUILayout.Separator();
+            EditorGUI.BeginChangeCheck();
+            GuiHelpers.DrawToggleChecker(SceneViewToolbox.EnableAnimations, " Enable Animations");
+            if (EditorGUI.EndChangeCheck())
+            {
+                SceneViewToolbox.EnableAnimations = !SceneViewToolbox.EnableAnimations;
+            }
+            EditorGUILayout.Separator();
             EditorGUILayout.Separator();
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.BeginVertical(GUILayout.MaxWidth(160));

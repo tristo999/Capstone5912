@@ -1,3 +1,10 @@
+1.2.7
+
+Changed: The client will be shutdown when is not possible to establish a connection with a Photon Master Server when using Photon integration.
+Fixed: Room Update Rate settings. The minimum update rate is 500ms.
+Fixed: BoltRuntimeSettings asset creation issue when importing Bolt using the Wizard Window.
+Fixed: Clear SessionList after Shutdown. Now, when the peer is shutdown, the session list will be cleaned.
+
 1.2.6
 Added: "Leave Review" button on the Wizard Window.
 Added: Bolt now has a new default serialization method. All Bolt Assets will be serialized into JSON format, removing the need for XML or binary formats.

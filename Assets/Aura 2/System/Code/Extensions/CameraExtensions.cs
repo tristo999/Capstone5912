@@ -121,7 +121,7 @@ namespace Aura2API
         public static Vector4[] GetFrustumPlaneCorners(this Camera camera, Camera.MonoOrStereoscopicEye eye, float planeDistance)
         {
             Vector3[] tmpArray = new Vector3[4];
-            camera.CalculateFrustumCorners(camera.rect, planeDistance, eye, tmpArray);
+            camera.CalculateFrustumCorners(/*camera.rect*/new Rect(0,0,1,1), planeDistance, eye, tmpArray);
             for (int i = 0; i < 4; ++i)
             {
                 tmpArray[i] = camera.transform.localToWorldMatrix.MultiplyPoint(tmpArray[i]);

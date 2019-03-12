@@ -54,11 +54,6 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
     }
 
     public void FixedUpdate() {
-        if (Input.GetKeyDown(KeyCode.F1)) {
-            BoltLauncher.Shutdown();
-            SceneManager.LoadScene("Title");
-        }
-
         if (!BoltNetwork.IsServer) return;
         if (RoomLayer > 0) {
             if (GameTime == dangerTime) {
@@ -99,7 +94,9 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
 
     public void SetLayerDanger() {
         foreach (DungeonRoom room in RoomLayers[RoomLayer]) {
-            room.GetComponent<BoltEntity>().GetState<IDungeonRoom>().DestructionState = (int)DungeonRoom.DestructionState.Danger;
+            if (room) {
+                room.GetComponent<BoltEntity>().GetState<IDungeonRoom>().DestructionState = (int)DungeonRoom.DestructionState.Danger;
+            }
         }
     }
 

@@ -31,11 +31,20 @@ public static class LocalPlayerRegistry
         return PlayerNumbers.Contains(id);
     }
 
-    public static void SpawnPlayer(int id) {
-        Player player = ReInput.players.GetPlayer(id);
-        player.isPlaying = true;
-        Players.Add(player);
-        BoltEntity playerEntity = BoltNetwork.Instantiate(BoltPrefabs.Player);
+    public static void SpawnPlayer(SpawnPlayer evnt) {
+        BoltEntity playerEntity = BoltNetwork.Instantiate(BoltPrefabs.Player, evnt.Position, Quaternion.identity);
+        IPlayerState playerState = playerEntity.GetComponent<PlayerMovementController>().state;
+        playerEntity.GetComponent<PlayerUI>().ScreenNumber = SplitscreenManager.instance.CreatePlayerCamera(playerEntity.transform);
+        playerState.Color = evnt.Color;
+        playerState.Name = evnt.Name;
+        playerState.PlayerId = evnt.PlayerId;
+        playerEntity.TakeControl();
         playerEntities.Add(playerEntity);
+    }
+
+    public static void Reset() {
+        playerEntities.Clear();
+        Players.Clear();
+        PlayerNumbers.Clear();
     }
 }
