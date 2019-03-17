@@ -30,7 +30,8 @@ public class SpectatorCamera : MonoBehaviour
     private SpectatorCamState state;
     private Transform _followTarget;
 
-    private void Start() {
+    private void Awake() {
+        camera = GetComponentInChildren<Camera>();
         orbitalTransposer = orbitalCam.GetCinemachineComponent<CinemachineOrbitalTransposer>();
         ChangeToOrbital();
     }

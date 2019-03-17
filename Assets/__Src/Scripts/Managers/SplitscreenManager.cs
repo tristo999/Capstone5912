@@ -30,12 +30,12 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
     public int CreatePlayerCamera(Transform player) {
         PlayerCamera newCam = Instantiate(playerCamPrefab).GetComponent<PlayerCamera>();
         SpectatorCamera spectCam = Instantiate(spectatorCamPrefab).GetComponent<SpectatorCamera>();
-        spectCam.gameObject.SetActive(false);
         newCam.AddPlayerToCamera(player);
         playerCameras.Add(newCam);
         spectatorCameras.Add(spectCam);
         // Change this call to take the splitscreenmode preference from options.
         SetPlayerLayout(playerCameras.Count, SplitScreenMode.WithoutPreview | SplitScreenMode.VerticalSplitscreen);
+        spectCam.gameObject.SetActive(false);
         SetCullingMasks();
         return playerCameras.Count;
     }
