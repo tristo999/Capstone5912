@@ -12,13 +12,15 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
     public enum SplitScreenMode { WithPreview = 1, WithoutPreview = 2, VerticalSplitscreen = 4, HorizontalSplitscreen = 8 }
 
     public List<PlayerCamera> playerCameras { get; private set; } = new List<PlayerCamera>();
-    public PlayerCamera previewCamera { get; private set; }
+    public List<SpectatorCamera> spectatorCameras { get; private set; } = new List<SpectatorCamera>();
     private List<Renderer> renderers = new List<Renderer>();
     private List<Light> lights = new List<Light>();
     private GameObject playerCamPrefab;
+    private GameObject spectatorCamPrefab;
 
     private void Awake() {
         playerCamPrefab = Resources.Load("UI/PlayerCamera") as GameObject;
+        spectatorCamPrefab = Resources.Load("UI/SpectatorCam") as GameObject;
     }
 
     public PlayerCamera GetEntityCamera(BoltEntity entity) {
@@ -27,36 +29,27 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
 
     public int CreatePlayerCamera(Transform player) {
         PlayerCamera newCam = Instantiate(playerCamPrefab).GetComponent<PlayerCamera>();
+        SpectatorCamera spectCam = Instantiate(spectatorCamPrefab).GetComponent<SpectatorCamera>();
+        spectCam.gameObject.SetActive(false);
         newCam.AddPlayerToCamera(player);
         playerCameras.Add(newCam);
+        spectatorCameras.Add(spectCam);
         // Change this call to take the splitscreenmode preference from options.
         SetPlayerLayout(playerCameras.Count, SplitScreenMode.WithoutPreview | SplitScreenMode.VerticalSplitscreen);
         SetCullingMasks();
-        UpdatePreviewCamera();
         return playerCameras.Count;
-    }
-
-    public void CreatePreviewCamera() {
-        previewCamera = Instantiate(playerCamPrefab).GetComponent<PlayerCamera>();
-        previewCamera.camera.rect = new Rect(.5f, 0f, .5f, .5f);
-        playerCameras.Add(previewCamera);
-        UpdatePreviewCamera();
-    }
-
-    private void UpdatePreviewCamera() {
-        if (!previewCamera) return;
-        previewCamera.ClearTargets();
-        foreach (CinemachineTargetGroup.Target t in previewCamera.targetGroup.m_Targets) {
-            previewCamera.targetGroup.AddMember(t.target, 1, 1);
-        }
     }
 
     private void SetCullingMasks() {
         for (int i = 0; i < playerCameras.Count; i++) {
-            playerCameras[i].GetComponentInChildren<CinemachineVirtualCamera>().gameObject.layer = 8 + i;
+            playerCameras[i].GetComponentsInChildren<CinemachineVirtualCamera>().ToList().ForEach(c => c.gameObject.layer = 8 + i);
+            spectatorCameras[i].GetComponentsInChildren<CinemachineVirtualCamera>().ToList().ForEach(c => c.gameObject.layer = 8 + i);
+
             for (int j = 0; j < playerCameras.Count; j++) {
-                if (i != j)
+                if (i != j) {
                     playerCameras[i].camera.cullingMask = playerCameras[i].camera.cullingMask & ~(1 << 8 + j);
+                    spectatorCameras[i].camera.cullingMask = playerCameras[i].camera.cullingMask & ~(1 << 8 + j);
+                }
             }
         }
     }
@@ -64,33 +57,53 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
     public void SetPlayerLayout(int playerCount, SplitScreenMode mode) {
         if (playerCount == 1) {
             playerCameras[0].camera.rect = new Rect(0, 0, 1, 1);
+            spectatorCameras[0].camera.rect = new Rect(0, 0, 1, 1);
         } else if (playerCount == 2) {
             if (mode.HasFlag(SplitScreenMode.VerticalSplitscreen)) {
                 playerCameras[0].camera.rect = new Rect(0, 0, .5f, 1f);
+                spectatorCameras[0].camera.rect = new Rect(0, 0, .5f, 1f);
                 playerCameras[1].camera.rect = new Rect(.5f, 0f, .5f, 1f);
+                spectatorCameras[1].camera.rect = new Rect(.5f, 0f, .5f, 1f);
             } else {
                 playerCameras[0].camera.rect = new Rect(0, .5f, 1f, .5f);
+                spectatorCameras[0].camera.rect = new Rect(0, .5f, 1f, .5f);
                 playerCameras[1].camera.rect = new Rect(0, 0f, 1f, .5f);
+                spectatorCameras[1].camera.rect = new Rect(0, 0f, 1f, .5f);
             }
         } else if (playerCount == 3) {
             if (mode.HasFlag(SplitScreenMode.WithPreview)) {
                 playerCameras[0].camera.rect = new Rect(0f, .5f, .5f, .5f);
+                spectatorCameras[0].camera.rect = new Rect(0f, .5f, .5f, .5f);
+                spectatorCameras[0].camera.rect = new Rect(0f, .5f, .5f, .5f);
                 playerCameras[1].camera.rect = new Rect(.5f, .5f, .5f, .5f);
+                spectatorCameras[1].camera.rect = new Rect(.5f, .5f, .5f, .5f);
                 playerCameras[2].camera.rect = new Rect(0f, 0f, .5f, .5f);
-                CreatePreviewCamera();
+                spectatorCameras[2].camera.rect = new Rect(0f, 0f, .5f, .5f);
             } else {
                 playerCameras[0].camera.rect = new Rect(0f, .5f, 1f, .5f);
+                spectatorCameras[0].camera.rect = new Rect(0f, .5f, 1f, .5f);
                 playerCameras[1].camera.rect = new Rect(0f, 0f, .5f, .5f);
+                spectatorCameras[1].camera.rect = new Rect(0f, 0f, .5f, .5f);
                 playerCameras[2].camera.rect = new Rect(.5f, 0f, .5f, .5f);
+                spectatorCameras[2].camera.rect = new Rect(.5f, 0f, .5f, .5f);
             }
         } else if (playerCount == 4) {
             playerCameras[0].camera.rect = new Rect(0, .5f, .5f, .5f);
+            spectatorCameras[0].camera.rect = new Rect(0, .5f, .5f, .5f);
             playerCameras[1].camera.rect = new Rect(.5f, .5f, .5f, .5f);
+            spectatorCameras[1].camera.rect = new Rect(.5f, .5f, .5f, .5f);
             playerCameras[2].camera.rect = new Rect(0, 0f, .5f, .5f);
+            spectatorCameras[2].camera.rect = new Rect(0, 0f, .5f, .5f);
             playerCameras[3].camera.rect = new Rect(.5f, 0f, .5f, .5f);
+            spectatorCameras[3].camera.rect = new Rect(.5f, 0f, .5f, .5f);
         } else {
             Debug.LogFormat("{0} is not a valid number of players.", playerCount);
         }
+    }
+
+    public void SetCameraToSpectator(int cam) {
+        playerCameras[cam].gameObject.SetActive(false);
+        spectatorCameras[cam].gameObject.SetActive(true);
     }
 
     public void DoRoomCulling() {
@@ -112,13 +125,13 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
             foreach (Renderer ren in renderers) {
                 if (Vector3.Distance(ren.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 2f) {
                     ren.enabled = true;
-                } 
+                }
             }
 
             foreach (Light light in lights) {
                 if (Vector3.Distance(light.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 2f) {
                     light.enabled = true;
-                } 
+                }
             }
         }
     }
