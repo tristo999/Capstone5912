@@ -77,11 +77,9 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         if (!entity.isOwner || localPlayer == null) return;
 
         // Custom gravity for the players. They are far too floaty with default gravity.
-        rb.AddForce(Physics.gravity * rb.mass * 3f);
+        rb.AddForce(Physics.gravity * rb.mass * 3.5f);
 
-        if (!InputDisabled) {
-            DoMovement();
-        }
+        DoMovement();
     }
 
     private void CheckForPlayer() {
@@ -101,19 +99,22 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void DoMovement() {
-        float moveHorizontal = localPlayer.GetAxis("Horizontal");
-        float moveVertical = localPlayer.GetAxis("Vertical");
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        if (thirdPerson) {
-            movement = SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].camera.transform.TransformDirection(movement);
-            movement.y = 0;
-        }
+        Vector3 movement = Vector3.zero;
+        if (!InputDisabled) {
+            float moveHorizontal = localPlayer.GetAxis("Horizontal");
+            float moveVertical = localPlayer.GetAxis("Vertical");
+            movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+            if (thirdPerson) {
+                movement = SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].camera.transform.TransformDirection(movement);
+                movement.y = 0;
+            }
+        }        
 
         if (CalculateIsOnGround()) {
             UpdateMovementGround(movement);
 
             // TEMP: Jump ability for testing.
-            if (Input.GetKeyDown("space")) {
+            if (Input.GetKeyDown("space") && !InputDisabled) {
                 rb.velocity = rb.velocity + new Vector3(0, 15f, 0);
             }
         } else {
@@ -125,39 +126,36 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void UpdateMovementGround(Vector3 movement) {
-        UpdateMovementFriction();
-
-        float accelAmount = Mathf.Min(movement.magnitude, 1) * state.Speed * BaseSpeed * BaseAccel;
-        float maxVelocity = state.Speed * BaseSpeed;
-        UpdateMovementInputAcceleration(movement, accelAmount, maxVelocity);
+        rb.velocity = CalculateVelocityFromFriction();
+        rb.velocity = CalculateVelocityFromInputAccel(movement, 1, 1);
     }
 
     private void UpdateMovementAir(Vector3 movement) {
-        float accelAmount = Mathf.Min(movement.magnitude, 1) * state.Speed * BaseSpeed * BaseAccel / 10f; // Limit ability to decelerate.
-        float maxVelocity = 3f; // Air strafe turn magnitude control.
-        UpdateMovementInputAcceleration(movement, accelAmount, maxVelocity);
+        rb.velocity = CalculateVelocityFromInputAccel(movement, 1/8f, 2/3f);
     }
 
-    private void UpdateMovementFriction()
-    {
+    private Vector3 CalculateVelocityFromFriction() {
         float speed = rb.velocity.magnitude;
         if (speed != 0) {
             float drop = speed * BaseFriction * Time.fixedDeltaTime;
             float frictionFactor = Mathf.Max(speed - drop, 0) / speed;
-            rb.velocity = new Vector3(rb.velocity.x * frictionFactor, rb.velocity.y, rb.velocity.z * frictionFactor);
+            return new Vector3(rb.velocity.x * frictionFactor, rb.velocity.y, rb.velocity.z * frictionFactor);
+        } else {
+            return rb.velocity;
         }
     }
 
-    private void UpdateMovementInputAcceleration(Vector3 movement, float accelAmount, float maxVelocity)
-    {
+    private Vector3 CalculateVelocityFromInputAccel(Vector3 movement, float accelAmountMultiplier, float maxVelocityMultiplier) {
         Vector3 accelDir = movement.normalized;
+        float accelAmount = Mathf.Min(movement.magnitude, 1) * state.Speed * BaseSpeed * BaseAccel * accelAmountMultiplier;
+        float maxVelocity = state.Speed * BaseSpeed * maxVelocityMultiplier;
 
         float projVel = Vector3.Dot(rb.velocity, accelDir);
         float accelVel = accelAmount * Time.fixedDeltaTime;
         if (projVel + accelVel > maxVelocity) accelVel = maxVelocity - projVel;
         if (accelVel < 0) accelVel = 0;
 
-        rb.velocity = rb.velocity + accelDir * accelVel;
+        return rb.velocity + accelDir * accelVel;
     }
 
     private bool CalculateIsOnGround() {
@@ -166,9 +164,9 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
         return Physics.CheckCapsule(col.bounds.center,
                                     new Vector3(col.bounds.center.x,
-                                                col.bounds.min.y - 0.02f,
+                                                col.bounds.min.y - 0.005f,
                                                 col.bounds.center.z),
-                                    0.18f,
+                                    0.1f,
                                     layerMask,
                                     QueryTriggerInteraction.Ignore);
     }
