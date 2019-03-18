@@ -1,63 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!54 &5566001327394060050
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5565856734852641727}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &5566001327394060061
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5565856734852641727}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.526959, y: 1.3258176, z: 0.4547751}
-  m_Center: {x: -0.3551127, y: 0.664096, z: -0.002168931}
---- !u!54 &5566001327979138172
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5565856736347883741}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &5566001327979138175
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5565856736347883741}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.526959, y: 1.3258176, z: 0.4547751}
-  m_Center: {x: -0.3551127, y: 0.664096, z: -0.002168931}
 --- !u!1 &5566001326909094100
 GameObject:
   m_ObjectHideFlags: 0
@@ -2857,8 +2799,8 @@ Transform:
   m_Children:
   - {fileID: 5566001327506937737}
   - {fileID: 5566001328513438429}
-  - {fileID: 5562048117878579269}
-  - {fileID: 5562048117427673895}
+  - {fileID: 5566001327394058506}
+  - {fileID: 5566001327979137640}
   - {fileID: 1327975650664102368}
   - {fileID: 1327975652177472868}
   - {fileID: 1327975651131178511}
@@ -2872,9 +2814,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5566001328881604370}
     m_Modifications:
-    - target: {fileID: 1000013026526382, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Double-Cupboard_Full-03
+    - target: {fileID: 1563, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4446, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
+      propertyPath: _sceneGuid
+      value: cb761425-3f61-4fb8-a134-a689be290a77
       objectReference: {fileID: 0}
     - target: {fileID: 4000010205435732, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2932,6 +2878,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013026526382, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Double-Cupboard_Full-03
+      objectReference: {fileID: 0}
     - target: {fileID: 1713978095242698968, guid: afc1f03df3b3b1443ab4d47cdfbd9e38,
         type: 3}
       propertyPath: _sceneGuid
@@ -2939,15 +2889,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
---- !u!1 &5565856734852641727 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000013026526382, guid: afc1f03df3b3b1443ab4d47cdfbd9e38,
-    type: 3}
-  m_PrefabInstance: {fileID: 5566001327394060049}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5562048117878579269 stripped
+--- !u!4 &5566001327394058506 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000010205435732, guid: afc1f03df3b3b1443ab4d47cdfbd9e38,
+  m_CorrespondingSourceObject: {fileID: 1563, guid: afc1f03df3b3b1443ab4d47cdfbd9e38,
     type: 3}
   m_PrefabInstance: {fileID: 5566001327394060049}
   m_PrefabAsset: {fileID: 0}
@@ -3028,9 +2972,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5566001328881604370}
     m_Modifications:
-    - target: {fileID: 1000013026526382, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Double-Cupboard_Full-03 (1)
+    - target: {fileID: 1563, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4446, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
+      propertyPath: _sceneGuid
+      value: 3220c729-d46d-4125-b501-fb64803cf5d2
       objectReference: {fileID: 0}
     - target: {fileID: 4000010205435732, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3088,6 +3036,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013026526382, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Double-Cupboard_Full-03 (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 1713978095242698968, guid: afc1f03df3b3b1443ab4d47cdfbd9e38,
         type: 3}
       propertyPath: _sceneGuid
@@ -3095,15 +3047,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afc1f03df3b3b1443ab4d47cdfbd9e38, type: 3}
---- !u!1 &5565856736347883741 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000013026526382, guid: afc1f03df3b3b1443ab4d47cdfbd9e38,
-    type: 3}
-  m_PrefabInstance: {fileID: 5566001327979138163}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5562048117427673895 stripped
+--- !u!4 &5566001327979137640 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4000010205435732, guid: afc1f03df3b3b1443ab4d47cdfbd9e38,
+  m_CorrespondingSourceObject: {fileID: 1563, guid: afc1f03df3b3b1443ab4d47cdfbd9e38,
     type: 3}
   m_PrefabInstance: {fileID: 5566001327979138163}
   m_PrefabAsset: {fileID: 0}

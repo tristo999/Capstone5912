@@ -60,7 +60,6 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         // upset that it can't control client's players.
         if (!entity.isOwner || localPlayer == null) return;
         if (InputDisabled) return;
-        DoMovement();
         DoLook();
         CheckInteract();
         if (localPlayer.GetButtonDown("Interact")) DoInteract();
@@ -72,6 +71,17 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         if (localPlayer.GetButtonUp("UseActive")) state.ActiveRelease();
         if (localPlayer.GetButtonDown("ChangeView")) ToggleView();
         if (localPlayer.GetButtonDown("Pause")) PauseMenu.Instance.TogglePauseMenu();
+    }
+
+    public void FixedUpdate() {
+        if (!entity.isOwner || localPlayer == null) return;
+
+        // Custom gravity for the players. They are far too floaty with default gravity.
+        rb.AddForce(Physics.gravity * rb.mass * 3f);
+
+        if (!InputDisabled) {
+            DoMovement();
+        }
     }
 
     private void CheckForPlayer() {
@@ -88,7 +98,6 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
     private void PlayerDied() {
         InputDisabled = true;
-        
     }
 
     private void DoMovement() {
@@ -99,35 +108,69 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
             movement = SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].camera.transform.TransformDirection(movement);
             movement.y = 0;
         }
-        UpdateMovementFriction();
-        UpdateMovementInputAcceleration(movement);
+
+        if (CalculateIsOnGround()) {
+            UpdateMovementGround(movement);
+
+            // TEMP: Jump ability for testing.
+            if (Input.GetKeyDown("space")) {
+                rb.velocity = rb.velocity + new Vector3(0, 15f, 0);
+            }
+        } else {
+            UpdateMovementAir(movement);
+        }
 
         state.ForwardMovement = Vector3.Dot(rb.velocity, transform.forward) / (state.Speed * BaseSpeed);
         state.RightMovement = Vector3.Dot(rb.velocity, transform.right) / (state.Speed * BaseSpeed);
     }
 
+    private void UpdateMovementGround(Vector3 movement) {
+        UpdateMovementFriction();
+
+        float accelAmount = Mathf.Min(movement.magnitude, 1) * state.Speed * BaseSpeed * BaseAccel;
+        float maxVelocity = state.Speed * BaseSpeed;
+        UpdateMovementInputAcceleration(movement, accelAmount, maxVelocity);
+    }
+
+    private void UpdateMovementAir(Vector3 movement) {
+        float accelAmount = Mathf.Min(movement.magnitude, 1) * state.Speed * BaseSpeed * BaseAccel / 10f; // Limit ability to decelerate.
+        float maxVelocity = 3f; // Air strafe turn magnitude control.
+        UpdateMovementInputAcceleration(movement, accelAmount, maxVelocity);
+    }
+
     private void UpdateMovementFriction()
     {
         float speed = rb.velocity.magnitude;
-        if (speed != 0) 
-        {
-            float drop = speed * BaseFriction * Time.deltaTime;
-            rb.velocity *= Mathf.Max(speed - drop, 0) / speed; 
+        if (speed != 0) {
+            float drop = speed * BaseFriction * Time.fixedDeltaTime;
+            float frictionFactor = Mathf.Max(speed - drop, 0) / speed;
+            rb.velocity = new Vector3(rb.velocity.x * frictionFactor, rb.velocity.y, rb.velocity.z * frictionFactor);
         }
     }
 
-    private void UpdateMovementInputAcceleration(Vector3 movement)
+    private void UpdateMovementInputAcceleration(Vector3 movement, float accelAmount, float maxVelocity)
     {
         Vector3 accelDir = movement.normalized;
-        float accelAmount = Mathf.Min(movement.magnitude, 1) * state.Speed * BaseSpeed * BaseAccel;
-        float maxVelocity = state.Speed * BaseSpeed;
 
         float projVel = Vector3.Dot(rb.velocity, accelDir);
-        float accelVel = accelAmount * Time.deltaTime;
-
+        float accelVel = accelAmount * Time.fixedDeltaTime;
         if (projVel + accelVel > maxVelocity) accelVel = maxVelocity - projVel;
+        if (accelVel < 0) accelVel = 0;
 
         rb.velocity = rb.velocity + accelDir * accelVel;
+    }
+
+    private bool CalculateIsOnGround() {
+        Collider col = gameObject.GetComponent<Collider>();
+        int layerMask = LayerMask.GetMask("Room", "Clutter");
+
+        return Physics.CheckCapsule(col.bounds.center,
+                                    new Vector3(col.bounds.center.x,
+                                                col.bounds.min.y - 0.02f,
+                                                col.bounds.center.z),
+                                    0.18f,
+                                    layerMask,
+                                    QueryTriggerInteraction.Ignore);
     }
 
     private void DoLook() {
