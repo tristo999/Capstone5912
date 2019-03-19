@@ -24,11 +24,14 @@ public class ItemMaster : EditorWindow
     }
 
     public void OnDisable() {
+        UpdatePrefab();
+        AssetDatabase.SaveAssets();
         Save();
     }
 
     private void OnLostFocus() {
         UpdatePrefab();
+        AssetDatabase.SaveAssets();
         Save();
     }
 
@@ -124,11 +127,7 @@ public class ItemMaster : EditorWindow
 
     public void Load() {
         string data;
-        if (File.Exists(Application.dataPath + "/Resources/WizardFightData/ItemData.json")) {
-            data = File.ReadAllText(Application.dataPath + "/Resources/WizardFightData/ItemData.json");
-        } else {
-            data = EditorPrefs.GetString("WFItems", JsonUtility.ToJson(this, false));
-        }
+        data = File.ReadAllText(Application.dataPath + "/Resources/WizardFightData/ItemData.json");
         JsonUtility.FromJsonOverwrite(data, this);
         if (ManagerPrefab == null) {
             ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/__Src/Prefabs/Managers/ItemManager.prefab");
@@ -143,9 +142,9 @@ public class ItemMaster : EditorWindow
                 writer.Write(data);
             }
         }
-            EditorPrefs.SetString("WFItems", data);
         if (itemManager != null) {
             itemManager.items = Items.ToList();
         }
+        
     }
 }
