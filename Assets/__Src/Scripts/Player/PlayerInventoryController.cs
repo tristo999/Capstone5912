@@ -30,6 +30,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
         state.OnActiveDown += ActiveDownTrigger;
         state.OnActiveHold += ActiveHoldTrigger;
         state.OnActiveRelease += ActiveReleaseTrigger;
+        state.OnDestroyActive += DestroyActive;
 
         playerHand = GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.RightHand);
         StartCoroutine("WaitForItemManager");
@@ -152,6 +153,12 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
                 evnt.Force = transform.forward;
                 evnt.Send();
             }
+        }
+    }
+
+    private void DestroyActive() {
+        if (activeItem != null) {
+            Destroy(activeItem.gameObject);
         }
     }
 

@@ -124,8 +124,8 @@ public class ItemMaster : EditorWindow
 
     public void Load() {
         string data;
-        if (File.Exists("Assets/Resources/WizardFightData/ItemData.json")) {
-            data = File.ReadAllText("Assets/Resources/WizardFightData/ItemData.json");
+        if (File.Exists(Application.dataPath + "/Resources/WizardFightData/ItemData.json")) {
+            data = File.ReadAllText(Application.dataPath + "/Resources/WizardFightData/ItemData.json");
         } else {
             data = EditorPrefs.GetString("WFItems", JsonUtility.ToJson(this, false));
         }
@@ -138,7 +138,7 @@ public class ItemMaster : EditorWindow
 
     public void Save() {
         var data = JsonUtility.ToJson(this, false);
-        using (FileStream fs = new FileStream("Assets/Resources/WizardFightData/ItemData.json", FileMode.Create)) {
+        using (FileStream fs = new FileStream(Application.dataPath + "/Resources/WizardFightData/ItemData.json", FileMode.Create)) {
             using (StreamWriter writer = new StreamWriter(fs)) {
                 writer.Write(data);
             }

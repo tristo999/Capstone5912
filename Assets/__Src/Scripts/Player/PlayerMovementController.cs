@@ -210,7 +210,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         // Check for interactive.
         foreach (Collider c in overlap) {
             if (c.tag == "Interactive") {
-                InteractiveObject io = c.GetComponent<InteractiveObject>();
+                InteractiveObject io = c.GetComponentInParent<InteractiveObject>();
                 if (io != null) {
                     if (closest == null || Vector3.Distance(transform.position, c.transform.position) < Vector3.Distance(transform.position, io.transform.position))
                         closest = io;

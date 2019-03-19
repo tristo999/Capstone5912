@@ -2,36 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ActiveTimeout))]
+[RequireComponent(typeof(ActiveCooldown))]
 public class CloakOfInvisibility : ActiveItem
 {
     public Material InvisibleMaterial;
     public Material TransparentMaterial;
-
-    private float timer;
     private List<Material> oldMats;
     private List<Material> oldSkinnedMats;
+
+    private ActiveTimeout timeout;
+    private ActiveCooldown cooldown;
 
     public override void ActivateHold() {
         
     }
 
     public override void ActivateRelease() {
-        // This should be moved to update to deactivate after timer.
-        MeshRenderer[] renderers = transform.parent.GetComponentsInChildren<MeshRenderer>();
-        SkinnedMeshRenderer[] meshRenderers = transform.parent.GetComponentsInChildren<SkinnedMeshRenderer>();
-        if (oldMats == null) return;
-        for (int i = 0; i < oldMats.Count; i++) {
-            renderers[i].material = oldMats[i];
-            renderers[i].gameObject.layer = 0;
-        }
-
-        for (int i = 0; i < oldSkinnedMats.Count; i++) {
-            meshRenderers[i].material = oldSkinnedMats[i];
-            meshRenderers[i].gameObject.layer = 0;
-        }
+        
     }
 
     public override void ActiveDown() {
+        ActivateCloak();
+    }
+
+    public override void OnEquip() {
+        GetComponent<Cloth>().capsuleColliders = new CapsuleCollider[] { Owner.GetComponent<CapsuleCollider>() };
+        timeout = GetComponent<ActiveTimeout>();
+        cooldown = GetComponent<ActiveCooldown>();
+        timeout.OnTimeout += DeactivateCloak;
+    }
+
+    private void ActivateCloak() {
+        if (timeout.InTimeout || !cooldown.Ready) return;
         Debug.Log("Activated cloak");
         MeshRenderer[] renderers = transform.parent.GetComponentsInChildren<MeshRenderer>();
         SkinnedMeshRenderer[] meshRenderers = transform.parent.GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -56,16 +59,22 @@ public class CloakOfInvisibility : ActiveItem
                 ren.material = InvisibleMaterial;
             }
         }
+        timeout.StartTimeout();
     }
 
-    public override void OnEquip() {
-        Debug.Log("Cloak equipped");
-        GetComponent<Cloth>().capsuleColliders = new CapsuleCollider[] { Owner.GetComponent<CapsuleCollider>() };
-    }
-
-    private void Update() {
-        if (timer > 0) {
-            timer -= Time.deltaTime;
+    private void DeactivateCloak() {
+        MeshRenderer[] renderers = transform.parent.GetComponentsInChildren<MeshRenderer>();
+        SkinnedMeshRenderer[] meshRenderers = transform.parent.GetComponentsInChildren<SkinnedMeshRenderer>();
+        if (oldMats == null) return;
+        for (int i = 0; i < oldMats.Count; i++) {
+            renderers[i].material = oldMats[i];
+            renderers[i].gameObject.layer = 0;
         }
+
+        for (int i = 0; i < oldSkinnedMats.Count; i++) {
+            meshRenderers[i].material = oldSkinnedMats[i];
+            meshRenderers[i].gameObject.layer = 0;
+        }
+        cooldown.ResetCooldown();
     }
 }

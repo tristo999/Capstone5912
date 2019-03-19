@@ -22,14 +22,14 @@ public abstract class InteractiveObject : Bolt.EntityEventListener<IInteractiveS
 
     public virtual void AddHighlight()
     {
-        originalMaterial = GetComponent<Renderer>().sharedMaterial;
-        GetComponent<Renderer>().sharedMaterial = highlightMaterial;
+        originalMaterial = GetComponentInChildren<Renderer>().sharedMaterial;
+        GetComponentInChildren<Renderer>().sharedMaterial = highlightMaterial;
         isHighlighted = true;
     }
 
     public virtual void RemoveHighlight()
     {
-        GetComponent<Renderer>().sharedMaterial = originalMaterial;
+        GetComponentInChildren<Renderer>().sharedMaterial = originalMaterial;
         isHighlighted = false;
     }
 

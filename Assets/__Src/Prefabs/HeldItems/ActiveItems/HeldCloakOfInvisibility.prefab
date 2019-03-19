@@ -11,10 +11,13 @@ GameObject:
   - component: {fileID: 8888734220540054276}
   - component: {fileID: 802902204736328684}
   - component: {fileID: 3928749656041856786}
+  - component: {fileID: 8576204035399518701}
   - component: {fileID: 4036389208153752077}
+  - component: {fileID: 2991686764116282612}
+  - component: {fileID: 2895547972246792174}
   m_Layer: 0
   m_Name: HeldCloakOfInvisibility
-  m_TagString: Untagged
+  m_TagString: Active
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,7 +53,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 38d15338b4a489b42aa3d1b8a1777ea6, type: 2}
+  - {fileID: 2100000, guid: db0f52158fa404143bfa3c2fc4eaece2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -365,6 +368,18 @@ Cloth:
   - {x: 0.6666667, y: 0.16666667, z: 0.16666667}
   - {x: 0.5, y: 0.5, z: 0}
   m_VirtualParticleIndices: 
+--- !u!114 &8576204035399518701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8815563781034413229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be17b00b98012f940ae0b784b762f759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4036389208153752077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,3 +394,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InvisibleMaterial: {fileID: 2100000, guid: 92d65fd8fb4de754b8d234544fd22243, type: 2}
   TransparentMaterial: {fileID: 2100000, guid: 38d15338b4a489b42aa3d1b8a1777ea6, type: 2}
+--- !u!114 &2991686764116282612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8815563781034413229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1156d0193ec74254c9478f64f75ffeea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 3
+--- !u!114 &2895547972246792174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8815563781034413229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1311b4d2f7cbd7c4fbeb4ca88727a399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timeout: 5
+  timeoutTimer: 0
