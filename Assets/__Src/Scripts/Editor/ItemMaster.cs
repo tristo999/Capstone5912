@@ -31,15 +31,9 @@ public class ItemMaster : EditorWindow
 
     private void OnLostFocus() {
         UpdatePrefab();
-        AssetDatabase.SaveAssets();
-        Save();
     }
 
     void OnGUI() {
-        Load();
-        if (GUILayout.Button("Fix Prefabs")) {
-            FixPrefabs();
-        }
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         for (int i = 0; i < Items.Count; i++) {
             if (Items[i] != null) {
@@ -110,14 +104,6 @@ public class ItemMaster : EditorWindow
         bool noManager = ManagerPrefab == null;
         obj.ApplyModifiedProperties();
         UpdatePrefab();
-        Save();
-    }
-
-    public void FixPrefabs() {
-        foreach (ItemDefinition item in Items) {
-            item.HeldScript = item.HeldModel.GetComponent<HeldItem>();
-            item.DroppedScript = item.DroppedModel.GetComponent<DroppedItem>();
-        }
     }
 
     private void UpdatePrefab() {
