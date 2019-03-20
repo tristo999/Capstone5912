@@ -9,7 +9,13 @@ public class ItemMaster : EditorWindow
 {
     private GameObject ManagerPrefab;
     private ItemManager itemManager;
-    public List<ItemDefinition> Items = new List<ItemDefinition>();
+    public List<ItemDefinition> Items
+    {
+        get
+        {
+            return itemManager.items;
+        }
+    }
     Vector2 scrollPos;
 
     // Add menu item named "My Window" to the Window menu
@@ -20,17 +26,14 @@ public class ItemMaster : EditorWindow
     }
 
     public void OnEnable() {
-        Load();   
+        if (ManagerPrefab == null) {
+            ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/__Src/Prefabs/Managers/ItemManager.prefab");
+            itemManager = ManagerPrefab.GetComponent<ItemManager>();
+        }
     }
 
     public void OnDisable() {
-        UpdatePrefab();
         AssetDatabase.SaveAssets();
-        Save();
-    }
-
-    private void OnLostFocus() {
-        UpdatePrefab();
     }
 
     void OnGUI() {
@@ -84,6 +87,7 @@ public class ItemMaster : EditorWindow
                     if (EditorUtility.DisplayDialog("Remove " + Items[i].ItemName + "?", "Are you sure you remove this item " + Items[i].ItemName + " from the item list?", "DO IT", "Nvm")) {
                         Items.Remove(Items[i]);
                         i--;
+                        AssetDatabase.SaveAssets();
                     }
                 }
                 GUILayout.EndVertical();
@@ -97,40 +101,15 @@ public class ItemMaster : EditorWindow
         if (GUILayout.Button("Create New Item")) {
             ItemCreationUtil.ShowWindow();
         }
-        SerializedObject obj = new SerializedObject(this);
-        SerializedProperty prop = obj.FindProperty("Items");
-        GUILayout.Label("Manual Item List", EditorStyles.boldLabel);
+        SerializedObject obj = new SerializedObject(itemManager);
+        SerializedProperty prop = obj.FindProperty("items");
+        GUILayout.Label("Manager List", EditorStyles.boldLabel);
+        if (GUILayout.Button("Open Manager")) {
+            AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GetAssetPath(ManagerPrefab)));
+        }
         EditorGUILayout.PropertyField(prop, true);
         bool noManager = ManagerPrefab == null;
         obj.ApplyModifiedProperties();
-        UpdatePrefab();
-    }
-
-    private void UpdatePrefab() {
-        itemManager.items = Items.ToList();
         EditorUtility.SetDirty(ManagerPrefab);
-    }
-
-    public void Load() {
-        string data;
-        data = File.ReadAllText(Application.dataPath + "/Resources/WizardFightData/ItemData.json");
-        JsonUtility.FromJsonOverwrite(data, this);
-        if (ManagerPrefab == null) {
-            ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/__Src/Prefabs/Managers/ItemManager.prefab");
-            itemManager = ManagerPrefab.GetComponent<ItemManager>();
-        }
-    }
-
-    public void Save() {
-        var data = JsonUtility.ToJson(this, false);
-        using (FileStream fs = new FileStream(Application.dataPath + "/Resources/WizardFightData/ItemData.json", FileMode.Create)) {
-            using (StreamWriter writer = new StreamWriter(fs)) {
-                writer.Write(data);
-            }
-        }
-        if (itemManager != null) {
-            itemManager.items = Items.ToList();
-        }
-        
     }
 }
