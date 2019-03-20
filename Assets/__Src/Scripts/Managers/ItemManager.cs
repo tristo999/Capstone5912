@@ -42,7 +42,7 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
 
     public void SpawnItemFromRarity(ItemDefinition.ItemRarity rarity, Vector3 location) {
         if (Random.Range(0f,1f) <= .05f && rarity != ItemDefinition.ItemRarity.Busted) {
-            rarity++;
+            //rarity++;
         }
         ItemDefinition[] itemsOfRarity = items.Where(i => i.Rarity == rarity).ToArray();
         SpawnItem evnt = SpawnItem.Create(entity);

@@ -24,19 +24,16 @@ public class ItemMaster : EditorWindow
     }
 
     public void OnDisable() {
+        UpdatePrefab();
+        AssetDatabase.SaveAssets();
         Save();
     }
 
     private void OnLostFocus() {
         UpdatePrefab();
-        Save();
     }
 
     void OnGUI() {
-        Load();
-        if (GUILayout.Button("Fix Prefabs")) {
-            FixPrefabs();
-        }
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
         for (int i = 0; i < Items.Count; i++) {
             if (Items[i] != null) {
@@ -107,14 +104,6 @@ public class ItemMaster : EditorWindow
         bool noManager = ManagerPrefab == null;
         obj.ApplyModifiedProperties();
         UpdatePrefab();
-        Save();
-    }
-
-    public void FixPrefabs() {
-        foreach (ItemDefinition item in Items) {
-            item.HeldScript = item.HeldModel.GetComponent<HeldItem>();
-            item.DroppedScript = item.DroppedModel.GetComponent<DroppedItem>();
-        }
     }
 
     private void UpdatePrefab() {
@@ -124,11 +113,7 @@ public class ItemMaster : EditorWindow
 
     public void Load() {
         string data;
-        if (File.Exists(Application.dataPath + "/Resources/WizardFightData/ItemData.json")) {
-            data = File.ReadAllText(Application.dataPath + "/Resources/WizardFightData/ItemData.json");
-        } else {
-            data = EditorPrefs.GetString("WFItems", JsonUtility.ToJson(this, false));
-        }
+        data = File.ReadAllText(Application.dataPath + "/Resources/WizardFightData/ItemData.json");
         JsonUtility.FromJsonOverwrite(data, this);
         if (ManagerPrefab == null) {
             ManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/__Src/Prefabs/Managers/ItemManager.prefab");
@@ -143,9 +128,9 @@ public class ItemMaster : EditorWindow
                 writer.Write(data);
             }
         }
-            EditorPrefs.SetString("WFItems", data);
         if (itemManager != null) {
             itemManager.items = Items.ToList();
         }
+        
     }
 }
