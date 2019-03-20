@@ -36,14 +36,15 @@ public class WeaponLaunchProjectile : MonoBehaviour
         }
     }
 
-    public void Launch() {
+    public void Launch(float launchDir = 0f) {
         if (audioSource) {
             audioSource.Stop();
             audioSource.time = 0f;
             audioSource.Play();
         }
+        Vector3 newLocalLaunchDir = Quaternion.Euler(0, launchDir, 0) * LocalLaunchDir;
         BoltEntity proj = BoltNetwork.Instantiate(Projectile, LaunchPosition.position, Quaternion.identity);
-        proj.GetComponent<Rigidbody>().velocity = LocalLaunchDir * LaunchForce * weaponBase.Owner.state.ProjectileSpeed;
+        proj.GetComponent<Rigidbody>().velocity = newLocalLaunchDir * LaunchForce * weaponBase.Owner.state.ProjectileSpeed;
         proj.GetState<IProjectileState>().Owner = weaponBase.Owner.entity;
         weaponBase.Owner.state.FireAnim();
     }

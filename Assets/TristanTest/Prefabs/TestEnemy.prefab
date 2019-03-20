@@ -238,7 +238,7 @@ Transform:
   m_GameObject: {fileID: 293}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 1415}
   - {fileID: 1416}
@@ -297,9 +297,9 @@ MonoBehaviour:
   roomWidth: 35
   attackTimer: 0
   attackCooldown: 5
-  animationLength: 1
+  animationLength: 0.5
   animationTimer: 0
-  attackDamage: 3
+  attackDamage: 10
   inAttackRange: 0
   inHitRange: 0
   enemyAnimator: {fileID: 0}
@@ -425,6 +425,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c29206d2f68a2b743b908885e9a90b89, type: 2}
+    - target: {fileID: 13700000, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
+      propertyPath: m_Bones.Array.data[0]
+      value: 
+      objectReference: {fileID: 7142984935850396640}
+    - target: {fileID: 13700000, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
+      propertyPath: m_RootBone
+      value: 
+      objectReference: {fileID: 7142984935850396640}
     - target: {fileID: 13700002, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
       propertyPath: m_Bones.Array.data[0]
       value: 
@@ -565,14 +573,6 @@ PrefabInstance:
       propertyPath: m_RootBone
       value: 
       objectReference: {fileID: 7142984935850396642}
-    - target: {fileID: 13700000, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
-      propertyPath: m_Bones.Array.data[0]
-      value: 
-      objectReference: {fileID: 7142984935850396640}
-    - target: {fileID: 13700000, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
-      propertyPath: m_RootBone
-      value: 
-      objectReference: {fileID: 7142984935850396640}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
 --- !u!4 &7142984935850396642 stripped

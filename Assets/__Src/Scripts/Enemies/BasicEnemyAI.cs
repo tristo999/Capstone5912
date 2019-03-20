@@ -68,6 +68,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
 
     private void Attack() {
         attackTimer = 0f;
+        animationTimer = 0f;
         nav.isStopped = true;
         attackStarted = true;
     }
@@ -88,6 +89,8 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
 
             if (attackTimer < attackCooldown)
                 attackTimer += BoltNetwork.FrameDeltaTime;
+
+            animationTimer += BoltNetwork.FrameDeltaTime;
         }
         if (isDead)
             BoltNetwork.Destroy(gameObject);
@@ -111,7 +114,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     }
 
     private void CheckAttack() {
-        if (attackStarted && !inAttackAnim && inAttackRange && !enemyAnimator.IsInTransition(0)) {
+        if (attackStarted && animationTimer > animationLength && inAttackRange && !enemyAnimator.IsInTransition(0)) {
             DamageEntity DamageEntity = DamageEntity.Create(currentPlayer.GetComponent<BoltEntity>());
             DamageEntity.Damage = attackDamage;
             DamageEntity.Send();
