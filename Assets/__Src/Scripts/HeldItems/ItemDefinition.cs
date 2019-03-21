@@ -11,6 +11,8 @@ public class ItemDefinition : ScriptableObject
 
     public string ItemName = "???";
     public string ItemDescription = "Unknown Item";
+    [ReadOnly]
+    public int ItemId;
     public ItemType Type;
     public ItemRarity Rarity;
 

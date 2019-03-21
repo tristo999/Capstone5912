@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Rewired;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -87,7 +88,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     private void PlayerDied() {
         if (entity.isOwner) {
             if (state.Dead) {
-                ui.DisplayMessage("You Died.", 4f, 2f);
+                ui.DisplayMessage("You Died.", 4f, 2f, () => SplitscreenManager.instance.SetCameraToSpectator(ui.ScreenNumber-1, movementController.localPlayer));
             }
         }
     }

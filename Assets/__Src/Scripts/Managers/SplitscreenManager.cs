@@ -1,5 +1,7 @@
 ﻿using Cinemachine;
+using DG.Tweening;
 using QuickGraph;
+using Rewired;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,7 +50,7 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
             for (int j = 0; j < playerCameras.Count; j++) {
                 if (i != j) {
                     playerCameras[i].camera.cullingMask = playerCameras[i].camera.cullingMask & ~(1 << 8 + j);
-                    spectatorCameras[i].camera.cullingMask = playerCameras[i].camera.cullingMask & ~(1 << 8 + j);
+                    spectatorCameras[i].spectatorCam.cullingMask = playerCameras[i].camera.cullingMask & ~(1 << 8 + j);
                 }
             }
         }
@@ -57,53 +59,62 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
     public void SetPlayerLayout(int playerCount, SplitScreenMode mode) {
         if (playerCount == 1) {
             playerCameras[0].camera.rect = new Rect(0, 0, 1, 1);
-            spectatorCameras[0].camera.rect = new Rect(0, 0, 1, 1);
+            spectatorCameras[0].spectatorCam.rect = new Rect(0, 0, 1, 1);
         } else if (playerCount == 2) {
             if (mode.HasFlag(SplitScreenMode.VerticalSplitscreen)) {
                 playerCameras[0].camera.rect = new Rect(0, 0, .5f, 1f);
-                spectatorCameras[0].camera.rect = new Rect(0, 0, .5f, 1f);
+                spectatorCameras[0].spectatorCam.rect = new Rect(0, 0, .5f, 1f);
                 playerCameras[1].camera.rect = new Rect(.5f, 0f, .5f, 1f);
-                spectatorCameras[1].camera.rect = new Rect(.5f, 0f, .5f, 1f);
+                spectatorCameras[1].spectatorCam.rect = new Rect(.5f, 0f, .5f, 1f);
             } else {
                 playerCameras[0].camera.rect = new Rect(0, .5f, 1f, .5f);
-                spectatorCameras[0].camera.rect = new Rect(0, .5f, 1f, .5f);
+                spectatorCameras[0].spectatorCam.rect = new Rect(0, .5f, 1f, .5f);
                 playerCameras[1].camera.rect = new Rect(0, 0f, 1f, .5f);
-                spectatorCameras[1].camera.rect = new Rect(0, 0f, 1f, .5f);
+                spectatorCameras[1].spectatorCam.rect = new Rect(0, 0f, 1f, .5f);
             }
         } else if (playerCount == 3) {
             if (mode.HasFlag(SplitScreenMode.WithPreview)) {
                 playerCameras[0].camera.rect = new Rect(0f, .5f, .5f, .5f);
-                spectatorCameras[0].camera.rect = new Rect(0f, .5f, .5f, .5f);
-                spectatorCameras[0].camera.rect = new Rect(0f, .5f, .5f, .5f);
+                spectatorCameras[0].spectatorCam.rect = new Rect(0f, .5f, .5f, .5f);
+                spectatorCameras[0].spectatorCam.rect = new Rect(0f, .5f, .5f, .5f);
                 playerCameras[1].camera.rect = new Rect(.5f, .5f, .5f, .5f);
-                spectatorCameras[1].camera.rect = new Rect(.5f, .5f, .5f, .5f);
+                spectatorCameras[1].spectatorCam.rect = new Rect(.5f, .5f, .5f, .5f);
                 playerCameras[2].camera.rect = new Rect(0f, 0f, .5f, .5f);
-                spectatorCameras[2].camera.rect = new Rect(0f, 0f, .5f, .5f);
+                spectatorCameras[2].spectatorCam.rect = new Rect(0f, 0f, .5f, .5f);
             } else {
                 playerCameras[0].camera.rect = new Rect(0f, .5f, 1f, .5f);
-                spectatorCameras[0].camera.rect = new Rect(0f, .5f, 1f, .5f);
+                spectatorCameras[0].spectatorCam.rect = new Rect(0f, .5f, 1f, .5f);
                 playerCameras[1].camera.rect = new Rect(0f, 0f, .5f, .5f);
-                spectatorCameras[1].camera.rect = new Rect(0f, 0f, .5f, .5f);
+                spectatorCameras[1].spectatorCam.rect = new Rect(0f, 0f, .5f, .5f);
                 playerCameras[2].camera.rect = new Rect(.5f, 0f, .5f, .5f);
-                spectatorCameras[2].camera.rect = new Rect(.5f, 0f, .5f, .5f);
+                spectatorCameras[2].spectatorCam.rect = new Rect(.5f, 0f, .5f, .5f);
             }
         } else if (playerCount == 4) {
             playerCameras[0].camera.rect = new Rect(0, .5f, .5f, .5f);
-            spectatorCameras[0].camera.rect = new Rect(0, .5f, .5f, .5f);
+            spectatorCameras[0].spectatorCam.rect = new Rect(0, .5f, .5f, .5f);
             playerCameras[1].camera.rect = new Rect(.5f, .5f, .5f, .5f);
-            spectatorCameras[1].camera.rect = new Rect(.5f, .5f, .5f, .5f);
+            spectatorCameras[1].spectatorCam.rect = new Rect(.5f, .5f, .5f, .5f);
             playerCameras[2].camera.rect = new Rect(0, 0f, .5f, .5f);
-            spectatorCameras[2].camera.rect = new Rect(0, 0f, .5f, .5f);
+            spectatorCameras[2].spectatorCam.rect = new Rect(0, 0f, .5f, .5f);
             playerCameras[3].camera.rect = new Rect(.5f, 0f, .5f, .5f);
-            spectatorCameras[3].camera.rect = new Rect(.5f, 0f, .5f, .5f);
+            spectatorCameras[3].spectatorCam.rect = new Rect(.5f, 0f, .5f, .5f);
         } else {
             Debug.LogFormat("{0} is not a valid number of players.", playerCount);
         }
     }
 
-    public void SetCameraToSpectator(int cam) {
+    public void SetCameraToSpectator(int cam, Player rewiredPlayer) {
         playerCameras[cam].gameObject.SetActive(false);
         spectatorCameras[cam].gameObject.SetActive(true);
+        spectatorCameras[cam].rewiredPlayer = rewiredPlayer;
+        if (spectatorCameras.All(c => c.gameObject.activeInHierarchy)) {
+            Camera.main.DORect(new Rect(0, 0, 1, 1), 1.5f).OnComplete(() => {
+                for (int i = 1; i < spectatorCameras.Count; i++) {
+                    spectatorCameras[i].gameObject.SetActive(false);
+                    spectatorCameras[i].GetRandomTarget();
+                }
+            });
+        }
     }
 
     public void DoRoomCulling() {

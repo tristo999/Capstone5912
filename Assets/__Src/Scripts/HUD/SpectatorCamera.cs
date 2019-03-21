@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using Rewired;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,11 @@ public class SpectatorCamera : MonoBehaviour
 {
     enum SpectatorCamState { Orbital, Follow }
 
-    public Camera camera;
+    public Camera spectatorCam;
     public CinemachineVirtualCamera orbitalCam;
     public CinemachineOrbitalTransposer orbitalTransposer;
+    public Player rewiredPlayer;
+    private int currentTargetIndex;
 
     public CinemachineVirtualCamera followCam;
 
@@ -31,7 +34,7 @@ public class SpectatorCamera : MonoBehaviour
     private Transform _followTarget;
 
     private void Awake() {
-        camera = GetComponentInChildren<Camera>();
+        spectatorCam = GetComponentInChildren<Camera>();
         orbitalTransposer = orbitalCam.GetCinemachineComponent<CinemachineOrbitalTransposer>();
         ChangeToOrbital();
     }
@@ -40,13 +43,20 @@ public class SpectatorCamera : MonoBehaviour
     {
         if (state == SpectatorCamState.Orbital) {
             orbitalTransposer.m_XAxis.Value += .5f;
-            if (Input.GetMouseButtonDown(0)) {
+            if (rewiredPlayer.GetButtonDown("Interact")) {
                 ChangeToFollow();
             }
         } else if (state == SpectatorCamState.Follow) {
-            if (Input.GetMouseButtonDown(0)) {
+            if (rewiredPlayer.GetButtonDown("Interact")) {
                 ChangeToOrbital();
             }
+        }
+        if (rewiredPlayer.GetButtonDown("Fire")) {
+            currentTargetIndex++;
+            if (currentTargetIndex >= GameMaster.instance.LivePlayers.Count) {
+                currentTargetIndex = 0;
+            }
+            followTarget = GameMaster.instance.LivePlayers[currentTargetIndex].transform;
         }
     }
 
@@ -61,5 +71,9 @@ public class SpectatorCamera : MonoBehaviour
         state = SpectatorCamState.Follow;
         followCam.gameObject.SetActive(true);
         orbitalCam.gameObject.SetActive(false);
+    }
+
+    public void GetRandomTarget() {
+        followTarget = GameMaster.instance.LivePlayers[Random.Range(0, GameMaster.instance.LivePlayers.Count)].transform;
     }
 }

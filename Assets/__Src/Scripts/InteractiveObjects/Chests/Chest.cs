@@ -22,8 +22,6 @@ public abstract class Chest : InteractiveObject
     private void OpenChange() {
         if (state.Open) 
             ChestOpen();
-        else
-            ChestClose();
     }
 
 

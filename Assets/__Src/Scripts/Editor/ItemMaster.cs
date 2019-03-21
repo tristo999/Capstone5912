@@ -62,6 +62,10 @@ public class ItemMaster : EditorWindow
                 GUILayout.BeginVertical();
                 
                 Items[i].Rarity = (ItemDefinition.ItemRarity)EditorGUILayout.EnumPopup(Items[i].Rarity, popupStyle);
+                if (GUILayout.Button("Select Item Definition")) {
+                    EditorGUIUtility.PingObject(Items[i]);
+                    Selection.activeObject = Items[i];
+                }
                 GUILayout.BeginHorizontal();
                 GUILayout.BeginVertical();
                 if (GUILayout.Button("Select Dropped Prefab")) {
@@ -69,7 +73,7 @@ public class ItemMaster : EditorWindow
                     Selection.activeGameObject = Items[i].DroppedModel;
                 }
                 if (GUILayout.Button("Open Dropped Prefab")) {
-                    AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GetAssetPath(Items[i].DroppedModel)));
+                    AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GetAssetPath(Items[i].DroppedModel))); 
                 }
                 GUILayout.EndVertical();
                 GUILayout.BeginVertical();
@@ -83,6 +87,7 @@ public class ItemMaster : EditorWindow
                 GUILayout.Space(50);
                 GUIStyle deleteStyle = new GUIStyle(GUI.skin.GetStyle("button"));
                 deleteStyle.normal.textColor = Color.red;
+                Items[i].ItemId = i;
                 if (GUILayout.Button("Remove", deleteStyle)) {
                     if (EditorUtility.DisplayDialog("Remove " + Items[i].ItemName + "?", "Are you sure you remove this item " + Items[i].ItemName + " from the item list?", "DO IT", "Nvm")) {
                         Items.Remove(Items[i]);

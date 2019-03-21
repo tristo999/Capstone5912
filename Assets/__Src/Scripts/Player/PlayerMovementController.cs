@@ -12,7 +12,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     public Transform RenderTransform;
     private Rigidbody rb;
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
-    private Player localPlayer;
+    public Player localPlayer;
 
     private InteractiveObject objectInFocusField;
     private InteractiveObject ObjectInFocus

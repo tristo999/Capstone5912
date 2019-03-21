@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NormalChest : Chest
 {
+    public ItemDefinition ContainedItem;
+
     public override void OnOpen()
     {
         if (entity.isOwner) {
@@ -11,7 +13,7 @@ public class NormalChest : Chest
             SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
             evnt.Position = transform.position + new Vector3(0, 1f, 0f);
             evnt.Force = tossForce;
-            evnt.ItemId = -1;
+            evnt.ItemId = ContainedItem.ItemId;
             evnt.Send();
         }
     }

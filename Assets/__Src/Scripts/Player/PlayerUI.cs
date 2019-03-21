@@ -94,7 +94,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    public void DisplayMessage(string message, float displayInterval, float displayIntroDelay = 0f) {
+    public void DisplayMessage(string message, float displayInterval, float displayIntroDelay = 0f, TweenCallback callback = null) {
         messageElement.text = message;
         Sequence fadeSeq = DOTween.Sequence();
         fadeSeq.AppendInterval(displayIntroDelay);
@@ -102,6 +102,10 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         fadeSeq.AppendInterval(displayInterval);
         fadeSeq.Append(messageElement.DOFade(0f, 2f));
         fadeSeq.AppendCallback(() => messageElement.text = "");
+        if (callback != null) {
+            fadeSeq.AppendCallback(callback);
+        }
+
         fadeSeq.Play();
     }
 
