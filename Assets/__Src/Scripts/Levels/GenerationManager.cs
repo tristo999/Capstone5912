@@ -114,6 +114,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         SpawnTagFromList("TableClutter", tableObjects);
         SpawnTagFromList("GroundClutter", groundObjects);
         SpawnDroppedItems();
+        PopuplateChests();
     }
 
     private void SpawnTagFromList(string tag, List<GameObject> list) {
@@ -138,6 +139,12 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                 ItemManager.Instance.SpawnItemFromRarity(spawnerScript.preferredRarity, spawner.transform.position);
             }
             BoltNetwork.Destroy(spawner);
+        }
+    }
+
+    private void PopuplateChests() {
+        foreach (NormalChest chest in Resources.FindObjectsOfTypeAll<NormalChest>()) {
+            chest.ContainedItem = ItemManager.Instance.items[Random.Range(0, ItemManager.Instance.items.Count)];
         }
     }
 

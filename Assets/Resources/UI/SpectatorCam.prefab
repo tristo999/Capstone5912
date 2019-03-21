@@ -515,6 +515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18def8a1a8f8b8c48af5cfaa3ab06d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spectatorCam: {fileID: 4138550541863246127}
   orbitalCam: {fileID: 4138550540871101826}
   orbitalTransposer: {fileID: 0}
   followCam: {fileID: 4138550541571281883}
@@ -544,8 +545,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4138550541863246113}
-  m_LocalRotation: {x: 0.1564345, y: -0, z: -0, w: 0.98768836}
-  m_LocalPosition: {x: -11.977601, y: 7.784074, z: -1.6865525}
+  m_LocalRotation: {x: 0.029703002, y: -0.70648265, z: 0.029703002, w: 0.70648265}
+  m_LocalPosition: {x: -12.947601, y: 4.934074, z: 5.3134475}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4138550541828398143}
@@ -575,7 +576,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1

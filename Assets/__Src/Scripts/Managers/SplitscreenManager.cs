@@ -50,7 +50,7 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
             for (int j = 0; j < playerCameras.Count; j++) {
                 if (i != j) {
                     playerCameras[i].camera.cullingMask = playerCameras[i].camera.cullingMask & ~(1 << 8 + j);
-                    spectatorCameras[i].spectatorCam.cullingMask = playerCameras[i].camera.cullingMask & ~(1 << 8 + j);
+                    spectatorCameras[i].spectatorCam.cullingMask = spectatorCameras[i].spectatorCam.cullingMask & ~(1 << 8 + j);
                 }
             }
         }
@@ -134,13 +134,13 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
 
         foreach (PlayerCamera cam in playerCameras) {
             foreach (Renderer ren in renderers) {
-                if (Vector3.Distance(ren.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 2f) {
+                if (Vector3.Distance(ren.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 2.5f) {
                     ren.enabled = true;
                 }
             }
 
             foreach (Light light in lights) {
-                if (Vector3.Distance(light.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 2f) {
+                if (Vector3.Distance(light.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 2.5f) {
                     light.enabled = true;
                 }
             }
