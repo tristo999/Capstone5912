@@ -39,6 +39,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     public float animationLength = 3f;
     public float animationTimer = 0f;
     public float attackDamage = 3f;
+    public float health = 30f;
     public bool inAttackRange;
     public bool inHitRange;
     public Animator enemyAnimator;
@@ -52,7 +53,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         state.SetAnimator(enemyAnimator);
 
         if (!entity.isOwner) return;
-        state.Health = 5f;
+        state.Health = health;
         state.AddCallback("Health", HealthChanged);
         state.OnAttack += Attack;
         nav = this.GetComponent<NavMeshAgent>();

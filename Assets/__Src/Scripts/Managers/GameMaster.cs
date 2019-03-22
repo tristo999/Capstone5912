@@ -112,12 +112,18 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
     public void FreezeDistantEntities() {
 
         foreach (BoltEntity entity in roomsAndClutter) {
-            if (players.Any(pair => Vector3.Distance(pair.Value.transform.position, entity.transform.position) < GenerationManager.instance.roomSize * 1.5f)) {
-                if (entity.isFrozen)
-                    entity.Freeze(false);
-            } else {
-                if (!entity.isFrozen)
-                    entity.Freeze(true);
+            if (entity != null)
+            {
+                if (players.Any(pair => Vector3.Distance(pair.Value.transform.position, entity.transform.position) < GenerationManager.instance.roomSize * 1.5f))
+                {
+                    if (entity.isFrozen)
+                        entity.Freeze(false);
+                }
+                else
+                {
+                    if (!entity.isFrozen)
+                        entity.Freeze(true);
+                }
             }
         }
     }

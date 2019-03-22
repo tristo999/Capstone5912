@@ -105,10 +105,10 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                     room.DangerRating = Mathf.Pow((room.DistanceFromCenter - distanceFromEdge) / (float)maxDist, 1);
                 }
             }
-            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.transform.position = room.transform.position + new Vector3(15f, 30f, 15f);
-            cube.transform.localScale = new Vector3(30f, 1f, 30f);
-            cube.GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, room.DangerRating);
+            //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            //cube.transform.position = room.transform.position + new Vector3(15f, 30f, 15f);
+            //cube.transform.localScale = new Vector3(30f, 1f, 30f);
+            //cube.GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, room.DangerRating);
         }
     }
 
