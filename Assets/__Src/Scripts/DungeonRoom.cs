@@ -5,6 +5,8 @@ using UnityEngine;
 public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
 {
     public int DistanceFromCenter = -1;
+    public float DangerRating;
+    public bool isSpawnRoom;
     public GameObject northWall;
     public GameObject eastWall;
     public GameObject southWall;

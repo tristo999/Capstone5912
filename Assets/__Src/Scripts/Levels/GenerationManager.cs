@@ -6,20 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public struct DungeonCell
-{
-    public bool NorthExit { get; set; }
-    public bool SouthExit { get; set; }
-    public bool EastExit { get; set; }
-    public bool WestExit { get; set; }
-    public int Width { get; set; }
-    public int Height { get; set; }
-    public int Generation { get; set; }
-}
-
 public class GenerationManager : BoltSingletonPrefab<GenerationManager>
-{
-    public List<DungeonCell> possibleCells = new List<DungeonCell>();
+{ 
     [Header("Room Generation Prefabs")]
     public List<GameObject> roomPrefabs = new List<GameObject>();
     public List<GameObject> specialRooms = new List<GameObject>();
@@ -55,15 +43,58 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public int generationAttempts;
     [Space(20)]
 
+    [HideInInspector]
+    public List<DungeonRoom> spawnRooms;
+
     [Tooltip("This does nothing right now. Sorry... <3 David")]
     public bool debug;
 
     public AdjacencyGraph<DungeonRoom, Edge<DungeonRoom>> dungeonGraph;
 
+    public void DoGeneration(int playerCount) {
+        GenerateStemmingMazeGraph();
+        int maxDist = dungeonGraph.Vertices.OrderBy(r => r.DistanceFromCenter).FirstOrDefault().DistanceFromCenter;
+
+        spawnRooms = GetFirstEquidistantRooms(dungeonGraph.Vertices.Where(r => r.DistanceFromCenter == maxDist - 2), playerCount).ToList();
+        
+        // Generate danger ratings.
+
+        PopulateTags();
+    }
+
+    public void GetSpawnPositions(int amt) {
+        spawnRooms = new List<DungeonRoom>();
+        List<Vector3> positions = dungeonGraph.Vertices.OrderByDescending(r => r.DistanceFromCenter).Take(amt).Select(r => r.transform.position + new Vector3(15, 0, 15)).ToList();
+    }
+
+    private IEnumerable<DungeonRoom> GetFirstEquidistantRooms(IEnumerable<DungeonRoom> rooms, int amt) {
+        foreach (DungeonRoom room in rooms) {
+            Dictionary<int, List<DungeonRoom>> possibleRoomSets = new Dictionary<int, List<DungeonRoom>>();
+            System.Func<Edge<DungeonRoom>, double> edgeWeight = e => 1;
+            TryFunc<DungeonRoom, IEnumerable<Edge<DungeonRoom>>> tryDijkstra = dungeonGraph.ShortestPathsDijkstra(edgeWeight, room);
+            foreach (DungeonRoom otherRoom in rooms) {
+                IEnumerable<Edge<DungeonRoom>> edges;
+                if (tryDijkstra(otherRoom, out edges)) {
+                    int distance = edges.Count();
+                    if (possibleRoomSets.ContainsKey(distance) && possibleRoomSets[distance].Count < amt) {
+                        possibleRoomSets[distance].Add(otherRoom);
+                    } else if (!possibleRoomSets.ContainsKey(distance)) {
+                        possibleRoomSets[distance] = new List<DungeonRoom>();
+                        possibleRoomSets[distance].Add(otherRoom);
+                    }
+                }
+            }
+            var validRooms = possibleRoomSets.FirstOrDefault(r => r.Value.Count == 4);
+            if (validRooms.Value != null) {
+                return validRooms.Value;
+            }
+        }
+        return null;
+    }
+
     public void GenerateStemmingMazeGraph() {
         dungeonGraph = new AdjacencyGraph<DungeonRoom, Edge<DungeonRoom>>();
         GenerateStemmingMaze();
-        PopulateTags();
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -99,11 +130,6 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                 Debug.Log("Path doesn't exist to room!?");
             }
         }
-    }
-
-    public List<Vector3> SpawnPositions(int amt) {
-        List<Vector3> positions = dungeonGraph.Vertices.OrderByDescending(r => r.DistanceFromCenter).Take(amt).Select(r => r.transform.position + new Vector3(15, 0, 15)).ToList();
-        return positions;
     }
 
     public void PopulateTags() {
