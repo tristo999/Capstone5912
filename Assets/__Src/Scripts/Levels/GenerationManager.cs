@@ -41,10 +41,12 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public int width;
     public int height;
     public int generationAttempts;
+    public int spawnRoomFadeRange;
     [Space(20)]
 
     [HideInInspector]
     public List<DungeonRoom> spawnRooms;
+    private int maxDist;
 
     [Tooltip("This does nothing right now. Sorry... <3 David")]
     public bool debug;
@@ -53,18 +55,37 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
     public void DoGeneration(int playerCount) {
         GenerateStemmingMazeGraph();
-        int maxDist = dungeonGraph.Vertices.OrderBy(r => r.DistanceFromCenter).FirstOrDefault().DistanceFromCenter;
-
         spawnRooms = GetFirstEquidistantRooms(dungeonGraph.Vertices.Where(r => r.DistanceFromCenter == maxDist - 2), playerCount).ToList();
-        
-        // Generate danger ratings.
-
+        GenerateDangerRatings();
         PopulateTags();
+        SpawnDroppedItems();
+        PopuplateChests();
     }
 
-    public void GetSpawnPositions(int amt) {
-        spawnRooms = new List<DungeonRoom>();
-        List<Vector3> positions = dungeonGraph.Vertices.OrderByDescending(r => r.DistanceFromCenter).Take(amt).Select(r => r.transform.position + new Vector3(15, 0, 15)).ToList();
+    private void GenerateDangerRatings() {
+        foreach (DungeonRoom room in dungeonGraph.Vertices) {
+            System.Func<Edge<DungeonRoom>, double> edgeWeight = e => 1;
+            TryFunc<DungeonRoom, IEnumerable<Edge<DungeonRoom>>> tryDijkstra = dungeonGraph.ShortestPathsDijkstra(edgeWeight, room);
+            bool nearSpawn = false;
+            foreach (DungeonRoom spawnRoom in spawnRooms) {
+                IEnumerable<Edge<DungeonRoom>> edges;
+                if (tryDijkstra(spawnRoom, out edges)) {
+                    int dist = edges.Count();
+                    if (dist <= spawnRoomFadeRange) {
+                        nearSpawn = true;
+                        room.DangerRating = dist / (5f * spawnRoomFadeRange);
+                    }
+                }
+                if (!nearSpawn) {
+                    int distanceFromEdge = maxDist - room.DistanceFromCenter;
+                    if (distanceFromEdge > room.DistanceFromCenter) {
+                        room.DangerRating = Mathf.Pow((distanceFromEdge - room.DistanceFromCenter) / (float)maxDist, 2);
+                    } else {
+                        room.DangerRating = Mathf.Pow((room.DistanceFromCenter - distanceFromEdge) / (float)maxDist, 2);
+                    }
+                }
+            }
+        }
     }
 
     private IEnumerable<DungeonRoom> GetFirstEquidistantRooms(IEnumerable<DungeonRoom> rooms, int amt) {
@@ -84,7 +105,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                     }
                 }
             }
-            var validRooms = possibleRoomSets.FirstOrDefault(r => r.Value.Count == 4);
+            var validRooms = possibleRoomSets.FirstOrDefault(r => r.Value.Count == amt);
             if (validRooms.Value != null) {
                 return validRooms.Value;
             }
@@ -126,10 +147,17 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             IEnumerable<Edge<DungeonRoom>> edges;
             if (tryDijkstra(vertex, out edges)) {
                 vertex.DistanceFromCenter = edges.Count();
+                if (vertex.DistanceFromCenter > maxDist)
+                    maxDist = vertex.DistanceFromCenter;
             } else if (vertex != centerRoom) {
                 Debug.Log("Path doesn't exist to room!?");
             }
         }
+    }
+
+
+    public Vector3 GetSpawnPos(int player) {
+        return spawnRooms[player].transform.position + new Vector3(roomSize / 2, 1, roomSize / 2);
     }
 
     public void PopulateTags() {
@@ -139,14 +167,16 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         SpawnTagFromList("ChestSpawn", chestEntities);
         SpawnTagFromList("TableClutter", tableObjects);
         SpawnTagFromList("GroundClutter", groundObjects);
-        SpawnDroppedItems();
-        PopuplateChests();
     }
 
     private void SpawnTagFromList(string tag, List<GameObject> list) {
         foreach (GameObject spawn in GameObject.FindGameObjectsWithTag(tag)) {
             if (Random.Range(0f, 1f) <= spawn.GetComponent<SpawnChance>().Chance) {
-                BoltNetwork.Instantiate(list[Random.Range(0, list.Count)], spawn.transform.position, spawn.transform.rotation);
+                GameObject spawned = BoltNetwork.Instantiate(list[Random.Range(0, list.Count)], spawn.transform.position, spawn.transform.rotation);
+                DangerRating dr = spawned.GetComponent<DangerRating>();
+                if (dr) {
+                    dr.rating = spawn.GetComponentInParent<DungeonRoom>().DangerRating;
+                }
                 foreach (GameObject child in FindChildrenWithTag(spawn, "ChildClutter")) {
                     if (Random.Range(0f, 1f) <= child.GetComponent<SpawnChance>().Chance) {
                         BoltNetwork.Instantiate(childClutterObjects[Random.Range(0, childClutterObjects.Count)], child.transform.position, child.transform.rotation);
@@ -170,7 +200,8 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
     private void PopuplateChests() {
         foreach (NormalChest chest in Resources.FindObjectsOfTypeAll<NormalChest>()) {
-            chest.ContainedItem = ItemManager.Instance.items[Random.Range(0, ItemManager.Instance.items.Count)];
+            float rating = chest.GetComponent<DangerRating>().rating;
+            chest.ContainedItem = ItemManager.Instance.ItemFromDangerRating(rating);
         }
     }
 

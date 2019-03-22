@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4328}
   - component: {fileID: 3514}
   - component: {fileID: 4329}
+  - component: {fileID: 1118004904663385202}
   m_Layer: 15
   m_Name: NormalChest
   m_TagString: Interactive
@@ -95,6 +96,7 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: 0a3ad4fe07ff9b3468a67964b735a19d, type: 2}
   closedChestModel: {fileID: 100000, guid: 96b2350d767c25c408f8c38e450ef85b, type: 3}
   openChestModel: {fileID: 100000, guid: f4a90b89283803a42bc8194ec54bf6c1, type: 3}
+  ContainedItem: {fileID: 0}
 --- !u!65 &3514
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -137,3 +139,16 @@ MonoBehaviour:
   _entityBehaviourQueryOption: 0
   _entityPriorityCalculatorQueryOption: 0
   _entityReplicationFilterQueryOption: 0
+--- !u!114 &1118004904663385202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3708dc1c2e4c6fa47b4ab2ae89110eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rating: 0

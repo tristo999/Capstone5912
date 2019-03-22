@@ -17,7 +17,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
         GameMaster.Instantiate();
         GenerationManager.Instantiate();
         Physics.autoSimulation = false;
-        GenerationManager.instance.GenerateStemmingMazeGraph();
+        GenerationManager.instance.DoGeneration(WizardFightPlayerRegistry.Players.Count());
         GameMaster.instance.SetRoomLayers(GenerationManager.instance.dungeonGraph.Vertices);
         Debug.Log("After generation there exist " + GameMaster.instance.roomsAndClutter.Count + " entities");
         WaitForMap waitEvnt = WaitForMap.Create();
@@ -48,7 +48,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
             spawnPlayer.PlayerId = player.PlayerId;
             spawnPlayer.Name = player.PlayerName;
             spawnPlayer.Color = player.PlayerColor;
-            Vector3 pos = GenerationManager.instance.SpawnPositions(1)[0];
+            Vector3 pos = GenerationManager.instance.GetSpawnPos(player.PlayerId);
             //Vector3 pos = GenerationManager.instance.rooms[Random.Range(0, GenerationManager.instance.rooms.Count)].transform.position + new Vector3(GenerationManager.instance.roomSize / 2, 2, GenerationManager.instance.roomSize / 2);
             spawnPlayer.Position = pos;
             spawnPlayer.Send();

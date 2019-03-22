@@ -50,4 +50,34 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
         evnt.Position = location;
         evnt.Send();
     }
+
+    public ItemDefinition ItemFromDangerRating(float dangerRating) {
+        ItemDefinition.ItemRarity rarity = ItemDefinition.ItemRarity.Common;
+        if (dangerRating > .95f) {
+            rarity = ItemDefinition.ItemRarity.Ludicrous;
+        } else if (dangerRating > .85) {
+            rarity = ItemDefinition.ItemRarity.Legendary;
+        } else if (dangerRating > .65) {
+            rarity = ItemDefinition.ItemRarity.Mythic;
+        } else if (dangerRating > .5) {
+            rarity = ItemDefinition.ItemRarity.Rare;
+        } else if (dangerRating > .3) {
+            rarity = ItemDefinition.ItemRarity.Uncommon;
+        }
+        if (Random.Range(0f,1f) > .95f) {
+            rarity++;
+        }
+        return GetItemOfRarity(rarity);
+    }
+
+    public ItemDefinition GetItemOfRarity(ItemDefinition.ItemRarity rarity) {
+        ItemDefinition[] itemsOfRarity = items.Where(i => i.Rarity == rarity).ToArray();
+        if (itemsOfRarity.Length > 0) {
+            return itemsOfRarity[Random.Range(0, itemsOfRarity.Length)];
+        } else {
+            // Backup for while there is not an item of every rarity.
+            return items[Random.Range(0, items.Count)];
+        }
+        
+    }
 }
