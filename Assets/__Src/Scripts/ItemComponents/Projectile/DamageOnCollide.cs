@@ -13,9 +13,7 @@ public class DamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
         if (!entity.isAttached || !entity.isOwner) return;
         BoltEntity otherEntity = collision.gameObject.GetComponent<BoltEntity>();
         if (GetComponent<CollisionCheck>().ValidCollision(collision) && otherEntity && (damageOwner || otherEntity != state.Owner)) {
-            DamageEntity DamageEntity = DamageEntity.Create(collision.gameObject.GetComponent<BoltEntity>());
-            DamageEntity.Damage = damage;
-            DamageEntity.Send();
+            DealDamage(collision.gameObject);
         }
     }
 
@@ -23,9 +21,15 @@ public class DamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
         if (!entity.isAttached || !entity.isOwner) return;
         BoltEntity otherEntity = other.GetComponent<BoltEntity>();
         if (other.tag != "Room" && GetComponent<CollisionCheck>().ValidCollision(other) && otherEntity && (damageOwner || otherEntity != state.Owner)) {
-            DamageEntity DamageEntity = DamageEntity.Create(other.gameObject.GetComponent<BoltEntity>());
-            DamageEntity.Damage = damage;
-            DamageEntity.Send();
+            DealDamage(other.gameObject);
         }
+    }
+
+    private void DealDamage(GameObject target) {
+        DamageEntity DamageEntity = DamageEntity.Create(target.GetComponent<BoltEntity>());
+        DamageEntity.Damage = damage;
+        DamageEntity.HitPosition = transform.position;
+        DamageEntity.Owner = state.Owner;
+        DamageEntity.Send();
     }
 }

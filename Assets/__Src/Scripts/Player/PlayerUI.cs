@@ -22,6 +22,8 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
+    public GameObject damageTextPrefab;
+
     private static readonly string EMPTY_SLOT_TEXT = "Empty";
 
     private Canvas canvas;
@@ -92,6 +94,13 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
             itemNameTextElement.text = "";
             itemDescriptionTextElement.text = "";
         }
+    }
+
+    public void AddDamageText(float damage, Vector3 hitPosition) {
+        DamageTextController damageText = Instantiate(damageTextPrefab).GetComponent<DamageTextController>();
+        damageText.AddToCanvas(canvas);
+        damageText.SetPosition(hitPosition);
+        damageText.SetDamage(damage);
     }
 
     public void DisplayMessage(string message, float displayInterval, float displayIntroDelay = 0f, TweenCallback callback = null) {

@@ -18,9 +18,7 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
                 BoltEntity bEntity = col.GetComponent<BoltEntity>();
                 if (bEntity) {
                     if (col.tag == "Player" && (bEntity!= state.Owner || damageOwner)) {
-                        DamageEntity DamageEntity = DamageEntity.Create(collision.gameObject.GetComponent<BoltEntity>());
-                        DamageEntity.Damage = damage;
-                        DamageEntity.Send();
+                        DealDamage(collision.gameObject);
                     }
                     KnockbackEntity knockback = KnockbackEntity.Create(bEntity);
                     knockback.Force = (bEntity.transform.position - transform.position).normalized * explosiveKnockback;
@@ -39,9 +37,7 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
                 BoltEntity bEntity = col.GetComponent<BoltEntity>();
                 if (bEntity) {
                     if (col.tag == "Player" && (bEntity != state.Owner || damageOwner)) {
-                        DamageEntity DamageEntity = DamageEntity.Create(other.gameObject.GetComponent<BoltEntity>());
-                        DamageEntity.Damage = damage;
-                        DamageEntity.Send();
+                        DealDamage(other.gameObject);
                     }
                     KnockbackEntity knockback = KnockbackEntity.Create(bEntity);
                     knockback.Force = (bEntity.transform.position - transform.position).normalized * explosiveKnockback;
@@ -51,5 +47,13 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
                 }
             }
         }
+    }
+
+    private void DealDamage(GameObject target) {
+        DamageEntity DamageEntity = DamageEntity.Create(target.GetComponent<BoltEntity>());
+        DamageEntity.Damage = damage;
+        DamageEntity.HitPosition = transform.position;
+        DamageEntity.Owner = state.Owner;
+        DamageEntity.Send();
     }
 }
