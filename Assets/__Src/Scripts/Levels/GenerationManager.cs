@@ -42,6 +42,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public int height;
     public int generationAttempts;
     public int spawnRoomFadeRange;
+    public float perlinScale = 1f;
     [Space(20)]
 
     [HideInInspector]
@@ -56,10 +57,23 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public void DoGeneration(int playerCount) {
         GenerateStemmingMazeGraph();
         spawnRooms = GetFirstEquidistantRooms(dungeonGraph.Vertices.Where(r => r.DistanceFromCenter == maxDist - 2), playerCount).ToList();
+        AddPerlinNoise();
         GenerateDangerRatings();
         PopulateTags();
         SpawnDroppedItems();
         PopuplateChests();
+    }
+
+    private void AddPerlinNoise() {
+        float seed = Random.Range(-1000f, 1000f);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (dungeon[x,y] && Mathf.PerlinNoise(perlinScale * (seed+x), perlinScale * (seed+y)) < 0.0025f) {
+                    dungeonGraph.RemoveVertex(vertices[x, y]);
+                    Destroy(vertices[x, y].gameObject);
+                }
+            }
+        }
     }
 
     private void GenerateDangerRatings() {
@@ -67,24 +81,34 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             System.Func<Edge<DungeonRoom>, double> edgeWeight = e => 1;
             TryFunc<DungeonRoom, IEnumerable<Edge<DungeonRoom>>> tryDijkstra = dungeonGraph.ShortestPathsDijkstra(edgeWeight, room);
             bool nearSpawn = false;
-            foreach (DungeonRoom spawnRoom in spawnRooms) {
-                IEnumerable<Edge<DungeonRoom>> edges;
-                if (tryDijkstra(spawnRoom, out edges)) {
-                    int dist = edges.Count();
-                    if (dist <= spawnRoomFadeRange) {
-                        nearSpawn = true;
-                        room.DangerRating = dist / (5f * spawnRoomFadeRange);
-                    }
-                }
-                if (!nearSpawn) {
-                    int distanceFromEdge = maxDist - room.DistanceFromCenter;
-                    if (distanceFromEdge > room.DistanceFromCenter) {
-                        room.DangerRating = Mathf.Pow((distanceFromEdge - room.DistanceFromCenter) / (float)maxDist, 2);
-                    } else {
-                        room.DangerRating = Mathf.Pow((room.DistanceFromCenter - distanceFromEdge) / (float)maxDist, 2);
+            if (spawnRooms.Contains(room)) {
+                room.DangerRating = 0f;
+                nearSpawn = true;
+            }
+            if (!nearSpawn) {
+                foreach (DungeonRoom spawnRoom in spawnRooms) {
+                    IEnumerable<Edge<DungeonRoom>> edges;
+                    if (tryDijkstra(spawnRoom, out edges)) {
+                        int dist = edges.Count();
+                        if (dist <= spawnRoomFadeRange) {
+                            nearSpawn = true;
+                            room.DangerRating = dist / (3f * spawnRoomFadeRange);
+                        }
                     }
                 }
             }
+            if (!nearSpawn) {
+                int distanceFromEdge = maxDist - room.DistanceFromCenter;
+                if (distanceFromEdge > room.DistanceFromCenter) {
+                    room.DangerRating = Mathf.Pow((distanceFromEdge - room.DistanceFromCenter) / (float)maxDist, 1);
+                } else {
+                    room.DangerRating = Mathf.Pow((room.DistanceFromCenter - distanceFromEdge) / (float)maxDist, 1);
+                }
+            }
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.position = room.transform.position + new Vector3(15f, 30f, 15f);
+            cube.transform.localScale = new Vector3(30f, 1f, 30f);
+            cube.GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.red, room.DangerRating);
         }
     }
 
