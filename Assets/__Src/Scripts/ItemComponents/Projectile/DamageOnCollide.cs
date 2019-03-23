@@ -28,8 +28,11 @@ public class DamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
     private void DealDamage(GameObject target) {
         DamageEntity DamageEntity = DamageEntity.Create(target.GetComponent<BoltEntity>());
         DamageEntity.Damage = damage;
-        DamageEntity.HitPosition = transform.position;
-        DamageEntity.Owner = state.Owner;
+        if (entity.isOwner) {
+            // Only include for the player that dealt this damage.
+            DamageEntity.HitPosition = transform.position;
+            DamageEntity.Owner = state.Owner;
+        }
         DamageEntity.Send();
     }
 }

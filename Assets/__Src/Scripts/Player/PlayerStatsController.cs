@@ -111,7 +111,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
 
     public override void OnEvent(DamageEntity evnt) {
         if (entity.isOwner) {
-            ui.AddDamageText(evnt.Damage, evnt.HitPosition);
+            state.Health -= evnt.Damage;
         }
         if (evnt.Owner) {
             PlayerUI ui = evnt.Owner.GetComponent<PlayerUI>();

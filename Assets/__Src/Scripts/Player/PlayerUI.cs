@@ -99,7 +99,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     public void AddDamageText(float damage, Vector3 hitPosition) {
         DamageTextController damageText = Instantiate(damageTextPrefab).GetComponent<DamageTextController>();
         damageText.AddToCanvas(canvas);
-        damageText.SetPosition(hitPosition);
+        damageText.SetPosition(hitPosition, Camera.main); // Need access to Player Camera.
         damageText.SetDamage(damage);
     }
 
