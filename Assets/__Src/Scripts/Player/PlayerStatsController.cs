@@ -110,12 +110,14 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     }
 
     public override void OnEvent(DamageEntity evnt) {
-        if (entity.isOwner) {
-            state.Health -= evnt.Damage;
-        }
-        if (evnt.Owner) {
-            PlayerUI ui = evnt.Owner.GetComponent<PlayerUI>();
-            ui.AddDamageText(evnt.Damage, evnt.HitPosition);
+        if (state.Health > 0) {
+            if (entity.isOwner) {
+                state.Health -= evnt.Damage;
+            }
+            if (evnt.Owner) {
+                PlayerUI ui = evnt.Owner.GetComponent<PlayerUI>();
+                ui.AddDamageText(evnt.Damage, evnt.HitPosition);
+            }
         }
     }
 }
