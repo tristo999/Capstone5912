@@ -57,40 +57,21 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         healthTextElement.text = health.ToString();
     }
 
-    public void SetWeapon(int weaponId)
-    {
-        if (weaponId >= 0)
-        {
-            weaponSlotNameTextElement.text = ItemManager.Instance.items[weaponId].ItemName;
-        }
-        else
-        {
-            weaponSlotNameTextElement.text = EMPTY_SLOT_TEXT;
-        }
+    public void SetWeapon(int weaponId) {
+        UpdateItemNameText(weaponSlotNameTextElement, weaponId);
     }
 
-    public void SetActiveItem(int activeItemId)
-    {
-        if (activeItemId >= 0)
-        {
-            activeItemSlotNameTextElement.text = ItemManager.Instance.items[activeItemId].ItemName;
-        }
-        else
-        {
-            activeItemSlotNameTextElement.text = EMPTY_SLOT_TEXT;
-        }
+    public void SetActiveItem(int activeItemId) {
+        UpdateItemNameText(activeItemSlotNameTextElement, activeItemId);
     }
 
-    public void SetItemFullDescription(int itemId)
-    {
-        if (itemId >= 0)
-        {
+    public void SetItemFullDescription(int itemId) { 
+        if (itemId >= 0) { 
+            UpdateItemNameText(itemNameTextElement, itemId);
+
             ItemDefinition item = ItemManager.Instance.items[itemId];
-            itemNameTextElement.text = item.ItemName;
             itemDescriptionTextElement.text = item.ItemDescription;
-        }
-        else
-        {
+        } else { 
             itemNameTextElement.text = "";
             itemDescriptionTextElement.text = "";
         }
@@ -118,18 +99,26 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         fadeSeq.Play();
     }
 
-    private void Update()
-    {
+    private void Update() { 
         UpdateCompassDirection();
     }
 
-    private void UpdateCompassDirection()
-    {
+    private void UpdateItemNameText(TextMeshProUGUI textElement, int itemId) {
+        if (itemId >= 0) {
+            ItemDefinition item = ItemManager.Instance.items[itemId];
+            textElement.text = item.ItemName;
+            textElement.color = ItemDefinition.RarityColors[(int)item.Rarity];
+        } else {
+            textElement.text = EMPTY_SLOT_TEXT;
+            textElement.color = Color.white;
+        }
+    }
+
+    private void UpdateCompassDirection() { 
         if (!entity.isOwner) return;
         Vector2 direction = new Vector2(-transform.position.x, -transform.position.z);
         float angle = Vector2.Angle(direction, new Vector2(1, 0)) - 90;
-        if (transform.position.z > 0)
-        {
+        if (transform.position.z > 0) { 
             angle = 180 - angle;
         }
 
@@ -143,12 +132,9 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    private GameObject GetCanvasChildByName(string name)
-    {
-        foreach (Transform child in canvas.gameObject.transform)
-        {
-            if (String.Equals(child.gameObject.name, name))
-            {
+    private GameObject GetCanvasChildByName(string name) { 
+        foreach (Transform child in canvas.gameObject.transform) { 
+            if (String.Equals(child.gameObject.name, name)) { 
                 return child.gameObject;
             }
         }
