@@ -1,17 +1,21 @@
-﻿using UnityEditor;
+﻿
+using System;
+using UnityEditor;
 using UnityEngine;
 
 public class ReadOnlyAttribute : PropertyAttribute
 {
 
 }
-
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
 public class ReadOnlyDrawer : PropertyDrawer
 {
     public override float GetPropertyHeight(SerializedProperty property,
                                             GUIContent label) {
+
         return EditorGUI.GetPropertyHeight(property, label, true);
+
     }
 
     public override void OnGUI(Rect position,
@@ -22,3 +26,4 @@ public class ReadOnlyDrawer : PropertyDrawer
         GUI.enabled = true;
     }
 }
+#endif
