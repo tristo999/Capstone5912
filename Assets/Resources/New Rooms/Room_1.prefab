@@ -11716,7 +11716,7 @@ ParticleSystem:
 --- !u!199 &8840073128286689740
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -11834,11 +11834,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpawnTag (5)
-      objectReference: {fileID: 0}
     - target: {fileID: 222263306914302720, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11894,6 +11889,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSpawnTag (5)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88c225c6fa6042d43acc41b19ea7df53, type: 3}
 --- !u!4 &270691498658587663 stripped
@@ -11909,14 +11909,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1495}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.43
@@ -11972,6 +11964,14 @@ PrefabInstance:
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
@@ -12099,14 +12099,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1509}
     m_Modifications:
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 481226, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.128
@@ -12163,6 +12155,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 147940, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -12198,14 +12198,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.019997
@@ -12262,40 +12254,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Range
-      value: 15.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Shadows.m_NearPlane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -12314,6 +12281,39 @@ PrefabInstance:
     - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: useShadow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Range
+      value: 15.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -12335,14 +12335,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1497}
     m_Modifications:
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 481226, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.81
@@ -12399,6 +12391,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 147940, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -12434,14 +12434,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510}
     m_Modifications:
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_11
-      objectReference: {fileID: 0}
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461738, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.06
@@ -12497,6 +12489,14 @@ PrefabInstance:
     - target: {fileID: 461738, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906003
+      objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_11
+      objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 195624, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_Layer
@@ -12705,11 +12705,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
-        type: 3}
-      propertyPath: m_Name
-      value: GroundClutterTag (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 2123257652255090794, guid: ccdceb97ec573d74ba5b34e5e29338e8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12764,6 +12759,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
+        type: 3}
+      propertyPath: m_Name
+      value: GroundClutterTag (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2123257652255090083, guid: ccdceb97ec573d74ba5b34e5e29338e8,
         type: 3}
@@ -12884,14 +12884,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23.019997
@@ -12948,7 +12940,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -12956,15 +12952,34 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: shadowMapRenderTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: strength
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: scatteringBias
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: useShadow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -12986,25 +13001,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: shadowMapRenderTexture
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: strength
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: scatteringBias
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: useShadow
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -13113,14 +13113,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510}
     m_Modifications:
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 481226, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.8
@@ -13176,6 +13168,14 @@ PrefabInstance:
     - target: {fileID: 481226, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906003
+      objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 147940, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_Layer
@@ -13274,15 +13274,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!1 &1921599854560401499 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 1922569353916372925}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1927087868406405679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 1922569353916372925}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1921599854560401499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 1922569353916372925}
   m_PrefabAsset: {fileID: 0}
@@ -13293,14 +13293,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1497}
     m_Modifications:
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_11
-      objectReference: {fileID: 0}
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461738, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.07
@@ -13357,6 +13349,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_11
+      objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 195624, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -13384,14 +13384,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.6
@@ -13447,6 +13439,14 @@ PrefabInstance:
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906003
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
@@ -13618,15 +13618,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!4 &2332122527273989996 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 2327639203631004414}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2326634512740381976 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 2327639203631004414}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2332122527273989996 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 2327639203631004414}
   m_PrefabAsset: {fileID: 0}
@@ -13637,14 +13637,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.980066
@@ -13701,40 +13693,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Range
-      value: 15.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Shadows.m_NearPlane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -13753,6 +13720,39 @@ PrefabInstance:
     - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: useShadow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Range
+      value: 15.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -13854,11 +13854,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpawnTag
-      objectReference: {fileID: 0}
     - target: {fileID: 222263306914302720, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13914,6 +13909,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSpawnTag
+      objectReference: {fileID: 0}
     - target: {fileID: 222263306912401888, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -13939,11 +13939,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpawnTag (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 222263306914302720, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13998,6 +13993,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSpawnTag (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88c225c6fa6042d43acc41b19ea7df53, type: 3}
@@ -14101,14 +14101,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1509}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.93
@@ -14164,6 +14156,14 @@ PrefabInstance:
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
@@ -14273,14 +14273,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.02
@@ -14337,7 +14329,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -14345,15 +14341,34 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: shadowMapRenderTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: strength
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: scatteringBias
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: useShadow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -14375,25 +14390,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: shadowMapRenderTexture
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: strength
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: scatteringBias
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: useShadow
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -14415,14 +14415,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1495}
     m_Modifications:
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_03
-      objectReference: {fileID: 0}
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 448136, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.14
@@ -14478,6 +14470,14 @@ PrefabInstance:
     - target: {fileID: 448136, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.2395799
+      objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2340748, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_Enabled
@@ -14765,14 +14765,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1495}
     m_Modifications:
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 481226, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.23
@@ -14829,6 +14821,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 147940, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -14864,14 +14864,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1497}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.61
@@ -14928,6 +14920,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -14955,14 +14955,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.9800615
@@ -15019,40 +15011,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Shadows.m_NearPlane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Range
-      value: 15.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -15071,6 +15038,39 @@ PrefabInstance:
     - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: useShadow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Range
+      value: 15.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -15183,11 +15183,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpawnTag (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 222263306914302720, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15242,6 +15237,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSpawnTag (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88c225c6fa6042d43acc41b19ea7df53, type: 3}
@@ -15349,14 +15349,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510}
     m_Modifications:
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 415918, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.43
@@ -15413,6 +15405,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2362942, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -15440,14 +15440,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.019999996
@@ -15504,40 +15496,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Shadows.m_NearPlane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Range
-      value: 15.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -15556,6 +15523,39 @@ PrefabInstance:
     - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: useShadow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Range
+      value: 15.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -16024,14 +16024,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510}
     m_Modifications:
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_03
-      objectReference: {fileID: 0}
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 448136, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.89
@@ -16088,6 +16080,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.2395802
       objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2340748, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -16119,11 +16119,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpawnTag (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 222263306914302720, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16178,6 +16173,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSpawnTag (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88c225c6fa6042d43acc41b19ea7df53, type: 3}
@@ -16293,11 +16293,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 3246839436014521794, guid: baa61f515b3037b49a231e726389acd7,
-        type: 3}
-      propertyPath: m_Name
-      value: TableSpawnTag
-      objectReference: {fileID: 0}
     - target: {fileID: 3246839436014520354, guid: baa61f515b3037b49a231e726389acd7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16353,6 +16348,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3246839436014521794, guid: baa61f515b3037b49a231e726389acd7,
+        type: 3}
+      propertyPath: m_Name
+      value: TableSpawnTag
+      objectReference: {fileID: 0}
     - target: {fileID: 3246839436014519405, guid: baa61f515b3037b49a231e726389acd7,
         type: 3}
       propertyPath: m_Enabled
@@ -16373,14 +16373,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1509}
     m_Modifications:
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_03
-      objectReference: {fileID: 0}
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 448136, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.22
@@ -16436,6 +16428,14 @@ PrefabInstance:
     - target: {fileID: 448136, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.239576
+      objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2340748, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_Enabled
@@ -16549,14 +16549,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1497}
     m_Modifications:
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 415918, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.44
@@ -16612,6 +16604,14 @@ PrefabInstance:
     - target: {fileID: 415918, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906
+      objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2362942, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_Enabled
@@ -16731,14 +16731,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1495}
     m_Modifications:
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 415918, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.6
@@ -16794,6 +16786,14 @@ PrefabInstance:
     - target: {fileID: 415918, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906
+      objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2362942, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_Enabled
@@ -16884,15 +16884,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!4 &6141321200866315453 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 6136833479215579439}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6138085020664958665 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 6136833479215579439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6141321200866315453 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 6136833479215579439}
   m_PrefabAsset: {fileID: 0}
@@ -16990,14 +16990,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1509}
     m_Modifications:
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_11
-      objectReference: {fileID: 0}
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461738, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.389
@@ -17054,6 +17046,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_11
+      objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 195624, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -17081,14 +17081,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.02
@@ -17145,40 +17137,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Range
-      value: 15.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Shadows.m_NearPlane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -17197,6 +17164,39 @@ PrefabInstance:
     - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: useShadow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Range
+      value: 15.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -17483,14 +17483,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1495}
     m_Modifications:
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_11
-      objectReference: {fileID: 0}
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461738, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.97
@@ -17547,6 +17539,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_11
+      objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 195624, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -17574,14 +17574,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1509}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.035
@@ -17637,6 +17629,14 @@ PrefabInstance:
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
@@ -17818,15 +17818,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!1 &7389973552892298557 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 7388937543704791771}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7393491242572220233 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 7388937543704791771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7389973552892298557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 7388937543704791771}
   m_PrefabAsset: {fileID: 0}
@@ -17837,14 +17837,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1495}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.33
@@ -17900,6 +17892,14 @@ PrefabInstance:
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
@@ -18015,11 +18015,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
-        type: 3}
-      propertyPath: m_Name
-      value: GroundClutterTag (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 2123257652255090794, guid: ccdceb97ec573d74ba5b34e5e29338e8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18075,6 +18070,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
+        type: 3}
+      propertyPath: m_Name
+      value: GroundClutterTag (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 2123257652255090083, guid: ccdceb97ec573d74ba5b34e5e29338e8,
         type: 3}
       propertyPath: m_Enabled
@@ -18095,14 +18095,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.020073
@@ -18159,7 +18151,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -18167,15 +18163,34 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: shadowMapRenderTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: strength
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: scatteringBias
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: useShadow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -18197,25 +18212,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: shadowMapRenderTexture
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: strength
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: scatteringBias
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: useShadow
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -18237,11 +18237,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
-        type: 3}
-      propertyPath: m_Name
-      value: GroundClutterTag
-      objectReference: {fileID: 0}
     - target: {fileID: 2123257652255090794, guid: ccdceb97ec573d74ba5b34e5e29338e8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18296,6 +18291,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
+        type: 3}
+      propertyPath: m_Name
+      value: GroundClutterTag
       objectReference: {fileID: 0}
     - target: {fileID: 2123257652255090083, guid: ccdceb97ec573d74ba5b34e5e29338e8,
         type: 3}
@@ -18404,11 +18404,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpawnTag (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 222263306914302720, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18464,6 +18459,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSpawnTag (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 222263306912401888, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -18489,14 +18489,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1510}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.71
@@ -18552,6 +18544,14 @@ PrefabInstance:
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906003
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
@@ -18667,11 +18667,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 3996544109540025882, guid: e7cad91c1b3b5bc418648c2ed35fd79c,
-        type: 3}
-      propertyPath: m_Name
-      value: CarpetSpawnTag
-      objectReference: {fileID: 0}
     - target: {fileID: 1812434542847415793, guid: e7cad91c1b3b5bc418648c2ed35fd79c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18727,6 +18722,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3996544109540025882, guid: e7cad91c1b3b5bc418648c2ed35fd79c,
+        type: 3}
+      propertyPath: m_Name
+      value: CarpetSpawnTag
+      objectReference: {fileID: 0}
     - target: {fileID: 735827155623995571, guid: e7cad91c1b3b5bc418648c2ed35fd79c,
         type: 3}
       propertyPath: m_Enabled
@@ -18747,14 +18747,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1497}
     m_Modifications:
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_03
-      objectReference: {fileID: 0}
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 448136, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.9
@@ -18811,6 +18803,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.2395799
       objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2340748, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -18842,14 +18842,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1509}
     m_Modifications:
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 415918, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.76
@@ -18906,6 +18898,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2362942, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -18933,14 +18933,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1497}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.71
@@ -18996,6 +18988,14 @@ PrefabInstance:
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
