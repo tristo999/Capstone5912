@@ -73,6 +73,7 @@ public class SpectatorCamera : MonoBehaviour
     }
 
     public void GetRandomTarget() {
-        followTarget = GameMaster.instance.LivePlayers[Random.Range(0, GameMaster.instance.LivePlayers.Count)].transform;
+        currentTargetIndex = Random.Range(0, GameMaster.instance.LivePlayers.Count);
+        followTarget = GameMaster.instance.LivePlayers[currentTargetIndex].transform;
     }
 }

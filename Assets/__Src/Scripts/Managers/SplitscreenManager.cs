@@ -56,6 +56,13 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
         }
     }
 
+    public void Reset() {
+        playerCameras.ForEach(o => Destroy(o.gameObject));
+        spectatorCameras.ForEach(o => Destroy(o.gameObject));
+        playerCameras.Clear();
+        spectatorCameras.Clear();
+    }
+
     public void SetPlayerLayout(int playerCount, SplitScreenMode mode) {
         if (playerCount == 1) {
             playerCameras[0].camera.rect = new Rect(0, 0, 1, 1);
@@ -107,11 +114,11 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
         playerCameras[cam].gameObject.SetActive(false);
         spectatorCameras[cam].gameObject.SetActive(true);
         spectatorCameras[cam].rewiredPlayer = rewiredPlayer;
+        spectatorCameras[cam].GetRandomTarget();
         if (spectatorCameras.All(c => c.gameObject.activeInHierarchy)) {
             Camera.main.DORect(new Rect(0, 0, 1, 1), 1.5f).OnComplete(() => {
                 for (int i = 1; i < spectatorCameras.Count; i++) {
                     spectatorCameras[i].gameObject.SetActive(false);
-                    spectatorCameras[i].GetRandomTarget();
                 }
             });
         }

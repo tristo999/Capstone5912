@@ -14,7 +14,11 @@ class PlayerCallbacks : Bolt.GlobalEventListener
     private bool waiting = false;
 
     public override void SceneLoadLocalDone(string scene) {
-        SplitscreenManager.Instantiate();
+        if (SplitscreenManager.instance) {
+            SplitscreenManager.instance.Reset();
+        } else {
+            SplitscreenManager.Instantiate();
+        }
     }
 
     public override void EntityAttached(BoltEntity entity) {

@@ -16,6 +16,7 @@ public class NetworkManager : Bolt.GlobalEventListener
 
     private Dictionary<Guid, ServerInfoPanel> panels = new Dictionary<Guid, ServerInfoPanel>();
     private Guid selectedPanel;
+    private WizardFightPooling pooling;
 
     public void LocalGame() {
         BoltLauncher.StartSinglePlayer();
@@ -34,6 +35,8 @@ public class NetworkManager : Bolt.GlobalEventListener
     }
 
     public override void BoltStartDone() {
+        pooling = new WizardFightPooling();
+        BoltNetwork.SetPrefabPool(pooling);
         if (BoltNetwork.IsServer) {
             Debug.Log("Bolt done starting");
             //string matchName = Guid.NewGuid().ToString();
@@ -49,6 +52,10 @@ public class NetworkManager : Bolt.GlobalEventListener
         } else {
             ServerListPanel.SetActive(true);
         }
+    }
+
+    public override void SceneLoadLocalDone(string scene) {
+        pooling.LoadSceneObjects(scene);
     }
 
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList) {

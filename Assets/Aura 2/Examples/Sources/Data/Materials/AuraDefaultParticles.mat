@@ -4,16 +4,17 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: AuraDefaultParticles
-  m_Shader: {fileID: 4800000, guid: 9a9d5d20740e7144680f371f745d0354, type: 3}
+  m_Shader: {fileID: 4800000, guid: adc25269ec493d042bb212b7730713bf, type: 3}
   m_ShaderKeywords: _BLENDMODE_NONE _BLEND_ADDITIVE _EMISSION _USAGESTAGE_VERTEX _USAGETYPE_BOTH
     _USAGETYPE_VERTEX
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
