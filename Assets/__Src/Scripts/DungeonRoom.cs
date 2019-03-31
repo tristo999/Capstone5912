@@ -22,11 +22,12 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     public GameObject carpet;
     [Range(0.0f,1.0f)]
     public float chanceDestroyCarpet;
+    public ParticleSystem ceilingDust;
     private List<PlayerCamera> camerasInRoom = new List<PlayerCamera>();
     private float shakeTime = 1f;
 
     public enum WallState { Door=1, Open=2, Closed=0, Destroyed=3 }
-    public enum DestructionState { Normal, Danger, Destroyed }
+    public enum DestructionState { Normal, Warning, Danger, Critical, Destroyed }
 
     public override void Attached() {
         if (entity.isOwner) {
@@ -104,9 +105,16 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     }
 
     private void DestructionStateChange() {
-        if (state.DestructionState == (int)DestructionState.Danger) {
+        if (state.DestructionState == (int)DestructionState.Warning) {
+            StartCoroutine(warnShake());
+        }
+
+        if (state.DestructionState == (int)DestructionState.Critical) {
+            ceilingDust.Play();
             foreach (PlayerCamera cam in camerasInRoom) {
-                cam.SetShake();
+                cam.SetShake(1f);
+                cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(0, 1f);
+                cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(1, 1f);
             }
         }
 
@@ -119,10 +127,46 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
                 state.WestWall = (int)WallState.Destroyed;
             if (state.SouthWall != (int)WallState.Closed)
                 state.SouthWall = (int)WallState.Destroyed;
+            ceilingDust.Stop();
             foreach (PlayerCamera cam in camerasInRoom) {
                 cam.CameraPlayer.GetState<IPlayerState>().Dead = true;
                 cam.SetShake(0f);
+                cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(0, 0f);
+                cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(1, 0f);
             }
+        }
+    }
+
+    float intensity = .25f;
+    IEnumerator warnShake() {
+        float shakeTime = .5f;
+        float timeBetweenShake = 1.5f;
+        
+
+        while (state.DestructionState == (int)DestructionState.Warning || state.DestructionState == (int) DestructionState.Danger) {
+            if (state.DestructionState == (int) DestructionState.Danger) {
+                shakeTime = .75f;
+                timeBetweenShake = .75f;
+            }
+
+            foreach (PlayerCamera cam in camerasInRoom) {
+                cam.SetShake(intensity);
+                cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(0, intensity);
+                cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(1, intensity);
+            }
+            ceilingDust.Play();
+            yield return new WaitForSeconds(shakeTime);
+            if (state.DestructionState != (int)DestructionState.Critical) {
+                foreach (PlayerCamera cam in camerasInRoom) {
+                    cam.SetShake(0f);
+                    cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(0, 0f);
+                    cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(1, 0f);
+                }
+                ceilingDust.Stop();
+                ceilingDust.time = 0;
+            }
+            intensity += .05f;
+            yield return new WaitForSeconds(timeBetweenShake);
         }
     }
 
@@ -130,10 +174,12 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
         if (other.tag == "Player" && other.GetComponent<BoltEntity>().isOwner) {
             PlayerCamera cam = SplitscreenManager.instance.GetEntityCamera(other.GetComponent<BoltEntity>());
             camerasInRoom.Add(cam);
-            if (state.DestructionState == (int)DestructionState.Danger) {
+            if (state.DestructionState == (int)DestructionState.Critical) {
                 cam.SetShake(1f);
+                cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(1, 1f);
             } else {
                 cam.SetShake(0f);
+                cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(1, 0f);
             }
         }
     }
