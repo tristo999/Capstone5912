@@ -34,7 +34,7 @@ public class FireballWand : Weapon
             beganFiring = true;
         }
         if (currentVelocity < MaxLaunchVelocity * Owner.state.ProjectileSpeed)
-            launchProjectile.LaunchForce += 0.05f;
+            launchProjectile.LaunchForce += .5f;
         Vector3[] positions = new Vector3[PointsInArc];
         float timeToImpact = TimeOfImpact(launchProjectile.LocalLaunchDir * launchProjectile.LaunchForce);
         float step = timeToImpact / PointsInArc;

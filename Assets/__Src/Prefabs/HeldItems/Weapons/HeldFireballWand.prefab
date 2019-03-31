@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d5348339f2d14469586e25a8437ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseLaunchVelocity: 11
+  BaseLaunchVelocity: 5
   MaxLaunchVelocity: 30
   PointsInArc: 100
 --- !u!114 &2930411030406737018
@@ -123,7 +123,7 @@ MonoBehaviour:
   Projectile: {fileID: 4267, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
   LaunchPosition: {fileID: 1864185642370842619}
   LaunchAngle: 25
-  LaunchForce: 100
+  LaunchForce: 0
   audioSource: {fileID: 0}
 --- !u!120 &7119080873938650761
 LineRenderer:
