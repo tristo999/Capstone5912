@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 2913812260585250162}
   - component: {fileID: 8639158505871352368}
   - component: {fileID: 5702049680359979103}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: IceWandProjectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 6b81f363-bd8f-433c-8040-b053ced204c7
-  _prefabId: 48
+  _prefabId: 49
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 1426}
   - component: {fileID: 3997}
   - component: {fileID: 4105}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4864,7 +4864,7 @@ ParticleSystem:
 --- !u!199 &4105
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4934,7 +4934,7 @@ GameObject:
   - component: {fileID: 24235376639566205}
   - component: {fileID: 7020175067915888603}
   - component: {fileID: 1190959818249677377}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9562,7 +9562,7 @@ ParticleSystem:
 --- !u!199 &1190959818249677377
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
