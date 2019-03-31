@@ -17,13 +17,16 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
             foreach (Collider col in Physics.OverlapSphere(transform.position, radius)) {
                 BoltEntity bEntity = col.GetComponent<BoltEntity>();
                 if (bEntity) {
-                    if (col.tag == "Player" && (bEntity!= state.Owner || damageOwner)) {
+                    if (bEntity.gameObject.tag == "Player" && (bEntity!= state.Owner || damageOwner) || bEntity.gameObject.gameObject.tag == "Enemy") {
+                        Debug.Log(col.gameObject.name);
                         DealDamage(collision.gameObject);
+
                     }
                     KnockbackEntity knockback = KnockbackEntity.Create(bEntity);
                     knockback.Force = (bEntity.transform.position - transform.position).normalized * explosiveKnockback;
                     knockback.Send();
                 } else {
+                    if (col.gameObject.tag == "Player" || col.gameObject.tag == "Enemy" || col.gameObject.layer == 15)
                     col.GetComponent<Rigidbody>().AddForce((col.transform.position - transform.position).normalized * explosiveKnockback);
                 }
             }
@@ -31,19 +34,22 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
     }
 
     private void OnTriggerEnter(Collider other) {
+        Debug.Log("Explosion!");
         if (!entity.isAttached || !entity.isOwner) return;
         if (GetComponent<CollisionCheck>().ValidCollision(other)) {
             foreach (Collider col in Physics.OverlapSphere(transform.position, radius)) {
                 BoltEntity bEntity = col.GetComponent<BoltEntity>();
                 if (bEntity) {
-                    if (col.tag == "Player" && (bEntity != state.Owner || damageOwner)) {
-                        DealDamage(other.gameObject);
+                    if (bEntity.gameObject.tag == "Player" && (bEntity != state.Owner || damageOwner) || bEntity.gameObject.gameObject.tag == "Enemy") {
+                        Debug.Log(col.gameObject.name);
+                        DealDamage(col.gameObject);
                     }
                     KnockbackEntity knockback = KnockbackEntity.Create(bEntity);
                     knockback.Force = (bEntity.transform.position - transform.position).normalized * explosiveKnockback;
                     knockback.Send();
                 } else {
-                    col.GetComponent<Rigidbody>().AddForce((col.transform.position - transform.position).normalized * explosiveKnockback);
+                    if (col.gameObject.tag == "Player" || col.gameObject.tag == "Enemy" || col.gameObject.layer == 15)
+                        col.GetComponent<Rigidbody>().AddForce((col.transform.position - transform.position).normalized * explosiveKnockback);
                 }
             }
         }

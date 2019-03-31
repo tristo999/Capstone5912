@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 3174057068121631500}
   - component: {fileID: 8756570153273371585}
   - component: {fileID: 6085362919485025303}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: FireballWandProjectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -227,9 +227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 484c531663828994aa8ae785b8d19ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
-  radius: 1
-  explosiveKnockback: 3000
+  damage: 10
+  radius: 3
+  explosiveKnockback: 10000
   damageOwner: 1
 --- !u!114 &8015147714542863753
 MonoBehaviour:
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 1394}
   - component: {fileID: 3996}
   - component: {fileID: 4104}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1033,7 +1033,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.08
+      value: 3
       mode: 0
       spread: 0
       speed:
@@ -5055,7 +5055,7 @@ GameObject:
   - component: {fileID: 1396}
   - component: {fileID: 3995}
   - component: {fileID: 4103}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

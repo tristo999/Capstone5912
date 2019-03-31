@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 437858148032789272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.87, z: 0}
+  m_LocalPosition: {x: 0, y: 8.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7711465964295657296}
@@ -91,8 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d5348339f2d14469586e25a8437ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseLaunchVelocity: 5
-  MaxLaunchVelocity: 15
+  BaseLaunchVelocity: 11
+  MaxLaunchVelocity: 30
   PointsInArc: 100
 --- !u!114 &2930411030406737018
 MonoBehaviour:
@@ -122,8 +122,8 @@ MonoBehaviour:
   fireSound: {fileID: 0}
   Projectile: {fileID: 4267, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
   LaunchPosition: {fileID: 1864185642370842619}
-  LaunchAngle: 50
-  LaunchForce: 0
+  LaunchAngle: 25
+  LaunchForce: 100
   audioSource: {fileID: 0}
 --- !u!120 &7119080873938650761
 LineRenderer:

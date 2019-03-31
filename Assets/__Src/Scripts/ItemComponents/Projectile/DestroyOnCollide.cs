@@ -9,6 +9,7 @@ public class DestroyOnCollide : Bolt.EntityBehaviour<IProjectileState>
     public float Delay;
 
     private void OnCollisionEnter(Collision collision) {
+        Debug.Log("Boom");
         if (!entity.isAttached || !entity.isOwner) return;
         if (GetComponent<CollisionCheck>().ValidCollision(collision)) {
             StartCoroutine(DelayedDestroy(Delay));
