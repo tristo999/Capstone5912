@@ -14,10 +14,9 @@ public class FallingRocks : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.K)) {
-            
-        }
-        if (Input.GetKeyUp(KeyCode.K)) {
-            system.Stop();
+            foreach (Player p in ReInput.players.Players) {
+                p.SetVibration(0, 1, 2);
+            }
         }
 
     }

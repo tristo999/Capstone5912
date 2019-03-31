@@ -2317,6 +2317,7 @@ MonoBehaviour:
   westWallDestroyed: {fileID: 394}
   carpet: {fileID: 0}
   chanceDestroyCarpet: 0
+  ceilingDust: {fileID: 183421018954050409}
 --- !u!114 &4392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7157,7 +7158,7 @@ GameObject:
   - component: {fileID: 183421018954050409}
   - component: {fileID: 8840073128286689740}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Dust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7811,8 +7812,8 @@ ParticleSystem:
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 30, y: 1.9249692, z: 30}
+    m_Rotation: {x: 0, y: 45, z: 0}
+    m_Scale: {x: 40, y: 1.9249692, z: 40}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -8009,15 +8010,15 @@ ParticleSystem:
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 0
+      minMaxState: 1
+      scalar: 1000
       minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 1
+          value: 0.3783804
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -8113,66 +8114,8 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 1
-    m_Bursts:
-    - serializedVersion: 2
-      time: 0
-      countCurve:
-        serializedVersion: 2
-        minMaxState: 0
-        scalar: 3000
-        minScalar: 30
-        maxCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        minCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      cycleCount: 1
-      repeatInterval: 1
-      probability: 1
+    m_BurstCount: 0
+    m_Bursts: []
   SizeModule:
     enabled: 0
     curve:
@@ -11716,7 +11659,7 @@ ParticleSystem:
 --- !u!199 &8840073128286689740
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -12262,40 +12205,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Range
-      value: 15.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Shadows.m_NearPlane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -12314,6 +12224,39 @@ PrefabInstance:
     - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: useShadow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Range
+      value: 15.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -12948,11 +12891,31 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: shadowMapRenderTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: strength
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: scatteringBias
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: useShadow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -12960,11 +12923,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -12986,25 +12944,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: shadowMapRenderTexture
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: strength
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: scatteringBias
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: useShadow
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -13274,15 +13217,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!1 &1921599854560401499 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 1922569353916372925}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1927087868406405679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 1922569353916372925}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1921599854560401499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 1922569353916372925}
   m_PrefabAsset: {fileID: 0}
@@ -13618,15 +13561,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!4 &2332122527273989996 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 2327639203631004414}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2326634512740381976 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 2327639203631004414}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2332122527273989996 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 2327639203631004414}
   m_PrefabAsset: {fileID: 0}
@@ -13701,40 +13644,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Range
-      value: 15.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Shadows.m_NearPlane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -13753,6 +13663,39 @@ PrefabInstance:
     - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: useShadow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Range
+      value: 15.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -14337,11 +14280,31 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: shadowMapRenderTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: strength
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: scatteringBias
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: useShadow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -14349,11 +14312,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -14375,25 +14333,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: shadowMapRenderTexture
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: strength
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: scatteringBias
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: useShadow
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -15019,40 +14962,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Shadows.m_NearPlane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Range
-      value: 15.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -15071,6 +14981,39 @@ PrefabInstance:
     - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: useShadow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Range
+      value: 15.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -15504,40 +15447,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Shadows.m_NearPlane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Range
-      value: 15.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -15556,6 +15466,39 @@ PrefabInstance:
     - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: useShadow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Range
+      value: 15.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -16884,15 +16827,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!4 &6141321200866315453 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 6136833479215579439}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6138085020664958665 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 6136833479215579439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6141321200866315453 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 6136833479215579439}
   m_PrefabAsset: {fileID: 0}
@@ -17145,40 +17088,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Range
-      value: 15.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Shadows.m_NearPlane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -17197,6 +17107,39 @@ PrefabInstance:
     - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: useShadow
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000010385531108, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Range
+      value: 15.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -17818,15 +17761,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!1 &7389973552892298557 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 7388937543704791771}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7393491242572220233 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 7388937543704791771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7389973552892298557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 7388937543704791771}
   m_PrefabAsset: {fileID: 0}
@@ -18159,11 +18102,31 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: shadowMapRenderTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: strength
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: scatteringBias
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: useShadow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010443562618, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
@@ -18171,11 +18134,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108000010623696196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}
@@ -18197,25 +18155,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010986074358, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: shadowMapRenderTexture
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: strength
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: scatteringBias
+    - target: {fileID: 199000010920550196, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1655176289, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: useShadow
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 199000011026640394, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8,
         type: 3}

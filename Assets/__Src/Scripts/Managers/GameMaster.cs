@@ -11,11 +11,15 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
     private int _spawnedPlayers;
     private int dangerTime;
     private int destructionTime;
+    private int criticalTime;
+    private int warningTime;
     public Dictionary<int, BoltEntity> players { get; private set; } = new Dictionary<int, BoltEntity>();
     public Dictionary<int, List<DungeonRoom>> RoomLayers = new Dictionary<int, List<DungeonRoom>>();
     public List<BoltEntity> roomsAndClutter = new List<BoltEntity>();
-    public int RoomDropTime = 40;
-    public int RoomDangerTime = 20;
+    public int RoomDropTime = 120;
+    public int RoomCriticalTime = 115;
+    public int RoomDangerTime = 100;
+    public int RoomWarningTime = 90;
     public int RoomLayer;
     public int SpawnedPlayers
     {
@@ -49,16 +53,17 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
 
     private void Awake() {
         _startFrame = BoltNetwork.ServerFrame;
-        dangerTime = RoomDangerTime;
-        destructionTime = RoomDropTime;
     }
 
     public void FixedUpdate() {
         if (!BoltNetwork.IsServer) return;
         if (RoomLayer > 0) {
-            if (GameTime == dangerTime) {
-                SetLayerDanger();
-            }
+            if (GameTime == warningTime)
+                SetDestructionStates(DungeonRoom.DestructionState.Warning);
+            if (GameTime == dangerTime) 
+                SetDestructionStates(DungeonRoom.DestructionState.Danger);
+            if (GameTime == criticalTime)
+                SetDestructionStates(DungeonRoom.DestructionState.Critical);
             if (GameTime == destructionTime) {
                 DestroyLayer();
             }
@@ -92,10 +97,10 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
         }
     }
 
-    public void SetLayerDanger() {
+    public void SetDestructionStates(DungeonRoom.DestructionState level) {
         foreach (DungeonRoom room in RoomLayers[RoomLayer]) {
             if (room) {
-                room.GetComponent<BoltEntity>().GetState<IDungeonRoom>().DestructionState = (int)DungeonRoom.DestructionState.Danger;
+                room.GetComponent<BoltEntity>().GetState<IDungeonRoom>().DestructionState = (int)level;
             }
         }
     }
@@ -107,6 +112,8 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
         RoomLayer--;
         destructionTime = GameTime + RoomDropTime;
         dangerTime = GameTime + RoomDangerTime;
+        warningTime = GameTime + RoomWarningTime;
+        criticalTime = GameTime + RoomCriticalTime;
     }
 
     public void FreezeDistantEntities() {
