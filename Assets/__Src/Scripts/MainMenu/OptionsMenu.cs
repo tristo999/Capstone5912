@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class OptionsMenu : MonoBehaviour
 {
     public AudioMixer mixer;
+	public Toggle fullscreen;
 	public Dropdown resolutionDropdown;
 	Resolution[] resolutions;
 	List<string> resolutionOptions = new List<string>();
 
 	void Start(){
 		int currentResIndex = 0;
+		fullscreen.isOn = Screen.fullScreen;
         //get resolutions, clear placeholders
 		resolutions = Screen.resolutions;
 		resolutionDropdown.ClearOptions();
