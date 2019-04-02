@@ -19,7 +19,9 @@ public class ActiveCooldown : MonoBehaviour
     }
 
     private void Update() {
-        if (cooldownTimer > 0.0f)
+        if (cooldownTimer > 0.0f) {
             cooldownTimer -= Time.deltaTime;
+            GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.SetActiveItemPercentRechargeRemaining(cooldownTimer / Cooldown);
+        }
     }
 }

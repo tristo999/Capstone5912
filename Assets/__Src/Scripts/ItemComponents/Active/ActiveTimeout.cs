@@ -19,6 +19,7 @@ public class ActiveTimeout : MonoBehaviour
 
     public void StartTimeout() {
         timeoutTimer = Timeout;
+        GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.SetActiveItemPercentRechargeRemaining(1);
     }
 
     private void Update() {

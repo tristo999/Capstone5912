@@ -19,7 +19,9 @@ public class WeaponCooldown : MonoBehaviour
     }
 
     private void Update() {
-        if (cooldownTimer > 0.0f)
+        if (cooldownTimer > 0.0f) {
             cooldownTimer -= Time.deltaTime;
+            GetComponent<Weapon>().Owner.GetComponent<PlayerStatsController>().ui.SetWeaponPercentRechargeRemaining(cooldownTimer / Cooldown);
+        }
     }
 }

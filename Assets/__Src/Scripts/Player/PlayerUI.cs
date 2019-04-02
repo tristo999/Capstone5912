@@ -70,11 +70,11 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         UpdateRechargeImage(activeItemSlotRechargeImage, percentChargeRemaining);
     }
 
-    public void SetWeaponUses(int usesRemaining) {
+    public void SetWeaponUsesRemaining(int usesRemaining) {
         UpdateTextUses(weaponSlotUsesTextElement, usesRemaining);
     }
 
-    public void SetActiveItemUses(int usesRemaining) {
+    public void SetActiveItemUsesRemaining(int usesRemaining) {
         UpdateTextUses(activeItemSlotUsesTextElement, usesRemaining);
     }
 
@@ -84,10 +84,14 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     public void SetWeapon(int weaponId) {
         UpdateItemNameText(weaponSlotNameTextElement, weaponId);
+        SetWeaponPercentRechargeRemaining(0);
+        SetWeaponUsesRemaining(-1);
     }
 
     public void SetActiveItem(int activeItemId) {
         UpdateItemNameText(activeItemSlotNameTextElement, activeItemId);
+        SetActiveItemPercentRechargeRemaining(0);
+        SetActiveItemUsesRemaining(-1);
     }
 
     public void SetItemFullDescription(int itemId) { 

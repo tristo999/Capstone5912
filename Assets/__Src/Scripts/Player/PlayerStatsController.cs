@@ -9,8 +9,8 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     public Canvas HealthCanvas;
     public float StartingHealth;
     public Renderer robeAndHat;
+    public PlayerUI ui;
     private PlayerMovementController movementController;
-    private PlayerUI ui;
 
     public override void Attached() {
         movementController = GetComponent<PlayerMovementController>();
