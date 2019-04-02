@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
@@ -30,9 +31,13 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     private int screenNumber;
 
     private GameObject compassArrowElement;
+    private Image weaponSlotRechargeImage;
+    private Image activeItemSlotRechargeImage;
     private TextMeshProUGUI healthTextElement;
     private TextMeshProUGUI weaponSlotNameTextElement;
+    private TextMeshProUGUI weaponSlotUsesTextElement;
     private TextMeshProUGUI activeItemSlotNameTextElement;
+    private TextMeshProUGUI activeItemSlotUsesTextElement;
     private TextMeshProUGUI itemNameTextElement;
     private TextMeshProUGUI itemDescriptionTextElement;
     private TextMeshProUGUI messageElement;
@@ -46,11 +51,31 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
         compassArrowElement = GetCanvasChildByName("Compass").transform.GetChild(0).gameObject;
         healthTextElement = GetCanvasChildByName("Health").GetComponentInChildren<TextMeshProUGUI>();
+        weaponSlotRechargeImage = GetCanvasChildByName("Weapon Slot").GetComponentsInChildren<Image>()[1];
         weaponSlotNameTextElement = GetCanvasChildByName("Weapon Slot").GetComponentInChildren<TextMeshProUGUI>();
+        weaponSlotUsesTextElement = GetCanvasChildByName("Weapon Slot").GetComponentsInChildren<TextMeshProUGUI>()[1];
+        activeItemSlotRechargeImage = GetCanvasChildByName("Active Item Slot").GetComponentsInChildren<Image>()[1];
         activeItemSlotNameTextElement = GetCanvasChildByName("Active Item Slot").GetComponentInChildren<TextMeshProUGUI>();
+        activeItemSlotUsesTextElement = GetCanvasChildByName("Active Item Slot").GetComponentsInChildren<TextMeshProUGUI>()[1];
         itemNameTextElement = GetCanvasChildByName("Item Name").GetComponentInChildren<TextMeshProUGUI>();
         itemDescriptionTextElement = GetCanvasChildByName("Item Description").GetComponentInChildren<TextMeshProUGUI>();
         messageElement = GetCanvasChildByName("Message").GetComponent<TextMeshProUGUI>();
+    }
+
+    public void SetWeaponPercentRechargeRemaining(float percentChargeRemaining) {
+        UpdateRechargeImage(weaponSlotRechargeImage, percentChargeRemaining);
+    }
+
+    public void SetActiveItemPercentRechargeRemaining(float percentChargeRemaining) {
+        UpdateRechargeImage(activeItemSlotRechargeImage, percentChargeRemaining);
+    }
+
+    public void SetWeaponUses(int usesRemaining) {
+        UpdateTextUses(weaponSlotUsesTextElement, usesRemaining);
+    }
+
+    public void SetActiveItemUses(int usesRemaining) {
+        UpdateTextUses(activeItemSlotUsesTextElement, usesRemaining);
     }
 
     public void SetHealth(float health) {
@@ -101,6 +126,18 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     private void Update() { 
         UpdateCompassDirection();
+    }
+
+    private void UpdateRechargeImage(Image image, float percentChargeRemaining) {
+        image.fillAmount = percentChargeRemaining;
+    }
+
+    private void UpdateTextUses(TextMeshProUGUI textElement, int usesRemaining) {
+        if (usesRemaining >= 0) {
+            textElement.text = "" + usesRemaining;
+        } else {
+            textElement.text = "";
+        }
     }
 
     private void UpdateItemNameText(TextMeshProUGUI textElement, int itemId) {
