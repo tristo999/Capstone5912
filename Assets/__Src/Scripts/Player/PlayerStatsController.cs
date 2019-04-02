@@ -89,6 +89,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
         if (entity.isOwner) {
             if (state.Dead) {
                 ui.DisplayMessage("You Died.", 4f, 2f, () => SplitscreenManager.instance.SetCameraToSpectator(ui.ScreenNumber-1, movementController.localPlayer));
+                movementController.localPlayer.StopVibration();
             }
         }
     }
@@ -112,9 +113,15 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     public override void OnEvent(DamageEntity evnt) {
         if (state.Health > 0) {
             if (entity.isOwner) {
+                if (evnt.Damage > 0) {
+                    movementController.localPlayer.SetVibration(0, 1f, .1f);
+                    movementController.localPlayer.SetVibration(1, 1f, .1f);
+                    movementController.localPlayer.SetVibration(2, 1f, .1f);
+                    movementController.localPlayer.SetVibration(3, 1f, .1f);
+                }
                 state.Health -= evnt.Damage;
             }
-            if (evnt.Owner) {
+            if (evnt.Owner.isOwner) {
                 PlayerUI ui = evnt.Owner.GetComponent<PlayerUI>();
                 ui.AddDamageText(evnt.Damage, evnt.HitPosition);
             }

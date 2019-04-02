@@ -38,6 +38,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     private DungeonRoom[,] vertices;
     private DungeonRoom centerRoom;
     private GameObject mazeObject;
+    private GameObject batchingRoot;
     public int width;
     public int height;
     public int generationAttempts;
@@ -55,6 +56,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public AdjacencyGraph<DungeonRoom, Edge<DungeonRoom>> dungeonGraph;
 
     public void DoGeneration(int playerCount) {
+        batchingRoot = new GameObject();
         GenerateStemmingMazeGraph();
         spawnRooms = GetFirstEquidistantRooms(dungeonGraph.Vertices.Where(r => r.DistanceFromCenter == maxDist - 2), playerCount).ToList();
         AddPerlinNoise();

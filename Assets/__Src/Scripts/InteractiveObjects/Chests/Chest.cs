@@ -37,7 +37,7 @@ public abstract class Chest : InteractiveObject
     }
 
     public override void OnEvent(OpenChest evnt) {
-        if (entity.isOwner)
+        if (entity.isOwner && !state.Open)
             state.Open = !state.Open;
     }
 

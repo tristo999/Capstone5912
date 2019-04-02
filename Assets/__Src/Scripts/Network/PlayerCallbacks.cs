@@ -74,6 +74,8 @@ class PlayerCallbacks : Bolt.GlobalEventListener
     }
 
     public override void OnEvent(GameStart evnt) {
+        //Debug.Log("Batching rooms.");
+        //StaticBatchingUtility.Combine(GameObject.Find("Batch Root"));
         SceneLoader.Instance.CancelLoadScreen();
     }
 
