@@ -378,7 +378,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3062306346265810814}
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 514.2231, z: -296.88684}
+  m_LocalPosition: {x: 0, y: 676.167, z: -390.38522}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3338921079285896013}
@@ -1051,7 +1051,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7319261845729615536}
   - component: {fileID: 7319261845729615537}
-  - component: {fileID: 663998197072049991}
   - component: {fileID: 2311910076921696535}
   - component: {fileID: 8212196097452023167}
   m_Layer: 0
@@ -1069,7 +1068,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7319261845729615535}
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 514.2231, z: -296.88684}
+  m_LocalPosition: {x: 0, y: 641.5266, z: -370.3856}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4615777282976588624}
@@ -1084,7 +1083,7 @@ Camera:
   m_GameObject: {fileID: 7319261845729615535}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
@@ -1105,7 +1104,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 261920
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1117,21 +1116,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &663998197072049991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7319261845729615535}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdcd06815c47d30489f70df42db56a48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frustumSettings:
-    baseSettings: {fileID: 11400000, guid: 34a17411a6bce14419e283d5a0fa3ed6, type: 2}
-    qualitySettings: {fileID: 11400000, guid: be5f83b4a81649645b5ab30be5b56643, type: 2}
 --- !u!114 &2311910076921696535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1199,7 +1183,7 @@ MonoBehaviour:
     fastMode: 0
     keepAlpha: 0
   fog:
-    enabled: 1
+    enabled: 0
     excludeSkybox: 1
   debugLayer:
     lightMeter:
