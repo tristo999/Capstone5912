@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SelectMissing
 {
-
+#if UNITY_EDITOR
     [MenuItem("Edit/Cleanup Missing Scripts")]
     static void CleanupMissingScripts() {
         for (int i = 0; i < Selection.gameObjects.Length; i++) {
@@ -35,4 +35,5 @@ public class SelectMissing
             serializedObject.ApplyModifiedProperties();
         }
     }
+#endif
 }

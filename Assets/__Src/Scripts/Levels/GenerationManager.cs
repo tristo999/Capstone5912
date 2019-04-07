@@ -1,4 +1,5 @@
-﻿using QuickGraph;
+﻿using MyBox;
+using QuickGraph;
 using QuickGraph.Algorithms;
 using QuickGraph.Algorithms.ShortestPath;
 using System.Collections;
@@ -7,7 +8,7 @@ using System.Linq;
 using UnityEngine;
 
 public class GenerationManager : BoltSingletonPrefab<GenerationManager>
-{ 
+{
     [Header("Room Generation Prefabs")]
     public List<GameObject> roomPrefabs = new List<GameObject>();
     public List<GameObject> specialRooms = new List<GameObject>();
@@ -30,7 +31,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
     [Header("Generation Settings")]
     public float roomSize;
-    [Range(0f,1f)]
+    [Range(0f, 1f)]
     public float wallKnockoutChance;
     public int amountWallsKnockout;
 
@@ -57,20 +58,47 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
     public void DoGeneration(int playerCount) {
         batchingRoot = new GameObject();
-        GenerateStemmingMazeGraph();
-        spawnRooms = GetFirstEquidistantRooms(dungeonGraph.Vertices.Where(r => r.DistanceFromCenter == maxDist - 2), playerCount).ToList();
-        AddPerlinNoise();
-        GenerateDangerRatings();
-        PopulateTags();
-        SpawnDroppedItems();
-        PopuplateChests();
+
+        using (new TimeTest("Initial Generation"))
+            GenerateStemmingMazeGraph();
+        using (new TimeTest("Calculating Room Distances", true))
+            CalculateRoomDistances();
+        using (new TimeTest("Setting Spawn Rooms", true))
+            spawnRooms = GetFirstEquidistantRooms(dungeonGraph.Vertices.Where(r => r.DistanceFromCenter == maxDist - 2), playerCount).ToList();
+        using (new TimeTest("Adding Perlin Noise", true))
+            AddPerlinNoise();
+        using (new TimeTest("Generating Danger Ratings", true))
+            GenerateDangerRatings();
+        using (new TimeTest("Populating Rooms", true)) {
+            PopulateTags();
+            SpawnDroppedItems();
+            PopuplateChests();
+        }
+    }
+
+    private void CalculateRoomDistances() {
+        Queue<DungeonRoom> roomQueue = new Queue<DungeonRoom>();
+        centerRoom.DistanceFromCenter = 0;
+        roomQueue.Enqueue(centerRoom);
+
+        while (roomQueue.Count > 0) {
+            DungeonRoom currentRoom = roomQueue.Dequeue();
+            foreach (Edge<DungeonRoom> edge in dungeonGraph.OutEdges(currentRoom)) {
+                if (edge.Target.DistanceFromCenter == -1) {
+                    edge.Target.DistanceFromCenter = edge.Source.DistanceFromCenter + 1;
+                    if (edge.Target.DistanceFromCenter > maxDist)
+                        maxDist = edge.Target.DistanceFromCenter;
+                    roomQueue.Enqueue(edge.Target);
+                }
+            }
+        }
     }
 
     private void AddPerlinNoise() {
         float seed = Random.Range(-1000f, 1000f);
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                if (dungeon[x,y] && Mathf.PerlinNoise(perlinScale * (seed+x), perlinScale * (seed+y)) < 0.0025f) {
+                if (dungeon[x, y] && Mathf.PerlinNoise(perlinScale * (seed + x), perlinScale * (seed + y)) < 0.0025f) {
                     dungeonGraph.RemoveVertex(vertices[x, y]);
                     Destroy(vertices[x, y].gameObject);
                 }
@@ -80,32 +108,11 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
     private void GenerateDangerRatings() {
         foreach (DungeonRoom room in dungeonGraph.Vertices) {
-            System.Func<Edge<DungeonRoom>, double> edgeWeight = e => 1;
-            TryFunc<DungeonRoom, IEnumerable<Edge<DungeonRoom>>> tryDijkstra = dungeonGraph.ShortestPathsDijkstra(edgeWeight, room);
-            bool nearSpawn = false;
-            if (spawnRooms.Contains(room)) {
-                room.DangerRating = 0f;
-                nearSpawn = true;
-            }
-            if (!nearSpawn) {
-                foreach (DungeonRoom spawnRoom in spawnRooms) {
-                    IEnumerable<Edge<DungeonRoom>> edges;
-                    if (tryDijkstra(spawnRoom, out edges)) {
-                        int dist = edges.Count();
-                        if (dist <= spawnRoomFadeRange) {
-                            nearSpawn = true;
-                            room.DangerRating = dist / (3f * spawnRoomFadeRange);
-                        }
-                    }
-                }
-            }
-            if (!nearSpawn) {
-                int distanceFromEdge = maxDist - room.DistanceFromCenter;
-                if (distanceFromEdge > room.DistanceFromCenter) {
-                    room.DangerRating = Mathf.Pow((distanceFromEdge - room.DistanceFromCenter) / (float)maxDist, 1);
-                } else {
-                    room.DangerRating = Mathf.Pow((room.DistanceFromCenter - distanceFromEdge) / (float)maxDist, 1);
-                }
+            int distanceFromEdge = maxDist - room.DistanceFromCenter;
+            if (distanceFromEdge > room.DistanceFromCenter) {
+                room.DangerRating = Mathf.Pow((distanceFromEdge - room.DistanceFromCenter) / (float)maxDist, 1);
+            } else {
+                room.DangerRating = Mathf.Pow((room.DistanceFromCenter - distanceFromEdge) / (float)maxDist, 1);
             }
             //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             //cube.transform.position = room.transform.position + new Vector3(15f, 30f, 15f);
@@ -145,18 +152,18 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (i == width/2 && j == height/2) {
+                if (i == width / 2 && j == height / 2) {
                     centerRoom = vertices[i, j];
                 }
                 if (dungeon[i, j]) {
-                    if (i < width && dungeon[i+1,j]) {
+                    if (i < width && dungeon[i + 1, j]) {
                         Edge<DungeonRoom> edge = new Edge<DungeonRoom>(vertices[i, j], vertices[i + 1, j]);
                         edge.Source.state.EastWall = (int)DungeonRoom.WallState.Open;
                         edge.Target.state.WestWall = (int)DungeonRoom.WallState.Open;
                         dungeonGraph.AddVerticesAndEdge(edge);
                         dungeonGraph.AddEdge(new Edge<DungeonRoom>(edge.Target, edge.Source));
                     }
-                    if (j < height && dungeon[i,j+1]) {
+                    if (j < height && dungeon[i, j + 1]) {
                         Edge<DungeonRoom> edge = new Edge<DungeonRoom>(vertices[i, j], vertices[i, j + 1]);
                         edge.Source.state.NorthWall = (int)DungeonRoom.WallState.Open;
                         edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Open;
@@ -164,19 +171,6 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                         dungeonGraph.AddEdge(new Edge<DungeonRoom>(edge.Target, edge.Source));
                     }
                 }
-            }
-        }
-
-        System.Func<Edge<DungeonRoom>, double> edgeWeight = e => 1;
-        TryFunc<DungeonRoom, IEnumerable<Edge<DungeonRoom>>> tryDijkstra = dungeonGraph.ShortestPathsDijkstra<DungeonRoom, Edge<DungeonRoom>>(edgeWeight, centerRoom);
-        foreach (DungeonRoom vertex in dungeonGraph.Vertices) {
-            IEnumerable<Edge<DungeonRoom>> edges;
-            if (tryDijkstra(vertex, out edges)) {
-                vertex.DistanceFromCenter = edges.Count();
-                if (vertex.DistanceFromCenter > maxDist)
-                    maxDist = vertex.DistanceFromCenter;
-            } else if (vertex != centerRoom) {
-                Debug.Log("Path doesn't exist to room!?");
             }
         }
     }
@@ -217,7 +211,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     private void SpawnDroppedItems() {
         foreach (GameObject spawner in GameObject.FindGameObjectsWithTag("DroppedItemSpawn")) {
             DroppedItemSpawner spawnerScript = spawner.GetComponent<DroppedItemSpawner>();
-            if (Random.Range(0f,1f) <= spawnerScript.spawnChance) {
+            if (Random.Range(0f, 1f) <= spawnerScript.spawnChance) {
                 ItemManager.Instance.SpawnItemFromRarity(spawnerScript.preferredRarity, spawner.transform.position);
             }
             BoltNetwork.Destroy(spawner);
@@ -265,7 +259,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             int mirrorY = height - 1 - (int)newCell.y;
             Vector3 pos = new Vector3(newCell.x, 0, newCell.y) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
             GameObject newRoom;
-            if (Random.Range(0f,1f) < .075f) {
+            if (Random.Range(0f, 1f) < .075f) {
                 newRoom = BoltNetwork.Instantiate(specialRooms[Random.Range(0, specialRooms.Count)], pos, Quaternion.identity);
             } else {
                 newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
@@ -290,7 +284,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         List<Vector2> possibleCoords = new List<Vector2>();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (dungeon[i, j] && !Surrounded(i,j)) possibleCoords.Add(new Vector2(i, j));
+                if (dungeon[i, j] && !Surrounded(i, j)) possibleCoords.Add(new Vector2(i, j));
             }
         }
         return possibleCoords[Random.Range(0, possibleCoords.Count)];
@@ -314,8 +308,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         return possible;
     }
 
-    private bool adjacentToRoom(int x, int y)
-    {
+    private bool adjacentToRoom(int x, int y) {
         bool adjacent = false;
         if (x < width - 1 && dungeon[x + 1, y]) adjacent = true;
         if (x > 0 && dungeon[x - 1, y]) adjacent = true;
