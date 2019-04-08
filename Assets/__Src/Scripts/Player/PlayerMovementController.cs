@@ -112,11 +112,6 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
         if (CalculateIsOnGround()) {
             UpdateMovementGround(movement);
-
-            // TEMP: Jump ability for testing.
-            if (Input.GetKeyDown("space") && !InputDisabled) {
-                rb.velocity = rb.velocity + new Vector3(0, 15f, 0);
-            }
         } else {
             UpdateMovementAir(movement);
         }
@@ -131,7 +126,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void UpdateMovementAir(Vector3 movement) {
-        rb.velocity = CalculateVelocityFromInputAccel(movement, 1/8f, 2/3f);
+        rb.velocity = CalculateVelocityFromInputAccel(movement, 1/6f, 2/3f);
     }
 
     private Vector3 CalculateVelocityFromFriction() {
