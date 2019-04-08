@@ -33,6 +33,7 @@ public abstract class Chest : InteractiveObject
     protected void ChestOpen()
     {
         GetComponent<MeshFilter>().mesh = openChestModel.GetComponent<MeshFilter>().sharedMesh;
+        CanHighlight = false;
         OnOpen();
     }
 

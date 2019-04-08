@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class InteractiveObject : Bolt.EntityEventListener<IInteractiveState>
 {
     public Material highlightMaterial;
+    public bool CanHighlight { get; set; } = true;
 
     private Material originalMaterial;
     private bool isHighlighted;
@@ -20,21 +21,20 @@ public abstract class InteractiveObject : Bolt.EntityEventListener<IInteractiveS
         RemoveHighlight();
     }
 
-    public virtual void AddHighlight()
-    {
-        originalMaterial = GetComponentInChildren<Renderer>().sharedMaterial;
-        GetComponentInChildren<Renderer>().sharedMaterial = highlightMaterial;
-        isHighlighted = true;
+    public virtual void AddHighlight() {
+        if (CanHighlight) {
+            originalMaterial = GetComponentInChildren<Renderer>().sharedMaterial;
+            GetComponentInChildren<Renderer>().sharedMaterial = highlightMaterial;
+            isHighlighted = true;
+        }
     }
 
-    public virtual void RemoveHighlight()
-    {
+    public virtual void RemoveHighlight() {
         GetComponentInChildren<Renderer>().sharedMaterial = originalMaterial;
         isHighlighted = false;
     }
 
-    public bool IsHighlighted()
-    {
+    public bool IsHighlighted() {
         return isHighlighted;
     }
 }
