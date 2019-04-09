@@ -149,8 +149,8 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void DropActive() {
         if (activeItem != null) {
-            DetachAndHideItem(activeItem.gameObject);
             activeItem.OnDequip();
+            DetachAndHideItem(activeItem.gameObject);
             if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = activeItem.Id;
@@ -163,8 +163,8 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void DestroyActive() {
         if (activeItem != null) {
-            DetachAndHideItem(activeItem.gameObject);
             activeItem.OnDequip();
+            DetachAndHideItem(activeItem.gameObject);
             state.ActiveId = -1;
             activeItem = null;
         }
@@ -172,8 +172,8 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void DropWeapon() {
         if (wizardWeapon != null) {
-            DetachAndHideItem(wizardWeapon.gameObject);
             wizardWeapon.OnDequip();
+            DetachAndHideItem(wizardWeapon.gameObject);
             if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = wizardWeapon.Id;
@@ -186,8 +186,8 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void DestroyWeapon() {
         if (wizardWeapon != null) {
-            DetachAndHideItem(wizardWeapon.gameObject);
             wizardWeapon.OnDequip();
+            DetachAndHideItem(wizardWeapon.gameObject);
             state.WeaponId = -1;
             wizardWeapon = null;
         }
@@ -195,6 +195,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void DetachAndHideItem(GameObject obj) {
         // Detach and hide without losing references (for instance airborne projectiles may need it).
+        // Need to revisit this later.
         obj.transform.parent = null; 
         obj.transform.localScale = new Vector3(0, 0, 0);
     }

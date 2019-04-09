@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3663963030309648759}
   - component: {fileID: 4569921152564788234}
   - component: {fileID: 1835175106851200316}
+  - component: {fileID: 8788976685038807746}
   m_Layer: 0
   m_Name: HeldPeashooter
   m_TagString: Weapon
@@ -91,6 +92,19 @@ MonoBehaviour:
   LaunchAngle: 0
   LaunchForce: 20
   audioSource: {fileID: 0}
+--- !u!114 &8788976685038807746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547380477446255212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b6d83d7b54bb6408781dc48a02194b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Uses: 150
 --- !u!1 &5472126699166493835
 GameObject:
   m_ObjectHideFlags: 0

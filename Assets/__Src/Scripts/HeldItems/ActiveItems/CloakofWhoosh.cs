@@ -23,11 +23,9 @@ public class CloakofWhoosh : ActiveItem
 
     public override void OnDequip() {
         if (timeout.InTimeout) {
-            Owner.GetComponent<PlayerStatsController>().state.Speed -= 0.2f;
+            DeactivateCloak();
         }
     }
-
-    // TODO: Need on dequip to remove effects that are currently active.
 
     private void ActivateCloak() {
         if (timeout.InTimeout || !cooldown.Ready) return;

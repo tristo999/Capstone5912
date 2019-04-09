@@ -23,7 +23,7 @@ public class ActiveTimeout : MonoBehaviour
     }
 
     private void Update() {
-        if (timeoutTimer > 0.0f) {
+        if (timeoutTimer > 0.0f && transform.parent != null) { // Check if this item is still attached
             timeoutTimer -= Time.deltaTime;
             if (timeoutTimer <= 0.0f) {
                 OnTimeout();
