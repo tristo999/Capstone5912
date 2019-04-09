@@ -82,8 +82,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.000008106232, y: -0.011395335, z: -0.000017166138}
-    m_Extent: {x: 4.999956, y: 0, z: 4.9998274}
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 5, y: 0, z: 5}
   m_DirtyAABB: 0
 --- !u!183 &941091019035268984
 Cloth:
@@ -417,5 +417,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1311b4d2f7cbd7c4fbeb4ca88727a399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Timeout: 0.75
+  Timeout: 0.95
   timeoutTimer: 0
