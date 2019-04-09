@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(WeaponLaunchProjectile))]
 [RequireComponent(typeof(WeaponUses))]
-public class ThrowingKnife : Weapon { 
+public class BigThrowingKnife : Weapon { 
     private WeaponLaunchProjectile launchProj;
     private WeaponUses uses;
 
@@ -15,7 +15,7 @@ public class ThrowingKnife : Weapon {
 
     public override void FireDown() {
         if (!Owner.entity.isOwner) return;
-        launchProj.Launch(0, new Vector3(0, 0, -70));
+        launchProj.Launch(0, new Vector3(0, 0, -200));
         uses.Use();
     }
 
@@ -23,7 +23,11 @@ public class ThrowingKnife : Weapon {
 
     public override void FireRelease() { }
 
-    public override void OnEquip() { }
+    public override void OnEquip() {
+        Owner.GetComponent<PlayerStatsController>().state.Speed -= 0.3f;
+    }
 
-    public override void OnDequip() { }
+    public override void OnDequip() {
+        Owner.GetComponent<PlayerStatsController>().state.Speed += 0.3f;
+    }
 }

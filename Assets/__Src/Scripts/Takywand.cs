@@ -45,6 +45,8 @@ public class Takywand : Weapon
         launchProj.audioSource.PlayOneShot(takyonScream);
     }
 
+    public override void OnDequip() { }
+
     // Update is called once per frame
     void Update()
     {

@@ -33,6 +33,8 @@ public class CloakOfInvisibility : ActiveItem
         timeout.OnTimeout += DeactivateCloak;
     }
 
+    public override void OnDequip() { }
+
     private void ActivateCloak() {
         if (timeout.InTimeout || !cooldown.Ready) return;
         Debug.Log("Activated cloak");

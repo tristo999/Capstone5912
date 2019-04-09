@@ -37,4 +37,6 @@ public class BasicWand : Weapon
     public override void OnEquip() {
 
     }
+
+    public override void OnDequip() { }
 }

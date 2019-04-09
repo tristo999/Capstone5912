@@ -26,6 +26,10 @@ public class Peashooter : Weapon {
     }
 
     public override void OnEquip() {
-        
+        Owner.GetComponent<PlayerStatsController>().state.Speed += 0.2f;
+    }
+
+    public override void OnDequip() {
+        Owner.GetComponent<PlayerStatsController>().state.Speed -= 0.2f;
     }
 }

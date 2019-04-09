@@ -19,4 +19,6 @@ public class TemplateActive : ActiveItem
     public override void OnEquip() {
 
     }
+
+    public override void OnDequip() { }
 }

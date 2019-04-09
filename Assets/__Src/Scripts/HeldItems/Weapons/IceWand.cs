@@ -38,4 +38,6 @@ public class IceWand : Weapon
     {
 
     }
+
+    public override void OnDequip() { }
 }

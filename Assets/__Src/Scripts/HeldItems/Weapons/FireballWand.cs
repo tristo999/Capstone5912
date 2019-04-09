@@ -66,6 +66,8 @@ public class FireballWand : Weapon
         line.positionCount = PointsInArc;
     }
 
+    public override void OnDequip() { }
+
     private float TimeOfImpact(Vector3 dir) {
         float time = 0f;
         bool collided = false;

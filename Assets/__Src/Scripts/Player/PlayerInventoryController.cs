@@ -150,6 +150,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     private void DropActive() {
         if (activeItem != null) {
             DetachAndHideItem(activeItem.gameObject);
+            activeItem.OnDequip();
             if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = activeItem.Id;
@@ -163,6 +164,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     private void DestroyActive() {
         if (activeItem != null) {
             DetachAndHideItem(activeItem.gameObject);
+            activeItem.OnDequip();
             state.ActiveId = -1;
             activeItem = null;
         }
@@ -171,6 +173,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     private void DropWeapon() {
         if (wizardWeapon != null) {
             DetachAndHideItem(wizardWeapon.gameObject);
+            wizardWeapon.OnDequip();
             if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = wizardWeapon.Id;
@@ -184,6 +187,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     private void DestroyWeapon() {
         if (wizardWeapon != null) {
             DetachAndHideItem(wizardWeapon.gameObject);
+            wizardWeapon.OnDequip();
             state.WeaponId = -1;
             wizardWeapon = null;
         }
