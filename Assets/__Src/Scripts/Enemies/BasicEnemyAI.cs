@@ -42,6 +42,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     public float health = 30f;
     public bool inAttackRange;
     public bool inHitRange;
+    public float itemCount = 4;
     public Animator enemyAnimator;
     private bool attackStarted;
     public GameObject chest;
@@ -99,11 +100,18 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     
     private void HealthChanged() {
         if (state.Health <= 0f && !inDeathAnim) {
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < itemCount; i++)
             {
                 Vector3 tossForce = 3000f * gameObject.transform.forward + 4000f * gameObject.transform.up;
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
-                evnt.Position = transform.position + new Vector3(0, 1f, 0f);
+                if (i == 0) 
+                    evnt.Position = transform.position + new Vector3(0, 1f, 0f);
+                else if ( i == 1)
+                    evnt.Position = transform.position + new Vector3(-1, 1f, 1f);
+                else if ( i == 2)
+                    evnt.Position = transform.position + new Vector3(-1, 1f, 0f);
+                else if (i == 3)
+                    evnt.Position = transform.position + new Vector3(0, 1f, -1f);
                 evnt.Force = tossForce;
                 evnt.ItemId = -1;
                 evnt.Send();

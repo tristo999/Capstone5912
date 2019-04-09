@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &290
+--- !u!1 &6865245709369848868
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1414}
-  - component: {fileID: 4307}
-  - component: {fileID: 4306}
+  - component: {fileID: 1328152437217171077}
+  - component: {fileID: 5131450210668718811}
+  - component: {fileID: 2498308160482564782}
   m_Layer: 0
-  m_Name: LobbyNetworkedManager
-  m_TagString: Untagged
+  m_Name: SmallEnemyCluster
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1414
+--- !u!4 &1328152437217171077
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 290}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 6865245709369848868}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4307
+--- !u!114 &5131450210668718811
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 290}
+  m_GameObject: {fileID: 6865245709369848868}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -36112512, guid: 5b00bf8b25851d440940a40ec23344f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneGuid: 
-  _serializerGuid: 470ae1d9-7d00-4bf4-89be-c961f80a1d99
-  _prefabId: 52
+  _serializerGuid: 114c0162-f3cf-4fa3-8e57-2592713ebc43
+  _prefabId: 24
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -61,32 +61,17 @@ MonoBehaviour:
   _entityBehaviourQueryOption: 0
   _entityPriorityCalculatorQueryOption: 0
   _entityReplicationFilterQueryOption: 0
---- !u!114 &4306
+--- !u!114 &2498308160482564782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 290}
+  m_GameObject: {fileID: 6865245709369848868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b08432e614e82c84a83532eb56751f10, type: 3}
+  m_Script: {fileID: 11500000, guid: 9de41a5bbca5fb5479cd9522a8f2ac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerModels:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  PlayerNames:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  ReadyObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  ReadyWheel: {fileID: 0}
-  ServerName: {fileID: 0}
+  enemyList:
+  - {fileID: 293, guid: f33cd61a7ad3a114c8e5266596c08bdf, type: 3}
