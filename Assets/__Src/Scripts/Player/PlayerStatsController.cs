@@ -121,7 +121,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
                 }
                 state.Health -= evnt.Damage;
             }
-            if (evnt.Owner.isOwner) {
+            if (evnt.Owner && evnt.Owner.isOwner) {
                 PlayerUI ui = evnt.Owner.GetComponent<PlayerUI>();
                 ui.AddDamageText(evnt.Damage, evnt.HitPosition);
             }

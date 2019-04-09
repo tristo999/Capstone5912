@@ -11,15 +11,12 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private List<HeldPassive> passiveItems = new List<HeldPassive>();
 
-    private static readonly int EMPTY_ITEM_CAN_DROP = -1;
-    private static readonly int EMPTY_ITEM_NO_DROP = -2; // Using this to fix item uses running out quicky.
-
     public override void Attached() {
         ui = GetComponent<PlayerUI>();
 
         if (entity.isOwner) {
-            state.WeaponId = EMPTY_ITEM_CAN_DROP;
-            state.ActiveId = EMPTY_ITEM_CAN_DROP;
+            state.WeaponId = -1;
+            state.ActiveId = -1;
         }
         
         state.AddCallback("WeaponId", WeaponIdChanged);
@@ -73,9 +70,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void WeaponIdChanged() {
-        if (state.WeaponId != EMPTY_ITEM_NO_DROP) {
-            DropWeapon();
-        }
+        DropWeapon();
         if (entity.hasControl) ui.SetWeapon(state.WeaponId);
 
         if (state.WeaponId >= 0) {
@@ -110,14 +105,17 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void FireDownTrigger() {
+        if (wizardWeapon != null)
             wizardWeapon.FireDown();
     }
 
     private void FireHeldTrigger() {
+        if (wizardWeapon != null)
             wizardWeapon.FireHold();
     }
 
     private void FireReleaseTrigger() {
+        if (wizardWeapon != null)
             wizardWeapon.FireRelease();
     }
 
@@ -142,7 +140,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
             state.WeaponId = pickup.PickupId;
         else if (item.Type == ItemDefinition.ItemType.Active)
             state.ActiveId = pickup.PickupId;
-        if (pickup.PickupId == wizardWeapon.Id) {
+        if (wizardWeapon != null && pickup.PickupId == wizardWeapon.Id) {
             WeaponIdChanged();
         } else if (activeItem != null && pickup.PickupId == activeItem.Id) {
             ActiveIdChanged();
@@ -151,7 +149,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void DropActive() {
         if (activeItem != null) {
-            Destroy(activeItem.gameObject);
+            DetachAndHideItem(activeItem.gameObject);
             if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = activeItem.Id;
@@ -164,14 +162,15 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void DestroyActive() {
         if (activeItem != null) {
-            Destroy(activeItem.gameObject);
-            state.ActiveId = EMPTY_ITEM_NO_DROP;
+            DetachAndHideItem(activeItem.gameObject);
+            state.ActiveId = -1;
+            activeItem = null;
         }
     }
 
     private void DropWeapon() {
         if (wizardWeapon != null) {
-            Destroy(wizardWeapon.gameObject);
+            DetachAndHideItem(wizardWeapon.gameObject);
             if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = wizardWeapon.Id;
@@ -184,8 +183,15 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private void DestroyWeapon() {
         if (wizardWeapon != null) {
-            Destroy(wizardWeapon.gameObject);
-            state.WeaponId = EMPTY_ITEM_NO_DROP;
+            DetachAndHideItem(wizardWeapon.gameObject);
+            state.WeaponId = -1;
+            wizardWeapon = null;
         }
+    }
+
+    private void DetachAndHideItem(GameObject obj) {
+        // Detach and hide without losing references (for instance airborne projectiles may need it).
+        obj.transform.parent = null; 
+        obj.transform.localScale = new Vector3(0, 0, 0);
     }
 }

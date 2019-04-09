@@ -30,7 +30,7 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
         Spawn(evnt.Position, evnt.Force, items[evnt.ItemId].DroppedModel);
     }
 
-    private GameObject Spawn(Vector3 location, Vector3 force, GameObject itemPrefab)
+    public GameObject Spawn(Vector3 location, Vector3 force, GameObject itemPrefab)
     {
         GameObject newItem = BoltNetwork.Instantiate(itemPrefab, location, Quaternion.identity);
         newItem.GetComponent<DroppedItem>().state.ItemId = itemPrefab.GetComponent<DroppedItem>().Id;

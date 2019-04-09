@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(WeaponCooldown))]
 [RequireComponent(typeof(WeaponLaunchProjectile))]
+[RequireComponent(typeof(WeaponUses))]
 public class BasicWand : Weapon
 {
     private WeaponCooldown cooldown;
