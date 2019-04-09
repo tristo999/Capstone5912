@@ -11,12 +11,15 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private List<HeldPassive> passiveItems = new List<HeldPassive>();
 
+    private static readonly int EMPTY_ITEM_CAN_DROP = -1;
+    private static readonly int EMPTY_ITEM_NO_DROP = -2; // Using this to fix item uses running out quicky.
+
     public override void Attached() {
         ui = GetComponent<PlayerUI>();
 
         if (entity.isOwner) {
-            state.WeaponId = -1;
-            state.ActiveId = -1;
+            state.WeaponId = EMPTY_ITEM_CAN_DROP;
+            state.ActiveId = EMPTY_ITEM_CAN_DROP;
         }
         
         state.AddCallback("WeaponId", WeaponIdChanged);
@@ -31,6 +34,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
         state.OnActiveHold += ActiveHoldTrigger;
         state.OnActiveRelease += ActiveReleaseTrigger;
         state.OnDestroyActive += DestroyActive;
+        state.OnDestroyWeapon += DestroyWeapon;
 
         playerHand = GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.RightHand);
         StartCoroutine("WaitForItemManager");
@@ -69,7 +73,9 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void WeaponIdChanged() {
-        DropWeapon();
+        if (state.WeaponId != EMPTY_ITEM_NO_DROP) {
+            DropWeapon();
+        }
         if (entity.hasControl) ui.SetWeapon(state.WeaponId);
 
         if (state.WeaponId >= 0) {
@@ -159,6 +165,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     private void DestroyActive() {
         if (activeItem != null) {
             Destroy(activeItem.gameObject);
+            state.ActiveId = EMPTY_ITEM_NO_DROP;
         }
     }
 
@@ -172,6 +179,13 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
                 evnt.Force = transform.forward * 50f;
                 evnt.Send();
             }
+        }
+    }
+
+    private void DestroyWeapon() {
+        if (wizardWeapon != null) {
+            Destroy(wizardWeapon.gameObject);
+            state.WeaponId = EMPTY_ITEM_NO_DROP;
         }
     }
 }

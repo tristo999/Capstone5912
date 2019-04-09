@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 986467736761545732}
   - component: {fileID: 6037907363681876947}
   - component: {fileID: 8110142123676282328}
+  - component: {fileID: 4992676960669381978}
   m_Layer: 0
   m_Name: HeldBasicWand
   m_TagString: Weapon
@@ -121,6 +122,19 @@ MonoBehaviour:
   LaunchAngle: 0
   LaunchForce: 15
   audioSource: {fileID: 0}
+--- !u!114 &4992676960669381978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547380477446255212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b6d83d7b54bb6408781dc48a02194b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Uses: 10
 --- !u!1001 &7547601895657034351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128,10 +142,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63363818804689890}
     m_Modifications:
-    - target: {fileID: 100000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
-      propertyPath: m_Name
-      value: BasicWandModel
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -175,6 +185,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
+      propertyPath: m_Name
+      value: BasicWandModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}

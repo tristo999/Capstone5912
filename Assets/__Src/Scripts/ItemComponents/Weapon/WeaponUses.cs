@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActiveUses : MonoBehaviour 
+public class WeaponUses : MonoBehaviour 
 {
     public int Uses;
     private int amountUsed = 0;
@@ -14,14 +14,14 @@ public class ActiveUses : MonoBehaviour
     public void Use() {
         amountUsed++;
         if (amountUsed >= Uses) {
-            GetComponentInParent<PlayerInventoryController>().state.OnDestroyActive();
+            GetComponentInParent<PlayerInventoryController>().state.OnDestroyWeapon();
         } else {
             UpdatePlayerUI();
         }
     }
 
     private void UpdatePlayerUI() {
-        GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.SetActiveItemUsesRemaining(Uses - amountUsed);
+        GetComponent<Weapon>().Owner.GetComponent<PlayerStatsController>().ui.SetWeaponUsesRemaining(Uses - amountUsed);
     }
 
 }
