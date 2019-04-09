@@ -196,8 +196,8 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void CheckInteract() {
-        Vector3 boxSize = new Vector3(1f, 1f, 1.2f);
-        Collider[] overlap = Physics.OverlapBox(transform.position + transform.forward * .7f + transform.up * .51f, boxSize / 2, transform.rotation);
+        Vector3 boxSize = new Vector3(1f, 3f, 1.5f);
+        Collider[] overlap = Physics.OverlapBox(transform.position + transform.forward * 1.2f + transform.up * 1.5f, boxSize / 2, transform.rotation);
         InteractiveObject closest = null;
 
         // Check for interactive.
