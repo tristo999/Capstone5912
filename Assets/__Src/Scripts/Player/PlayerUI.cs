@@ -116,9 +116,9 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     public void AddDamageText(float damage, Vector3 position3d, bool showStatName = false) {
         if (damage > 0) {
-            AddFloatingText($"-{(int)Math.Ceiling(damage)}{(showStatName ? " health" : "")}", position3d, Color.red);
+            AddFloatingText($"-{(int)Math.Round(damage)}{(showStatName ? " health" : "")}", position3d, Color.red);
         } else {
-            AddFloatingText($"+{(int)Math.Ceiling(-damage)}{(showStatName ? " health" : "")}", position3d, Color.green);
+            AddFloatingText($"+{(int)Math.Round(-damage)}{(showStatName ? " health" : "")}", position3d, Color.green);
         }
     }
 
@@ -147,9 +147,9 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     public void AddStatModText(float modAmount, string statName, Vector3 position3d) {
         if (modAmount >= 0) {
-            AddFloatingText($"+{(int)Math.Ceiling(modAmount * 100)}% {statName}", position3d, new Color(0, 0.75f, 0));
+            AddFloatingText($"+{(int)Math.Round(modAmount * 100)}% {statName}", position3d, new Color(0, 0.75f, 0));
         } else {
-            AddFloatingText($"-{(int)Math.Ceiling(-modAmount * 100)}% {statName}", position3d, new Color(0.75f, 0, 0));
+            AddFloatingText($"-{(int)Math.Round(-modAmount * 100)}% {statName}", position3d, new Color(0.75f, 0, 0));
         }
     }
 

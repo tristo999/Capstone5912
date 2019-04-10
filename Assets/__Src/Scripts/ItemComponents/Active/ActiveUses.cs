@@ -14,6 +14,10 @@ public class ActiveUses : MonoBehaviour
     public void Use() {
         AmountUsed++;
         if (AmountUsed >= Uses) {
+            if (Uses > 1) {
+                GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("Active exhausted!", GetComponent<ActiveItem>().Owner.transform.position);
+            }
+
             GetComponentInParent<PlayerInventoryController>().state.OnDestroyActive();
         } else {
             UpdatePlayerUI();
