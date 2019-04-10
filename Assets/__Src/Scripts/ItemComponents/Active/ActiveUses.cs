@@ -5,15 +5,15 @@ using UnityEngine;
 public class ActiveUses : MonoBehaviour 
 {
     public int Uses;
-    private int amountUsed = 0;
+    public int AmountUsed { get; set; } = 0;
 
     void Start() {
         UpdatePlayerUI();
     }
 
     public void Use() {
-        amountUsed++;
-        if (amountUsed >= Uses) {
+        AmountUsed++;
+        if (AmountUsed >= Uses) {
             GetComponentInParent<PlayerInventoryController>().state.OnDestroyActive();
         } else {
             UpdatePlayerUI();
@@ -21,7 +21,7 @@ public class ActiveUses : MonoBehaviour
     }
 
     private void UpdatePlayerUI() {
-        GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.SetActiveItemUsesRemaining(Uses - amountUsed);
+        GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.SetActiveItemUsesRemaining(Uses - AmountUsed);
     }
 
 }

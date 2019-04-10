@@ -5,15 +5,15 @@ using UnityEngine;
 public class WeaponUses : MonoBehaviour 
 {
     public int Uses;
-    private int amountUsed = 0;
+    public int AmountUsed { get; set; } = 0;
 
     void Start() {
         UpdatePlayerUI();
     }
 
     public void Use() {
-        amountUsed++;
-        if (amountUsed >= Uses) {
+        AmountUsed++;
+        if (AmountUsed >= Uses) {
             GetComponentInParent<PlayerInventoryController>().state.OnDestroyWeapon();
         } else {
             UpdatePlayerUI();
@@ -21,7 +21,7 @@ public class WeaponUses : MonoBehaviour
     }
 
     private void UpdatePlayerUI() {
-        GetComponent<Weapon>().Owner.GetComponent<PlayerStatsController>().ui.SetWeaponUsesRemaining(Uses - amountUsed);
+        GetComponent<Weapon>().Owner.GetComponent<PlayerStatsController>().ui.SetWeaponUsesRemaining(Uses - AmountUsed);
     }
 
 }
