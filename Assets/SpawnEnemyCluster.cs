@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnEnemyCluster : Bolt.EntityEventListener<IEnemyClusterState>
+public class SpawnEnemyCluster : Bolt.EntityEventListener<IEnemyClusterS>
 {
     public List<GameObject> enemyList;
     private void Awake()

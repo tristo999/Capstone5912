@@ -115,6 +115,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1400}
     m_Modifications:
+    - target: {fileID: 100002, guid: 5271338285a813b4291c826aeb9e807d, type: 3}
+      propertyPath: m_Name
+      value: BigThrowingKnife
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 5271338285a813b4291c826aeb9e807d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.55
@@ -158,10 +162,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 5271338285a813b4291c826aeb9e807d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 5271338285a813b4291c826aeb9e807d, type: 3}
-      propertyPath: m_Name
-      value: BigThrowingKnife
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5271338285a813b4291c826aeb9e807d, type: 3}

@@ -3539,6 +3539,44 @@
       ]
     },
     {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "PlayerId",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeInteger, bolt.compiler",
+            "MaxValue": 255
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        },
+        {
+          "Name": "Name",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeString, bolt.compiler",
+            "MaxLength": 1
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "Name": "PlayerNameChange",
+      "Guid": "2050f6c7-7914-4668-8c3b-2065a022b09e",
+      "Groups": [
+        "WizardFight"
+      ]
+    },
+    {
       "$type": "Bolt.Compiler.StateDefinition, bolt.compiler",
       "Properties": [],
       "PacketMaxBits": 512,
@@ -3608,8 +3646,8 @@
           "BitsRequired": 8
         }
       },
-      "Name": "EnemyClusterState",
-      "Guid": "114c0162-f3cf-4fa3-8e57-2592713ebc43",
+      "Name": "EnemyClusterS",
+      "Guid": "493a9bbf-a592-464a-805b-281f1df01165",
       "Groups": []
     }
   ],
