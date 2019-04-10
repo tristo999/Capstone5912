@@ -27,16 +27,16 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
         if (evnt.ItemId == -1) {
             evnt.ItemId = Random.Range(0, items.Count);
         }
-        Spawn(evnt.Position, evnt.Force, items[evnt.ItemId].DroppedModel);
+        Spawn(evnt.Position, evnt.Force, items[evnt.ItemId].DroppedModel, evnt.UsesUsed);
     }
 
-    public GameObject Spawn(Vector3 location, Vector3 force, GameObject itemPrefab)
+    public GameObject Spawn(Vector3 location, Vector3 force, GameObject itemPrefab, int usesUsed = 0)
     {
         GameObject newItem = BoltNetwork.Instantiate(itemPrefab, location, Quaternion.identity);
         newItem.GetComponent<DroppedItem>().state.ItemId = itemPrefab.GetComponent<DroppedItem>().Id;
+        newItem.GetComponent<DroppedItem>().UsesUsed = usesUsed;
         newItem.GetComponent<Rigidbody>().AddForce(force);
         newItem.GetComponent<Rigidbody>().AddTorque(force.magnitude / 4.0f * new Vector3(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)).normalized);
-
         return newItem;
     }
 

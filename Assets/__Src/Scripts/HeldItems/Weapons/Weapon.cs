@@ -9,5 +9,4 @@ public abstract class Weapon : HeldItem
     public abstract void FireDown();
     public abstract void FireHold();
     public abstract void FireRelease();
-
 }

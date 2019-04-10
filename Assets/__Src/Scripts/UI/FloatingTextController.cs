@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DamageTextController : MonoBehaviour
+public class FloatingTextController : MonoBehaviour
 {
-    private static float lifeDuration = 1.3f;
-    private static float fadeDuration = 0.3f;
-    private static Vector2 velocity = new Vector2(0, 0.002f);
+    private static float lifeDuration = 1.1f;
+    private static float fadeDuration = 0.4f;
+    private static Vector2 velocity = new Vector2(0, 0.0025f);
 
     private Vector3 position3d;
     private Vector2 positionOffset = Vector2.zero;
-    private Camera camera;
+    private Camera cam;
 
     public void AddToCanvas(Canvas canvas) {
         transform.SetParent(canvas.transform, false);
@@ -19,16 +19,20 @@ public class DamageTextController : MonoBehaviour
         Invoke("RemoveSelf", lifeDuration);
     }
 
-    public void SetPosition(Vector3 hitPosition3d, Camera cam) {
-        camera = cam;
+    public void SetPosition3d(Vector3 hitPosition3d, Camera cam) {
+        this.cam = cam;
         position3d = hitPosition3d;
 
-        transform.rotation = Quaternion.LookRotation(camera.transform.forward);
+        transform.rotation = Quaternion.LookRotation(cam.transform.forward);
         UpdatePosition();
     }
 
-    public void SetDamage(float damage) {
-        GetComponent<TextMeshProUGUI>().text = "-" + damage;
+    public void SetColor(Color color) {
+        GetComponent<TextMeshProUGUI>().color = color;
+    }
+
+    public void SetText(string text) {
+        GetComponent<TextMeshProUGUI>().text = text;
     }
 
     void Update() {
@@ -38,7 +42,7 @@ public class DamageTextController : MonoBehaviour
     private void UpdatePosition() {
         positionOffset += velocity * Time.timeScale;
 
-        Vector2 viewportPoint = (Vector2)camera.WorldToViewportPoint(position3d) + positionOffset;
+        Vector2 viewportPoint = (Vector2)cam.WorldToViewportPoint(position3d) + positionOffset;
         RectTransform rectTransform = GetComponent<RectTransform>();
         rectTransform.anchorMin = viewportPoint;
         rectTransform.anchorMax = viewportPoint;

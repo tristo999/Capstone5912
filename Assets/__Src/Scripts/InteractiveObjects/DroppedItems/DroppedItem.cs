@@ -7,6 +7,7 @@ public abstract class DroppedItem : InteractiveObject
 {
 
     public int Id { get; set; }
+    public int UsesUsed { get; set; } = 0;
 
     public GameObject ItemNameText;
     private TextMeshPro nameText;

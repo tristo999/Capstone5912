@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(WeaponLaunchProjectile))]
 [RequireComponent(typeof(WeaponUses))]
 public class Peashooter : Weapon {
+    private static readonly float speedMod = 0.15f;
+
     private WeaponCooldown cooldown;
     private WeaponLaunchProjectile launchProj;
     private WeaponUses uses;
@@ -30,10 +32,10 @@ public class Peashooter : Weapon {
     }
 
     public override void OnEquip() {
-        Owner.GetComponent<PlayerStatsController>().state.Speed += 0.2f;
+        Owner.GetComponent<PlayerStatsController>().state.Speed += speedMod;
     }
 
     public override void OnDequip() {
-        Owner.GetComponent<PlayerStatsController>().state.Speed -= 0.2f;
+        Owner.GetComponent<PlayerStatsController>().state.Speed -= speedMod;
     }
 }

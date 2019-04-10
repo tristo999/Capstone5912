@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fefb70c7568dea4e8c5ba3aa027b199, type: 3}
+  m_Name: Hellth Potion
+  m_EditorClassIdentifier: 
+  ItemName: Hellth Potion
+  ItemDescription: Nothing to see here... just a normal health potion
+  ItemId: 0
+  Type: 2
+  Rarity: 2
+  DroppedModel: {fileID: 284, guid: f972c0611b3cbaa40a4abd602e5114ce, type: 3}
+  DroppedScript: {fileID: 0}
+  HeldModel: {fileID: 8815563781034413229, guid: d1be6d19d28f18049ae7500233a9ab73,
+    type: 3}
+  HeldScript: {fileID: 0}
+  SpeedModifier: 0
+  HealthModifier: -10
+  FireRateModifier: 0.2
+  ProjectileSpeedModifier: 0
+  DamageModifier: 0

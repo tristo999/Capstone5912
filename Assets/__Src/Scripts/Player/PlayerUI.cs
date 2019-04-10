@@ -23,7 +23,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    public GameObject damageTextPrefab;
+    public GameObject floatingTextPrefab;
 
     private static readonly string EMPTY_SLOT_TEXT = "Empty";
 
@@ -106,11 +106,24 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    public void AddDamageText(float damage, Vector3 hitPosition) {
-        DamageTextController damageText = Instantiate(damageTextPrefab).GetComponent<DamageTextController>();
-        damageText.AddToCanvas(canvas);
-        damageText.SetPosition(hitPosition, SplitscreenManager.instance.GetEntityCamera(entity).camera);
-        damageText.SetDamage(damage);
+    public void AddSpeedText(float speed, Vector3 position3d) { AddStatModText(speed, "speed", position3d); }
+
+    public void AddFireRateText(float fireRate, Vector3 position3d) { AddStatModText(fireRate, "fire rate", position3d); }
+
+    public void AddProjectileSpeedText(float projectileSpeed, Vector3 position3d) { AddStatModText(projectileSpeed, "projectile speed", position3d); }
+
+    public void AddProjectileDamageText(float projectileDamage, Vector3 position3d) { AddStatModText(projectileDamage, "damage", position3d); }
+
+    public void AddDamageText(float damage, Vector3 position3d, bool showStatName = false) {
+        if (damage > 0) {
+            AddFloatingText($"-{(int)Math.Round(damage)}{(showStatName ? " health" : "")}", position3d, Color.red);
+        } else {
+            AddFloatingText($"+{(int)Math.Round(-damage)}{(showStatName ? " health" : "")}", position3d, Color.green);
+        }
+    }
+
+    public void AddFloatingMessageText(string message, Vector3 position3d) {
+        AddFloatingText(message, position3d, Color.white);
     }
 
     public void DisplayMessage(string message, float displayInterval, float displayIntroDelay = 0f, TweenCallback callback = null) {
@@ -130,6 +143,22 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     private void Update() { 
         UpdateCompassDirection();
+    }
+
+    public void AddStatModText(float modAmount, string statName, Vector3 position3d) {
+        if (modAmount >= 0) {
+            AddFloatingText($"+{(int)Math.Round(modAmount * 100)}% {statName}", position3d, new Color(0, 0.75f, 0));
+        } else {
+            AddFloatingText($"-{(int)Math.Round(-modAmount * 100)}% {statName}", position3d, new Color(0.75f, 0, 0));
+        }
+    }
+
+    private void AddFloatingText(string message, Vector3 position3d, Color color) {
+        FloatingTextController text = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
+        text.AddToCanvas(canvas);
+        text.SetPosition3d(position3d, SplitscreenManager.instance.GetEntityCamera(entity).camera);
+        text.SetColor(color);
+        text.SetText(message);
     }
 
     private void UpdateRechargeImage(Image image, float percentChargeRemaining) {

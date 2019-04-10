@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using System;
 using UnityEngine;
 
 public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
@@ -9,8 +10,15 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     public Canvas HealthCanvas;
     public float StartingHealth;
     public Renderer robeAndHat;
+    [HideInInspector]
     public PlayerUI ui;
+
     private PlayerMovementController movementController;
+
+    private float oldSpeed;
+    private float oldFireRate;
+    private float oldProjectileSpeed;
+    private float oldProjectileDamage;
 
     public override void Attached() {
         movementController = GetComponent<PlayerMovementController>();
@@ -23,6 +31,8 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
             state.ProjectileDamage = 1f;
             state.Health = StartingHealth;
             state.PlayerId = -1;
+
+            StoreOldStats();
         }
 
         state.AddCallback("Health", HealthChanged);
@@ -95,19 +105,23 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void SpeedChanged() {
-
+        float change = state.Speed - oldSpeed;
+        if (entity.isOwner && Math.Abs(change) > 0.0001f) ui.AddSpeedText(change, transform.position);
     }
 
     private void FireRateChanged() {
-
+        float change = state.FireRate - oldFireRate;
+        if (entity.isOwner && Math.Abs(change) > 0.0001f) ui.AddFireRateText(change, transform.position);
     }
 
     private void ProjectileSpeedChanged() {
-
+        float change = state.ProjectileSpeed - oldProjectileSpeed;
+        if (entity.isOwner && Math.Abs(change) > 0.0001f) ui.AddProjectileSpeedText(change, transform.position);
     }
 
     private void ProjectileDamageChanged() {
-
+        float change = state.ProjectileDamage - oldProjectileDamage;
+        if (entity.isOwner && Math.Abs(change) > 0.0001f) ui.AddProjectileDamageText(change, transform.position);
     }
 
     public override void OnEvent(DamageEntity evnt) {
@@ -125,6 +139,21 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
                 PlayerUI ui = evnt.Owner.GetComponent<PlayerUI>();
                 ui.AddDamageText(evnt.Damage, evnt.HitPosition);
             }
+        }
+    }
+
+    // Store stat changes relative to previous update to handle proper 
+    // item swap comparisons (excludes health value special case).
+    private void StoreOldStats() {
+        oldSpeed = state.Speed;
+        oldFireRate = state.FireRate;
+        oldProjectileSpeed = state.ProjectileSpeed;
+        oldProjectileDamage = state.ProjectileDamage;
+    }
+
+    void LateUpdate() {
+        if (entity.isOwner) {
+            StoreOldStats();
         }
     }
 }

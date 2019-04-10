@@ -1,51 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeldPassive : HeldItem
-{
-    private float speed;
-    private float health;
-    private float damage;
+public class HeldPassive : HeldItem {
+    protected ItemDefinition item;
 
     public virtual void OnEquip() {
-        GameObject obj = this.GetComponent<GameObject>();
-        ItemDefinition item = ItemManager.Instance.items[this.Id];
-        speed = item.SpeedModifier;
-        health = item.HealthModifier;
-        damage = item.DamageModifier;
+        GameObject obj = GetComponent<GameObject>();
+        item = ItemManager.Instance.items[Id];
 
-        // modify state with all modifiers
-        // speed
-        if(speed > 0)
-        {
-            // timed speed mod
-            Owner.state.Speed += speed;
-            float time = 0;
-            while(time < 10)
-            {
-                time += Time.deltaTime;
-            }
-            Owner.state.Speed -= speed;
+        if (!FloatRoughlyZero(item.HealthModifier)) {
+            Owner.state.Health += item.HealthModifier;
+            Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(-item.HealthModifier, Owner.transform.position, true);
         }
+        if (!FloatRoughlyZero(item.SpeedModifier)) Owner.state.Speed += item.SpeedModifier;
+        if (!FloatRoughlyZero(item.FireRateModifier)) Owner.state.FireRate += item.FireRateModifier;
+        if (!FloatRoughlyZero(item.ProjectileSpeedModifier)) Owner.state.ProjectileSpeed += item.ProjectileSpeedModifier;
+        if (!FloatRoughlyZero(item.DamageModifier)) Owner.state.ProjectileDamage += item.DamageModifier;
 
-        // health
-        if(health > 0)
-        {
-            // add to health
-            Owner.state.Health += health;
-        }
-
-        // damage
-        if(damage > 0)
-        {
-            // take damage
-            Owner.state.Health -= damage;
-        }
-
-        //TODO add equip animation??
-
-        // destroy current
         Destroy(obj);
+    }
+
+    private bool FloatRoughlyZero(float val) {
+        return Math.Abs(val) < 0.0001f;
     }
 }

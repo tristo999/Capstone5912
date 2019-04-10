@@ -66,7 +66,11 @@ public class FireballWand : Weapon
         line.positionCount = PointsInArc;
     }
 
-    public override void OnDequip() { }
+    public override void OnDequip() {
+        if (beganFiring) {
+            Owner.state.Speed -= 0.75f;
+        }
+    }
 
     private float TimeOfImpact(Vector3 dir) {
         float time = 0f;

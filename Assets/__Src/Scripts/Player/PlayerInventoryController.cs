@@ -11,6 +11,8 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private List<HeldPassive> passiveItems = new List<HeldPassive>();
 
+    private int storedUsesUsed = 0; // TEMP FIX - Can't pass data into callbacks and need this done right now. 
+
     public override void Attached() {
         ui = GetComponent<PlayerUI>();
 
@@ -84,6 +86,10 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
             newWep.GetComponent<HeldItem>().Id = state.WeaponId;
             wizardWeapon = newWep.GetComponent<Weapon>();
             wizardWeapon.Owner = this;
+
+            WeaponUses uses = wizardWeapon.GetComponent<WeaponUses>();
+            if (uses) uses.AmountUsed = storedUsesUsed;
+
             wizardWeapon.OnEquip();
         }
     }
@@ -100,6 +106,10 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
             newActive.GetComponent<HeldItem>().Id = state.ActiveId;
             activeItem = newActive.GetComponent<ActiveItem>();
             activeItem.Owner = this;
+
+            ActiveUses uses = activeItem.GetComponent<ActiveUses>();
+            if (uses) uses.AmountUsed = storedUsesUsed;
+
             activeItem.OnEquip();
         }
     }
@@ -136,10 +146,19 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     public override void OnEvent(PlayerGotItem pickup) {
         ItemDefinition item = ItemManager.Instance.items[pickup.PickupId];
-        if (item.Type == ItemDefinition.ItemType.Weapon)
+
+        storedUsesUsed = pickup.UsesUsed; // Hack to pass data into IdChanged callbacks. 
+
+        if (item.Type == ItemDefinition.ItemType.Weapon) {
             state.WeaponId = pickup.PickupId;
-        else if (item.Type == ItemDefinition.ItemType.Active)
+        } else if (item.Type == ItemDefinition.ItemType.Active) {
             state.ActiveId = pickup.PickupId;
+        } else if (item.Type == ItemDefinition.ItemType.Passive) {
+            state.NewPassiveId = pickup.PickupId;
+            AddPassive();
+        }
+
+
         if (wizardWeapon != null && pickup.PickupId == wizardWeapon.Id) {
             WeaponIdChanged();
         } else if (activeItem != null && pickup.PickupId == activeItem.Id) {
@@ -150,14 +169,20 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     private void DropActive() {
         if (activeItem != null) {
             activeItem.OnDequip();
-            DetachAndHideItem(activeItem.gameObject);
             if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = activeItem.Id;
                 evnt.Position = transform.position;
                 evnt.Force = transform.forward;
+
+                ActiveUses uses = activeItem.GetComponent<ActiveUses>();
+                if (uses != null) {
+                    evnt.UsesUsed = uses.AmountUsed;
+                }
+
                 evnt.Send();
             }
+            DetachAndHideItem(activeItem.gameObject);
         }
     }
 
@@ -173,14 +198,20 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     private void DropWeapon() {
         if (wizardWeapon != null) {
             wizardWeapon.OnDequip();
-            DetachAndHideItem(wizardWeapon.gameObject);
             if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = wizardWeapon.Id;
                 evnt.Position = transform.position + transform.forward * .4f + transform.up * .5f;
                 evnt.Force = transform.forward * 50f;
+
+                WeaponUses uses = wizardWeapon.GetComponent<WeaponUses>();
+                if (uses != null) {
+                    evnt.UsesUsed = uses.AmountUsed;
+                }
+
                 evnt.Send();
             }
+            DetachAndHideItem(wizardWeapon.gameObject);
         }
     }
 
