@@ -56,6 +56,7 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
     }
 
     private void DealDamage(GameObject target) {
+        if (target.GetComponent<BoltEntity>() == null) return;
         DamageEntity DamageEntity = DamageEntity.Create(target.GetComponent<BoltEntity>());
         DamageEntity.Damage = damage;
         if (entity.isOwner) {

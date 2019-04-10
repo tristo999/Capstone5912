@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 09e7d6ee-72ec-4b8e-ad31-100dbed331a8
-  _prefabId: 48
+  _prefabId: 49
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -115,14 +115,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1407}
     m_Modifications:
-    - target: {fileID: 100000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
-      propertyPath: m_Name
-      value: FireballWandModel
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
-      propertyPath: m_TagString
-      value: Interactive
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -178,6 +170,14 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
+      propertyPath: m_Name
+      value: FireballWandModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
+      propertyPath: m_TagString
+      value: Interactive
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
