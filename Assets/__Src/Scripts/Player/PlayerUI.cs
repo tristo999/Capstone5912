@@ -106,19 +106,19 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    public void AddSpeedText(float speed, Vector3 position3d) { AddStatModText(speed, "Speed", position3d); }
+    public void AddSpeedText(float speed, Vector3 position3d) { AddStatModText(speed, "speed", position3d); }
 
-    public void AddFireRateText(float fireRate, Vector3 position3d) { AddStatModText(fireRate, "Fire Rate", position3d); }
+    public void AddFireRateText(float fireRate, Vector3 position3d) { AddStatModText(fireRate, "fire rate", position3d); }
 
-    public void AddProjectileSpeedText(float projectileSpeed, Vector3 position3d) { AddStatModText(projectileSpeed, "Projectile Speed", position3d); }
+    public void AddProjectileSpeedText(float projectileSpeed, Vector3 position3d) { AddStatModText(projectileSpeed, "projectile speed", position3d); }
 
-    public void AddProjectileDamageText(float projectileDamage, Vector3 position3d) { AddStatModText(projectileDamage, "Damage", position3d); }
+    public void AddProjectileDamageText(float projectileDamage, Vector3 position3d) { AddStatModText(projectileDamage, "damage", position3d); }
 
-    public void AddDamageText(float damage, Vector3 position3d) {
+    public void AddDamageText(float damage, Vector3 position3d, bool showStatName = false) {
         if (damage > 0) {
-            AddFloatingText("-" + (int)damage, position3d, Color.red);
+            AddFloatingText($"-{(int)Math.Ceiling(damage)}{(showStatName ? " health" : "")}", position3d, Color.red);
         } else {
-            AddFloatingText("+" + (int)damage, position3d, Color.green);
+            AddFloatingText($"+{(int)Math.Ceiling(-damage)}{(showStatName ? " health" : "")}", position3d, Color.green);
         }
     }
 
@@ -147,9 +147,9 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     public void AddStatModText(float modAmount, string statName, Vector3 position3d) {
         if (modAmount >= 0) {
-            AddFloatingText($"+{(int)(modAmount * 100)}% {statName}", position3d, new Color(0, 0.75f, 0));
+            AddFloatingText($"+{(int)Math.Ceiling(modAmount * 100)}% {statName}", position3d, new Color(0, 0.75f, 0));
         } else {
-            AddFloatingText($"-{(int)(modAmount * 100)}% {statName}", position3d, new Color(0.75f, 0, 0));
+            AddFloatingText($"-{(int)Math.Ceiling(-modAmount * 100)}% {statName}", position3d, new Color(0.75f, 0, 0));
         }
     }
 

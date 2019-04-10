@@ -5,9 +5,9 @@ using TMPro;
 
 public class FloatingTextController : MonoBehaviour
 {
-    private static float lifeDuration = 1.3f;
-    private static float fadeDuration = 0.3f;
-    private static Vector2 velocity = new Vector2(0, 0.002f);
+    private static float lifeDuration = 1.1f;
+    private static float fadeDuration = 0.4f;
+    private static Vector2 velocity = new Vector2(0, 0.0025f);
 
     private Vector3 position3d;
     private Vector2 positionOffset = Vector2.zero;

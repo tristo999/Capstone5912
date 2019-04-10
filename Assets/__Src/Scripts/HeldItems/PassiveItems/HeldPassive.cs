@@ -10,9 +10,9 @@ public class HeldPassive : HeldItem {
         GameObject obj = GetComponent<GameObject>();
         item = ItemManager.Instance.items[Id];
 
-        if (item.HealthModifier > 0) {
+        if (!FloatRoughlyZero(item.HealthModifier)) {
             Owner.state.Health += item.HealthModifier;
-            Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(-item.HealthModifier, Owner.transform.position);
+            Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(-item.HealthModifier, Owner.transform.position, true);
         }
         if (!FloatRoughlyZero(item.SpeedModifier)) Owner.state.Speed += item.SpeedModifier;
         if (!FloatRoughlyZero(item.FireRateModifier)) Owner.state.FireRate += item.FireRateModifier;
