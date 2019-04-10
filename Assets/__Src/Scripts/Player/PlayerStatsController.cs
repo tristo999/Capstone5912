@@ -9,6 +9,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     public Canvas HealthCanvas;
     public float StartingHealth;
     public Renderer robeAndHat;
+    [HideInInspector]
     public PlayerUI ui;
     private PlayerMovementController movementController;
 

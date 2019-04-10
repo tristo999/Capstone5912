@@ -23,7 +23,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    public GameObject damageTextPrefab;
+    public GameObject floatingTextPrefab;
 
     private static readonly string EMPTY_SLOT_TEXT = "Empty";
 
@@ -106,11 +106,28 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
+    public void AddStatText(string message, Vector3 hitPosition) {
+        FloatingTextController statText = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
+        statText.AddToCanvas(canvas);
+        statText.SetPosition3d(hitPosition, SplitscreenManager.instance.GetEntityCamera(entity).camera);
+        statText.SetColor(Color.white);
+        statText.SetText(message);
+    }
+
+    public void AddHealText(float healAmount, Vector3 hitPosition) {
+        FloatingTextController healText = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
+        healText.AddToCanvas(canvas);
+        healText.SetPosition3d(hitPosition, SplitscreenManager.instance.GetEntityCamera(entity).camera);
+        healText.SetColor(Color.green);
+        healText.SetText("+" + healAmount);
+    }
+
     public void AddDamageText(float damage, Vector3 hitPosition) {
-        DamageTextController damageText = Instantiate(damageTextPrefab).GetComponent<DamageTextController>();
+        FloatingTextController damageText = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
         damageText.AddToCanvas(canvas);
-        damageText.SetPosition(hitPosition, SplitscreenManager.instance.GetEntityCamera(entity).camera);
-        damageText.SetDamage(damage);
+        damageText.SetPosition3d(hitPosition, SplitscreenManager.instance.GetEntityCamera(entity).camera);
+        damageText.SetColor(Color.red);
+        damageText.SetText("-" + damage);
     }
 
     public void DisplayMessage(string message, float displayInterval, float displayIntroDelay = 0f, TweenCallback callback = null) {

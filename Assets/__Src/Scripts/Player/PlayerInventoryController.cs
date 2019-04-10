@@ -149,10 +149,15 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
         storedUsesUsed = pickup.UsesUsed; // Hack to pass data into IdChanged callbacks. 
 
-        if (item.Type == ItemDefinition.ItemType.Weapon)
+        if (item.Type == ItemDefinition.ItemType.Weapon) {
             state.WeaponId = pickup.PickupId;
-        else if (item.Type == ItemDefinition.ItemType.Active)
+        } else if (item.Type == ItemDefinition.ItemType.Active) {
             state.ActiveId = pickup.PickupId;
+        } else if (item.Type == ItemDefinition.ItemType.Passive) {
+            state.NewPassiveId = pickup.PickupId;
+            AddPassive();
+        }
+
 
         if (wizardWeapon != null && pickup.PickupId == wizardWeapon.Id) {
             WeaponIdChanged();

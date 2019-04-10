@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,43 +10,33 @@ public class HeldPassive : HeldItem
     private float damage;
 
     public virtual void OnEquip() {
-        GameObject obj = this.GetComponent<GameObject>();
-        ItemDefinition item = ItemManager.Instance.items[this.Id];
+        GameObject obj = GetComponent<GameObject>();
+        ItemDefinition item = ItemManager.Instance.items[Id];
         speed = item.SpeedModifier;
         health = item.HealthModifier;
         damage = item.DamageModifier;
 
-        // modify state with all modifiers
-        // speed
-        if(speed > 0)
-        {
-            // timed speed mod
+        if(speed < -0.001 || speed > 0.001) { 
             Owner.state.Speed += speed;
-            float time = 0;
-            while(time < 10)
-            {
-                time += Time.deltaTime;
-            }
-            Owner.state.Speed -= speed;
+
+            Owner.GetComponent<PlayerStatsController>().ui.AddStatText(
+                $"{(speed >= 0 ? "+" : "-")}{speed * 100}% speed", Owner.transform.position);
         }
 
-        // health
-        if(health > 0)
-        {
-            // add to health
+        if(health > 0) { 
             Owner.state.Health += health;
+
+            Owner.GetComponent<PlayerStatsController>().ui.AddHealText(health, Owner.transform.position);
         }
 
-        // damage
-        if(damage > 0)
-        {
-            // take damage
+        if(damage > 0) { 
             Owner.state.Health -= damage;
+
+            Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(damage, Owner.transform.position);
         }
 
-        //TODO add equip animation??
+        Debug.Log("CONSUMED");
 
-        // destroy current
         Destroy(obj);
     }
 }
