@@ -3,40 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeldPassive : HeldItem
-{
-    private float speed;
-    private float health;
-    private float damage;
+public class HeldPassive : HeldItem {
+    protected ItemDefinition item;
 
     public virtual void OnEquip() {
         GameObject obj = GetComponent<GameObject>();
-        ItemDefinition item = ItemManager.Instance.items[Id];
-        speed = item.SpeedModifier;
-        health = item.HealthModifier;
-        damage = item.DamageModifier;
+        item = ItemManager.Instance.items[Id];
 
-        if(speed < -0.001 || speed > 0.001) { 
-            Owner.state.Speed += speed;
-
-            Owner.GetComponent<PlayerStatsController>().ui.AddStatText(
-                $"{(speed >= 0 ? "+" : "-")}{speed * 100}% speed", Owner.transform.position);
+        if (item.HealthModifier > 0) {
+            Owner.state.Health += item.HealthModifier;
+            Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(-item.HealthModifier, Owner.transform.position);
         }
-
-        if(health > 0) { 
-            Owner.state.Health += health;
-
-            Owner.GetComponent<PlayerStatsController>().ui.AddHealText(health, Owner.transform.position);
-        }
-
-        if(damage > 0) { 
-            Owner.state.Health -= damage;
-
-            Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(damage, Owner.transform.position);
-        }
-
-        Debug.Log("CONSUMED");
+        if (!FloatRoughlyZero(item.SpeedModifier)) Owner.state.Speed += item.SpeedModifier;
+        if (!FloatRoughlyZero(item.FireRateModifier)) Owner.state.FireRate += item.FireRateModifier;
+        if (!FloatRoughlyZero(item.ProjectileSpeedModifier)) Owner.state.ProjectileSpeed += item.ProjectileSpeedModifier;
+        if (!FloatRoughlyZero(item.DamageModifier)) Owner.state.ProjectileDamage += item.DamageModifier;
 
         Destroy(obj);
+    }
+
+    private bool FloatRoughlyZero(float val) {
+        return Math.Abs(val) < 0.0001f;
     }
 }
