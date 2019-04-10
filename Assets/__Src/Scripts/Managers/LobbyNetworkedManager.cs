@@ -11,7 +11,7 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
     public static LobbyNetworkedManager Instance;
 
     public List<GameObject> PlayerModels = new List<GameObject>();
-    public List<TextMeshProUGUI> PlayerNames = new List<TextMeshProUGUI>();
+    public List<TMP_InputField> PlayerNames = new List<TMP_InputField>();
     public List<GameObject> ReadyObjects = new List<GameObject>();
     public Image ReadyWheel;
     public TMP_InputField ServerName;
@@ -29,9 +29,7 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
         if (entity.isOwner) {
             Debug.Log("Setting Max Players");
             state.MaxPlayers = 4;
-        } else {
-            // Add some stuff to change the lobby name for clients later.
-            ServerName.interactable = false;
+            ServerName.interactable = true;
         }
 
         state.AddCallback("Players[]", PlayersChanged);
@@ -39,7 +37,7 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
     }
 
     public override void SimulateOwner() {
-        if (state.NumPlayers > 0 && state.Players.All(p => p.Ready ||  !p.Present)) {
+        if (state.NumPlayers > 0 && state.Players.All(p => p.Ready || !p.Present)) {
             state.GameStarting = true;
         } else if (state.GameStarting) {
             state.GameStarting = false;
@@ -68,7 +66,7 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
                     ReadyWheel.fillAmount = (BoltNetwork.ServerFrame - waitFrame) / 120f;
             }
         }
-        
+
         foreach (Player player in ReInput.players.Players) {
             if (!player.isPlaying && player.GetAnyButton()) {
                 AttemptAddPlayer(player);
@@ -97,13 +95,11 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
             lobbyProtocol.lobbyName = ServerName.text;
             BoltNetwork.SetServerInfo(ServerName.text, lobbyProtocol);
         }
-        for (int i = 0; i < 8; i++) {
-            if (i < state.NumPlayers) {
-                PlayerModels[i].SetActive(true);
-                PlayerModels[i].GetComponentsInChildren<SkinnedMeshRenderer>()[1].material.color = state.Players[i].Color;
-                PlayerNames[i].text = state.Players[i].Name;
-                ReadyObjects[i].SetActive(state.Players[i].Ready);
-            }
+        for (int i = 0; i < state.NumPlayers; i++) {
+            PlayerModels[i].SetActive(true);
+            PlayerModels[i].GetComponentsInChildren<SkinnedMeshRenderer>()[1].material.color = state.Players[i].Color;
+            PlayerNames[i].text = state.Players[i].Name;
+            ReadyObjects[i].SetActive(state.Players[i].Ready);
         }
     }
 
@@ -130,6 +126,7 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
             player.isPlaying = true;
             LocalPlayerRegistry.Players.Add(player);
             LocalPlayerRegistry.PlayerNumbers.Add(state.NumPlayers);
+            PlayerNames[LocalPlayerRegistry.IdFromPlayer(player)].interactable = true;
             LobbyPlayerJoined.Create(entity).Send();
         }
     }
@@ -146,6 +143,12 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
         }
     }
 
+    public override void OnEvent(PlayerNameChange evnt) {
+        if (entity.isOwner) {
+            state.Players[evnt.PlayerId].Name = evnt.Name;
+        }
+    }
+
     public void LobbyNameChange() {
         LobbyProtocol lobbyProtocol = new LobbyProtocol();
         lobbyProtocol.maxPlayers = state.MaxPlayers;
@@ -153,5 +156,12 @@ public class LobbyNetworkedManager : Bolt.EntityEventListener<ILobbyState>
         lobbyProtocol.inLobby = true;
         lobbyProtocol.lobbyName = ServerName.text;
         BoltNetwork.SetServerInfo(ServerName.text, lobbyProtocol);
+    }
+
+    public void CharacterNameChange(TMP_InputField field) {
+        PlayerNameChange evnt = PlayerNameChange.Create(entity);
+        evnt.PlayerId = PlayerNames.IndexOf(field);
+        evnt.Name = field.text;
+        evnt.Send();
     }
 }
