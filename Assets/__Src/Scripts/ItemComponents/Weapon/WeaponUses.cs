@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponUses : MonoBehaviour 
 {
     public int Uses;
+    private Weapon weapon;
     public int AmountUsed {
         get {
             return amountUsed;
@@ -14,7 +15,7 @@ public class WeaponUses : MonoBehaviour
 
             if (AmountUsed >= Uses) {
                 if (Uses > 1) {
-                    GetComponent<Weapon>().Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("Weapon exhausted!", GetComponent<Weapon>().Owner.transform.position);
+                    weapon.Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("Weapon exhausted!", GetComponent<Weapon>().Owner.transform.position);
                 }
 
                 GetComponentInParent<PlayerInventoryController>().state.OnDestroyWeapon();
@@ -25,16 +26,22 @@ public class WeaponUses : MonoBehaviour
     }
     private int amountUsed = 0;
 
+
     void Start() {
-        UpdatePlayerUI();
+        weapon = GetComponent<Weapon>();
+        if (weapon.Owner.entity.isOwner) {
+            UpdatePlayerUI();
+        }
     }
 
     public void Use() {
-        AmountUsed++;
+        if (weapon.Owner.entity.isOwner)
+            AmountUsed++;
     }
 
     private void UpdatePlayerUI() {
-        GetComponent<Weapon>().Owner.GetComponent<PlayerStatsController>().ui.SetWeaponUsesRemaining(Uses - AmountUsed);
+        if (weapon && weapon.Owner.entity.isOwner)
+            GetComponent<Weapon>().Owner.GetComponent<PlayerStatsController>().ui.SetWeaponUsesRemaining(Uses - AmountUsed);
     }
 
 }

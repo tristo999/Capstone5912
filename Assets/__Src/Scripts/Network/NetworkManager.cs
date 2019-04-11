@@ -35,8 +35,6 @@ public class NetworkManager : Bolt.GlobalEventListener
     }
 
     public override void BoltStartDone() {
-        pooling = new WizardFightPooling();
-        BoltNetwork.SetPrefabPool(pooling);
         if (BoltNetwork.IsServer) {
             Debug.Log("Bolt done starting");
             //string matchName = Guid.NewGuid().ToString();

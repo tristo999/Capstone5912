@@ -79,7 +79,7 @@ public class PlayerCamera : MonoBehaviour
     }
 
     private void Update() {
-        if (CameraPlayer) {
+        if (CameraPlayer && currentRoom) {
             float dist = CameraPlayer.transform.position.z - (currentRoom.transform.position.z + GenerationManager.instance.roomSize * .375f);
             float xRot = Mathf.Lerp(overviewCam.transform.eulerAngles.x, 60 - dist * 1.1f, Time.deltaTime * 2f);
 

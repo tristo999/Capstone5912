@@ -159,7 +159,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         AddFlashDamageTakenText(damage);
     }
 
-    private void Update() { 
+    public override void SimulateOwner() {
         UpdateCompassDirection();
         UpdateDamageOverlay();
     }

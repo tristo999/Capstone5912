@@ -5,8 +5,9 @@ using UnityEngine;
 public class SpawnEnemyCluster : Bolt.EntityEventListener<IEnemyClusterS>
 {
     public List<GameObject> enemyList;
-    private void Awake()
+    public override void Attached()
     {
+        if (!entity.isOwner) return;
         foreach (GameObject x in enemyList)
         {
             BoltNetwork.Instantiate(x, new Vector3(transform.position.x + 1, transform.position.y, transform.position.z), transform.rotation);
