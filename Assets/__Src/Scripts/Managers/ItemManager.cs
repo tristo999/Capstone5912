@@ -8,6 +8,7 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
     public static ItemManager Instance;
 
     public List<ItemDefinition> items = new List<ItemDefinition>();
+    public List<GameObject> rarityGlowPrefabs = new List<GameObject>();
 
     public override void Attached() {
         Instance = this;

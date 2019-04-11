@@ -147,9 +147,9 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     public void AddStatModText(float modAmount, string statName, Vector3 position3d) {
         if (modAmount >= 0) {
-            AddFloatingText($"+{(int)Math.Round(modAmount * 100)}% {statName}", position3d, new Color(0, 0.75f, 0));
+            AddFloatingText($"+{(int)Math.Round(modAmount * 100)}% {statName}", position3d, Color.green);
         } else {
-            AddFloatingText($"-{(int)Math.Round(-modAmount * 100)}% {statName}", position3d, new Color(0.75f, 0, 0));
+            AddFloatingText($"-{(int)Math.Round(-modAmount * 100)}% {statName}", position3d, Color.red);
         }
     }
 

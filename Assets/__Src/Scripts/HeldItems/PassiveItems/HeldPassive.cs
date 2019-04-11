@@ -7,7 +7,6 @@ public class HeldPassive : HeldItem {
     protected ItemDefinition item;
 
     public virtual void OnEquip() {
-        GameObject obj = GetComponent<GameObject>();
         item = ItemManager.Instance.items[Id];
 
         if (!FloatRoughlyZero(item.HealthModifier)) {
@@ -19,7 +18,7 @@ public class HeldPassive : HeldItem {
         if (!FloatRoughlyZero(item.ProjectileSpeedModifier)) Owner.state.ProjectileSpeed += item.ProjectileSpeedModifier;
         if (!FloatRoughlyZero(item.DamageModifier)) Owner.state.ProjectileDamage += item.DamageModifier;
 
-        Destroy(obj);
+        Destroy(gameObject);
     }
 
     private bool FloatRoughlyZero(float val) {
