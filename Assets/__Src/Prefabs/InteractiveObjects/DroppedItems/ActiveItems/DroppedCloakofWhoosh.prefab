@@ -112,6 +112,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1409}
     m_Modifications:
+    - target: {fileID: 100000, guid: 7dbac876c86f177469d6f64907ae9b40, type: 3}
+      propertyPath: m_Name
+      value: CloakOfWhoosh
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7dbac876c86f177469d6f64907ae9b40, type: 3}
+      propertyPath: m_TagString
+      value: Interactive
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7dbac876c86f177469d6f64907ae9b40, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -167,14 +175,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 7dbac876c86f177469d6f64907ae9b40, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 7dbac876c86f177469d6f64907ae9b40, type: 3}
-      propertyPath: m_Name
-      value: CloakOfWhoosh
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 7dbac876c86f177469d6f64907ae9b40, type: 3}
-      propertyPath: m_TagString
-      value: Interactive
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dbac876c86f177469d6f64907ae9b40, type: 3}
