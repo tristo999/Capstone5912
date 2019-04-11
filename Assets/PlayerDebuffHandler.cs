@@ -19,7 +19,7 @@ public class PlayerDebuffHandler : Bolt.EntityBehaviour<IPlayerState>
     }
 
     public void RemoveDebuff(Debuff debuff) {
-        //ui.AddFloatingMessageText("Debuff Removed: " + debuff.Name, transform.position);
+        ui.AddFloatingMessageText("Debuff Removed: " + debuff.Name, transform.position);
         playerDebuffs.Remove(debuff);
         debuff.OnRemoved(state);
     }
