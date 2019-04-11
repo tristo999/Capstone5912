@@ -43,8 +43,8 @@ public class DebuffOnCollision : Bolt.EntityBehaviour<IProjectileState>
         ProjectileDebuff debuff = new ProjectileDebuff();
         if (entity.isOwner)
         {
-            // Only include for the player that dealt this damage.
-            debuff.name = debuffName;
+            Debug.Log("Giving a Debuff! " + debuffName);
+            debuff.Name = debuffName;
             debuff.EffectLength = debuffDuration;
             debuff.healthMod = healthModifier;
             debuff.projectileMod = projectileSpeedModifier;

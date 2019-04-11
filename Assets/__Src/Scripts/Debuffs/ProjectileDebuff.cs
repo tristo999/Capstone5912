@@ -35,12 +35,12 @@ public class ProjectileDebuff : Debuff
     {
         if (!FloatRoughlyZero(healthMod))
         {
-            Owner.Health += healthMod;
+            Owner.Health -= healthMod;
         }
-        if (!FloatRoughlyZero(speedMod)) Owner.Speed += speedMod;
-        if (!FloatRoughlyZero(firerateMod)) Owner.FireRate += firerateMod;
-        if (!FloatRoughlyZero(projectileMod)) Owner.ProjectileSpeed += projectileMod;
-        if (!FloatRoughlyZero(damageMod)) Owner.ProjectileDamage += damageMod;
+        if (!FloatRoughlyZero(speedMod)) Owner.Speed -= speedMod;
+        if (!FloatRoughlyZero(firerateMod)) Owner.FireRate -= firerateMod;
+        if (!FloatRoughlyZero(projectileMod)) Owner.ProjectileSpeed -= projectileMod;
+        if (!FloatRoughlyZero(damageMod)) Owner.ProjectileDamage -= damageMod;
     }
 
     public override void OnUpdate(IPlayerState playerState)
