@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 2913812260585250162}
   - component: {fileID: 8639158505871352368}
   - component: {fileID: 5702049680359979103}
+  - component: {fileID: 1815532874937632277}
   m_Layer: 17
   m_Name: IceWandProjectile
   m_TagString: Projectile
@@ -198,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  damageOwner: 0
+  damageOwner: 1
 --- !u!114 &8639158505871352368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +226,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifespan: 2
+--- !u!114 &1815532874937632277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4023bf80c01d94c8aa20f01910dd8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageOwner: 1
+  debuffName: Slow
+  debuffDuration: 1
+  healthModifier: 0
+  speedModifier: 0.5
+  fireRateModifier: 0
+  projectileSpeedModifier: 0
+  damageModifier: 0
 --- !u!1 &299
 GameObject:
   m_ObjectHideFlags: 0
