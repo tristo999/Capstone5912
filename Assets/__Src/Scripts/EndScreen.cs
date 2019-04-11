@@ -10,6 +10,7 @@ public class EndScreen : MonoBehaviour
     public static EndScreen Instance;
     public GameObject endScreen;
     public TextMeshProUGUI victoryText;
+    public TextMeshProUGUI leaderboardText;
     public Button lobbyButton;
 
     // Start is called before the first frame update
@@ -34,7 +35,7 @@ public class EndScreen : MonoBehaviour
         }
         int i = 1;
         foreach (string pl in GameMaster.instance.WinningOrder) {
-            victoryText.text = victoryText.text + "#" + i + ": " + pl + "\n";
+            leaderboardText.text = leaderboardText.text + "#" + i + ": " + pl + "\n";
             i++;
         }
 
