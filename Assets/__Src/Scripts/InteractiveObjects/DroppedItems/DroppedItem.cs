@@ -16,7 +16,6 @@ public abstract class DroppedItem : InteractiveObject {
     public override void AddHighlight() {
         base.AddHighlight();
         if (halo) {
-            //halo.SetActive(false);
             ((Behaviour)halo.GetComponent("Halo")).enabled = false;
         }
     }
@@ -24,7 +23,6 @@ public abstract class DroppedItem : InteractiveObject {
     public override void RemoveHighlight() {
         base.RemoveHighlight();
         if (halo) {
-            //halo.SetActive(true);
             ((Behaviour)halo.GetComponent("Halo")).enabled = true;
         }
     }

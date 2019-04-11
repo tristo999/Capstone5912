@@ -19,6 +19,7 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     private float oldFireRate;
     private float oldProjectileSpeed;
     private float oldProjectileDamage;
+    private float oldHealth;
 
     public override void Attached() {
         movementController = GetComponent<PlayerMovementController>();
@@ -92,6 +93,10 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
             if (state.Health == 0) {
                 state.Dead = true;
             }
+
+            float change = state.Health - oldHealth;
+            if (Math.Abs(change) > 0.0001f) ui.FlashDamageTaken(-change);
+            oldHealth = state.Health;
         }
     }
 
@@ -105,23 +110,35 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void SpeedChanged() {
-        float change = state.Speed - oldSpeed;
-        if (entity.isOwner && Math.Abs(change) > 0.0001f) ui.AddSpeedText(change, transform.position);
+        if (entity.isOwner) {
+            float change = state.Speed - oldSpeed;
+            if (Math.Abs(change) > 0.0001f) ui.AddSpeedText(change, transform.position);
+            oldSpeed = state.Speed;
+        }
     }
 
     private void FireRateChanged() {
-        float change = state.FireRate - oldFireRate;
-        if (entity.isOwner && Math.Abs(change) > 0.0001f) ui.AddFireRateText(change, transform.position);
+        if (entity.isOwner) {
+            float change = state.FireRate - oldFireRate;
+            if (Math.Abs(change) > 0.0001f) ui.AddFireRateText(change, transform.position);
+            oldFireRate = state.FireRate;
+        }
     }
 
     private void ProjectileSpeedChanged() {
-        float change = state.ProjectileSpeed - oldProjectileSpeed;
-        if (entity.isOwner && Math.Abs(change) > 0.0001f) ui.AddProjectileSpeedText(change, transform.position);
+        if (entity.isOwner) {
+            float change = state.ProjectileSpeed - oldProjectileSpeed;
+            if (Math.Abs(change) > 0.0001f) ui.AddProjectileSpeedText(change, transform.position);
+            oldProjectileSpeed = state.ProjectileSpeed;
+        }
     }
 
     private void ProjectileDamageChanged() {
-        float change = state.ProjectileDamage - oldProjectileDamage;
-        if (entity.isOwner && Math.Abs(change) > 0.0001f) ui.AddProjectileDamageText(change, transform.position);
+        if (entity.isOwner) {
+            float change = state.ProjectileDamage - oldProjectileDamage;
+            if (Math.Abs(change) > 0.0001f) ui.AddProjectileDamageText(change, transform.position);
+            oldProjectileDamage = state.ProjectileDamage;
+        }
     }
 
     public override void OnEvent(DamageEntity evnt) {
@@ -142,18 +159,12 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
         }
     }
 
-    // Store stat changes relative to previous update to handle proper 
-    // item swap comparisons (excludes health value special case).
     private void StoreOldStats() {
         oldSpeed = state.Speed;
         oldFireRate = state.FireRate;
         oldProjectileSpeed = state.ProjectileSpeed;
         oldProjectileDamage = state.ProjectileDamage;
-    }
-
-    void LateUpdate() {
-        if (entity.isOwner) {
-            StoreOldStats();
-        }
+        oldHealth = state.Health; 
+        // Health is only used for compounded damage taken, not damage dealt or healing received.
     }
 }

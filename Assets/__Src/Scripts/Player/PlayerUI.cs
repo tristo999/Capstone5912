@@ -26,11 +26,16 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     public GameObject floatingTextPrefab;
 
     private static readonly string EMPTY_SLOT_TEXT = "Empty";
+    private static readonly float MAX_PAIN = 20; // In damage points.
+    private static readonly float LOW_HP_THESHOLD = 15f;
 
     private Canvas canvas;
     private int screenNumber;
 
+    private float painMagnitude = 0;
+
     private GameObject compassArrowElement;
+    private Image damageTakenImage;
     private Image weaponSlotRechargeImage;
     private Image activeItemSlotRechargeImage;
     private TextMeshProUGUI healthTextElement;
@@ -48,8 +53,9 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         SetLayerRecursive(canvas.gameObject, 7 + screenNumber);
         canvas.worldCamera = SplitscreenManager.instance.playerCameras[ScreenNumber - 1].camera;
         canvas.planeDistance = .5f;
-
+        
         compassArrowElement = GetCanvasChildByName("Compass").transform.GetChild(0).gameObject;
+        damageTakenImage = GetCanvasChildByName("Damage Taken").GetComponent<Image>();
         healthTextElement = GetCanvasChildByName("Health").GetComponentInChildren<TextMeshProUGUI>();
         weaponSlotRechargeImage = GetCanvasChildByName("Weapon Slot").GetComponentsInChildren<Image>()[1];
         weaponSlotNameTextElement = GetCanvasChildByName("Weapon Slot").GetComponentInChildren<TextMeshProUGUI>();
@@ -141,8 +147,14 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         fadeSeq.Play();
     }
 
+    public void FlashDamageTaken(float damage) {
+        painMagnitude += damage;
+        AddFlashDamageTakenText(damage);
+    }
+
     private void Update() { 
         UpdateCompassDirection();
+        UpdateDamageOverlay();
     }
 
     public void AddStatModText(float modAmount, string statName, Vector3 position3d) {
@@ -193,6 +205,33 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
 
         compassArrowElement.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    private void AddFlashDamageTakenText(float damage) {
+        Vector2 position2d = healthTextElement.rectTransform.anchoredPosition + new Vector2(0.055f, 0.93f);
+
+        FloatingTextController text = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
+        text.AddToCanvas(canvas);
+        text.SetPosition2d(position2d, SplitscreenManager.instance.GetEntityCamera(entity).camera);
+        if (damage > 0) {
+            text.SetText($"-{(int)Math.Round(damage)}");
+            text.SetColor(Color.red);
+        } else {
+            text.SetText($"+{(int)Math.Round(-damage)}");
+            text.SetColor(Color.green);
+        }
+    }
+
+    private void UpdateDamageOverlay() {
+        if (painMagnitude > MAX_PAIN) painMagnitude = MAX_PAIN;
+        if (painMagnitude < 0) painMagnitude = 0;
+
+        float painAlpha = painMagnitude / MAX_PAIN * 0.25f;
+        float lowHpAlpha = (1 - Math.Min(state.Health / LOW_HP_THESHOLD, 1)) * 0.175f;
+        float alpha = painAlpha + lowHpAlpha;
+        damageTakenImage.color = new Color(144, 0, 0, alpha);
+
+        painMagnitude -= MAX_PAIN / 3f * Time.deltaTime;
     }
 
     private void SetLayerRecursive(GameObject root, int layer) {

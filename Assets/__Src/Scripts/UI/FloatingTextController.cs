@@ -9,7 +9,8 @@ public class FloatingTextController : MonoBehaviour
     private static float fadeDuration = 0.4f;
     private static Vector2 velocity = new Vector2(0, 0.0025f);
 
-    private Vector3 position3d;
+    private Vector3 position3d = new Vector3(-999999, -999999, -999999);
+    private Vector2 position2d;
     private Vector2 positionOffset = Vector2.zero;
     private Camera cam;
 
@@ -20,11 +21,13 @@ public class FloatingTextController : MonoBehaviour
     }
 
     public void SetPosition3d(Vector3 hitPosition3d, Camera cam) {
-        this.cam = cam;
         position3d = hitPosition3d;
+        SetPositionCam(cam);
+    }
 
-        transform.rotation = Quaternion.LookRotation(cam.transform.forward);
-        UpdatePosition();
+    public void SetPosition2d(Vector3 hitPosition2d, Camera cam) {
+        position2d = hitPosition2d;
+        SetPositionCam(cam);
     }
 
     public void SetColor(Color color) {
@@ -39,10 +42,21 @@ public class FloatingTextController : MonoBehaviour
         UpdatePosition();
     }
 
+    private void SetPositionCam(Camera cam) {
+        this.cam = cam;
+        transform.rotation = Quaternion.LookRotation(cam.transform.forward);
+        UpdatePosition();
+    }
+
     private void UpdatePosition() {
         positionOffset += velocity * Time.timeScale;
 
-        Vector2 viewportPoint = (Vector2)cam.WorldToViewportPoint(position3d) + positionOffset;
+        Vector2 viewportPoint;
+        if (position3d != new Vector3(-999999, -999999, -999999)) {
+            viewportPoint = (Vector2)cam.WorldToViewportPoint(position3d) + positionOffset;
+        } else {
+            viewportPoint = position2d + positionOffset;
+        }
         RectTransform rectTransform = GetComponent<RectTransform>();
         rectTransform.anchorMin = viewportPoint;
         rectTransform.anchorMax = viewportPoint;
