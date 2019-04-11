@@ -174,6 +174,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
                 evnt.ItemId = activeItem.Id;
                 evnt.Position = transform.position;
                 evnt.Force = transform.forward;
+                evnt.SpawnerTag = gameObject.tag;
 
                 ActiveUses uses = activeItem.GetComponent<ActiveUses>();
                 if (uses != null) {
@@ -203,6 +204,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
                 evnt.ItemId = wizardWeapon.Id;
                 evnt.Position = transform.position + transform.forward * .4f + transform.up * .5f;
                 evnt.Force = transform.forward * 50f;
+                evnt.SpawnerTag = gameObject.tag;
 
                 WeaponUses uses = wizardWeapon.GetComponent<WeaponUses>();
                 if (uses != null) {

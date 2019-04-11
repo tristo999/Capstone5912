@@ -6,8 +6,11 @@ using UnityEngine;
 public abstract class DroppedItem : InteractiveObject {
     public int Id { get; set; }
     public int UsesUsed { get; set; } = 0;
+    public static readonly float NO_PARENT_COLLIDE_TIME = 0.25f;
 
     private GameObject halo;
+    private float noCollideTimer = 0;
+    private string noCollideTag;
 
     public override void Attached() {
         // Start with Id uninitialized. 
@@ -35,6 +38,11 @@ public abstract class DroppedItem : InteractiveObject {
         }
     }
 
+    public void StartNoCollideTimer(string tag) {
+        noCollideTimer = NO_PARENT_COLLIDE_TIME;
+        noCollideTag = tag;
+    }
+
     public override void DoInteract(BoltEntity bEntity) {
         DestroyPickup evnt = DestroyPickup.Create(entity);
         evnt.Send();
@@ -42,6 +50,10 @@ public abstract class DroppedItem : InteractiveObject {
 
     public override void OnEvent(DestroyPickup evnt) {
         BoltNetwork.Destroy(gameObject);
+    }
+
+    void Update() {
+        noCollideTimer -= Time.deltaTime;
     }
 
     private void IdChanged() {
@@ -54,10 +66,22 @@ public abstract class DroppedItem : InteractiveObject {
 
     private void UpdateHalo() {
         if (halo) Destroy(halo);
-        
+
         GameObject glowPrefab = ItemManager.Instance.rarityGlowPrefabs[(int)ItemManager.Instance.items[Id].Rarity];
         halo = Instantiate(glowPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         halo.transform.parent = transform;
         halo.transform.localPosition = Vector3.zero;
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        if (noCollideTimer > 0 && Equals(collision.gameObject.tag, noCollideTag)) {
+            Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+            StartCoroutine(EnableCollide(collision.gameObject, noCollideTimer));
+        }
+    }
+
+    private IEnumerator EnableCollide(GameObject other, float delay) {
+        yield return new WaitForSeconds(delay);
+        Physics.IgnoreCollision(GetComponent<Collider>(), other.GetComponent<Collider>(), false);
     }
 }

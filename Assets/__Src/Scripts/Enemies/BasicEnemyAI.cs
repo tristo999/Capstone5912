@@ -114,6 +114,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
                     evnt.Position = transform.position + new Vector3(0, 1f, -1f);
                 evnt.Force = tossForce;
                 evnt.ItemId = -1;
+                evnt.SpawnerTag = gameObject.tag;
                 evnt.Send();
             }
             nav.SetDestination(transform.position);
