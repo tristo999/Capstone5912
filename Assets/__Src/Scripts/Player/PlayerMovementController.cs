@@ -233,8 +233,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
             ObjectInFocus.DoInteract(entity);
 
             // Clear UI description. 
-            if (ObjectInFocus is DroppedItem)
-            {
+            if (ObjectInFocus is DroppedItem) { 
                 ObjectInFocus = null;
             }
         }

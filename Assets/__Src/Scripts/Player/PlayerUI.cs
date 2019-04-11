@@ -44,6 +44,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     private TextMeshProUGUI activeItemSlotNameTextElement;
     private TextMeshProUGUI activeItemSlotUsesTextElement;
     private TextMeshProUGUI itemNameTextElement;
+    private TextMeshProUGUI itemTypeTextElement;
     private TextMeshProUGUI itemDescriptionTextElement;
     private TextMeshProUGUI messageElement;
 
@@ -64,6 +65,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         activeItemSlotNameTextElement = GetCanvasChildByName("Active Item Slot").GetComponentInChildren<TextMeshProUGUI>();
         activeItemSlotUsesTextElement = GetCanvasChildByName("Active Item Slot").GetComponentsInChildren<TextMeshProUGUI>()[1];
         itemNameTextElement = GetCanvasChildByName("Item Name").GetComponentInChildren<TextMeshProUGUI>();
+        itemTypeTextElement = GetCanvasChildByName("Item Type").GetComponentInChildren<TextMeshProUGUI>();
         itemDescriptionTextElement = GetCanvasChildByName("Item Description").GetComponentInChildren<TextMeshProUGUI>();
         messageElement = GetCanvasChildByName("Message").GetComponent<TextMeshProUGUI>();
     }
@@ -105,9 +107,14 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
             UpdateItemNameText(itemNameTextElement, itemId);
 
             ItemDefinition item = ItemManager.Instance.items[itemId];
+
+            itemTypeTextElement.text = $"{item.Rarity.ToString()} {item.Type.ToString()}";
+            itemTypeTextElement.color = ItemDefinition.RarityColors[(int)item.Rarity];
+
             itemDescriptionTextElement.text = item.ItemDescription;
         } else { 
             itemNameTextElement.text = "";
+            itemTypeTextElement.text = "";
             itemDescriptionTextElement.text = "";
         }
     }

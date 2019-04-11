@@ -9,8 +9,16 @@ public abstract class DroppedItem : InteractiveObject {
 
     private GameObject halo;
 
-    private void Start() {
-        UpdateHalo();
+    public override void Attached() {
+        // Start with Id uninitialized. 
+        state.ItemId = -1;
+        Id = -1;
+
+        // Don't allow highlighting until this object has obtained its proper Id.
+        CanHighlight = false;
+
+        state.SetTransforms(state.transform, transform);
+        state.AddCallback("ItemId", IdChanged);
     }
 
     public override void AddHighlight() {
@@ -27,11 +35,6 @@ public abstract class DroppedItem : InteractiveObject {
         }
     }
 
-    public override void Attached() {
-        state.SetTransforms(state.transform, transform);
-        state.AddCallback("ItemId", IdChanged);
-    }
-
     public override void DoInteract(BoltEntity bEntity) {
         DestroyPickup evnt = DestroyPickup.Create(entity);
         evnt.Send();
@@ -42,8 +45,11 @@ public abstract class DroppedItem : InteractiveObject {
     }
 
     private void IdChanged() {
-        Id = state.ItemId;
-        UpdateHalo();
+        if (state.ItemId >= 0) {
+            Id = state.ItemId;
+            CanHighlight = true;
+            UpdateHalo();
+        }
     }
 
     private void UpdateHalo() {
