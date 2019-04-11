@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 {
+    public GameObject centerPrefab;
+
     [Header("Room Generation Prefabs")]
     public List<GameObject> roomPrefabs = new List<GameObject>();
     public List<GameObject> specialRooms = new List<GameObject>();
@@ -61,6 +63,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
         using (new TimeTest("Initial Generation"))
             GenerateStemmingMazeGraph();
+        MergeCenterRoom();
         using (new TimeTest("Calculating Room Distances", true))
             CalculateRoomDistances();
         using (new TimeTest("Setting Spawn Rooms", true))
@@ -73,6 +76,18 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             PopulateTags();
             SpawnDroppedItems();
             PopuplateChests();
+        }
+    }
+
+    private void MergeCenterRoom() {
+        int x = width / 2;
+        int y = height / 2;
+        for (int i = -1; i <= 0; i++) {
+            for (int j = -1; i <= 0; j++) {
+                if (i != 0 && j != 0) {
+                    MergeVertices(centerRoom, vertices[x + i, y + j]);
+                }
+            }
         }
     }
 
@@ -245,7 +260,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         dungeon = new bool[width, height];
         dungeon[width / 2, height / 2] = true;
         vertices = new DungeonRoom[width, height];
-        DungeonRoom obj = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], Vector3.zero, Quaternion.identity).GetComponent<DungeonRoom>();
+        DungeonRoom obj = BoltNetwork.Instantiate(centerPrefab, Vector3.zero, Quaternion.identity).GetComponent<DungeonRoom>();
         centerRoom = obj;
         obj.DistanceFromCenter = 0;
         vertices[width / 2, height / 2] = obj;
@@ -315,5 +330,16 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         if (y < height - 1 && dungeon[x, y + 1]) adjacent = true;
         if (y > 0 && dungeon[x, y - 1]) adjacent = true;
         return adjacent;
+    }
+
+    private void MergeVertices(DungeonRoom to, DungeonRoom from) {
+        IEnumerable<Edge<DungeonRoom>> edges = dungeonGraph.OutEdges(from);
+        foreach (Edge<DungeonRoom> edge in edges) {
+            Edge<DungeonRoom> newEdge = new Edge<DungeonRoom>(to, edge.Target);
+            dungeonGraph.AddVerticesAndEdge(newEdge);
+        }
+        dungeonGraph.RemoveVertex(from);
+        BoltNetwork.Destroy(from.gameObject);
+
     }
 }
