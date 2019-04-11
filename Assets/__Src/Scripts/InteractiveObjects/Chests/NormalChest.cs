@@ -14,6 +14,7 @@ public class NormalChest : Chest
             evnt.Position = transform.position + new Vector3(0, 1f, 0f);
             evnt.Force = tossForce;
             evnt.ItemId = ContainedItem.ItemId;
+            evnt.SpawnerTag = gameObject.tag;
             evnt.Send();
         }
     }

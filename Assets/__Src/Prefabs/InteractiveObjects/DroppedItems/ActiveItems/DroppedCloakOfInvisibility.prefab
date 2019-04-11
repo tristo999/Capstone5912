@@ -47,8 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 0a3ad4fe07ff9b3468a67964b735a19d, type: 2}
-  ItemNameText: {fileID: 2335234510205328944, guid: 4794db9cbe084ce498c298082fd0bf09,
-    type: 3}
 --- !u!114 &4300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +112,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1411}
     m_Modifications:
+    - target: {fileID: 100000, guid: 014267fdeaf8afb4eafec19d2591c657, type: 3}
+      propertyPath: m_Name
+      value: Cloak
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 014267fdeaf8afb4eafec19d2591c657, type: 3}
+      propertyPath: m_TagString
+      value: Interactive
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 014267fdeaf8afb4eafec19d2591c657, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -169,14 +175,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 014267fdeaf8afb4eafec19d2591c657, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 014267fdeaf8afb4eafec19d2591c657, type: 3}
-      propertyPath: m_Name
-      value: Cloak
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 014267fdeaf8afb4eafec19d2591c657, type: 3}
-      propertyPath: m_TagString
-      value: Interactive
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 014267fdeaf8afb4eafec19d2591c657, type: 3}
