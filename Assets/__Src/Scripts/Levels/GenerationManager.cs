@@ -63,7 +63,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
         using (new TimeTest("Initial Generation"))
             GenerateStemmingMazeGraph();
-        MergeCenterRoom();
+        //MergeCenterRoom();
         using (new TimeTest("Calculating Room Distances", true))
             CalculateRoomDistances();
         using (new TimeTest("Setting Spawn Rooms", true))
@@ -260,7 +260,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         dungeon = new bool[width, height];
         dungeon[width / 2, height / 2] = true;
         vertices = new DungeonRoom[width, height];
-        DungeonRoom obj = BoltNetwork.Instantiate(centerPrefab, Vector3.zero, Quaternion.identity).GetComponent<DungeonRoom>();
+        DungeonRoom obj = BoltNetwork.Instantiate(roomPrefabs[0], Vector3.zero, Quaternion.identity).GetComponent<DungeonRoom>();
         centerRoom = obj;
         obj.DistanceFromCenter = 0;
         vertices[width / 2, height / 2] = obj;
