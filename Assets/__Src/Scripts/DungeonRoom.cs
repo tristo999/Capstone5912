@@ -66,7 +66,7 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
         northWall.SetActive(false);
         northWallFlat.SetActive(false);
         northWallDestroyed.SetActive(false);
-        if (wallState == WallState.Open) {
+        if (wallState == WallState.Door) {
             northWall.SetActive(true);
         } else if (wallState == WallState.Closed) {
             northWallFlat.SetActive(true);
@@ -80,7 +80,7 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
         eastWall.SetActive(false);
         eastWallFlat.SetActive(false);
         eastWallDestroyed.SetActive(false);
-        if (wallState == WallState.Open) {
+        if (wallState == WallState.Door) {
             eastWall.SetActive(true);
         } else if (wallState == WallState.Closed) {
             eastWallFlat.SetActive(true);
@@ -94,7 +94,7 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
         southWall.SetActive(false);
         southWallFlat.SetActive(false);
         southWallDestroyed.SetActive(false);
-        if (wallState == WallState.Open) {
+        if (wallState == WallState.Door) {
             southWall.SetActive(true);
         } else if (wallState == WallState.Closed) {
             southWallFlat.SetActive(true);
@@ -108,7 +108,7 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
         westWall.SetActive(false);
         westWallFlat.SetActive(false);
         westWallDestroyed.SetActive(false);
-        if (wallState == WallState.Open) {
+        if (wallState == WallState.Door) {
             westWall.SetActive(true);
         } else if (wallState == WallState.Closed) {
             westWallFlat.SetActive(true);
@@ -141,6 +141,7 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
             if (state.SouthWall != (int)WallState.Closed)
                 state.SouthWall = (int)WallState.Destroyed;
             ceilingDust.Stop();
+            GenerationManager.instance.DestroyNeighborWalls(this);
             foreach (PlayerCamera cam in camerasInRoom) {
                 cam.CameraPlayer.GetState<IPlayerState>().Dead = true;
                 cam.SetShake(0f);

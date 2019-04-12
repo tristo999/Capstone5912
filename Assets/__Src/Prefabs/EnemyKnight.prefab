@@ -315,7 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 7619fc06-2867-406c-8acf-2256b9e7ed66
-  _prefabId: 26
+  _prefabId: 30
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -357,6 +357,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1420}
     m_Modifications:
+    - target: {fileID: 334639933, guid: 683f4ad5c94297e49b6a320eb93f1063, type: 3}
+      propertyPath: m_Name
+      value: castle_guard_01
+      objectReference: {fileID: 0}
     - target: {fileID: 334639935, guid: 683f4ad5c94297e49b6a320eb93f1063, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -400,10 +404,6 @@ PrefabInstance:
     - target: {fileID: 334639935, guid: 683f4ad5c94297e49b6a320eb93f1063, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 334639933, guid: 683f4ad5c94297e49b6a320eb93f1063, type: 3}
-      propertyPath: m_Name
-      value: castle_guard_01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 683f4ad5c94297e49b6a320eb93f1063, type: 3}
