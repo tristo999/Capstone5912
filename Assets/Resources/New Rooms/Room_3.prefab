@@ -189,19 +189,31 @@ MonoBehaviour:
   DistanceFromCenter: -1
   DangerRating: 0
   isSpawnRoom: 0
+  centerRoom: 0
   northWall: {fileID: 375}
+  northWall2: {fileID: 0}
   eastWall: {fileID: 379}
+  eastWall2: {fileID: 0}
   southWall: {fileID: 401}
+  southWall2: {fileID: 0}
   westWall: {fileID: 369}
+  westWall2: {fileID: 0}
   northWallFlat: {fileID: 378}
+  northWallFlat2: {fileID: 0}
   eastWallFlat: {fileID: 397}
+  eastWallFlat2: {fileID: 0}
   southWallFlat: {fileID: 359}
+  southWallFlat2: {fileID: 0}
   westWallFlat: {fileID: 391}
+  westWallFlat2: {fileID: 0}
   northWallDestroyed: {fileID: 362}
+  northWallDestroyed2: {fileID: 0}
   eastWallDestroyed: {fileID: 387}
+  eastWallDestroyed2: {fileID: 0}
   southWallDestroyed: {fileID: 384}
+  southWallDestroyed2: {fileID: 0}
   westWallDestroyed: {fileID: 380}
-  carpet: {fileID: 0}
+  westWallDestroyed2: {fileID: 0}
   chanceDestroyCarpet: 0.9
   ceilingDust: {fileID: 8322840739226580204}
 --- !u!114 &4402

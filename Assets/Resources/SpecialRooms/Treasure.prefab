@@ -2301,19 +2301,31 @@ MonoBehaviour:
   DistanceFromCenter: -1
   DangerRating: 0
   isSpawnRoom: 0
+  centerRoom: 0
   northWall: {fileID: 329}
+  northWall2: {fileID: 0}
   eastWall: {fileID: 325}
+  eastWall2: {fileID: 0}
   southWall: {fileID: 330}
+  southWall2: {fileID: 0}
   westWall: {fileID: 314}
+  westWall2: {fileID: 0}
   northWallFlat: {fileID: 363}
+  northWallFlat2: {fileID: 0}
   eastWallFlat: {fileID: 392}
+  eastWallFlat2: {fileID: 0}
   southWallFlat: {fileID: 388}
+  southWallFlat2: {fileID: 0}
   westWallFlat: {fileID: 364}
+  westWallFlat2: {fileID: 0}
   northWallDestroyed: {fileID: 395}
+  northWallDestroyed2: {fileID: 0}
   eastWallDestroyed: {fileID: 377}
+  eastWallDestroyed2: {fileID: 0}
   southWallDestroyed: {fileID: 370}
+  southWallDestroyed2: {fileID: 0}
   westWallDestroyed: {fileID: 394}
-  carpet: {fileID: 0}
+  westWallDestroyed2: {fileID: 0}
   chanceDestroyCarpet: 0
   ceilingDust: {fileID: 6658635095944581001}
 --- !u!114 &4392
