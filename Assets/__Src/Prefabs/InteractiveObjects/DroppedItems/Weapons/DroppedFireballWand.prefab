@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &366
+--- !u!1 &281
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2632}
-  - component: {fileID: 8258}
-  - component: {fileID: 8286}
-  - component: {fileID: 6581}
+  - component: {fileID: 1407}
+  - component: {fileID: 4280}
+  - component: {fileID: 4296}
+  - component: {fileID: 3438}
   m_Layer: 0
   m_Name: DroppedFireballWand
   m_TagString: Interactive
@@ -19,13 +19,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2632
+--- !u!4 &1407
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 366}
+  m_GameObject: {fileID: 281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,26 +34,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8258
+--- !u!114 &4280
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 366}
+  m_GameObject: {fileID: 281}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dfee882232557841b61338c550462b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 0a3ad4fe07ff9b3468a67964b735a19d, type: 2}
---- !u!114 &8286
+--- !u!114 &4296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 366}
+  m_GameObject: {fileID: 281}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -36112512, guid: 5b00bf8b25851d440940a40ec23344f4, type: 3}
@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 09e7d6ee-72ec-4b8e-ad31-100dbed331a8
-  _prefabId: 53
+  _prefabId: 51
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -76,13 +76,13 @@ MonoBehaviour:
   _entityBehaviourQueryOption: 0
   _entityPriorityCalculatorQueryOption: 0
   _entityReplicationFilterQueryOption: 0
---- !u!54 &6581
+--- !u!54 &3438
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 366}
+  m_GameObject: {fileID: 281}
   serializedVersion: 2
   m_Mass: 10
   m_Drag: 0
@@ -92,7 +92,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &6634
+--- !u!64 &5128462051898166014
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +111,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2632}
+    m_TransformParent: {fileID: 1407}
     m_Modifications:
     - target: {fileID: 400000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
       propertyPath: m_LocalPosition.x
