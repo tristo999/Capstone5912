@@ -58,6 +58,15 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
     public AdjacencyGraph<DungeonRoom, Edge<DungeonRoom>> dungeonGraph;
 
+    private DungeonRoom northNeighbor;
+    private DungeonRoom northNeighbor2;
+    private DungeonRoom southNeighbor;
+    private DungeonRoom southNeighbor2;
+    private DungeonRoom eastNeighbor;
+    private DungeonRoom eastNeighbor2;
+    private DungeonRoom westNeighber;
+    private DungeonRoom westNeighbor2;
+
     public void DoGeneration(int playerCount) {
         batchingRoot = new GameObject();
 
@@ -340,6 +349,44 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         }
         dungeonGraph.RemoveVertex(from);
         BoltNetwork.Destroy(from.gameObject);
+    }
 
+    public void DestroyNeighborWalls(DungeonRoom room) {
+        float halfRoom = roomSize / 2f;
+
+        foreach (Edge<DungeonRoom> edge in dungeonGraph.OutEdges(room)) {
+            if (edge.Target.centerRoom) {
+                if (edge.Target.transform.position.x - edge.Source.transform.position.x > .5) {
+                    // room to the right 
+                    edge.Target.state.WestWall = (int)DungeonRoom.WallState.Destroyed;
+                } else if (edge.Target.transform.position.x - edge.Source.transform.position.x < -.5) {
+                    // room to the left
+                    edge.Target.state.EastWall = (int)DungeonRoom.WallState.Destroyed;
+                }
+                if (edge.Target.transform.position.y - edge.Source.transform.position.y > .5) {
+                    // room above
+                    edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Destroyed;
+                } else if (edge.Target.transform.position.y - edge.Source.transform.position.y < -.5) {
+                    // room below
+                    edge.Target.state.NorthWall = (int)DungeonRoom.WallState.Destroyed;
+                }
+            } else {
+                if (edge.Target.transform.position.x - edge.Source.transform.position.x > halfRoom + 1f) {
+                    // far right of spawn
+                    if (edge.Target.transform.position.y - edge.Source.transform.position.y > .5f) {
+                        // right, top
+                        
+                    } else {
+                        // right, bottom
+                    }
+                } else if (edge.Target.transform.position.x - edge.Source.transform.position.x < -halfRoom - 1f) {
+                    // far left of spawn
+                } else if (edge.Target.transform.position.y - edge.Source.transform.position.y > halfRoom + 1f) {
+                    // far top of spawn
+                } else if (edge.Target.transform.position.y - edge.Source.transform.position.y < -halfRoom - 1f) {
+                    // far bottom of spawn
+                }
+            }
+        }
     }
 }
