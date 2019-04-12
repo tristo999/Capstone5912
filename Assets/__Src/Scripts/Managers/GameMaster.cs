@@ -54,6 +54,10 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
 
     private void Awake() {
         _startFrame = BoltNetwork.ServerFrame;
+        destructionTime = GameTime + RoomDropTime;
+        dangerTime = GameTime + RoomDangerTime;
+        warningTime = GameTime + RoomWarningTime;
+        criticalTime = GameTime + RoomCriticalTime;
     }
 
     public void FixedUpdate() {
