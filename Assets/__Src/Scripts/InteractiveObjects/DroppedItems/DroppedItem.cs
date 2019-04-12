@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class DroppedItem : InteractiveObject {
     public int Id { get; set; }
     public int UsesUsed { get; set; } = 0;
-    public static readonly float NO_PARENT_COLLIDE_TIME = 0.25f;
+    public static readonly float NO_PARENT_COLLIDE_TIME = 0.5f;
 
     private GameObject halo;
     private float noCollideTimer = 0;
@@ -75,13 +75,24 @@ public abstract class DroppedItem : InteractiveObject {
 
     void OnCollisionEnter(Collision collision) {
         if (noCollideTimer > 0 && Equals(collision.gameObject.tag, noCollideTag)) {
-            Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
-            StartCoroutine(EnableCollide(collision.gameObject, noCollideTimer));
+            Collider otherCollider = GetColliderFromObj(collision.gameObject);
+            Collider myCollider = GetColliderFromObj(gameObject);
+
+            Physics.IgnoreCollision(otherCollider, myCollider);
+            StartCoroutine(EnableCollide(otherCollider, myCollider, noCollideTimer));
         }
     }
 
-    private IEnumerator EnableCollide(GameObject other, float delay) {
+    private IEnumerator EnableCollide(Collider otherCollider, Collider myCollider, float delay) {
         yield return new WaitForSeconds(delay);
-        Physics.IgnoreCollision(GetComponent<Collider>(), other.GetComponent<Collider>(), false);
+        Physics.IgnoreCollision(otherCollider, myCollider, false);
+    }
+
+    private Collider GetColliderFromObj(GameObject obj) {
+        Collider collider = GetComponent<Collider>();
+        if (collider == null) {
+            collider = obj.GetComponentInChildren<Collider>();
+        }
+        return collider;
     }
 }
