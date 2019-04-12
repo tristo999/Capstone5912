@@ -14,6 +14,7 @@ public class PlayerCamera : MonoBehaviour
     public NoiseSettings noiseProfile;
     public BoltEntity CameraPlayer;
     public Transform currentRoom;
+    private DungeonRoom curRoomState;
     private bool thirdPerson;
 
     private void Awake() {
@@ -21,10 +22,15 @@ public class PlayerCamera : MonoBehaviour
         targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
     }
 
-    public void AddRoomToCamera(Transform room) { 
+    public void AddRoomToCamera(Transform focus, DungeonRoom room) { 
         targetGroup.RemoveMember(currentRoom);
-        currentRoom = room;
-        targetGroup.AddMember(room, 1f, 10f);
+        currentRoom = focus;
+        curRoomState = room;
+        if (room.state.DistanceFromCenter == 0) {
+            targetGroup.AddMember(focus, .75f, 20f);
+        } else {
+            targetGroup.AddMember(focus, 1f, 10f);
+        }
         SplitscreenManager.instance.DoRoomCulling();
     }
 
@@ -80,7 +86,12 @@ public class PlayerCamera : MonoBehaviour
 
     private void Update() {
         if (CameraPlayer && currentRoom) {
-            float dist = CameraPlayer.transform.position.z - (currentRoom.transform.position.z + GenerationManager.instance.roomSize * .375f);
+            float dist;
+            if (curRoomState.state.DistanceFromCenter == 0) {
+                dist = CameraPlayer.transform.position.z;
+            } else {
+                dist = CameraPlayer.transform.position.z - (currentRoom.transform.position.z + GenerationManager.instance.roomSize * .375f);
+            }
             float xRot = Mathf.Lerp(overviewCam.transform.eulerAngles.x, 60 - dist * 1.1f, Time.deltaTime * 2f);
 
             overviewCam.transform.eulerAngles = new Vector3(xRot, 0, 0);
