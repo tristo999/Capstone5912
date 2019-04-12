@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 09e7d6ee-72ec-4b8e-ad31-100dbed331a8
-  _prefabId: 58
+  _prefabId: 59
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -113,6 +113,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1398}
     m_Modifications:
+    - target: {fileID: 100000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
+      propertyPath: m_Name
+      value: BasicWandModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
+      propertyPath: m_TagString
+      value: Interactive
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -168,14 +176,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
-      propertyPath: m_Name
-      value: BasicWandModel
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
-      propertyPath: m_TagString
-      value: Interactive
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67f7837c6b7d6944291df1f9081c3e87, type: 3}
