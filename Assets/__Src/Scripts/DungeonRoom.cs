@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using MyBox;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,20 +7,32 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
 {
     public int DistanceFromCenter = -1;
     public float DangerRating;
-    public bool isSpawnRoom;
+    [HideInInspector] public bool isSpawnRoom;
+    public bool centerRoom;
     public GameObject northWall;
+    [ConditionalField("centerRoom")] public GameObject northWall2;
     public GameObject eastWall;
+    [ConditionalField("centerRoom")] public GameObject eastWall2;
     public GameObject southWall;
+    [ConditionalField("centerRoom")] public GameObject southWall2;
     public GameObject westWall;
+    [ConditionalField("centerRoom")] public GameObject westWall2;
     public GameObject northWallFlat;
+    [ConditionalField("centerRoom")] public GameObject northWallFlat2;
     public GameObject eastWallFlat;
+    [ConditionalField("centerRoom")] public GameObject eastWallFlat2;
     public GameObject southWallFlat;
+    [ConditionalField("centerRoom")] public GameObject southWallFlat2;
     public GameObject westWallFlat;
+    [ConditionalField("centerRoom")] public GameObject westWallFlat2;
     public GameObject northWallDestroyed;
+    [ConditionalField("centerRoom")] public GameObject northWallDestroyed2;
     public GameObject eastWallDestroyed;
+    [ConditionalField("centerRoom")] public GameObject eastWallDestroyed2;
     public GameObject southWallDestroyed;
+    [ConditionalField("centerRoom")] public GameObject southWallDestroyed2;
     public GameObject westWallDestroyed;
-    public GameObject carpet;
+    [ConditionalField("centerRoom")] public GameObject westWallDestroyed2;
     [Range(0.0f,1.0f)]
     public float chanceDestroyCarpet;
     public ParticleSystem ceilingDust;

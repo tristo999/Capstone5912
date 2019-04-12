@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fefb70c7568dea4e8c5ba3aa027b199, type: 3}
+  m_Name: Potion
+  m_EditorClassIdentifier: 
+  ItemName: Potion
+  ItemDescription: Drink this thing you found on the ground!
+  ItemId: 14
+  Type: 2
+  Rarity: 0
+  DroppedModel: {fileID: 284, guid: a19211ba2ae538b46962e4b87731e507, type: 3}
+  DroppedScript: {fileID: 0}
+  HeldModel: {fileID: 8815563781034413229, guid: 24b20499f3acd0945bab80f119687bea,
+    type: 3}
+  HeldScript: {fileID: 0}
+  SpeedModifier: 0
+  HealthModifier: 0
+  FireRateModifier: 0
+  ProjectileSpeedModifier: 0
+  DamageModifier: 0
