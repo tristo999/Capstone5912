@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 3005}
   - component: {fileID: 2541}
   - component: {fileID: 4353}
-  - component: {fileID: 3465}
   - component: {fileID: 4332}
   - component: {fileID: 3457}
   - component: {fileID: 4222}
   - component: {fileID: 4176079198113791875}
+  - component: {fileID: 8255889605892927322}
   m_Layer: 15
   m_Name: mortar
   m_TagString: Untagged
@@ -112,20 +112,6 @@ MonoBehaviour:
   _entityBehaviourQueryOption: 0
   _entityPriorityCalculatorQueryOption: 0
   _entityReplicationFilterQueryOption: 0
---- !u!64 &3465
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 327}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 9b735de5ad0a448408f896593473706a, type: 3}
 --- !u!114 &4332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,3 +168,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ada824e9eeca3c4bb2cb1ac2c6ff88a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &8255889605892927322
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.103264734, y: 0.062954046, z: 0.10659363}
+  m_Center: {x: -0.0007530246, y: 0.03254335, z: 0.00038301572}

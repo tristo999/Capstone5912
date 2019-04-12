@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 4345}
   - component: {fileID: 4333}
   - component: {fileID: 4359}
-  - component: {fileID: 3467}
   - component: {fileID: 3456}
   - component: {fileID: 4215}
   - component: {fileID: 3510838343552967553}
+  - component: {fileID: 3333874208094063753}
   m_Layer: 15
   m_Name: cup
   m_TagString: Untagged
@@ -142,20 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf88108c906b95c4fb1544a42a9b1dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!64 &3467
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 321}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: 5598c34350b5762478faa89101b90910, type: 3}
 --- !u!54 &3456
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -200,3 +186,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ada824e9eeca3c4bb2cb1ac2c6ff88a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &3333874208094063753
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.23099305, y: 0.31148142, z: 0.23099306}
+  m_Center: {x: -0.0005247891, y: 0.15690982, z: 0.0025097951}

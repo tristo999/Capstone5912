@@ -17,6 +17,9 @@ GameObject:
   - component: {fileID: 4447}
   - component: {fileID: 3850}
   - component: {fileID: 2168139582486485955}
+  - component: {fileID: 4364943828515764967}
+  - component: {fileID: 6350883139923821393}
+  - component: {fileID: 5168114413386715390}
   m_Layer: 15
   m_Name: Cabinet
   m_TagString: Untagged
@@ -167,8 +170,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.526959, y: 1.3258176, z: 0.4547751}
-  m_Center: {x: -0.3551127, y: 0.664096, z: -0.002168931}
+  m_Size: {x: 1.526959, y: 0.01, z: 0.4547751}
+  m_Center: {x: -0.35511267, y: 1.0393188, z: -0.0021689236}
 --- !u!114 &2168139582486485955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,3 +184,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ada824e9eeca3c4bb2cb1ac2c6ff88a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &4364943828515764967
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.526959, y: 0.01, z: 0.4547751}
+  m_Center: {x: -0.35511267, y: 0.8246687, z: -0.0021689236}
+--- !u!65 &6350883139923821393
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.526959, y: 0.01, z: 0.4547751}
+  m_Center: {x: -0.35511267, y: 0.60557806, z: -0.0021689236}
+--- !u!65 &5168114413386715390
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.526959, y: 0.3, z: 0.4547751}
+  m_Center: {x: -0.35511267, y: 0.17443216, z: -0.0021689236}

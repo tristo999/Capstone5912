@@ -81,11 +81,11 @@ GameObject:
   - component: {fileID: 3006}
   - component: {fileID: 2545}
   - component: {fileID: 4335}
-  - component: {fileID: 3464}
   - component: {fileID: 4337}
   - component: {fileID: 3454}
   - component: {fileID: 4224}
   - component: {fileID: 8103640433868640878}
+  - component: {fileID: 2572573122641529641}
   m_Layer: 15
   m_Name: lamp
   m_TagString: Untagged
@@ -182,20 +182,6 @@ MonoBehaviour:
   _entityBehaviourQueryOption: 0
   _entityPriorityCalculatorQueryOption: 0
   _entityReplicationFilterQueryOption: 0
---- !u!64 &3464
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 320}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: aae71ccf24f95db46951ed320f31c927, type: 3}
 --- !u!114 &4337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,3 +238,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ada824e9eeca3c4bb2cb1ac2c6ff88a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &2572573122641529641
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.177501, y: 0.24979228, z: 0.177501}
+  m_Center: {x: -0.00068535656, y: 0.10378523, z: -0.00068534166}
