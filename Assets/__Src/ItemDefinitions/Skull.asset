@@ -10,20 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fefb70c7568dea4e8c5ba3aa027b199, type: 3}
-  m_Name: Dude Scroll
+  m_Name: Skull
   m_EditorClassIdentifier: 
-  ItemName: Dude Scroll
-  ItemDescription: Where's my opponents?!
-  ItemId: 17
-  Type: 1
-  Rarity: 1
-  DroppedModel: {fileID: 283, guid: 61d42ce234d86d747a81012ff7a8b763, type: 3}
+  ItemName: Skull
+  ItemDescription: Spooky
+  ItemId: 0
+  Type: 2
+  Rarity: 2
+  DroppedModel: {fileID: 0}
   DroppedScript: {fileID: 0}
-  HeldModel: {fileID: 8815563781034413229, guid: 58648141e5046bb47b4394b522422d15,
-    type: 3}
+  HeldModel: {fileID: 0}
   HeldScript: {fileID: 0}
-  SpeedModifier: 0
+  SpeedModifier: -0.1
   HealthModifier: 0
   FireRateModifier: 0
   ProjectileSpeedModifier: 0
-  DamageModifier: 0
+  DamageModifier: 0.3

@@ -359,10 +359,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1417}
     m_Modifications:
-    - target: {fileID: 100070, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
-      propertyPath: m_Name
-      value: sMORC_Model_Rigged (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 400070, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -426,6 +422,10 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100070, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
+      propertyPath: m_Name
+      value: sMORC_Model_Rigged (1)
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
       propertyPath: m_LocalRotation.x
