@@ -17,6 +17,14 @@ public class OptionsMenu : MonoBehaviour
 		fullscreen.isOn = Screen.fullScreen;
         //get resolutions, clear placeholders
 		resolutions = Screen.resolutions;
+		//set resolution to saved value if it exists
+		if(PlayerPrefs.HasKey("Resolution")){
+			SetResolution(PlayerPrefs.GetInt("Resolution"));
+		}
+		//set quality to saved value if it exists
+		if(PlayerPrefs.HasKey("Quality")){
+			SetQuality(PlayerPrefs.GetInt("Quality"));
+		}
 		resolutionDropdown.ClearOptions();
         //add resolutions to options list, find current resolution
 		for(int i = 0; i < resolutions.Length; i++){
@@ -54,11 +62,15 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetQuality(int qualityIndex){
         QualitySettings.SetQualityLevel(qualityIndex);
+		PlayerPrefs.SetInt("Quality", qualityIndex);
+		PlayerPrefs.Save();
     }
 
 	public void SetResolution(int resIndex){
 		Resolution resolution = resolutions[resIndex];
 		Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+		PlayerPrefs.SetInt("Resolution", resIndex);
+		PlayerPrefs.Save();
 	}
 
 }
