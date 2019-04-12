@@ -47,6 +47,12 @@ public class WeaponLaunchProjectile : MonoBehaviour
         proj.GetComponent<Rigidbody>().velocity = newLocalLaunchDir * LaunchForce * weaponBase.Owner.state.ProjectileSpeed;
         proj.GetComponent<Rigidbody>().AddRelativeTorque(torque);
         proj.GetState<IProjectileState>().Owner = weaponBase.Owner.entity;
+
+        DamageOnCollide damageOnCollide = proj.GetComponent<DamageOnCollide>();
+        if (damageOnCollide) {
+            damageOnCollide.damageModifier = weaponBase.Owner.state.ProjectileDamage;
+        }
+
         weaponBase.Owner.state.FireAnim();
     }
 }
