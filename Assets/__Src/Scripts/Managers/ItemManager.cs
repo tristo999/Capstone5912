@@ -57,9 +57,7 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
 
     public ItemDefinition ItemFromDangerRating(float dangerRating) {
         ItemDefinition.ItemRarity rarity = ItemDefinition.ItemRarity.Common;
-        if (dangerRating > .95f) {
-            rarity = ItemDefinition.ItemRarity.Ludicrous;
-        } else if (dangerRating > .85) {
+        if (dangerRating > .85) {
             rarity = ItemDefinition.ItemRarity.Legendary;
         } else if (dangerRating > .65) {
             rarity = ItemDefinition.ItemRarity.Mythic;

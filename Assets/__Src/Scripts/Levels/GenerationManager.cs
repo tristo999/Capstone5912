@@ -48,6 +48,8 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public int spawnRoomFadeRange;
     public float perlinScale = 1f;
     [Space(20)]
+    public AnimationCurve rarityCurve;
+
 
     [HideInInspector]
     public List<DungeonRoom> spawnRooms;
@@ -244,7 +246,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     private void PopuplateChests() {
         foreach (NormalChest chest in Resources.FindObjectsOfTypeAll<NormalChest>()) {
             float rating = chest.GetComponent<DangerRating>().rating;
-            chest.ContainedItem = ItemManager.Instance.ItemFromDangerRating(rating);
+            chest.ContainedItem = ItemManager.Instance.ItemFromDangerRating(rarityCurve.Evaluate(Random.value + rating/2));
         }
     }
 

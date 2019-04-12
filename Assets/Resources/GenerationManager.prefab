@@ -89,5 +89,29 @@ MonoBehaviour:
   generationAttempts: 75
   spawnRoomFadeRange: 3
   perlinScale: 2
+  rarityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.010347909
+      outSlope: 0.010347909
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.23920266
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2.636328
+      outSlope: 2.636328
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.021594703
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   spawnRooms: []
   debug: 0
