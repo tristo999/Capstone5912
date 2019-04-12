@@ -260,7 +260,8 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     private void OnTriggerEnter(Collider other) {
         if (!entity.isOwner) return;
         if (other.tag == "Room") {
-            SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].AddRoomToCamera(other.transform.Find("Focus"));
+            DungeonRoom room = other.GetComponent<DungeonRoom>();
+            SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].AddRoomToCamera(other.transform.Find("Focus"), room);
         }
     }
 

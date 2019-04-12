@@ -101,6 +101,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             foreach (Edge<DungeonRoom> edge in dungeonGraph.OutEdges(currentRoom)) {
                 if (edge.Target.DistanceFromCenter == -1) {
                     edge.Target.DistanceFromCenter = edge.Source.DistanceFromCenter + 1;
+                    edge.Target.state.DistanceFromCenter = edge.Source.DistanceFromCenter + 1;
                     if (edge.Target.DistanceFromCenter > maxDist)
                         maxDist = edge.Target.DistanceFromCenter;
                     roomQueue.Enqueue(edge.Target);
@@ -297,6 +298,10 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         vertices[width / 2 - 1, height / 2].DistanceFromCenter = 0;
         vertices[width / 2 - 1, height / 2 - 1].DistanceFromCenter = 0;
         vertices[width / 2, height / 2 - 1].DistanceFromCenter = 0;
+        vertices[width / 2, height / 2].state.DistanceFromCenter = 0;
+        vertices[width / 2 - 1, height / 2].state.DistanceFromCenter = 0;
+        vertices[width / 2 - 1, height / 2 - 1].state.DistanceFromCenter = 0;
+        vertices[width / 2, height / 2 - 1].state.DistanceFromCenter = 0;
 
         for (int i = 0; i < generationAttempts; i++) {
             Vector2 existingCell = randomExistingNotSurrounded();
