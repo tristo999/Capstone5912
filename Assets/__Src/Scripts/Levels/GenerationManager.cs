@@ -78,8 +78,8 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             CalculateRoomDistances();
         using (new TimeTest("Setting Spawn Rooms", true))
             spawnRooms = GetFirstEquidistantRooms(dungeonGraph.Vertices.Where(r => r.DistanceFromCenter == maxDist - 2), playerCount).ToList();
-        using (new TimeTest("Adding Perlin Noise", true))
-            AddPerlinNoise();
+        //using (new TimeTest("Adding Perlin Noise", true))
+            //AddPerlinNoise();
         using (new TimeTest("Generating Danger Ratings", true))
             GenerateDangerRatings();
         using (new TimeTest("Populating Rooms", true)) {
@@ -370,19 +370,18 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
 
     public void DestroyNeighborWalls(DungeonRoom room) {
         float halfRoom = roomSize / 2f;
-
+        Debug.Log("Destroying neighbor walls");
         foreach (Edge<DungeonRoom> edge in dungeonGraph.OutEdges(room)) {
-            if (edge.Target.transform.position.x - edge.Source.transform.position.x > .5) {
+            if (edge.Target.transform.position.x - edge.Source.transform.position.x > 5) {
                 // room to the right 
                 edge.Target.state.WestWall = (int)DungeonRoom.WallState.Destroyed;
-            } else if (edge.Target.transform.position.x - edge.Source.transform.position.x < -.5) {
+            } else if (edge.Target.transform.position.x - edge.Source.transform.position.x < -5) {
                 // room to the left
                 edge.Target.state.EastWall = (int)DungeonRoom.WallState.Destroyed;
-            }
-            if (edge.Target.transform.position.y - edge.Source.transform.position.y > .5) {
+            } else if (edge.Target.transform.position.y - edge.Source.transform.position.y > 5) {
                 // room above
                 edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Destroyed;
-            } else if (edge.Target.transform.position.y - edge.Source.transform.position.y < -.5) {
+            } else if (edge.Target.transform.position.y - edge.Source.transform.position.y < -5) {
                 // room below
                 edge.Target.state.NorthWall = (int)DungeonRoom.WallState.Destroyed;
             }

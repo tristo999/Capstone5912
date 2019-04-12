@@ -2242,7 +2242,7 @@ Transform:
   - {fileID: 5607839924487533744}
   - {fileID: 2668797276184301003}
   - {fileID: 270691498658587663}
-  - {fileID: 428698507618847793}
+  - {fileID: 7203741054767358839}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2329,7 +2329,7 @@ MonoBehaviour:
   westWallDestroyed: {fileID: 394}
   westWallDestroyed2: {fileID: 0}
   chanceDestroyCarpet: 0
-  ceilingDust: {fileID: 183421018954050409}
+  ceilingDust: {fileID: 8118701859560181715}
 --- !u!114 &4392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7158,7 +7158,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.8679464, y: 0.10282877, z: 2.8679464}
   m_Center: {x: 0, y: -0.051414885, z: 0}
---- !u!1 &3101842209301854512
+--- !u!65 &4294020838031575738
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440564149548795355}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8679464, y: 0.10282877, z: 2.8679464}
+  m_Center: {x: 0, y: -0.051414885, z: 0}
+--- !u!1 &5871517606540529048
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7166,23 +7179,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 428698507618847793}
-  - component: {fileID: 183421018954050409}
-  - component: {fileID: 8840073128286689740}
+  - component: {fileID: 7203741054767358839}
+  - component: {fileID: 8118701859560181715}
+  - component: {fileID: 4403467969691507654}
   m_Layer: 0
-  m_Name: Dust
+  m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &428698507618847793
+--- !u!4 &7203741054767358839
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101842209301854512}
+  m_GameObject: {fileID: 5871517606540529048}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 15, y: 14.33, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -7190,13 +7203,13 @@ Transform:
   m_Father: {fileID: 1454}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &183421018954050409
+--- !u!198 &8118701859560181715
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101842209301854512}
+  m_GameObject: {fileID: 5871517606540529048}
   serializedVersion: 6
   lengthInSec: 5
   simulationSpeed: 1
@@ -11668,14 +11681,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &8840073128286689740
+--- !u!199 &4403467969691507654
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101842209301854512}
+  m_GameObject: {fileID: 5871517606540529048}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -11686,7 +11699,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -11730,19 +11743,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!65 &4294020838031575738
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3440564149548795355}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.8679464, y: 0.10282877, z: 2.8679464}
-  m_Center: {x: 0, y: -0.051414885, z: 0}
 --- !u!65 &6857902127394556220
 BoxCollider:
   m_ObjectHideFlags: 0
