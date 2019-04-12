@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4282}
   - component: {fileID: 4298}
   - component: {fileID: 3440}
+  - component: {fileID: 4984196242474012657}
   m_Layer: 0
   m_Name: DroppedGarbage
   m_TagString: Interactive
@@ -92,6 +93,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &4984196242474012657
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 1}
+  m_Center: {x: -0.0000088155275, y: 0.0000000044703485, z: -0.000042190157}
 --- !u!1 &7436530795616923252
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +117,6 @@ GameObject:
   - component: {fileID: 7436530795616432724}
   - component: {fileID: 7436530795613532784}
   - component: {fileID: 7436530795614662832}
-  - component: {fileID: 4867651687390346409}
   m_Layer: 0
   m_Name: banana
   m_TagString: Untagged
@@ -170,16 +183,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4867651687390346409
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7436530795616923252}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.04438787, y: 0.020592889, z: 0.020975297}
-  m_Center: {x: 0.0051453244, y: 0.000000004656613, z: -0.00004218984}
