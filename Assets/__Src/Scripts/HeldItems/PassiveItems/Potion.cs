@@ -4,7 +4,29 @@ using UnityEngine;
 
 public class Potion : HeldPassive
 {
+    public AudioClip sound;
+    public AudioSource audioSource;
+    bool ready;
+
+    private void Awake(){
+        audioSource = gameObject.AddComponent<AudioSource>();
+        ready = false;
+    }
+
+    public void Update(){
+        if(ready && !audioSource.isPlaying){
+            base.OnEquip();
+        }
+    }
+
     public override void OnEquip() {
+        if (sound != null) {
+            audioSource.Stop();
+            audioSource.clip = sound;
+            audioSource.time = 0f;
+            audioSource.Play();
+        }
+
         int stat = Random.Range(0, 5);
         
         switch(stat){
@@ -27,7 +49,7 @@ public class Potion : HeldPassive
                 Owner.state.Health += 5f;
                 break;
         }
-        
-        base.OnEquip();
+
+        ready = true;
     }
 }
