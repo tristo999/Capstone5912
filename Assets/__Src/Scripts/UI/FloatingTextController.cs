@@ -5,9 +5,10 @@ using TMPro;
 
 public class FloatingTextController : MonoBehaviour
 {
-    private static float lifeDuration = 1.1f;
-    private static float fadeDuration = 0.4f;
-    private static Vector2 velocity = new Vector2(0, 0.0025f);
+    private static readonly float lifeDuration = 0.9f;
+    private static readonly float fadeDuration = 0.4f;
+    private static Vector2 velocity = new Vector2(0, 0.00225f);
+    private static readonly float growthFactor = 0.4f;
 
     private Vector3 position3d = new Vector3(-999999, -999999, -999999);
     private Vector2 position2d;
@@ -60,6 +61,9 @@ public class FloatingTextController : MonoBehaviour
         RectTransform rectTransform = GetComponent<RectTransform>();
         rectTransform.anchorMin = viewportPoint;
         rectTransform.anchorMax = viewportPoint;
+
+        float scaleIncrease = growthFactor * Time.deltaTime / lifeDuration;
+        rectTransform.localScale = rectTransform.localScale + new Vector3(scaleIncrease, scaleIncrease, 0);
     }
     
     private void StartFadeOut() {
