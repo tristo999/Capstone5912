@@ -233,12 +233,12 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         if (painMagnitude > MAX_PAIN) painMagnitude = MAX_PAIN;
         if (painMagnitude < 0) painMagnitude = 0;
 
-        float painAlpha = painMagnitude / MAX_PAIN * 0.25f;
+        float painAlpha = (float)Math.Sqrt(painMagnitude / MAX_PAIN) * 0.25f;
         float lowHpAlpha = (1 - Math.Min(state.Health / LOW_HP_THESHOLD, 1)) * 0.175f;
         float alpha = painAlpha + lowHpAlpha;
         damageTakenImage.color = new Color(144, 0, 0, alpha);
 
-        painMagnitude -= MAX_PAIN / 3f * Time.deltaTime;
+        painMagnitude -= 0.45f * MAX_PAIN * Time.deltaTime;
     }
 
     private void SetLayerRecursive(GameObject root, int layer) {
