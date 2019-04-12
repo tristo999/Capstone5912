@@ -44,9 +44,11 @@ public class Potion : HeldPassive
                 break;
             case 4:
                 Owner.state.Health += 5f;
+                Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(-5f, Owner.transform.position, true);
                 break;
             default:
                 Owner.state.Health += 5f;
+                Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(-5f, Owner.transform.position, true);
                 break;
         }
 
