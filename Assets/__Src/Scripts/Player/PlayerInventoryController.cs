@@ -202,8 +202,8 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
             if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = wizardWeapon.Id;
-                evnt.Position = transform.position + transform.forward * .4f + transform.up * .5f;
-                evnt.Force = transform.forward * 50f;
+                evnt.Position = transform.position + transform.forward * 1.3f + transform.up * .5f;
+                evnt.Force = 500f * transform.forward + 1000f * transform.up;
                 evnt.SpawnerTag = gameObject.tag;
 
                 WeaponUses uses = wizardWeapon.GetComponent<WeaponUses>();
