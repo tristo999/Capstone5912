@@ -171,15 +171,25 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                 if (vertices[i, j]) {
                     if (i < width && vertices[i + 1, j]) {
                         Edge<DungeonRoom> edge = new Edge<DungeonRoom>(vertices[i, j], vertices[i + 1, j]);
-                        edge.Source.state.EastWall = (int)DungeonRoom.WallState.Door;
-                        edge.Target.state.WestWall = (int)DungeonRoom.WallState.Door;
+                        if (edge.Source.DistanceFromCenter == 0 && edge.Target.DistanceFromCenter == 0) {
+                            edge.Source.state.EastWall = (int)DungeonRoom.WallState.Open;
+                            edge.Target.state.WestWall = (int)DungeonRoom.WallState.Open;
+                        } else {
+                            edge.Source.state.EastWall = (int)DungeonRoom.WallState.Door;
+                            edge.Target.state.WestWall = (int)DungeonRoom.WallState.Door;
+                        }
                         dungeonGraph.AddVerticesAndEdge(edge);
                         dungeonGraph.AddEdge(new Edge<DungeonRoom>(edge.Target, edge.Source));
                     }
                     if (j < height && vertices[i, j + 1]) {
                         Edge<DungeonRoom> edge = new Edge<DungeonRoom>(vertices[i, j], vertices[i, j + 1]);
-                        edge.Source.state.NorthWall = (int)DungeonRoom.WallState.Door;
-                        edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Door;
+                        if (edge.Source.DistanceFromCenter == 0 && edge.Target.DistanceFromCenter == 0) {
+                            edge.Source.state.NorthWall = (int)DungeonRoom.WallState.Open;
+                            edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Open;
+                        } else {
+                            edge.Source.state.NorthWall = (int)DungeonRoom.WallState.Door;
+                            edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Door;
+                        }
                         dungeonGraph.AddVerticesAndEdge(edge);
                         dungeonGraph.AddEdge(new Edge<DungeonRoom>(edge.Target, edge.Source));
                     }
