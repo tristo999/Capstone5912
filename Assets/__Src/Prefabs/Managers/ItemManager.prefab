@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &348
+--- !u!1 &478
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1789}
-  - component: {fileID: 5368}
-  - component: {fileID: 5369}
+  - component: {fileID: 2782}
+  - component: {fileID: 8445}
+  - component: {fileID: 8446}
   m_Layer: 0
   m_Name: ItemManager
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1789
+--- !u!4 &2782
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348}
+  m_GameObject: {fileID: 478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,13 +32,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5368
+--- !u!114 &8445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348}
+  m_GameObject: {fileID: 478}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66414dbed2f26c44188bde02743b2acf, type: 3}
@@ -60,6 +60,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e890315d74c54c440b3105c746a99f5e, type: 2}
   - {fileID: 11400000, guid: 638d7377a41cf634aa2e0e8ba4335486, type: 2}
   - {fileID: 11400000, guid: 927600dfc37c87b46a1d70c446100bcb, type: 2}
+  - {fileID: 11400000, guid: b0dada197e49d83429d2d5d2e134c5b5, type: 2}
+  - {fileID: 11400000, guid: 2ea3907a357dc274b848c8e7bce0426c, type: 2}
   rarityGlowPrefabs:
   - {fileID: 273, guid: d0ad77b21703ac04b9fe3fb856a04c6a, type: 3}
   - {fileID: 273, guid: 444084c40f294b74e94308a7a8f5cacb, type: 3}
@@ -68,13 +70,13 @@ MonoBehaviour:
   - {fileID: 273, guid: 84412e884b7d6294cb54aa009978e84a, type: 3}
   - {fileID: 273, guid: 70c0cffd812733a4e91e493b46e5e49f, type: 3}
   - {fileID: 273, guid: f564f0b9d88a22343a5123d9ef6c4eab, type: 3}
---- !u!114 &5369
+--- !u!114 &8446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348}
+  m_GameObject: {fileID: 478}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -36112512, guid: 5b00bf8b25851d440940a40ec23344f4, type: 3}
@@ -82,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 31c2c8e0-5cca-4a7f-b2b9-cee75fda5454
-  _prefabId: 57
+  _prefabId: 59
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
