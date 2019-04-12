@@ -227,9 +227,11 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void DetachAndHideItem(GameObject obj) {
-        // Detach and hide without losing references (for instance airborne projectiles may need it).
-        // Need to revisit this later.
-        obj.transform.parent = null; 
-        obj.transform.localScale = new Vector3(0, 0, 0);
+        // Used to cause bugs if the object was removed, seems ok now. Leaving briefly in case bugs resurface.
+        //obj.transform.parent = null; 
+        //obj.transform.localScale = new Vector3(0, 0, 0);
+        //obj.transform.position = new Vector3(999999, 999999, 999999);
+
+        Destroy(obj);
     }
 }
