@@ -8,6 +8,8 @@ public class DamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
 {
     public float damage;
     public bool damageOwner;
+    [HideInInspector]
+    public float damageModifier = 1f; // Assigned by WeaponLaunchProjectile (or later components).
 
     private void OnCollisionEnter(Collision collision) {
         if (!entity.isAttached || !entity.isOwner) return;
@@ -27,7 +29,7 @@ public class DamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
 
     private void DealDamage(GameObject target) {
         DamageEntity DamageEntity = DamageEntity.Create(target.GetComponent<BoltEntity>());
-        DamageEntity.Damage = damage;
+        DamageEntity.Damage = damage * damageModifier;
         if (entity.isOwner) {
             // Only include for the player that dealt this damage.
             DamageEntity.HitPosition = transform.position;

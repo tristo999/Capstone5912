@@ -129,9 +129,9 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     public void AddDamageText(float damage, Vector3 position3d, bool showStatName = false) {
         if (damage > 0) {
-            AddFloatingText($"-{(int)Math.Round(damage)}{(showStatName ? " health" : "")}", position3d, Color.red);
+            AddFloatingText($"-{FloatToOneDecimalPrecision(damage)}{(showStatName ? " health" : "")}", position3d, Color.red);
         } else {
-            AddFloatingText($"+{(int)Math.Round(-damage)}{(showStatName ? " health" : "")}", position3d, Color.green);
+            AddFloatingText($"+{FloatToOneDecimalPrecision(-damage)}{(showStatName ? " health" : "")}", position3d, Color.green);
         }
     }
 
@@ -218,8 +218,6 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         RectTransform parentRectTransform = (RectTransform)healthTextElement.rectTransform.parent.transform;
         Vector2 position2d = new Vector2(0, 1) + (parentRectTransform.anchoredPosition) * 2 / 1080 + new Vector2(0.015f, 0.025f);
 
-        Debug.Log(position2d);
-
         FloatingTextController text = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
         text.AddToCanvas(canvas);
         text.SetPosition2d(position2d, SplitscreenManager.instance.GetEntityCamera(entity).camera);
@@ -242,6 +240,10 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         damageTakenImage.color = new Color(144, 0, 0, alpha);
 
         painMagnitude -= 0.45f * MAX_PAIN * Time.deltaTime;
+    }
+
+    private float FloatToOneDecimalPrecision(float num) {
+        return ((int)Math.Round(num * 10)) / 10f;
     }
 
     private void SetLayerRecursive(GameObject root, int layer) {
