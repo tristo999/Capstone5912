@@ -35,7 +35,7 @@ public class WeaponLaunchProjectile : MonoBehaviour
         }
     }
 
-    public void Launch(float launchDir = 0f, Vector3 torque = default) {
+    public BoltEntity Launch(float launchDir = 0f, Vector3 torque = default) {
         if (audioSource) {
             audioSource.Stop();
             audioSource.time = 0f;
@@ -53,5 +53,6 @@ public class WeaponLaunchProjectile : MonoBehaviour
         }
 
         weaponBase.Owner.state.FireAnim();
+        return proj;
     }
 }

@@ -52,7 +52,10 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
         }
     }
 
+    public AudioSource sfxSource;
+
     private void Awake() {
+        sfxSource = gameObject.AddComponent<AudioSource>();
         _startFrame = BoltNetwork.ServerFrame;
         destructionTime = GameTime + RoomDropTime;
         dangerTime = GameTime + RoomDangerTime;

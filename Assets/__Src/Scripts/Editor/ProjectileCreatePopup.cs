@@ -49,7 +49,7 @@ public class ProjectileCreatePopup : EditorWindow
     public void CreateProjectileFromTemplate() {
         waitingName = itemName;
         waitingPath = "Assets/__Src/Prefabs/Projectiles/" + itemName + ".prefab";
-        string templateLocation = Application.dataPath + ItemCreationUtil.TEMPLATE_SCRIPT_DIR + "TemplateProjectile.cs";
+        string templateLocation = Application.dataPath + "/__Src/Scripts/Templates/TemplateProjectile.cs";
         string outputLocation = ItemCreationUtil.PROJECTILE_SCRIPT_OUTPUT_DIR + itemName + ".cs";
         ItemCreationUtil.CopyAndRenameScript(templateLocation, outputLocation);
         waitingType = "Assets/__Src/Scripts/Projectiles/" + itemName + ".cs";
