@@ -18,9 +18,12 @@ public class FireballWand : Weapon
     private WeaponCooldown cooldown;
     private WeaponLaunchProjectile launchProjectile;
 
+    private Transform ownerLaunchPos;
+
     private void Awake() {
         cooldown = GetComponent<WeaponCooldown>();
         launchProjectile = GetComponent<WeaponLaunchProjectile>();
+        ownerLaunchPos = Owner.GetComponent<PlayerInventoryController>().launchPos;
     }
 
     public override void FireDown() {
@@ -39,7 +42,7 @@ public class FireballWand : Weapon
         float timeToImpact = TimeOfImpact(launchProjectile.LocalLaunchDir * launchProjectile.LaunchForce);
         float step = timeToImpact / PointsInArc;
         for (int i = 0; i < PointsInArc; i++) {
-            positions[i] = launchProjectile.LaunchPosition.position + launchProjectile.LocalLaunchDir * launchProjectile.LaunchForce * i * step + Physics.gravity * i * i * step * step * .5f;
+            positions[i] = ownerLaunchPos.position + launchProjectile.LocalLaunchDir * launchProjectile.LaunchForce * i * step + Physics.gravity * i * i * step * step * .5f;
         }
 
         line.SetPositions(positions);
@@ -78,7 +81,10 @@ public class FireballWand : Weapon
 
         while (!collided) {
             time += .025f;
-            Vector3 pos = launchProjectile.LaunchPosition.position + dir * time + Physics.gravity * time * time * .5f;
+            if (!ownerLaunchPos) {
+                ownerLaunchPos = Owner.GetComponent<PlayerInventoryController>().launchPos;
+            }
+            Vector3 pos = ownerLaunchPos.position + dir * time + Physics.gravity * time * time * .5f;
             collided = Physics.CheckSphere(pos, .2f, ~(1 << 12)) || time > 1000;
         }
 

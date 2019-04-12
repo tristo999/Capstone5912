@@ -6,6 +6,7 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 {
     public ActiveItem activeItem;
     public Weapon wizardWeapon;
+    public Transform launchPos;
     private Transform playerHand;
     private PlayerUI ui;
 

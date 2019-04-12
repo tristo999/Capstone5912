@@ -6,7 +6,6 @@ public class WeaponLaunchProjectile : MonoBehaviour
 {
     public AudioClip fireSound;
     public BoltEntity Projectile;
-    public Transform LaunchPosition;
     public float LaunchAngle;
     [HideInInspector]
     public float ModifiedLaunchForce
@@ -43,7 +42,7 @@ public class WeaponLaunchProjectile : MonoBehaviour
             audioSource.Play();
         }
         Vector3 newLocalLaunchDir = Quaternion.Euler(0, launchDir, 0) * LocalLaunchDir;
-        BoltEntity proj = BoltNetwork.Instantiate(Projectile, LaunchPosition.position, transform.rotation);
+        BoltEntity proj = BoltNetwork.Instantiate(Projectile, weaponBase.Owner.launchPos.position, transform.rotation);
         proj.GetComponent<Rigidbody>().velocity = newLocalLaunchDir * LaunchForce * weaponBase.Owner.state.ProjectileSpeed;
         proj.GetComponent<Rigidbody>().AddRelativeTorque(torque);
         proj.GetState<IProjectileState>().Owner = weaponBase.Owner.entity;

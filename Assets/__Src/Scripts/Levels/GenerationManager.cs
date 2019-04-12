@@ -77,7 +77,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         using (new TimeTest("Calculating Room Distances", true))
             CalculateRoomDistances();
         using (new TimeTest("Setting Spawn Rooms", true))
-            spawnRooms = GetFirstEquidistantRooms(dungeonGraph.Vertices.Where(r => r.DistanceFromCenter == maxDist - 2), playerCount).ToList();
+            spawnRooms = GetFirstEquidistantRooms(dungeonGraph.Vertices.Where(r => r.DistanceFromCenter >= maxDist - 2), playerCount).ToList();
         //using (new TimeTest("Adding Perlin Noise", true))
             //AddPerlinNoise();
         using (new TimeTest("Generating Danger Ratings", true))
@@ -158,7 +158,14 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                 return validRooms.Value;
             }
         }
-        return null;
+        List<DungeonRoom> ranRooms = new List<DungeonRoom>();
+        List<DungeonRoom> posRooms = rooms.ToList();
+        for (int i = 0; i < amt; i++) {
+            DungeonRoom selected = posRooms[Random.Range(0, posRooms.Count)];
+            ranRooms.Add(selected);
+            posRooms.Remove(selected);
+        }
+        return ranRooms;
     }
 
     public void GenerateStemmingMazeGraph() {
