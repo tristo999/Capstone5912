@@ -38,6 +38,8 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     private Image damageTakenImage;
     private Image weaponSlotRechargeImage;
     private Image activeItemSlotRechargeImage;
+    private Image healthOrbFillImage;
+    private Image healthOrbSurfaceFillImage;
     private TextMeshProUGUI healthTextElement;
     private TextMeshProUGUI weaponSlotNameTextElement;
     private TextMeshProUGUI weaponSlotUsesTextElement;
@@ -63,6 +65,8 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         compassArrowElement = GetCanvasChildByName("Compass").transform.GetChild(0).gameObject;
         damageTakenImage = GetCanvasChildByName("Damage Taken").GetComponent<Image>();
         healthTextElement = GetCanvasChildByName("Health").GetComponentInChildren<TextMeshProUGUI>();
+        healthOrbFillImage = GetCanvasChildByName("Health Orb Fill").GetComponent<Image>();
+        healthOrbSurfaceFillImage = GetCanvasChildByName("Health Orb Surface Fill").GetComponent<Image>();
         weaponSlotRechargeImage = GetCanvasChildByName("Weapon Slot").GetComponentsInChildren<Image>()[1];
         weaponSlotNameTextElement = GetCanvasChildByName("Weapon Slot").GetComponentInChildren<TextMeshProUGUI>();
         weaponSlotUsesTextElement = GetCanvasChildByName("Weapon Slot").GetComponentsInChildren<TextMeshProUGUI>()[1];
@@ -114,6 +118,11 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     public void SetHealth(float health) {
         healthTextElement.text = $"{Math.Ceiling(health)}";
+
+        float fillPercent = 0.1f + (health / 100) * 0.8f;
+
+        healthOrbFillImage.fillAmount = fillPercent;
+        healthOrbSurfaceFillImage.fillAmount = fillPercent + 0.0135f + 0.0075f * (1 - fillPercent);
     }
 
     public void SetWeapon(int weaponId) {
@@ -252,7 +261,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     private void AddFlashDamageTakenText(float damage) {
         RectTransform parentRectTransform = (RectTransform)healthTextElement.rectTransform.parent.transform;
-        Vector2 position2d = new Vector2(0, 1) + (parentRectTransform.anchoredPosition) * 2 / 1080 + new Vector2(0.015f, 0.025f);
+        Vector2 position2d = new Vector2(0.055f, 0.12f); // TEMP can't get this to line up and wasting time.
 
         FloatingTextController text = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
         text.AddToCanvas(canvas);
