@@ -112,7 +112,11 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     private void SpeedChanged() {
         if (entity.isOwner) {
             float change = state.Speed - oldSpeed;
-            if (Math.Abs(change) > 0.0001f) ui.AddSpeedText(change, transform.position);
+            if (Math.Abs(change) > 0.0001f) {
+                ui.AddSpeedText(change, transform.position);
+                ui.SetPlayerSpeedStat(state.Speed);
+            }
+
             oldSpeed = state.Speed;
         }
     }
@@ -120,7 +124,10 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     private void FireRateChanged() {
         if (entity.isOwner) {
             float change = state.FireRate - oldFireRate;
-            if (Math.Abs(change) > 0.0001f) ui.AddFireRateText(change, transform.position);
+            if (Math.Abs(change) > 0.0001f) {
+                ui.AddFireRateText(change, transform.position);
+                ui.SetFireRateStat(state.FireRate);
+            }
             oldFireRate = state.FireRate;
         }
     }
@@ -128,7 +135,10 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     private void ProjectileSpeedChanged() {
         if (entity.isOwner) {
             float change = state.ProjectileSpeed - oldProjectileSpeed;
-            if (Math.Abs(change) > 0.0001f) ui.AddProjectileSpeedText(change, transform.position);
+            if (Math.Abs(change) > 0.0001f) {
+                ui.AddProjectileSpeedText(change, transform.position);
+                ui.SetProjectileSpeedStat(state.ProjectileSpeed);
+            }
             oldProjectileSpeed = state.ProjectileSpeed;
         }
     }
@@ -136,7 +146,10 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     private void ProjectileDamageChanged() {
         if (entity.isOwner) {
             float change = state.ProjectileDamage - oldProjectileDamage;
-            if (Math.Abs(change) > 0.0001f) ui.AddProjectileDamageText(change, transform.position);
+            if (Math.Abs(change) > 0.0001f) {
+                ui.AddProjectileDamageText(change, transform.position);
+                ui.SetProjectileDamageStat(state.ProjectileDamage);
+            }
             oldProjectileDamage = state.ProjectileDamage;
         }
     }

@@ -47,6 +47,11 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     private TextMeshProUGUI itemTypeTextElement;
     private TextMeshProUGUI itemDescriptionTextElement;
     private TextMeshProUGUI messageElement;
+    
+    private TextMeshProUGUI playerSpeedStatTextElement;
+    private TextMeshProUGUI fireRateStatTextElement;
+    private TextMeshProUGUI projectileSpeedStatTextElement;
+    private TextMeshProUGUI projectileDamageStatTextElement;
 
     public override void ControlGained() {
         GameObject pref = Resources.Load<GameObject>("UI/PlayerUI");
@@ -68,6 +73,27 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         itemTypeTextElement = GetCanvasChildByName("Item Type").GetComponentInChildren<TextMeshProUGUI>();
         itemDescriptionTextElement = GetCanvasChildByName("Item Description").GetComponentInChildren<TextMeshProUGUI>();
         messageElement = GetCanvasChildByName("Message").GetComponent<TextMeshProUGUI>();
+
+        playerSpeedStatTextElement = GetCanvasChildByName("Player Speed Stat").GetComponentInChildren<TextMeshProUGUI>();
+        fireRateStatTextElement = GetCanvasChildByName("Fire Rate Stat").GetComponentInChildren<TextMeshProUGUI>();
+        projectileSpeedStatTextElement = GetCanvasChildByName("Projectile Speed Stat").GetComponentInChildren<TextMeshProUGUI>();
+        projectileDamageStatTextElement = GetCanvasChildByName("Projectile Damage Stat").GetComponentInChildren<TextMeshProUGUI>();
+    }
+
+    public void SetPlayerSpeedStat(float speed) {
+        UpdateStatText(playerSpeedStatTextElement, "Player Speed", speed);
+    }
+
+    public void SetFireRateStat(float fireRate) {
+        UpdateStatText(fireRateStatTextElement, "Fire Rate", fireRate);
+    }
+
+    public void SetProjectileSpeedStat(float projectileSpeed) {
+        UpdateStatText(projectileSpeedStatTextElement, "Projectile Speed", projectileSpeed);
+    }
+
+    public void SetProjectileDamageStat(float projectileDamage) {
+        UpdateStatText(projectileDamageStatTextElement, "Projectile Damage", projectileDamage);
     }
 
     public void SetWeaponPercentRechargeRemaining(float percentChargeRemaining) {
@@ -87,7 +113,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     }
 
     public void SetHealth(float health) {
-        healthTextElement.text = health.ToString();
+        healthTextElement.text = $"{Math.Ceiling(health)}";
     }
 
     public void SetWeapon(int weaponId) {
@@ -119,13 +145,13 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    public void AddSpeedText(float speed, Vector3 position3d) { AddStatModText(speed, "speed", position3d); }
+    public void AddSpeedText(float speedChange, Vector3 position3d) { AddStatModText(speedChange, "speed", position3d); }
 
-    public void AddFireRateText(float fireRate, Vector3 position3d) { AddStatModText(fireRate, "fire rate", position3d); }
+    public void AddFireRateText(float fireRateChange, Vector3 position3d) { AddStatModText(fireRateChange, "fire rate", position3d); }
 
-    public void AddProjectileSpeedText(float projectileSpeed, Vector3 position3d) { AddStatModText(projectileSpeed, "projectile speed", position3d); }
+    public void AddProjectileSpeedText(float projectileSpeedChange, Vector3 position3d) { AddStatModText(projectileSpeedChange, "projectile speed", position3d); }
 
-    public void AddProjectileDamageText(float projectileDamage, Vector3 position3d) { AddStatModText(projectileDamage, "damage", position3d); }
+    public void AddProjectileDamageText(float projectileDamageChange, Vector3 position3d) { AddStatModText(projectileDamageChange, "damage", position3d); }
 
     public void AddDamageText(float damage, Vector3 position3d, bool showStatName = false) {
         if (damage > 0) {
@@ -166,9 +192,9 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     public void AddStatModText(float modAmount, string statName, Vector3 position3d) {
         if (modAmount >= 0) {
-            AddFloatingText($"+{(int)Math.Round(modAmount * 100)}% {statName}", position3d, Color.green);
+            AddFloatingText($"+{GetStatPercentFormat(modAmount)}% {statName}", position3d, Color.green);
         } else {
-            AddFloatingText($"-{(int)Math.Round(-modAmount * 100)}% {statName}", position3d, Color.red);
+            AddFloatingText($"-{GetStatPercentFormat(-modAmount)}% {statName}", position3d, Color.red);
         }
     }
 
@@ -178,6 +204,16 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         text.SetPosition3d(position3d, SplitscreenManager.instance.GetEntityCamera(entity).camera);
         text.SetColor(color);
         text.SetText(message);
+    }
+
+    private void UpdateStatText(TextMeshProUGUI textElement, string statName, float statValue) {
+        textElement.text = $"{statName}: {GetStatPercentFormat(statValue)}%";
+
+        if (statValue >= 1) {
+            textElement.color = Color.Lerp(Color.white, Color.green, (statValue - 1) * 2f);
+        } else {
+            textElement.color = Color.Lerp(Color.white, Color.red, (1 - statValue) * 2f);
+        }
     }
 
     private void UpdateRechargeImage(Image image, float percentChargeRemaining) {
@@ -242,6 +278,10 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         painMagnitude -= 0.45f * MAX_PAIN * Time.deltaTime;
     }
 
+    private int GetStatPercentFormat(float statValue) {
+        return (int)Math.Round(statValue * 100);
+    }
+
     private float FloatToOneDecimalPrecision(float num) {
         return ((int)Math.Round(num * 10)) / 10f;
     }
@@ -253,10 +293,19 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         }
     }
 
-    private GameObject GetCanvasChildByName(string name) { 
-        foreach (Transform child in canvas.gameObject.transform) { 
+    private GameObject GetCanvasChildByName(string name) {
+        return GetObjectChildByName(name, canvas.gameObject);
+    }
+
+    private GameObject GetObjectChildByName(string name, GameObject obj) { 
+        foreach (Transform child in obj.transform) { 
             if (String.Equals(child.gameObject.name, name)) { 
                 return child.gameObject;
+            } else {
+                GameObject getFromChild = GetObjectChildByName(name, child.gameObject);
+                if (getFromChild) {
+                    return getFromChild;
+                }
             }
         }
         return null;
