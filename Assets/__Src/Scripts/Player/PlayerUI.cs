@@ -261,7 +261,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     private void AddFlashDamageTakenText(float damage) {
         RectTransform parentRectTransform = (RectTransform)healthTextElement.rectTransform.parent.transform;
-        Vector2 position2d = new Vector2(0.055f, 0.12f); // TEMP can't get this to line up and wasting time.
+        Vector2 position2d = new Vector2(0.07f, 0.16f); // TEMP can't get this to line up and wasting time.
 
         FloatingTextController text = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
         text.AddToCanvas(canvas);
