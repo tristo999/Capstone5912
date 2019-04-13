@@ -14,7 +14,7 @@ public class ManaPotion : HeldPassive {
     }
 
     public void Update(){
-        if(ready && !audioSource.isPlaying){
+        if (ready && !audioSource.isPlaying){
             base.OnEquip();
         }
     }
@@ -28,12 +28,14 @@ public class ManaPotion : HeldPassive {
             audioSource.Play();
         }
 
+        bool wasted = true;
         Weapon wep = Owner.GetComponent<PlayerInventoryController>().wizardWeapon;
         if (wep) {
             WeaponUses wepUses = wep.GetComponent<WeaponUses>();
             if (wepUses && wepUses.AmountUsed > 0) {
                 wepUses.AmountUsed = 0;
                 Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("Weapon uses restored!", Owner.transform.position);
+                wasted = false;
             }
         }
 
@@ -43,7 +45,12 @@ public class ManaPotion : HeldPassive {
             if (activeUses && activeUses.AmountUsed > 0) {
                 activeUses.AmountUsed = 0;
                 Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("Active uses restored!", Owner.transform.position);
+                wasted = false;
             }
+        }
+
+        if (wasted) {
+            Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("You wasted it!", Owner.transform.position);
         }
 
         ready = true;
