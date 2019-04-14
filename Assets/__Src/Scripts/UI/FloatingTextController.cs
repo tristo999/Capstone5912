@@ -21,8 +21,9 @@ public class FloatingTextController : MonoBehaviour
         Invoke("RemoveSelf", lifeDuration);
     }
 
-    public void SetPosition3d(Vector3 hitPosition3d, Camera cam) {
+    public void SetPosition3d(Vector3 hitPosition3d, float stackPositionOffset, Camera cam) {
         position3d = hitPosition3d;
+        positionOffset += stackPositionOffset * new Vector2(0f, 0.048f);
         SetPositionCam(cam);
     }
 

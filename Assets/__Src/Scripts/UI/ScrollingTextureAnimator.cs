@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthOrbAnimator : MonoBehaviour { 
+public class ScrollingTextureAnimator : MonoBehaviour { 
     public float verticalSpeed;
 
     RawImage healthOrbAnimation;

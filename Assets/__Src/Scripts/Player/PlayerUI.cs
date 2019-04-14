@@ -24,6 +24,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     }
 
     public GameObject floatingTextPrefab;
+    private Dictionary<Vector3, int> floatingTextStackDictionary;
 
     private static readonly string EMPTY_SLOT_TEXT = "Empty";
     private static readonly float MAX_PAIN = 20; // In damage points.
@@ -223,6 +224,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     public override void SimulateOwner() {
         UpdateCompassDirection();
         UpdateDamageOverlay();
+        floatingTextStackDictionary = new Dictionary<Vector3, int>();
     }
 
     public void AddStatModText(float modAmount, string statName, Vector3 position3d) {
@@ -234,9 +236,16 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     }
 
     private void AddFloatingText(string message, Vector3 position3d, Color color) {
+        if (floatingTextStackDictionary.ContainsKey(position3d)) {
+            floatingTextStackDictionary[position3d]++;
+        } else {
+            floatingTextStackDictionary[position3d] = 0;
+        }
+        float stackPositionOffset = floatingTextStackDictionary[position3d];
+
         FloatingTextController text = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
         text.AddToCanvas(canvas);
-        text.SetPosition3d(position3d, SplitscreenManager.instance.GetEntityCamera(entity).camera);
+        text.SetPosition3d(position3d, stackPositionOffset, SplitscreenManager.instance.GetEntityCamera(entity).camera);
         text.SetColor(color);
         text.SetText(message);
     }
