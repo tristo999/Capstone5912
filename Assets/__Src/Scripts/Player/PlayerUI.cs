@@ -42,6 +42,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     private Image activeItemSlotRechargeImage;
     private Image healthOrbFillImage;
     private Image healthOrbSurfaceFillImage;
+    private Image healthOrbGlowStaticImage;
     private TextMeshProUGUI healthTextElement;
     private TextMeshProUGUI weaponSlotNameTextElement;
     private TextMeshProUGUI weaponSlotUsesTextElement;
@@ -69,6 +70,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         healthTextElement = GetCanvasChildByName("Health").GetComponentInChildren<TextMeshProUGUI>();
         healthOrbFillImage = GetCanvasChildByName("Health Orb Fill").GetComponent<Image>();
         healthOrbSurfaceFillImage = GetCanvasChildByName("Health Orb Surface Fill").GetComponent<Image>();
+        healthOrbGlowStaticImage = GetCanvasChildByName("Health Orb Glow Static").GetComponent<Image>();
         weaponSlotImage = GetCanvasChildByName("Weapon Slot").GetComponent<Image>();
         weaponSlotRechargeImage = GetCanvasChildByName("Weapon Slot").GetComponentsInChildren<Image>()[1];
         weaponSlotNameTextElement = GetCanvasChildByName("Weapon Slot").GetComponentInChildren<TextMeshProUGUI>();
@@ -131,7 +133,8 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         float fillPercent = 0.1f + (health / 100) * 0.8f;
 
         healthOrbFillImage.fillAmount = fillPercent;
-        healthOrbSurfaceFillImage.fillAmount = fillPercent + 0.0145f + 0.005f * (1 - fillPercent);
+        healthOrbSurfaceFillImage.fillAmount = fillPercent + 0.012f;
+        healthOrbGlowStaticImage.color = Color.Lerp(new Color(0.5f, 0.5f, 0.5f, 0.3f), new Color(0.55f, 0.55f, 0.55f, 1f), (1 - fillPercent) * 1.2f);
     }
 
     public void SetWeapon(int weaponId) {
