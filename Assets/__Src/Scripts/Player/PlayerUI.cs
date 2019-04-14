@@ -35,6 +35,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     private float painMagnitude = 0;
 
     private GameObject compassArrowElement;
+    private Image compassGlowImage;
     private Image damageTakenImage;
     private Image weaponSlotImage;
     private Image weaponSlotRechargeImage;
@@ -66,6 +67,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         canvas.planeDistance = .5f;
         
         compassArrowElement = GetCanvasChildByName("Compass").transform.GetChild(0).gameObject;
+        compassGlowImage = GetCanvasChildByName("Compass Glow").GetComponent<Image>();
         damageTakenImage = GetCanvasChildByName("Damage Taken").GetComponent<Image>();
         healthTextElement = GetCanvasChildByName("Health").GetComponentInChildren<TextMeshProUGUI>();
         healthOrbFillImage = GetCanvasChildByName("Health Orb Fill").GetComponent<Image>();
@@ -274,13 +276,17 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     private void UpdateCompassDirection() { 
         if (!entity.isOwner) return;
-        Vector2 direction = new Vector2(-transform.position.x, -transform.position.z);
-        float angle = Vector2.Angle(direction, new Vector2(1, 0)) - 90;
+        Vector2 positionTopDown = new Vector2(-transform.position.x, -transform.position.z);
+
+        float angle = Vector2.Angle(positionTopDown, new Vector2(1, 0)) - 90;
         if (transform.position.z > 0) { 
             angle = 180 - angle;
         }
-
         compassArrowElement.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        float distance = Vector2.Distance(positionTopDown, Vector2.zero);
+        float percentGlow = (float)Math.Pow(1 - (distance / 250f), 0.7f);
+        compassGlowImage.color = Color.Lerp(new Color(0.6603774f, 0.3519936f, 0.3519936f, 0f), new Color(0.6603774f, 0.3519936f, 0.3519936f, 1f), percentGlow);
     }
 
     private void AddFlashDamageTakenText(float damage) {
