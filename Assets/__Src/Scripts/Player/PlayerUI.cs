@@ -36,7 +36,9 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     private GameObject compassArrowElement;
     private Image damageTakenImage;
+    private Image weaponSlotImage;
     private Image weaponSlotRechargeImage;
+    private Image activeItemSlotImage;
     private Image activeItemSlotRechargeImage;
     private Image healthOrbFillImage;
     private Image healthOrbSurfaceFillImage;
@@ -67,9 +69,11 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         healthTextElement = GetCanvasChildByName("Health").GetComponentInChildren<TextMeshProUGUI>();
         healthOrbFillImage = GetCanvasChildByName("Health Orb Fill").GetComponent<Image>();
         healthOrbSurfaceFillImage = GetCanvasChildByName("Health Orb Surface Fill").GetComponent<Image>();
+        weaponSlotImage = GetCanvasChildByName("Weapon Slot").GetComponent<Image>();
         weaponSlotRechargeImage = GetCanvasChildByName("Weapon Slot").GetComponentsInChildren<Image>()[1];
         weaponSlotNameTextElement = GetCanvasChildByName("Weapon Slot").GetComponentInChildren<TextMeshProUGUI>();
         weaponSlotUsesTextElement = GetCanvasChildByName("Weapon Slot").GetComponentsInChildren<TextMeshProUGUI>()[1];
+        activeItemSlotImage = GetCanvasChildByName("Active Item Slot").GetComponent<Image>();
         activeItemSlotRechargeImage = GetCanvasChildByName("Active Item Slot").GetComponentsInChildren<Image>()[1];
         activeItemSlotNameTextElement = GetCanvasChildByName("Active Item Slot").GetComponentInChildren<TextMeshProUGUI>();
         activeItemSlotUsesTextElement = GetCanvasChildByName("Active Item Slot").GetComponentsInChildren<TextMeshProUGUI>()[1];
@@ -102,10 +106,15 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     public void SetWeaponPercentRechargeRemaining(float percentChargeRemaining) {
         UpdateRechargeImage(weaponSlotRechargeImage, percentChargeRemaining);
+
+        // Optionally change tile brightness to indicate charge as well
+        // weaponSlotImage.color = Color.Lerp(new Color(0.75f, 0.75f, 0.75f), Color.white, (float)Math.Pow(1 - percentChargeRemaining, 14));
     }
 
     public void SetActiveItemPercentRechargeRemaining(float percentChargeRemaining) {
         UpdateRechargeImage(activeItemSlotRechargeImage, percentChargeRemaining);
+
+        // activeItemSlotImage.color = Color.Lerp(new Color(0.75f, 0.75f, 0.75f), Color.white, (float)Math.Pow(1 - percentChargeRemaining, 14));
     }
 
     public void SetWeaponUsesRemaining(int usesRemaining) {
@@ -122,18 +131,30 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         float fillPercent = 0.1f + (health / 100) * 0.8f;
 
         healthOrbFillImage.fillAmount = fillPercent;
-        healthOrbSurfaceFillImage.fillAmount = fillPercent + 0.0135f + 0.0075f * (1 - fillPercent);
+        healthOrbSurfaceFillImage.fillAmount = fillPercent + 0.0145f + 0.005f * (1 - fillPercent);
     }
 
     public void SetWeapon(int weaponId) {
         UpdateItemNameText(weaponSlotNameTextElement, weaponId);
-        SetWeaponPercentRechargeRemaining(0);
+        if (weaponId == -1) {
+            SetWeaponPercentRechargeRemaining(1);
+            weaponSlotImage.color = new Color(0.75f, 0.75f, 0.75f);
+        } else {
+            SetWeaponPercentRechargeRemaining(0);
+            weaponSlotImage.color = Color.white;
+        }
         SetWeaponUsesRemaining(-1);
     }
 
     public void SetActiveItem(int activeItemId) {
         UpdateItemNameText(activeItemSlotNameTextElement, activeItemId);
-        SetActiveItemPercentRechargeRemaining(0);
+        if (activeItemId == -1) {
+            SetActiveItemPercentRechargeRemaining(1);
+            activeItemSlotImage.color = new Color(0.75f, 0.75f, 0.75f);
+        } else {
+            SetActiveItemPercentRechargeRemaining(0);
+            activeItemSlotImage.color = Color.white;
+        }
         SetActiveItemUsesRemaining(-1);
     }
 
@@ -226,7 +247,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     }
 
     private void UpdateRechargeImage(Image image, float percentChargeRemaining) {
-        image.fillAmount = percentChargeRemaining;
+        image.fillAmount = 1 - percentChargeRemaining;
     }
 
     private void UpdateTextUses(TextMeshProUGUI textElement, int usesRemaining) {
