@@ -54,6 +54,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         state.SetAnimator(enemyAnimator);
 
         if (!entity.isOwner) return;
+        state.ForceTransform(state.transform, transform.position);
         state.Health = health;
         state.AddCallback("Health", HealthChanged);
         state.OnAttack += Attack;

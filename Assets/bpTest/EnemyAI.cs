@@ -34,6 +34,7 @@ public class EnemyAI : Bolt.EntityEventListener<IEnemyState>
         state.SetAnimator(enemyAnimator);
 
         if (!entity.isOwner) return;
+        state.ForceTransform(state.transform, transform.position);
         state.OnAttack += Attack;
         nav = this.GetComponent<NavMeshAgent>();
         intPosition = transform.position;

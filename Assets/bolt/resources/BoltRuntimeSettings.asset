@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BoltRuntimeSettings
   m_EditorClassIdentifier: 
   _config:
-    framesPerSecond: 60
+    framesPerSecond: 120
     packetSize: 1200
     packetMaxEventSize: 512
     maxEntityPriority: 65536
@@ -63,7 +63,7 @@ MonoBehaviour:
   serializeProjectAsText: 0
   photonAppId: 8df45c2d-f9c0-47d3-bbcb-22b2451eadd7
   photonUsePunch: 1
-  photonCloudRegionIndex: 3
+  photonCloudRegionIndex: 0
   instantiateMode: 2
   globalEntityBehaviourQueryOption: 3
   globalEntityPriorityCalculatorQueryOption: 3
