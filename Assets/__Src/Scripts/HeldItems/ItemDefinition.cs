@@ -7,8 +7,8 @@ using UnityEngine;
 public class ItemDefinition : ScriptableObject
 {
     public enum ItemType { Weapon, Active, Passive }
-    public enum ItemRarity { Common, Uncommon, Rare, Mythic, Legendary, Ludicrous, Busted, Debug = -1 }
-    public static Color[] RarityColors = { Color.white, Color.grey, Color.blue, new Color(255,0,255), Color.yellow, Color.green, Color.red, Color.black };
+    public enum ItemRarity { Common, Uncommon, Rare, Legendary, Mythic, Ludicrous, Busted, Debug = -1 }
+    public static Color[] RarityColors = { Color.white, new Color(0.259f, 0.384f, 0.957f), new Color(1, 0, 1), Color.yellow, Color.red, Color.green, Color.magenta, Color.black };
 
     public string ItemName = "???";
     public string ItemDescription = "Unknown Item";
