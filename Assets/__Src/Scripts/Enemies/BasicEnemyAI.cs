@@ -43,9 +43,8 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     public bool inAttackRange;
     public bool inHitRange;
     public float itemCount = 4;
-    public Animator enemyAnimator;
+    private Animator enemyAnimator;
     private bool attackStarted;
-    public GameObject chest;
 
     public override void Attached() {
         state.SetTransforms(state.transform, transform);
