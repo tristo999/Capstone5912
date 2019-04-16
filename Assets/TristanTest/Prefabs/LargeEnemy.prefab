@@ -304,9 +304,6 @@ MonoBehaviour:
   inAttackRange: 1
   inHitRange: 0
   itemCount: 3
-  enemyAnimator: {fileID: 6030018668880591768}
-  chest: {fileID: 245, guid: 4480866144ec7a74ea937516bada76e1, type: 3}
-  renderTransform: {fileID: 6030018668871488574}
 --- !u!54 &3444
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -480,12 +477,6 @@ PrefabInstance:
 --- !u!4 &6030018668871488574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400070, guid: f8a8cce08d16ce649a7867846c625087,
-    type: 3}
-  m_PrefabInstance: {fileID: 6030018668871094008}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &6030018668880591768 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9500000, guid: f8a8cce08d16ce649a7867846c625087,
     type: 3}
   m_PrefabInstance: {fileID: 6030018668871094008}
   m_PrefabAsset: {fileID: 0}

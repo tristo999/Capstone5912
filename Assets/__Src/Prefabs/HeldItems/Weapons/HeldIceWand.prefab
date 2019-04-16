@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6391526006376187682}
   - component: {fileID: 9157984432196668215}
   - component: {fileID: 6674723644306666031}
+  - component: {fileID: 7540386660841328633}
   m_Layer: 0
   m_Name: HeldIceWand
   m_TagString: Weapon
@@ -87,10 +88,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireSound: {fileID: 8300000, guid: 5fb361b3db4d1654b919c4a8824163c0, type: 3}
   Projectile: {fileID: 4319, guid: 5115784fdc3868e4aa83509511339116, type: 3}
-  LaunchPosition: {fileID: 2371496292439801496}
   LaunchAngle: 0
   LaunchForce: 15
   audioSource: {fileID: 0}
+--- !u!114 &7540386660841328633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547380477446255212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b6d83d7b54bb6408781dc48a02194b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Uses: 30
 --- !u!1 &5129815689989626995
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,8 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(WeaponCooldown))]
 [RequireComponent(typeof(WeaponLaunchProjectile))]
 [RequireComponent(typeof(WeaponUses))]
-public class BasicWand : Weapon
-{
+public class BasicWand : Weapon { 
     private WeaponCooldown cooldown;
     private WeaponLaunchProjectile launchProj;
     private WeaponUses uses;
@@ -17,9 +16,7 @@ public class BasicWand : Weapon
         uses = GetComponent<WeaponUses>();
     }
 
-    public override void FireDown() {
-        
-    }
+    public override void FireDown() { }
 
     public override void FireHold() {
         if (!Owner.entity.isOwner) return;
@@ -30,13 +27,9 @@ public class BasicWand : Weapon
         } 
     }
 
-    public override void FireRelease() {
+    public override void FireRelease() { }
 
-    }
-
-    public override void OnEquip() {
-
-    }
+    public override void OnEquip() { }
 
     public override void OnDequip() { }
 }
