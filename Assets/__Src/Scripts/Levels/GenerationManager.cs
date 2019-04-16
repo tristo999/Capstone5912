@@ -69,6 +69,8 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     private DungeonRoom westNeighber;
     private DungeonRoom westNeighbor2;
 
+    private List<BoltEntity> enemies;
+
     public void DoGeneration(int playerCount) {
         batchingRoot = new GameObject();
 
@@ -86,6 +88,16 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             PopulateTags();
             SpawnDroppedItems();
             PopuplateChests();
+        }
+    }
+
+    public void BumpEnemies() {
+        foreach (BoltEntity enemy in enemies) {
+            IEnemyState eState;
+            if (enemy.TryFindState(out eState)) {
+                Debug.Log("Attempting to fix enemy position for clients.");
+                enemy.transform.position += enemy.transform.forward;
+            }
         }
     }
 
@@ -216,16 +228,18 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public void PopulateTags() {
         SpawnTagFromList("CarpetSpawner", carpetObjects);
         SpawnTagFromList("CabinetClutter", cabinetObjects);
-        SpawnTagFromList("EnemySpawn", enemyEntities);
+        enemies = SpawnTagFromList("EnemySpawn", enemyEntities).ToList();
         SpawnTagFromList("ChestSpawn", chestEntities);
         SpawnTagFromList("TableClutter", tableObjects);
         SpawnTagFromList("GroundClutter", groundObjects);
     }
 
-    private void SpawnTagFromList(string tag, List<GameObject> list) {
+    private IEnumerable<BoltEntity> SpawnTagFromList(string tag, List<GameObject> list) {
+        List<BoltEntity> spawnedFromTag = new List<BoltEntity>();
         foreach (GameObject spawn in GameObject.FindGameObjectsWithTag(tag)) {
             if (Random.Range(0f, 1f) <= spawn.GetComponent<SpawnChance>().Chance) {
-                GameObject spawned = BoltNetwork.Instantiate(list[Random.Range(0, list.Count)], spawn.transform.position, spawn.transform.rotation);
+                BoltEntity spawned = BoltNetwork.Instantiate(list[Random.Range(0, list.Count)], spawn.transform.position, spawn.transform.rotation);
+                spawnedFromTag.Add(spawned);
                 DangerRating dr = spawned.GetComponent<DangerRating>();
                 if (dr) {
                     dr.rating = spawn.GetComponentInParent<DungeonRoom>().DangerRating;
@@ -239,6 +253,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             }
             BoltNetwork.Destroy(spawn);
         }
+        return spawnedFromTag;
     }
 
     private void SpawnDroppedItems() {

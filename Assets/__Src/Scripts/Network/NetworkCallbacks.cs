@@ -38,6 +38,7 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
 
     private void StartMatch() {
         Physics.autoSimulation = true;
+        GenerationManager.instance.BumpEnemies();
         foreach (WizardFightPlayerObject player in WizardFightPlayerRegistry.Players) {
             SpawnPlayer spawnPlayer;
             if (player.connection) {

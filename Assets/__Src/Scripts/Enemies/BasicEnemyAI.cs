@@ -46,15 +46,13 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     public Animator enemyAnimator;
     private bool attackStarted;
     public GameObject chest;
-    public Transform renderTransform;
 
     public override void Attached() {
-        state.SetTransforms(state.transform, transform, renderTransform);
+        state.SetTransforms(state.transform, transform);
         enemyAnimator = GetComponentInChildren<Animator>();
         state.SetAnimator(enemyAnimator);
 
         if (!entity.isOwner) return;
-        state.ForceTransform(state.transform, transform.position);
         state.Health = health;
         state.AddCallback("Health", HealthChanged);
         state.OnAttack += Attack;
