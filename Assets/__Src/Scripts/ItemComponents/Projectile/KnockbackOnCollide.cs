@@ -20,12 +20,12 @@ public class KnockbackOnCollide : Bolt.EntityBehaviour<IProjectileState>
 
         if (collision.gameObject.GetComponent<BoltEntity>() && collision.gameObject.GetComponent<BoltEntity>().isAttached) {
             KnockbackEntity KnockbackEntity = KnockbackEntity.Create(collision.gameObject.GetComponent<BoltEntity>());
-            KnockbackEntity.Force = rigid.velocity.normalized * knockback;
+            KnockbackEntity.Force = GetKnockback();
             KnockbackEntity.Send();
         } else {
             Rigidbody otherRigid = collision.gameObject.GetComponent<Rigidbody>();
             if (otherRigid) {
-                otherRigid.AddForce(rigid.velocity.normalized * knockback);
+                otherRigid.AddForce(GetKnockback());
             }
         }
     }
@@ -36,13 +36,17 @@ public class KnockbackOnCollide : Bolt.EntityBehaviour<IProjectileState>
         if (checker && !checker.ValidCollision(other)) return;
         if (other.gameObject.GetComponent<BoltEntity>() && other.gameObject.GetComponent<BoltEntity>().isAttached) {
             KnockbackEntity KnockbackEntity = KnockbackEntity.Create(other.gameObject.GetComponent<BoltEntity>());
-            KnockbackEntity.Force = rigid.velocity.normalized * knockback;
+            KnockbackEntity.Force = GetKnockback();
             KnockbackEntity.Send();
         } else {
             Rigidbody otherRigid = other.GetComponent<Rigidbody>();
             if (otherRigid) {
-                otherRigid.AddForce(rigid.velocity.normalized * knockback);
+                otherRigid.AddForce(GetKnockback());
             }
         }
+    }
+
+    private Vector3 GetKnockback() {
+        return (rigid.velocity.normalized + new Vector3(0, 0.45f, 0)).normalized * knockback;
     }
 }
