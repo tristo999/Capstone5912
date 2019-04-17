@@ -77,7 +77,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         if (!entity.isOwner || localPlayer == null) return;
 
         // Custom gravity for the players. They are far too floaty with default gravity.
-        rb.AddForce(Physics.gravity * rb.mass * 3.5f);
+        rb.AddForce(Physics.gravity * rb.mass * 2f); // was 3.5f
 
         DoMovement();
     }
