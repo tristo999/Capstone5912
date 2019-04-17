@@ -23,11 +23,15 @@ public class FireballWand : Weapon
     private void Awake() {
         cooldown = GetComponent<WeaponCooldown>();
         launchProjectile = GetComponent<WeaponLaunchProjectile>();
-        ownerLaunchPos = Owner.GetComponent<PlayerInventoryController>().launchPos;
     }
 
     public override void FireDown() {
         launchProjectile.LaunchForce = BaseLaunchVelocity;
+
+        // Need to late instantiate this so that Owner is available.
+        if (ownerLaunchPos == null) {
+            ownerLaunchPos = Owner.GetComponent<PlayerInventoryController>().launchPos;
+        }
     }
 
     public override void FireHold() {
@@ -45,7 +49,7 @@ public class FireballWand : Weapon
             positions[i] = ownerLaunchPos.position + launchProjectile.LocalLaunchDir * launchProjectile.LaunchForce * i * step + Physics.gravity * i * i * step * step * .5f;
         }
 
-        line.SetPositions(positions);
+        // line.SetPositions(positions);
     }
 
     public override void FireRelease() {
@@ -56,7 +60,7 @@ public class FireballWand : Weapon
         }
         cooldown.ResetCooldown();
         beganFiring = false;
-        line.SetPositions(new Vector3[PointsInArc]);
+        // line.SetPositions(new Vector3[PointsInArc]);
         if (Owner.entity.isOwner) {
             launchProjectile.Launch();
             Owner.state.FireAnim();
@@ -65,8 +69,8 @@ public class FireballWand : Weapon
     }
 
     public override void OnEquip() {
-        line = GetComponent<LineRenderer>();
-        line.positionCount = PointsInArc;
+        // line = GetComponent<LineRenderer>();
+        // line.positionCount = PointsInArc;
     }
 
     public override void OnDequip() {
