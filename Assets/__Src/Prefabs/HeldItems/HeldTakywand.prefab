@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 7261901789791658673}
   - component: {fileID: 8110142123676282328}
   - component: {fileID: 4831493447051526965}
+  - component: {fileID: 1810420305246451874}
   m_Layer: 0
   m_Name: HeldTakywand
   m_TagString: Weapon
@@ -91,7 +92,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireSound: {fileID: 8300000, guid: 97817d96963c08a4bbe159fe182a417a, type: 3}
   Projectile: {fileID: 4321, guid: f393f3f856f110748a29bc656a952356, type: 3}
-  LaunchPosition: {fileID: 8125974975194198037}
   LaunchAngle: 0
   LaunchForce: 30
   audioSource: {fileID: 0}
@@ -108,6 +108,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   takyonScream: {fileID: 8300000, guid: 2f403c0684912e84da3e92376b086726, type: 3}
+--- !u!114 &1810420305246451874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547380477446255212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b6d83d7b54bb6408781dc48a02194b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Uses: 64
 --- !u!1001 &1623991398961317360
 PrefabInstance:
   m_ObjectHideFlags: 0

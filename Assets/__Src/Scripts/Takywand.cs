@@ -12,9 +12,11 @@ public class Takywand : Weapon
     private int currentBeat = 0;
     private bool firing = false;
     private WeaponLaunchProjectile launchProj;
+    private WeaponUses uses;
 
     private void Awake() {
         launchProj = GetComponent<WeaponLaunchProjectile>();
+        uses = GetComponent<WeaponUses>();
     }
 
     public override void FireDown() {
@@ -30,6 +32,7 @@ public class Takywand : Weapon
                 timer = 0.0f;
             }
         } else if (currentBeat < beatTimings.Length && timer > beatTimings[currentBeat]) {
+            uses.Use();
             launchProj.Launch();
             currentBeat++;
         }
