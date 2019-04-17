@@ -72,7 +72,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7e9a491412b95754a9982fb7e59a635c, type: 2}
+  - {fileID: 2100000, guid: d430ad91ab6f5614098e85aacbe477ad, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  radius: 5
+  radius: 3.25
   explosiveKnockback: 10000
   damageOwner: 1
 --- !u!114 &8015147714542863753

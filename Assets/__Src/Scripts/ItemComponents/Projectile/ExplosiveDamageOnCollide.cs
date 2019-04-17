@@ -14,48 +14,73 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
     private void OnCollisionEnter(Collision collision) {
         if (!entity.isAttached || !entity.isOwner) return;
         if (GetComponent<CollisionCheck>().ValidCollision(collision)) {
-            foreach (Collider col in Physics.OverlapSphere(transform.position, radius)) {
-                BoltEntity bEntity = col.GetComponent<BoltEntity>();
+            foreach (Collider areaCol in Physics.OverlapSphere(transform.position, radius)) {
+                BoltEntity bEntity = areaCol.GetComponent<BoltEntity>();
                 if (bEntity) {
                     if (bEntity.gameObject.tag == "Player" && (bEntity!= state.Owner || damageOwner) || bEntity.gameObject.gameObject.tag == "Enemy") {
-                        Debug.Log(col.gameObject.name);
-                        DealDamage(collision.gameObject);
-
+                        // If this is the object you hit directly
+                        if (collision.gameObject == areaCol.gameObject) {
+                            // Deal full, direct damage.
+                            DealDamage(areaCol.gameObject, damage);
+                        } else {
+                            // Deal damage on radius dropoff.
+                            float dropoffDamage = CalculateDamageWithDropoff(Vector3.Distance(transform.position, areaCol.transform.position));
+                            DealDamage(areaCol.gameObject, dropoffDamage);
+                        }
                     }
                     KnockbackEntity knockback = KnockbackEntity.Create(bEntity);
                     knockback.Force = (bEntity.transform.position - transform.position).normalized * explosiveKnockback;
                     knockback.Send();
                 } else {
-                    if (col.gameObject.tag == "Player" || col.gameObject.tag == "Enemy" || col.gameObject.layer == 15)
-                    col.GetComponent<Rigidbody>().AddForce((col.transform.position - transform.position).normalized * explosiveKnockback);
+                    if (areaCol.gameObject.tag == "Player" || areaCol.gameObject.tag == "Enemy" || areaCol.gameObject.layer == 15)
+                        areaCol.GetComponent<Rigidbody>().AddForce((areaCol.transform.position - transform.position).normalized * explosiveKnockback);
                 }
             }
         }
     }
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("Explosion!");
         if (!entity.isAttached || !entity.isOwner) return;
         if (GetComponent<CollisionCheck>().ValidCollision(other)) {
-            foreach (Collider col in Physics.OverlapSphere(transform.position, radius)) {
-                BoltEntity bEntity = col.GetComponent<BoltEntity>();
+            foreach (Collider areaCol in Physics.OverlapSphere(transform.position, radius)) {
+                BoltEntity bEntity = areaCol.GetComponent<BoltEntity>();
                 if (bEntity) {
                     if (bEntity.gameObject.tag == "Player" && (bEntity != state.Owner || damageOwner) || bEntity.gameObject.gameObject.tag == "Enemy") {
-                        Debug.Log(col.gameObject.name);
-                        DealDamage(col.gameObject);
+                        // If this is the object you hit directly
+                        if (other.gameObject == areaCol.gameObject) {
+                            // Deal full, direct damage.
+                            DealDamage(areaCol.gameObject, damage);
+                        } else {
+                            // Deal damage on radius dropoff.
+                            float dropoffDamage = CalculateDamageWithDropoff(Vector3.Distance(transform.position, areaCol.transform.position));
+                            DealDamage(areaCol.gameObject, dropoffDamage);
+                        }
                     }
                     KnockbackEntity knockback = KnockbackEntity.Create(bEntity);
                     knockback.Force = (bEntity.transform.position - transform.position).normalized * explosiveKnockback;
                     knockback.Send();
                 } else {
-                    if (col.gameObject.tag == "Player" || col.gameObject.tag == "Enemy" || col.gameObject.layer == 15)
-                        col.GetComponent<Rigidbody>().AddForce((col.transform.position - transform.position).normalized * explosiveKnockback);
+                    if (areaCol.gameObject.tag == "Player" || areaCol.gameObject.tag == "Enemy" || areaCol.gameObject.layer == 15)
+                        areaCol.GetComponent<Rigidbody>().AddForce((areaCol.transform.position - transform.position).normalized * explosiveKnockback);
                 }
             }
         }
     }
 
-    private void DealDamage(GameObject target) {
+    private float CalculateDamageWithDropoff(float distance) {
+        // Using a bit of a fudge factor here because the center of the hit object is likely to be further than the closest hit point.
+        float fudgeMinDistance = 1; // Units of forgiveness for max splash damage;
+        float fudgeMultiplier = 1.25f; // % to spread out distance for min damage;
+        float minDamagePercent = 0.25f;
+
+        float damagePercent = (1 - (distance - fudgeMinDistance) / (radius * fudgeMultiplier)); 
+        if (damagePercent < 0) {
+            damagePercent = 0;
+        }
+        return damage * (minDamagePercent + (1 - minDamagePercent) * damagePercent);
+    }
+
+    private void DealDamage(GameObject target, float damage) {
         if (target.GetComponent<BoltEntity>() == null) return;
         DamageEntity DamageEntity = DamageEntity.Create(target.GetComponent<BoltEntity>());
         DamageEntity.Damage = damage;

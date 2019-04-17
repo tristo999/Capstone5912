@@ -11,18 +11,20 @@ public class FireballWand : Weapon
     public int PointsInArc;
 
     private float currentVelocity;
-    private LineRenderer line;
+    // private LineRenderer line; // Disabled for now.
 
     private bool beganFiring;
 
     private WeaponCooldown cooldown;
     private WeaponLaunchProjectile launchProjectile;
+    private WeaponUses uses;
 
     private Transform ownerLaunchPos;
 
     private void Awake() {
         cooldown = GetComponent<WeaponCooldown>();
         launchProjectile = GetComponent<WeaponLaunchProjectile>();
+        uses = GetComponent<WeaponUses>();
     }
 
     public override void FireDown() {
@@ -37,11 +39,11 @@ public class FireballWand : Weapon
     public override void FireHold() {
         if (!cooldown.Ready) return;
         if (!beganFiring) {
-            Owner.state.Speed -= 0.75f;
+            Owner.state.Speed -= 0.66f;
             beganFiring = true;
         }
         if (currentVelocity < MaxLaunchVelocity * Owner.state.ProjectileSpeed)
-            launchProjectile.LaunchForce += .5f;
+            launchProjectile.LaunchForce += 1f;
         Vector3[] positions = new Vector3[PointsInArc];
         float timeToImpact = TimeOfImpact(launchProjectile.LocalLaunchDir * launchProjectile.LaunchForce);
         float step = timeToImpact / PointsInArc;
@@ -56,13 +58,14 @@ public class FireballWand : Weapon
         if (!cooldown.Ready) return;
         if (beganFiring) {
             // Sometimes firerelease gets called twice so we need to check to make sure the speed up is not applied twice.
-            Owner.state.Speed += 0.75f;
+            Owner.state.Speed += 0.66f;
         }
         cooldown.ResetCooldown();
         beganFiring = false;
         // line.SetPositions(new Vector3[PointsInArc]);
         if (Owner.entity.isOwner) {
             launchProjectile.Launch();
+            uses.Use();
             Owner.state.FireAnim();
             currentVelocity = 0f;
         }
@@ -75,7 +78,7 @@ public class FireballWand : Weapon
 
     public override void OnDequip() {
         if (beganFiring) {
-            Owner.state.Speed -= 0.75f;
+            Owner.state.Speed -= 0.66f;
         }
     }
 

@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7682894439513003783}
   - component: {fileID: 2930411030406737018}
   - component: {fileID: 7172630985459751635}
+  - component: {fileID: 4326544442286534233}
   - component: {fileID: 7119080873938650761}
   m_Layer: 0
   m_Name: HeldFireballWand
@@ -91,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d5348339f2d14469586e25a8437ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseLaunchVelocity: 5
+  BaseLaunchVelocity: 4
   MaxLaunchVelocity: 30
   PointsInArc: 100
 --- !u!114 &2930411030406737018
@@ -121,10 +122,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireSound: {fileID: 8300000, guid: bc5991d00e02f1448946ff0a59cc171d, type: 3}
   Projectile: {fileID: 4267, guid: 36adf8fc46b7ba04ab241308cf5da80c, type: 3}
-  LaunchPosition: {fileID: 1864185642370842619}
   LaunchAngle: 25
   LaunchForce: 0
   audioSource: {fileID: 0}
+--- !u!114 &4326544442286534233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720748155591841518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b6d83d7b54bb6408781dc48a02194b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Uses: 20
 --- !u!120 &7119080873938650761
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -225,6 +238,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7711465964295657296}
     m_Modifications:
+    - target: {fileID: 100000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
+      propertyPath: m_Name
+      value: FireballWandModel
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -280,10 +297,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
-      propertyPath: m_Name
-      value: FireballWandModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5af6598cd47f8be4896d5b5edef676a6, type: 3}
