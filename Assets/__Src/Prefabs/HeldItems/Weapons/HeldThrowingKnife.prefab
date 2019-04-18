@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Uses: 1
+  DestroyDelay: 0
 --- !u!114 &6583513572559261551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSound: {fileID: 0}
-  Projectile: {fileID: 4319, guid: 9687ef2606c4fcf4cbc8b82442511954, type: 3}
+  Projectile: {fileID: 12170, guid: 9687ef2606c4fcf4cbc8b82442511954, type: 3}
   LaunchAngle: 0
   LaunchForce: 27
   audioSource: {fileID: 0}
@@ -127,6 +128,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63363818804689890}
     m_Modifications:
+    - target: {fileID: 100002, guid: b0ef760a48f325f4d9d5428cce123a7f, type: 3}
+      propertyPath: m_Name
+      value: ThrowingKnife
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: b0ef760a48f325f4d9d5428cce123a7f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.57
@@ -170,10 +175,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: b0ef760a48f325f4d9d5428cce123a7f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: b0ef760a48f325f4d9d5428cce123a7f, type: 3}
-      propertyPath: m_Name
-      value: ThrowingKnife
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0ef760a48f325f4d9d5428cce123a7f, type: 3}

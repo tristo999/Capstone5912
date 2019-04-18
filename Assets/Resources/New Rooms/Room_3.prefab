@@ -16367,15 +16367,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4534757346968221349, guid: a4c09c6dd685f5845a8b5c014ca05f99,
-        type: 3}
-      propertyPath: Chance
-      value: 0.655
-      objectReference: {fileID: 0}
     - target: {fileID: 3042532233600675501, guid: a4c09c6dd685f5845a8b5c014ca05f99,
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4534757346968221349, guid: a4c09c6dd685f5845a8b5c014ca05f99,
+        type: 3}
+      propertyPath: Chance
+      value: 0.655
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4c09c6dd685f5845a8b5c014ca05f99, type: 3}
@@ -18196,6 +18196,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 199000013968657866, guid: 837d3c83226fd6d47ae73e81da4020bb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 198000010066513692, guid: 837d3c83226fd6d47ae73e81da4020bb,
         type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState
@@ -18215,11 +18220,6 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 199000013968657866, guid: 837d3c83226fd6d47ae73e81da4020bb,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 837d3c83226fd6d47ae73e81da4020bb, type: 3}

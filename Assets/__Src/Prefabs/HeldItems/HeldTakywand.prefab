@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireSound: {fileID: 8300000, guid: 97817d96963c08a4bbe159fe182a417a, type: 3}
-  Projectile: {fileID: 4321, guid: f393f3f856f110748a29bc656a952356, type: 3}
+  Projectile: {fileID: 12174, guid: f393f3f856f110748a29bc656a952356, type: 3}
   LaunchAngle: 0
   LaunchForce: 30
   audioSource: {fileID: 0}
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Uses: 64
+  DestroyDelay: 0
 --- !u!1001 &1623991398961317360
 PrefabInstance:
   m_ObjectHideFlags: 0
