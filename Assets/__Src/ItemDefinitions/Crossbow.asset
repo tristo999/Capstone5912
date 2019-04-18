@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fefb70c7568dea4e8c5ba3aa027b199, type: 3}
-  m_Name: Portable Chest
+  m_Name: Crossbow
   m_EditorClassIdentifier: 
-  ItemName: Portable Chest
-  ItemDescription: What could be inside!
-  ItemId: 24
-  Type: 1
-  Rarity: 2
-  DroppedModel: {fileID: 283, guid: 3cdfc0aab05d4854b816b0291ca018f6, type: 3}
+  ItemName: Crossbow
+  ItemDescription: Aim required
+  ItemId: 0
+  Type: 0
+  Rarity: 0
+  DroppedModel: {fileID: 274, guid: a0a7605d0e7d44c47872abb50a870033, type: 3}
   DroppedScript: {fileID: 0}
-  HeldModel: {fileID: 8815563781034413229, guid: 96b3c37b8b1986b41a6201bded22cd1c,
+  HeldModel: {fileID: 4547380477446255212, guid: b10a6b6da1883194d85658d9480df345,
     type: 3}
   HeldScript: {fileID: 0}
   SpeedModifier: 0
