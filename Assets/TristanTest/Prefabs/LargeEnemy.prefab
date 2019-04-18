@@ -416,14 +416,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: f39901fbf4fe6f943abe6e6ffda024f0, type: 2}
-    - target: {fileID: 9500000, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.5
@@ -447,6 +439,14 @@ PrefabInstance:
     - target: {fileID: 400000, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f39901fbf4fe6f943abe6e6ffda024f0, type: 2}
+    - target: {fileID: 9500000, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700002, guid: f8a8cce08d16ce649a7867846c625087, type: 3}
       propertyPath: m_Materials.Array.data[0]

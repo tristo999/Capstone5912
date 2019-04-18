@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fefb70c7568dea4e8c5ba3aa027b199, type: 3}
-  m_Name: Skull
+  m_Name: Big Health Potion
   m_EditorClassIdentifier: 
-  ItemName: Magic Skull
-  ItemDescription: Spooky
-  ItemId: 20
+  ItemName: Big Health Potion
+  ItemDescription: Who needs doctors!
+  ItemId: 22
   Type: 2
-  Rarity: 1
-  DroppedModel: {fileID: 284, guid: 6be805a04b3ca964d8bfc8995ee0cf4f, type: 3}
+  Rarity: 2
+  DroppedModel: {fileID: 284, guid: 8312897e407265f4c88ac59ae3cb0869, type: 3}
   DroppedScript: {fileID: 0}
-  HeldModel: {fileID: 8815563781034413229, guid: 5b2e6535ca027e043905e1bab065216c,
+  HeldModel: {fileID: 8815563781034413229, guid: ca71474e7fc468c44afa4cfa5bad0ccf,
     type: 3}
   HeldScript: {fileID: 0}
-  SpeedModifier: -0.1
-  HealthModifier: 0
+  SpeedModifier: 0
+  HealthModifier: 40
   FireRateModifier: 0
   ProjectileSpeedModifier: 0
-  DamageModifier: 0.2
+  DamageModifier: 0

@@ -34,20 +34,20 @@ public class Potion : HeldPassive
                 Owner.state.Speed += 0.1f;
                 break;
             case 1:
-                Owner.state.FireRate += 0.25f;
+                Owner.state.FireRate += 0.2f;
                 break;
             case 2:
-                Owner.state.ProjectileSpeed += 0.3f;
+                Owner.state.ProjectileSpeed += 0.2f;
                 break;
             case 3:
                 Owner.state.ProjectileDamage += 0.15f;
                 break;
             case 4:
-                Owner.state.Health += 5f;
+                Owner.state.Health += 15f;
                 Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(-5f, Owner.transform.position, true);
                 break;
             default:
-                Owner.state.Health += 5f;
+                Owner.state.Health += 15f;
                 Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(-5f, Owner.transform.position, true);
                 break;
         }
