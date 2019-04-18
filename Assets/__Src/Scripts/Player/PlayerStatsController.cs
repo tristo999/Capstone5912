@@ -87,16 +87,21 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
     private void HealthChanged() {
         if (entity.isOwner) {
             if (state.Health < 0) {
-                state.Health = 0;
-            }
-            ui.SetHealth(state.Health);
-            if (state.Health == 0) {
-                state.Dead = true;
-            }
+                // Retriggers HealthChanged()
+                state.Health = 0; 
+            } else if (state.Health > 100) { // Max Health here
+                // Retriggers HealthChanged()
+                state.Health = 100;
+            } else {
+                ui.SetHealth(state.Health);
+                if (state.Health == 0) {
+                    state.Dead = true;
+                }
 
-            float change = state.Health - oldHealth;
-            if (Math.Abs(change) > 0.0001f) ui.FlashDamageTaken(-change);
-            oldHealth = state.Health;
+                float change = state.Health - oldHealth;
+                if (Math.Abs(change) > 0.0001f) ui.FlashDamageTaken(-change);
+                oldHealth = state.Health;
+            }
         }
     }
 
