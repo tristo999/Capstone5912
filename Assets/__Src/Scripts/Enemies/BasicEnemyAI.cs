@@ -55,7 +55,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         state.Health = health;
         state.AddCallback("Health", HealthChanged);
         state.OnAttack += Attack;
-        nav = this.GetComponent<NavMeshAgent>();
+        nav = GetComponent<NavMeshAgent>();
         nav.enabled = true;
         intPosition = transform.position;
         attackTimer = 100f;
@@ -69,31 +69,30 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     private void Attack() {
         attackTimer = 0f;
         animationTimer = 0f;
-        nav.isStopped = true;
+        SetStopped(true);
         attackStarted = true;
     }
 
     // Update is called once per frame
     public override void SimulateOwner() {
-        if (!inDeathAnim)
-        {
-            if (players == null || players.Length == 0)
-            players = GameObject.FindGameObjectsWithTag("Player");
-        else {
-            players = GameObject.FindGameObjectsWithTag("Player");
-            currentPlayer = findCurrentPlayer();
-        }
-            state.Moving = !nav.isStopped;
+        if (!inDeathAnim) {
+            if (players == null || players.Length == 0) {
+                players = GameObject.FindGameObjectsWithTag("Player");
+            } else {
+                // Update the player list another way, it takes nearly 10ms every frame.
+                // players = GameObject.FindGameObjectsWithTag("Player");
+
+                currentPlayer = FindCurrentPlayer();
+            }
+            
             CheckAttack();
             CheckMove();
 
-            if (attackTimer < attackCooldown)
-                attackTimer += BoltNetwork.FrameDeltaTime;
+            if (attackTimer < attackCooldown) attackTimer += BoltNetwork.FrameDeltaTime;
 
             animationTimer += BoltNetwork.FrameDeltaTime;
         }
-        if (isDead)
-            BoltNetwork.Destroy(gameObject);
+        if (isDead) BoltNetwork.Destroy(gameObject);
     }
     
     private void HealthChanged() {
@@ -123,9 +122,11 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
 
     private void CheckAttack() {
         if (attackStarted && animationTimer > animationLength && inAttackRange && !enemyAnimator.IsInTransition(0)) {
-            DamageEntity DamageEntity = DamageEntity.Create(currentPlayer.GetComponent<BoltEntity>());
-            DamageEntity.Damage = attackDamage;
-            DamageEntity.Send();
+            if (currentPlayer) {
+                DamageEntity DamageEntity = DamageEntity.Create(currentPlayer.GetComponent<BoltEntity>());
+                DamageEntity.Damage = attackDamage;
+                DamageEntity.Send();
+            }
             attackStarted = false;
         }
 
@@ -137,31 +138,41 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
     private void CheckMove() {
         if (inAttackAnim || enemyAnimator.IsInTransition(0)) return;
 
-        if (currentPlayer && !inAttackRange) {
-            nav.SetDestination(currentPlayer.transform.position);
-            nav.isStopped = false;
-        } else
-        {
-            nav.SetDestination(transform.position);
-            nav.isStopped = true;
-        }
-
-        if (!currentPlayer) {
-            nav.SetDestination(intPosition);
-            if (nav.remainingDistance <= nav.stoppingDistance) {
-                nav.isStopped = true;
+        if (currentPlayer) {
+            nav.enabled = true;
+            if (!inAttackRange) {
+                nav.SetDestination(currentPlayer.transform.position);
+                SetStopped(false);
             } else {
-                nav.isStopped = false;
+                nav.SetDestination(transform.position);
+                SetStopped(true);
+            }
+        } else {
+            if (nav.enabled) {
+                nav.SetDestination(intPosition);
+                if (nav.remainingDistance <= nav.stoppingDistance) {
+                    SetStopped(true);
+                    nav.enabled = false;
+                } else {
+                    SetStopped(false);
+                }
             }
         }
     }
 
-    private GameObject findCurrentPlayer() {
+    private GameObject FindCurrentPlayer() {
         GameObject pObj = null;
         GameObject closestPlayer = players.Aggregate((curMin, x) => (curMin == null || Vector3.Distance(x.transform.position, transform.position) < Vector3.Distance(curMin.transform.position, transform.position)) ? x : curMin);
         if (Vector3.Distance(closestPlayer.transform.position, intPosition) < roomWidth / 2)
             pObj = closestPlayer;
         return pObj;
+    }
+
+    private void SetStopped(bool bStopped) {
+        if (nav.enabled) {
+            nav.isStopped = bStopped;
+        }
+        state.Moving = !bStopped;
     }
 
     public override void OnEvent(DamageEntity evnt) {
