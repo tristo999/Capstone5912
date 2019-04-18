@@ -13,6 +13,7 @@ public class CloakOfInvisibility : ActiveItem
 
     private ActiveTimeout timeout;
     private ActiveCooldown cooldown;
+    private ActiveUses uses;
 
     public override void ActivateHold() {
         
@@ -30,6 +31,7 @@ public class CloakOfInvisibility : ActiveItem
         GetComponent<Cloth>().capsuleColliders = new CapsuleCollider[] { Owner.GetComponent<CapsuleCollider>() };
         timeout = GetComponent<ActiveTimeout>();
         cooldown = GetComponent<ActiveCooldown>();
+        uses = GetComponent<ActiveUses>();
         timeout.OnTimeout += DeactivateCloak;
     }
 
@@ -66,6 +68,7 @@ public class CloakOfInvisibility : ActiveItem
             }
         }
         timeout.StartTimeout();
+        uses.Use();
     }
 
     private void DeactivateCloak() {

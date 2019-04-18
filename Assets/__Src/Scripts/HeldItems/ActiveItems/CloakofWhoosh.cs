@@ -6,6 +6,7 @@ public class CloakofWhoosh : ActiveItem
 {
     private ActiveTimeout timeout;
     private ActiveCooldown cooldown;
+    private ActiveUses uses;
 
     public override void ActivateHold() { }
     public override void ActivateRelease() { }
@@ -18,6 +19,7 @@ public class CloakofWhoosh : ActiveItem
         GetComponent<Cloth>().capsuleColliders = new CapsuleCollider[] { Owner.GetComponent<CapsuleCollider>() };
         timeout = GetComponent<ActiveTimeout>();
         cooldown = GetComponent<ActiveCooldown>();
+        uses = GetComponent<ActiveUses>();
         timeout.OnTimeout += DeactivateCloak;
     }
 
@@ -33,6 +35,7 @@ public class CloakofWhoosh : ActiveItem
         Owner.GetComponent<PlayerStatsController>().state.Speed += 0.7f;
 
         timeout.StartTimeout();
+        uses.Use();
     }
 
     private void DeactivateCloak() {

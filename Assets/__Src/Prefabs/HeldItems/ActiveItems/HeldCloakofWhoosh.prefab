@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4598785454288207852}
   - component: {fileID: 3901393177094357136}
   - component: {fileID: 2056704017191416077}
+  - component: {fileID: 7817003936521571801}
   m_Layer: 0
   m_Name: HeldCloakofWhoosh
   m_TagString: Active
@@ -419,3 +420,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Timeout: 1.75
   timeoutTimer: 0
+--- !u!114 &7817003936521571801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8815563781034413229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cec25a3591cd6c49b68fec75276fd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Uses: 20
+  DestroyDelay: 1.75

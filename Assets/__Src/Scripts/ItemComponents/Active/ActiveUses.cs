@@ -5,36 +5,48 @@ using UnityEngine;
 public class ActiveUses : MonoBehaviour 
 {
     public int Uses;
+    public float DestroyDelay;
+
+    private ActiveItem active;
     public int AmountUsed {
         get {
             return amountUsed;
         }
         set {
             amountUsed = value;
-            
-            if (AmountUsed >= Uses) {
-                if (Uses > 1) {
-                    GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("Active exhausted!", GetComponent<ActiveItem>().Owner.transform.position);
-                }
 
-                GetComponentInParent<PlayerInventoryController>().state.OnDestroyActive();
-            } else {
+            if (AmountUsed >= Uses || DestroyDelay > 0) {
                 UpdatePlayerUI();
+            }
+
+            if (AmountUsed >= Uses) {
+                StartCoroutine(DelayedDestroy(DestroyDelay));
             }
         }
     }
     private int amountUsed = 0;
 
     void Start() {
-        UpdatePlayerUI();
+        active = GetComponent<ActiveItem>();
+        if (active.Owner.entity.isOwner) {
+            UpdatePlayerUI();
+        }
     }
 
     public void Use() {
-        AmountUsed++;
+        if (active.Owner.entity.isOwner) AmountUsed++;
     }
 
     private void UpdatePlayerUI() {
-        GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.SetActiveItemUsesRemaining(Uses - AmountUsed);
+        if (active && active.Owner.entity.isOwner) GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.SetActiveItemUsesRemaining(Uses - AmountUsed);
+    }
+
+    IEnumerator DelayedDestroy(float time) {
+        yield return new WaitForSeconds(time);
+        if (Uses > 1) {
+            active.Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("Active exhausted!", GetComponent<ActiveItem>().Owner.transform.position);
+        }
+        GetComponentInParent<PlayerInventoryController>().state.OnDestroyActive();
     }
 
 }
