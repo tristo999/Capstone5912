@@ -28,7 +28,7 @@ public class FireballWand : Weapon
     }
 
     public override void FireDown() {
-        launchProjectile.LaunchForce = BaseLaunchVelocity;
+        currentVelocity = BaseLaunchVelocity * Owner.state.ProjectileSpeed;
 
         // Need to late instantiate this so that Owner is available.
         if (ownerLaunchPos == null) {
@@ -42,8 +42,9 @@ public class FireballWand : Weapon
             Owner.state.Speed -= 0.66f;
             beganFiring = true;
         }
-        if (currentVelocity < MaxLaunchVelocity * Owner.state.ProjectileSpeed)
-            launchProjectile.LaunchForce += 1f;
+        if (currentVelocity < MaxLaunchVelocity * Owner.state.ProjectileSpeed) currentVelocity += 60f * Owner.state.ProjectileSpeed * Time.deltaTime;
+
+        /* 
         Vector3[] positions = new Vector3[PointsInArc];
         float timeToImpact = TimeOfImpact(launchProjectile.LocalLaunchDir * launchProjectile.LaunchForce);
         float step = timeToImpact / PointsInArc;
@@ -51,7 +52,8 @@ public class FireballWand : Weapon
             positions[i] = ownerLaunchPos.position + launchProjectile.LocalLaunchDir * launchProjectile.LaunchForce * i * step + Physics.gravity * i * i * step * step * .5f;
         }
 
-        // line.SetPositions(positions);
+        line.SetPositions(positions);
+        */
     }
 
     public override void FireRelease() {
@@ -64,10 +66,10 @@ public class FireballWand : Weapon
         beganFiring = false;
         // line.SetPositions(new Vector3[PointsInArc]);
         if (Owner.entity.isOwner) {
+            launchProjectile.LaunchForce = currentVelocity;
             launchProjectile.Launch();
             uses.Use();
             Owner.state.FireAnim();
-            currentVelocity = 0f;
         }
     }
 
