@@ -52,6 +52,11 @@ public class WeaponLaunchProjectile : MonoBehaviour
             damageOnCollide.damageModifier = weaponBase.Owner.state.ProjectileDamage;
         }
 
+        ExplosiveDamageOnCollide explosiveDamageOnCollide = proj.GetComponent<ExplosiveDamageOnCollide>();
+        if (explosiveDamageOnCollide) {
+            explosiveDamageOnCollide.damageModifier = weaponBase.Owner.state.ProjectileDamage;
+        }
+
         weaponBase.Owner.state.FireAnim();
         return proj;
     }

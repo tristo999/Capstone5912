@@ -10,6 +10,8 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
     public float radius;
     public float explosiveKnockback;
     public bool damageOwner;
+    [HideInInspector]
+    public float damageModifier = 1f; // Assigned by WeaponLaunchProjectile (or later components).
 
     private void OnCollisionEnter(Collision collision) {
         if (!entity.isAttached || !entity.isOwner) return;
@@ -93,10 +95,10 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
         return direction * explosiveKnockback * CalculateExplosiveDropoff(distance);
     }
 
-    private void DealDamage(GameObject target, float damage) {
+    private void DealDamage(GameObject target, float damageCalculated) {
         if (target.GetComponent<BoltEntity>() == null) return;
         DamageEntity DamageEntity = DamageEntity.Create(target.GetComponent<BoltEntity>());
-        DamageEntity.Damage = damage;
+        DamageEntity.Damage = damageCalculated * damageModifier;
         if (entity.isOwner) {
             // Only include for the player that dealt this damage.
             DamageEntity.HitPosition = transform.position;
