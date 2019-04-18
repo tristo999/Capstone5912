@@ -15,7 +15,7 @@ public class ActiveUses : MonoBehaviour
         set {
             amountUsed = value;
 
-            if (AmountUsed >= Uses || DestroyDelay > 0) {
+            if (AmountUsed < Uses || DestroyDelay > 0) {
                 UpdatePlayerUI();
             }
 
