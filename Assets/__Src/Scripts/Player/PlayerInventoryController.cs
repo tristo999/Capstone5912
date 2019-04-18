@@ -173,8 +173,8 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
             if (entity.isControllerOrOwner) {
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
                 evnt.ItemId = activeItem.Id;
-                evnt.Position = transform.position;
-                evnt.Force = transform.forward;
+                evnt.Position = transform.position + transform.forward * 1.3f + transform.up * .5f;
+                evnt.Force = 500f * transform.forward + 1000f * transform.up;
                 evnt.SpawnerTag = gameObject.tag;
 
                 ActiveUses uses = activeItem.GetComponent<ActiveUses>();
