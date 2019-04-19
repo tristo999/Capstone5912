@@ -91,7 +91,7 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
     }
 
     private Vector3 GetKnockback(Vector3 direction, float distance) {
-        direction = (direction.normalized + new Vector3(0, 1.5f, 0)).normalized;
+        direction = (direction.normalized + new Vector3(0, 1.75f, 0)).normalized;
         return direction * explosiveKnockback * CalculateExplosiveDropoff(distance);
     }
 
