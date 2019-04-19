@@ -57,6 +57,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
+  - {fileID: 4536529670175636947}
   - {fileID: 1506}
   - {fileID: 8764240152188728852}
   - {fileID: 2082311984918544459}
@@ -265,8 +266,9 @@ Transform:
   - {fileID: 2242113490256023605}
   - {fileID: 3435074484675741615}
   - {fileID: 6141321200866315453}
+  - {fileID: 125321398553524991}
   m_Father: {fileID: 1453}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3597
 BoxCollider:
@@ -352,7 +354,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -869,7 +871,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1376,7 +1378,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1846,6 +1848,51 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 6.5, z: 0.5}
   m_Center: {x: 10, y: 6.75, z: 19.75}
+--- !u!1 &900962680316490045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4536529670175636947}
+  - component: {fileID: 1919025550488395179}
+  m_Layer: 14
+  m_Name: Ceiling
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4536529670175636947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900962680316490045}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 2, y: 0.6666667, z: 2}
+  m_Children: []
+  m_Father: {fileID: 1453}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1919025550488395179
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900962680316490045}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1067272270182817435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,7 +1925,7 @@ Transform:
   - {fileID: 1856247757960745711}
   - {fileID: 3961295118226747597}
   m_Father: {fileID: 1453}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2649682105010713924
 BoxCollider:
@@ -1952,7 +1999,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2526,7 +2573,7 @@ Transform:
   - {fileID: 4521833171928513669}
   - {fileID: 4202862145580153134}
   m_Father: {fileID: 1453}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4142666770803362948
 GameObject:
@@ -2599,7 +2646,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3104,7 +3151,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3886,7 +3933,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4543,7 +4590,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5081,7 +5128,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   - {fileID: 2100000, guid: f1f57886b87372842940b721cfb4e99d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -5613,7 +5660,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6154,7 +6201,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6687,7 +6734,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
+  - {fileID: 2100000, guid: 2ea23703b2a1f7540a60c28ebdd5a29e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7170,6 +7217,98 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.8679464, y: 0.10282877, z: 2.8679464}
   m_Center: {x: 0, y: -0.051414885, z: 0}
+--- !u!1 &8436648566174334224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 125321398553524991}
+  - component: {fileID: 3582310050326584985}
+  - component: {fileID: 2381120587746211859}
+  - component: {fileID: 696741906157758312}
+  m_Layer: 14
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &125321398553524991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8436648566174334224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15, y: 0, z: 15}
+  m_LocalScale: {x: 3, y: 1, z: 3}
+  m_Children: []
+  m_Father: {fileID: 1506}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3582310050326584985
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8436648566174334224}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &2381120587746211859
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8436648566174334224}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 42e2ee651564a6f4387b5236641e509b, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!64 &696741906157758312
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8436648566174334224}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &9180475220063162976
 GameObject:
   m_ObjectHideFlags: 0
@@ -7202,7 +7341,7 @@ Transform:
   - {fileID: 3223340821943057063}
   - {fileID: 7359419917539970964}
   m_Father: {fileID: 1453}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &43452358968498623
 PrefabInstance:
@@ -7211,14 +7350,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_05
-      objectReference: {fileID: 0}
-    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 472560, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.65
@@ -7275,6 +7406,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 169306, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -7302,14 +7441,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461804, guid: cf117c497a194d245b737bb067cae21b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.59
@@ -7366,6 +7497,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2321006, guid: cf117c497a194d245b737bb067cae21b, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -7401,11 +7540,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpawnTag (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 222263306914302720, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7461,6 +7595,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSpawnTag (2)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88c225c6fa6042d43acc41b19ea7df53, type: 3}
 --- !u!4 &416923105411411776 stripped
@@ -7476,11 +7615,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
-        type: 3}
-      propertyPath: m_Name
-      value: GroundClutterTag (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 2123257652255090794, guid: ccdceb97ec573d74ba5b34e5e29338e8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7536,6 +7670,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
+        type: 3}
+      propertyPath: m_Name
+      value: GroundClutterTag (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccdceb97ec573d74ba5b34e5e29338e8, type: 3}
 --- !u!4 &1717120377310495076 stripped
@@ -7551,14 +7690,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 415918, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.6
@@ -7615,6 +7746,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2362942, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -7642,14 +7781,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.019997
@@ -7705,6 +7836,14 @@ PrefabInstance:
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalScale.z
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
@@ -7780,14 +7919,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.6
@@ -7844,6 +7975,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -7871,14 +8010,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506}
     m_Modifications:
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Name
-      value: Floor_Tile_Stone_A (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25
@@ -7931,6 +8062,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Name
+      value: Floor_Tile_Stone_A (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
 --- !u!1 &1221030908353493360 stripped
@@ -7952,14 +8095,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_03
-      objectReference: {fileID: 0}
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 448136, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.22
@@ -8016,6 +8151,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.239576
       objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2340748, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -8047,14 +8190,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_03
-      objectReference: {fileID: 0}
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 448136, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.14
@@ -8111,6 +8246,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.2395799
       objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2340748, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -8142,14 +8285,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23.019997
@@ -8205,6 +8340,14 @@ PrefabInstance:
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalScale.z
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
@@ -8285,14 +8428,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_05
-      objectReference: {fileID: 0}
-    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 472560, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.71
@@ -8349,6 +8484,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 169306, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -8376,14 +8519,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 415918, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.44
@@ -8440,6 +8575,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2362942, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -8467,14 +8610,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_03
-      objectReference: {fileID: 0}
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 448136, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.89
@@ -8531,6 +8666,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.2395802
       objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2340748, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -8562,14 +8705,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506}
     m_Modifications:
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Name
-      value: Floor_Tile_Stone_A (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15
@@ -8622,17 +8757,29 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Name
+      value: Floor_Tile_Stone_A (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!4 &1927087868406405679 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 1922569353916372925}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1921599854560401499 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 1922569353916372925}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1927087868406405679 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 1922569353916372925}
   m_PrefabAsset: {fileID: 0}
@@ -8643,14 +8790,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 481226, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.81
@@ -8707,6 +8846,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 147940, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -8742,14 +8889,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 445786, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.73
@@ -8806,6 +8945,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2393804, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -8833,14 +8980,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506}
     m_Modifications:
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Name
-      value: Floor_Tile_Stone_A (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -8893,17 +9032,29 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Name
+      value: Floor_Tile_Stone_A (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!1 &2236343433944207937 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 2237625768634654119}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2242113490256023605 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 2237625768634654119}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2236343433944207937 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 2237625768634654119}
   m_PrefabAsset: {fileID: 0}
@@ -8914,14 +9065,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 415918, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.76
@@ -8978,6 +9121,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2362942, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -9005,14 +9156,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506}
     m_Modifications:
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Name
-      value: Floor_Tile_Stone_A (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15
@@ -9065,17 +9208,29 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Name
+      value: Floor_Tile_Stone_A (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!4 &2332122527273989996 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 2327639203631004414}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2326634512740381976 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 2327639203631004414}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2332122527273989996 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 2327639203631004414}
   m_PrefabAsset: {fileID: 0}
@@ -9086,14 +9241,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_11
-      objectReference: {fileID: 0}
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461738, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.389
@@ -9150,6 +9297,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_11
+      objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 195624, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -9177,11 +9332,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpawnTag
-      objectReference: {fileID: 0}
     - target: {fileID: 222263306914302720, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9237,6 +9387,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSpawnTag
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88c225c6fa6042d43acc41b19ea7df53, type: 3}
 --- !u!4 &2716998492543646053 stripped
@@ -9252,14 +9407,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506}
     m_Modifications:
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Name
-      value: Floor_Tile_Stone_A (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -9312,6 +9459,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Name
+      value: Floor_Tile_Stone_A (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
 --- !u!4 &2927752521935483888 stripped
@@ -9333,14 +9492,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_13
-      objectReference: {fileID: 0}
-    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 485194, guid: 235e421222d211b459e14929dfbdd751, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.65
@@ -9397,6 +9548,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_13
+      objectReference: {fileID: 0}
+    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2374734, guid: 235e421222d211b459e14929dfbdd751, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -9420,14 +9579,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 445786, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.047
@@ -9484,6 +9635,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2393804, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -9511,14 +9670,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506}
     m_Modifications:
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Name
-      value: Floor_Tile_Stone_A (8)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25
@@ -9571,6 +9722,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Name
+      value: Floor_Tile_Stone_A (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
 --- !u!4 &3435074484675741615 stripped
@@ -9592,14 +9755,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_05
-      objectReference: {fileID: 0}
-    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 472560, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.38
@@ -9656,6 +9811,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 169306, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -9683,14 +9846,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_15
-      objectReference: {fileID: 0}
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 438512, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.608
@@ -9747,6 +9902,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_15
+      objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2369352, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -9770,11 +9933,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpawnTag (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 222263306914302720, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9830,6 +9988,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSpawnTag (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88c225c6fa6042d43acc41b19ea7df53, type: 3}
 --- !u!4 &3579093380752131680 stripped
@@ -9845,14 +10008,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_11
-      objectReference: {fileID: 0}
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461738, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.07
@@ -9909,6 +10064,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_11
+      objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 195624, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -9936,14 +10099,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 481226, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.128
@@ -10000,6 +10155,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 147940, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -10035,14 +10198,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_15
-      objectReference: {fileID: 0}
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 438512, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.28
@@ -10099,6 +10254,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_15
+      objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2369352, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -10122,11 +10285,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 3996544109540025882, guid: e7cad91c1b3b5bc418648c2ed35fd79c,
-        type: 3}
-      propertyPath: m_Name
-      value: CarpetSpawnTag
-      objectReference: {fileID: 0}
     - target: {fileID: 1812434542847415793, guid: e7cad91c1b3b5bc418648c2ed35fd79c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10182,6 +10340,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3996544109540025882, guid: e7cad91c1b3b5bc418648c2ed35fd79c,
+        type: 3}
+      propertyPath: m_Name
+      value: CarpetSpawnTag
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7cad91c1b3b5bc418648c2ed35fd79c, type: 3}
 --- !u!4 &3417529272308288269 stripped
@@ -10197,14 +10360,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.43
@@ -10261,6 +10416,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -10288,14 +10451,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 445786, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.72
@@ -10352,6 +10507,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2393804, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -10379,14 +10542,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.019999996
@@ -10442,6 +10597,14 @@ PrefabInstance:
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalScale.z
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
@@ -10517,14 +10680,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_15 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 438512, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.53
@@ -10581,6 +10736,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906004
       objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_15 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2369352, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -10604,14 +10767,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_03
-      objectReference: {fileID: 0}
-    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 448136, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.9
@@ -10668,6 +10823,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.2395799
       objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 121378, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2340748, guid: cb5a0321e8625304d9c58860759c2004, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -10699,11 +10862,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 3246839436014521794, guid: baa61f515b3037b49a231e726389acd7,
-        type: 3}
-      propertyPath: m_Name
-      value: TableSpawnTag
-      objectReference: {fileID: 0}
     - target: {fileID: 3246839436014520354, guid: baa61f515b3037b49a231e726389acd7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10759,6 +10917,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3246839436014521794, guid: baa61f515b3037b49a231e726389acd7,
+        type: 3}
+      propertyPath: m_Name
+      value: TableSpawnTag
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baa61f515b3037b49a231e726389acd7, type: 3}
 --- !u!4 &7867092197538021598 stripped
@@ -10774,14 +10937,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 445786, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.31
@@ -10838,6 +10993,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 144900, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2393804, guid: c448a1f9cb1704a4f9a77b060f4bca01, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -10865,14 +11028,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_15
-      objectReference: {fileID: 0}
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 438512, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.29
@@ -10929,6 +11084,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_15
+      objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2369352, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -10952,14 +11115,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.71
@@ -11016,6 +11171,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -11043,14 +11206,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_05
-      objectReference: {fileID: 0}
-    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 472560, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.39
@@ -11107,6 +11262,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 190690, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 169306, guid: 244896c58e7c6a945a70db8a17593b12, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -11134,14 +11297,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.93
@@ -11198,6 +11353,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -11225,14 +11388,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_15 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 438512, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.855
@@ -11289,6 +11444,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_15 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2369352, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -11312,14 +11475,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_11
-      objectReference: {fileID: 0}
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461738, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.97
@@ -11376,6 +11531,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_11
+      objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 195624, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -11403,11 +11566,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 3056542371754598859, guid: a4c09c6dd685f5845a8b5c014ca05f99,
-        type: 3}
-      propertyPath: m_Name
-      value: CabinetSpawnTag
-      objectReference: {fileID: 0}
     - target: {fileID: 3055337662783156785, guid: a4c09c6dd685f5845a8b5c014ca05f99,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11463,6 +11621,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3056542371754598859, guid: a4c09c6dd685f5845a8b5c014ca05f99,
+        type: 3}
+      propertyPath: m_Name
+      value: CabinetSpawnTag
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4c09c6dd685f5845a8b5c014ca05f99, type: 3}
 --- !u!4 &8674240671327400052 stripped
@@ -11478,14 +11641,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 481226, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.8
@@ -11542,6 +11697,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 147940, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -11577,14 +11740,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.33
@@ -11641,6 +11796,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -11668,14 +11831,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506}
     m_Modifications:
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Name
-      value: Floor_Tile_Stone_A (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -11728,6 +11883,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Name
+      value: Floor_Tile_Stone_A (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
 --- !u!1 &6011675861291537610 stripped
@@ -11749,14 +11916,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_13
-      objectReference: {fileID: 0}
-    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 485194, guid: 235e421222d211b459e14929dfbdd751, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.71
@@ -11813,6 +11972,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_13
+      objectReference: {fileID: 0}
+    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2374734, guid: 235e421222d211b459e14929dfbdd751, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -11836,14 +12003,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_11
-      objectReference: {fileID: 0}
-    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461738, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.06
@@ -11900,6 +12059,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_11
+      objectReference: {fileID: 0}
+    - target: {fileID: 121228, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 195624, guid: a63dde1009051ee4e9403bb73d33850f, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -11927,14 +12094,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506}
     m_Modifications:
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Name
-      value: Floor_Tile_Stone_A (9)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15
@@ -11987,17 +12146,29 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Name
+      value: Floor_Tile_Stone_A (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!4 &6141321200866315453 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 6136833479215579439}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6138085020664958665 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 6136833479215579439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6141321200866315453 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 6136833479215579439}
   m_PrefabAsset: {fileID: 0}
@@ -12008,14 +12179,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.035
@@ -12072,6 +12235,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -12099,14 +12270,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Name
-      value: RG-Dungeon_Torch-Golden (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.02
@@ -12162,6 +12325,14 @@ PrefabInstance:
     - target: {fileID: 4000011370902676, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_LocalScale.z
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Name
+      value: RG-Dungeon_Torch-Golden (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013258494664, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1000011730663538, guid: 0cfc953791b64fc40a8a4e6c4d0e30e8, type: 3}
       propertyPath: m_Layer
@@ -12237,14 +12408,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_l_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 481226, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.23
@@ -12301,6 +12464,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_l_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 194412, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 147940, guid: a60acc82af762a94fbed52bfe1ee20e3, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -12336,11 +12507,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 3056542371754598859, guid: a4c09c6dd685f5845a8b5c014ca05f99,
-        type: 3}
-      propertyPath: m_Name
-      value: CabinetSpawnTag (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 3055337662783156785, guid: a4c09c6dd685f5845a8b5c014ca05f99,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12396,6 +12562,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3056542371754598859, guid: a4c09c6dd685f5845a8b5c014ca05f99,
+        type: 3}
+      propertyPath: m_Name
+      value: CabinetSpawnTag (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4c09c6dd685f5845a8b5c014ca05f99, type: 3}
 --- !u!4 &5196046939130298378 stripped
@@ -12411,14 +12582,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461804, guid: cf117c497a194d245b737bb067cae21b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.58
@@ -12475,6 +12638,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2321006, guid: cf117c497a194d245b737bb067cae21b, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -12510,14 +12681,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_13
-      objectReference: {fileID: 0}
-    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 485194, guid: 235e421222d211b459e14929dfbdd751, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.39
@@ -12574,6 +12737,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_13
+      objectReference: {fileID: 0}
+    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2374734, guid: 235e421222d211b459e14929dfbdd751, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -12597,14 +12768,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1506}
     m_Modifications:
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Name
-      value: Floor_Tile_Stone_A (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
       propertyPath: m_LocalPosition.x
       value: 25
@@ -12657,17 +12820,29 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Name
+      value: Floor_Tile_Stone_A (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475b905fe3b32864fb3448b79d6bc815, type: 3}
---- !u!1 &7389973552892298557 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
-    type: 3}
-  m_PrefabInstance: {fileID: 7388937543704791771}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7393491242572220233 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4559197499346322, guid: 475b905fe3b32864fb3448b79d6bc815,
+    type: 3}
+  m_PrefabInstance: {fileID: 7388937543704791771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7389973552892298557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1321917378138086, guid: 475b905fe3b32864fb3448b79d6bc815,
     type: 3}
   m_PrefabInstance: {fileID: 7388937543704791771}
   m_PrefabAsset: {fileID: 0}
@@ -12678,11 +12853,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
-        type: 3}
-      propertyPath: m_Name
-      value: GroundClutterTag
-      objectReference: {fileID: 0}
     - target: {fileID: 2123257652255090794, guid: ccdceb97ec573d74ba5b34e5e29338e8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12738,6 +12908,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
+        type: 3}
+      propertyPath: m_Name
+      value: GroundClutterTag
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccdceb97ec573d74ba5b34e5e29338e8, type: 3}
 --- !u!4 &8628613421046779907 stripped
@@ -12753,14 +12928,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3955972127322602451}
     m_Modifications:
-    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461804, guid: cf117c497a194d245b737bb067cae21b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.908
@@ -12817,6 +12984,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2321006, guid: cf117c497a194d245b737bb067cae21b, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -12852,14 +13027,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_13
-      objectReference: {fileID: 0}
-    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 485194, guid: 235e421222d211b459e14929dfbdd751, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.38
@@ -12916,6 +13083,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_13
+      objectReference: {fileID: 0}
+    - target: {fileID: 106218, guid: 235e421222d211b459e14929dfbdd751, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2374734, guid: 235e421222d211b459e14929dfbdd751, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -12939,14 +13114,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_15 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 438512, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.53
@@ -13003,6 +13170,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906006
       objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_15 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2369352, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -13026,14 +13201,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_15 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 438512, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.51
@@ -13090,6 +13257,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906007
       objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_15 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2369352, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -13113,14 +13288,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_l_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 415918, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.43
@@ -13177,6 +13344,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906003
       objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_l_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 126404, guid: a07142582effbee4a938c151bf023907, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2362942, guid: a07142582effbee4a938c151bf023907, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -13204,14 +13379,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Name
-      value: Rock_Round_m_2C_15
-      objectReference: {fileID: 0}
-    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 438512, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.75
@@ -13268,6 +13435,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Name
+      value: Rock_Round_m_2C_15
+      objectReference: {fileID: 0}
+    - target: {fileID: 117528, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2369352, guid: ef55da3c5e7b90242b3dd93207c450a5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -13291,11 +13466,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
-        type: 3}
-      propertyPath: m_Name
-      value: GroundClutterTag (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 2123257652255090794, guid: ccdceb97ec573d74ba5b34e5e29338e8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13351,6 +13521,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2123257652255091787, guid: ccdceb97ec573d74ba5b34e5e29338e8,
+        type: 3}
+      propertyPath: m_Name
+      value: GroundClutterTag (2)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccdceb97ec573d74ba5b34e5e29338e8, type: 3}
 --- !u!4 &7441431908474311535 stripped
@@ -13366,14 +13541,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856247757960745711}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.61
@@ -13430,6 +13597,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -13457,14 +13632,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3961295118226747597}
     m_Modifications:
-    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 461804, guid: cf117c497a194d245b737bb067cae21b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.45
@@ -13521,6 +13688,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.0906
       objectReference: {fileID: 0}
+    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 130372, guid: cf117c497a194d245b737bb067cae21b, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2321006, guid: cf117c497a194d245b737bb067cae21b, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -13556,11 +13731,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454}
     m_Modifications:
-    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpawnTag (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 222263306914302720, guid: 88c225c6fa6042d43acc41b19ea7df53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13616,6 +13786,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 222263306914404128, guid: 88c225c6fa6042d43acc41b19ea7df53,
+        type: 3}
+      propertyPath: m_Name
+      value: DungeonSpawnTag (3)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88c225c6fa6042d43acc41b19ea7df53, type: 3}
 --- !u!4 &9112188053982468329 stripped
@@ -13631,14 +13806,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7947818020258378225}
     m_Modifications:
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Name
-      value: Rocks_Round_m_2C_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.71
@@ -13694,6 +13861,14 @@ PrefabInstance:
     - target: {fileID: 454966, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.0906003
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Name
+      value: Rocks_Round_m_2C_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 155984, guid: 36cb83893860706479425ca2de563aac, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2306406, guid: 36cb83893860706479425ca2de563aac, type: 3}
       propertyPath: m_Enabled
