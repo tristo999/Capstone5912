@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fefb70c7568dea4e8c5ba3aa027b199, type: 3}
+  m_Name: Rocket Jumper
+  m_EditorClassIdentifier: 
+  ItemName: Rocket Jumper
+  ItemDescription: Be the fastest pacifist
+  ItemId: 27
+  Type: 0
+  Rarity: 0
+  DroppedModel: {fileID: 274, guid: cb689bc5edadeff489f6072afc0c3a4d, type: 3}
+  DroppedScript: {fileID: 0}
+  HeldModel: {fileID: 4547380477446255212, guid: 7a0871777b346bc4e8ef5b26d28aca62,
+    type: 3}
+  HeldScript: {fileID: 0}
+  SpeedModifier: 0
+  HealthModifier: 0
+  FireRateModifier: 0
+  ProjectileSpeedModifier: 0
+  DamageModifier: 0
