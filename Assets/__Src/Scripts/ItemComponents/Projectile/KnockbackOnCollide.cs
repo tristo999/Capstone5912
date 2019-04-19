@@ -47,6 +47,6 @@ public class KnockbackOnCollide : Bolt.EntityBehaviour<IProjectileState>
     }
 
     private Vector3 GetKnockback() {
-        return (rigid.velocity.normalized + new Vector3(0, 1f, 0)).normalized * knockback;
+        return (rigid.velocity.normalized + new Vector3(0, 1.2f, 0)).normalized * knockback;
     }
 }
