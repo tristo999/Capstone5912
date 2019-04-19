@@ -191,10 +191,12 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
     public void AddDamageText(float damage, Vector3 position3d, bool showStatName = false) {
         if (entity.isOwner) {
-            if (damage > 0) {
-                AddFloatingText($"-{FloatToOneDecimalPrecision(damage)}{(showStatName ? " health" : "")}", position3d, Color.red);
-            } else {
-                AddFloatingText($"+{FloatToOneDecimalPrecision(-damage)}{(showStatName ? " health" : "")}", position3d, Color.green);
+            if (Math.Abs(damage) > 0.0001f) {
+                if (damage > 0) {
+                    AddFloatingText($"-{FloatToOneDecimalPrecision(damage)}{(showStatName ? " health" : "")}", position3d, Color.red);
+                } else {
+                    AddFloatingText($"+{FloatToOneDecimalPrecision(-damage)}{(showStatName ? " health" : "")}", position3d, Color.green);
+                }
             }
         }
     }

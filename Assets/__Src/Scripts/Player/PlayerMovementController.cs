@@ -77,7 +77,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         if (!entity.isOwner || localPlayer == null) return;
 
         // Custom gravity for the players. They are far too floaty with default gravity.
-        rb.AddForce(Physics.gravity * rb.mass * 2f); // was 3.5f
+        rb.AddForce(Physics.gravity * rb.mass * 2.5f); // was 3.5f
 
         DoMovement();
     }
@@ -126,7 +126,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void UpdateMovementAir(Vector3 movement) {
-        rb.velocity = CalculateVelocityFromInputAccel(movement, 1/6f, 2/3f);
+        rb.velocity = CalculateVelocityFromInputAccel(movement, 1/4.5f, 1f);
     }
 
     private Vector3 CalculateVelocityFromFriction() {

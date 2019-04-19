@@ -80,9 +80,8 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
         float minPercentRemaining = 0.25f;
 
         float percentRemaining = (1 - (distance - fudgeMinDistance) / (radius * fudgeMultiplier));
-        if (percentRemaining < 0) {
-            percentRemaining = 0;
-        }
+        if (percentRemaining < 0) percentRemaining = 0;
+        if (percentRemaining > 1) percentRemaining = 1;
         return minPercentRemaining + (1 - minPercentRemaining) * percentRemaining;
     }
 
@@ -91,7 +90,7 @@ public class ExplosiveDamageOnCollide : Bolt.EntityBehaviour<IProjectileState>
     }
 
     private Vector3 GetKnockback(Vector3 direction, float distance) {
-        direction = (direction.normalized + new Vector3(0, 1.75f, 0)).normalized;
+        direction = (direction.normalized + new Vector3(0, 1.2f, 0)).normalized;
         return direction * explosiveKnockback * CalculateExplosiveDropoff(distance);
     }
 
