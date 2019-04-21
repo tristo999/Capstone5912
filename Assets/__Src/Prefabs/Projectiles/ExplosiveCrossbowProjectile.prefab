@@ -232,7 +232,7 @@ MonoBehaviour:
   damage: 35
   radius: 5
   explosiveKnockback: 15000
-  damageOwner: 0
+  damageOwner: 1
   damageModifier: 1
 --- !u!114 &6702055087229030801
 MonoBehaviour:
@@ -5026,7 +5026,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3185649821875687101}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.353}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3040716461156214441}

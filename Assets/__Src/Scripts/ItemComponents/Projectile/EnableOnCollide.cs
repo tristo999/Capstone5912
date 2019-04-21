@@ -9,7 +9,7 @@ public class EnableOnCollide : Bolt.EntityBehaviour<IProjectileState>
         if (!entity.isAttached || !entity.isOwner) return;
         if (GetComponent<CollisionCheck>().ValidCollision(collision)) {
             foreach (GameObject gameObject in objectsToEnable) {
-                gameObject.SetActive(true);
+                if (gameObject != null) gameObject.SetActive(true);
             }
         } 
     }
@@ -18,7 +18,7 @@ public class EnableOnCollide : Bolt.EntityBehaviour<IProjectileState>
         if (!entity.isAttached || !entity.isOwner) return;
         if (GetComponent<CollisionCheck>().ValidCollision(other)) {
             foreach (GameObject gameObject in objectsToEnable) {
-                gameObject.SetActive(true);
+                if (gameObject != null) gameObject.SetActive(true);
             }
         }
     }

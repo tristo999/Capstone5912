@@ -13,7 +13,7 @@ public class WoWoWProj : Bolt.EntityBehaviour<IProjectileState>
     }
 
     internal void Shoot(Vector3 dir) {
-        BoltEntity proj = BoltNetwork.Instantiate(Projectile, transform.position, transform.rotation);
+        BoltEntity proj = BoltNetwork.Instantiate(Projectile, transform.position, Quaternion.LookRotation(dir));
         proj.GetComponent<Rigidbody>().velocity = dir * force * state.Owner.GetState<IPlayerState>().ProjectileSpeed;
         proj.GetState<IProjectileState>().Owner = state.Owner;
 

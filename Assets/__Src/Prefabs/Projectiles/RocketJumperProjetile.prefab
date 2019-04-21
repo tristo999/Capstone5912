@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 3263353736831454966}
   - component: {fileID: 1236329949709388158}
   - component: {fileID: 6702055087229030801}
-  - component: {fileID: 3400625888669869022}
+  - component: {fileID: 6489707850165226183}
   - component: {fileID: 4115413046068348475}
   - component: {fileID: 6824096199087643157}
   m_Layer: 0
@@ -39,7 +39,7 @@ Transform:
   m_GameObject: {fileID: 294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.65}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 8718979341988014762}
   - {fileID: 4030936492744146062}
@@ -54,7 +54,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300002, guid: c25b0e0e92e901144a739246c4539336, type: 3}
 --- !u!23 &2531
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -103,7 +103,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3446
 Rigidbody:
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsToEnable:
   - {fileID: 3185649821875687101}
---- !u!114 &3400625888669869022
+--- !u!114 &6489707850165226183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,12 +243,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 294}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2174394cc34c04f94c7a51c9eaeba3, type: 3}
+  m_Script: {fileID: 11500000, guid: bcc42852705251c41b6c72bb2500dc1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToDisable:
+  objectsToSurvive:
   - {fileID: 2099218213130349264}
   - {fileID: 5254513892075956575}
+  retainPosition: 0000
+  DestroyAfterDelay: 1.5
 --- !u!114 &4115413046068348475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8718979341988014762}
+  - component: {fileID: 3734723065959510164}
   - component: {fileID: 2397885652131729945}
   - component: {fileID: 3667107528962551122}
   m_Layer: 17
@@ -309,6 +312,18 @@ Transform:
   m_Father: {fileID: 1421}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &3734723065959510164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099218213130349264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee6185cd1b5e8a4dba337c1b92ecafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &2397885652131729945
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -561,8 +576,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.5
-      minScalar: 1.5
+      scalar: 1.25
+      minScalar: 1.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4999,7 +5014,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3185649821875687101}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0207}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4802186696075580458}
@@ -5015,6 +5030,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4030936492744146062}
+  - component: {fileID: 4050919281651690634}
   - component: {fileID: 3789013624334749708}
   - component: {fileID: 5101652928444594708}
   m_Layer: 17
@@ -5038,6 +5054,18 @@ Transform:
   m_Father: {fileID: 1421}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4050919281651690634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5254513892075956575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee6185cd1b5e8a4dba337c1b92ecafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &3789013624334749708
 ParticleSystem:
   m_ObjectHideFlags: 0

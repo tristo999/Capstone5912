@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 12389}
   - component: {fileID: 12316}
   - component: {fileID: 12960}
-  - component: {fileID: 12547}
+  - component: {fileID: 1661396570114409538}
   - component: {fileID: 13022}
   - component: {fileID: 12809}
   m_Layer: 17
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsToEnable:
   - {fileID: 6464456833017808679}
---- !u!114 &12547
+--- !u!114 &1661396570114409538
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -255,11 +255,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2174394cc34c04f94c7a51c9eaeba3, type: 3}
+  m_Script: {fileID: 11500000, guid: bcc42852705251c41b6c72bb2500dc1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToDisable:
+  objectsToSurvive:
   - {fileID: 447}
+  retainPosition: 00
+  DestroyAfterDelay: 1.5
 --- !u!114 &13022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +299,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3697}
+  - component: {fileID: 6844158351435553937}
   - component: {fileID: 11542}
   - component: {fileID: 11745}
   m_Layer: 17
@@ -320,6 +323,18 @@ Transform:
   m_Father: {fileID: 3696}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &6844158351435553937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee6185cd1b5e8a4dba337c1b92ecafc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &11542
 ParticleSystem:
   m_ObjectHideFlags: 0
