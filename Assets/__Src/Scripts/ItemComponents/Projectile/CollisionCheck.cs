@@ -23,11 +23,12 @@ public class CollisionCheck : Bolt.EntityBehaviour<IProjectileState>
         BoltEntity collidedEntity = collider.gameObject.GetComponent<BoltEntity>();
         bool playerCheck = collider.gameObject.tag != "Player" || state.Owner == collidedEntity || CollideWithPlayers;
         bool selfCheck = state.Owner != collidedEntity || CollideWithOwner;
-        bool envCheck = collider.gameObject.tag != "Player" || CollideWithEnvironment;
+        bool envCheck = collider.gameObject.tag == "Player" || CollideWithEnvironment;
         bool rangeColliderCheck = collider.gameObject.tag != "RangeDetector";
         bool projectileCheck = collider.gameObject.tag != "Projectile";
         bool roomTriggerCheck = collider.gameObject.tag != "Room";
+        bool musicTriggerCheck = collider.gameObject.tag != "Music";
         // if (playerCheck && selfCheck && envCheck && rangeColliderCheck && projectileCheck && roomTriggerCheck) Debug.Log($"{collider.gameObject.name} collision| playerCheck: {!playerCheck} selfCheck: {!selfCheck} envCheck: {!envCheck} rangeCol: {!rangeColliderCheck} projectileCheck: {!projectileCheck}");
-        return playerCheck && selfCheck && envCheck && rangeColliderCheck && projectileCheck && roomTriggerCheck;
+        return playerCheck && selfCheck && envCheck && rangeColliderCheck && projectileCheck && roomTriggerCheck && musicTriggerCheck;
     }
 }
