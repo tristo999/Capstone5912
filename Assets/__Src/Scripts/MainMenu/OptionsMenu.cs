@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class OptionsMenu : MonoBehaviour
 {
     public AudioMixer mixer;
+	public AudioMixer music;
 	public Toggle fullscreen;
 	public Dropdown resolutionDropdown;
 	Resolution[] resolutions;
@@ -42,10 +43,12 @@ public class OptionsMenu : MonoBehaviour
 
 	public void SetMasterVolume(float volume){
 		mixer.SetFloat("masterVolume", volume);
+		music.SetFloat("masterVolume", volume);
 	}
 
     public void SetMusicVolume(float volume){
 		mixer.SetFloat("musicVolume", volume);
+		music.SetFloat("masterVolume", volume);
 	}
 
     public void SetSFXVolume(float volume){
