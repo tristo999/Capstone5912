@@ -134,21 +134,25 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
         }
 
         foreach (Renderer ren in renderers) {
-            ren.enabled = false;
+            if (ren) {
+                ren.enabled = false;
+            }
         }
         foreach (Light light in lights) {
-            light.enabled = false;
+            if (light) {
+                light.enabled = false;
+            }
         }
 
         foreach (PlayerCamera cam in playerCameras) {
             foreach (Renderer ren in renderers) {
-                if (Vector3.Distance(ren.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 3.5f) {
+                if (ren && Vector3.Distance(ren.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 3.5f) {
                     ren.enabled = true;
                 }
             }
 
             foreach (Light light in lights) {
-                if (Vector3.Distance(light.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 3.5f) {
+                if (light && Vector3.Distance(light.transform.position, cam.CameraPlayer.transform.position) < GenerationManager.instance.roomSize * 3.5f) {
                     light.enabled = true;
                 }
             }

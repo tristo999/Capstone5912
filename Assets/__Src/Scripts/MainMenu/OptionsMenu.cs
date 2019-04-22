@@ -10,6 +10,7 @@ public class OptionsMenu : MonoBehaviour
 	public AudioMixer music;
 	public Toggle fullscreen;
 	public Dropdown resolutionDropdown;
+    public TMPro.TMP_InputField fpsField;
 	Resolution[] resolutions;
 	List<string> resolutionOptions = new List<string>();
 
@@ -26,6 +27,19 @@ public class OptionsMenu : MonoBehaviour
 		if(PlayerPrefs.HasKey("Quality")){
 			SetQuality(PlayerPrefs.GetInt("Quality"));
 		}
+
+        if (PlayerPrefs.HasKey("Fullscreen")) {
+            SetFullscreen(PlayerPrefs.GetInt("Fullscreen") == 1);
+        }
+
+        if (PlayerPrefs.HasKey("Vsync")) {
+            SetVsync(PlayerPrefs.GetInt("Vsync") == 1);
+        }
+
+        if (PlayerPrefs.HasKey("Fps")) {
+            SetFpsTarget(PlayerPrefs.GetInt("Fps"));
+            fpsField.text = PlayerPrefs.GetInt("Fps").ToString();
+        }
 		resolutionDropdown.ClearOptions();
         //add resolutions to options list, find current resolution
 		for(int i = 0; i < resolutions.Length; i++){
@@ -61,11 +75,19 @@ public class OptionsMenu : MonoBehaviour
 
 	public void SetFullscreen(bool yn){
 		Screen.fullScreen = yn;
+        if (yn)
+            PlayerPrefs.SetInt("Fullscreen", 1);
+        else
+            PlayerPrefs.SetInt("Fullscreen", 0);
 	}
 
     public void SetQuality(int qualityIndex){
         QualitySettings.SetQualityLevel(qualityIndex);
 		PlayerPrefs.SetInt("Quality", qualityIndex);
+        if (PlayerPrefs.HasKey("Vsync")) {
+            QualitySettings.vSyncCount = PlayerPrefs.GetInt("Vsync");
+            fpsField.interactable = PlayerPrefs.GetInt("Vsync") == 0;
+        } 
 		PlayerPrefs.Save();
     }
 
@@ -75,5 +97,26 @@ public class OptionsMenu : MonoBehaviour
 		PlayerPrefs.SetInt("Resolution", resIndex);
 		PlayerPrefs.Save();
 	}
+    
+    public void SetVsync(bool vsync) {
+        if (vsync) {
+            PlayerPrefs.SetInt("Vsync", 1);
+            QualitySettings.vSyncCount = 1;
+            fpsField.interactable = false;
+        } else {
+            PlayerPrefs.SetInt("Vsync", 0);
+            QualitySettings.vSyncCount = 0;
+            fpsField.interactable = true;
+        }
+    }
+
+    public void SetFpsTarget() {
+        SetFpsTarget(int.Parse(fpsField.text));
+    }
+
+    public void SetFpsTarget(int target) {
+        PlayerPrefs.SetInt("Fps", target);
+        Application.targetFrameRate = target;
+    }
 
 }
