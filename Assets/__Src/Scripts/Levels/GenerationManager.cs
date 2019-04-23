@@ -403,8 +403,8 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         foreach (Edge<DungeonRoom> edge in dungeonGraph.OutEdges(room)) {
             if (edge.Target.transform.position.x - edge.Source.transform.position.x > 5) {
                 // room to the right 
-                if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false); // This is *maybe* the quick patch for rooms not being removed for the fair. Might have worked but it's 4 am.
-                edge.Target.state.WestWall = (int)DungeonRoom.WallState.Destroyed;
+                if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false); // This is *maybe* the quick patch for rooms not being removed for the fair. Might have worked but it's 4 am. Pt 2: It didn't work, but it maybe made sure the outer ones appear idk I can't remember delete this later after sleeping.
+                edge.Target.state.WestWall = (int)DungeonRoom.WallState.Destroyed; // Honestly the only room that EVER does it to me now is the bottom left room from the center.
             } else if (edge.Target.transform.position.x - edge.Source.transform.position.x < -5) {
                 // room to the left
                 if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false);

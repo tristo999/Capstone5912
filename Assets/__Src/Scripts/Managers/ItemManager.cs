@@ -55,16 +55,16 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
 
     public ItemDefinition ItemFromDangerRating(float dangerRating) {
         ItemDefinition.ItemRarity rarity = ItemDefinition.ItemRarity.Common;
-        if (dangerRating > .95) {
+        if (dangerRating > .98) {
             rarity = ItemDefinition.ItemRarity.Mythic;
-        } else if (dangerRating > .85) {
+        } else if (dangerRating > .94) {
             rarity = ItemDefinition.ItemRarity.Legendary;
-        } else if (dangerRating > .63) {
+        } else if (dangerRating > .75) {
             rarity = ItemDefinition.ItemRarity.Rare;
-        } else if (dangerRating > .35) {
+        } else if (dangerRating > .4) {
             rarity = ItemDefinition.ItemRarity.Uncommon;
         }
-        if (Random.Range(0f,1f) > .95f && rarity != ItemDefinition.ItemRarity.Mythic) {
+        if (Random.Range(0f,1f) > .98f && rarity != ItemDefinition.ItemRarity.Mythic) {
             rarity++;
         }
         return GetItemOfRarity(rarity);
