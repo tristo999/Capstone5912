@@ -269,7 +269,8 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     private void PopuplateChests() {
         foreach (NormalChest chest in Resources.FindObjectsOfTypeAll<NormalChest>()) {
             float rating = chest.GetComponent<DangerRating>().rating;
-            chest.ContainedItem = ItemManager.Instance.ItemFromDangerRating(rarityCurve.Evaluate(Random.value + rating/2));
+            float randomValWeighted = Mathf.Pow(Random.value, 1 - rating * 0.25f); // rating of 0 = linear, rating of 1 = slight root function
+            chest.ContainedItem = ItemManager.Instance.ItemFromDangerRating(rarityCurve.Evaluate(randomValWeighted));
         }
     }
 

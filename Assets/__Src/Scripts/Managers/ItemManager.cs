@@ -26,7 +26,8 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
     public override void OnEvent(SpawnItem evnt) {
         if (!entity.isOwner) return;
         if (evnt.ItemId == -1) {
-            evnt.ItemId = Random.Range(0, items.Count);
+            float randomValWeighted = Mathf.Pow(Random.value, 0.83f); // Slight root function (best room spawn rate is 0.75f).
+            evnt.ItemId = ItemFromDangerRating(GenerationManager.instance.rarityCurve.Evaluate(randomValWeighted)).ItemId;
         }
         Spawn(evnt.Position, evnt.Force, items[evnt.ItemId].DroppedModel, evnt.SpawnerTag, evnt.UsesUsed);
     }
@@ -44,9 +45,6 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
     }
 
     public void SpawnItemFromRarity(ItemDefinition.ItemRarity rarity, Vector3 location, string spawnerTag = "") {
-        if (Random.Range(0f,1f) <= .05f && rarity != ItemDefinition.ItemRarity.Busted) {
-            //rarity++;
-        }
         ItemDefinition[] itemsOfRarity = items.Where(i => i.Rarity == rarity).ToArray();
         SpawnItem evnt = SpawnItem.Create(entity);
         evnt.ItemId = items.IndexOf(itemsOfRarity[Random.Range(0, itemsOfRarity.Length)]);
@@ -57,16 +55,16 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
 
     public ItemDefinition ItemFromDangerRating(float dangerRating) {
         ItemDefinition.ItemRarity rarity = ItemDefinition.ItemRarity.Common;
-        if (dangerRating > .85) {
-            rarity = ItemDefinition.ItemRarity.Legendary;
-        } else if (dangerRating > .65) {
+        if (dangerRating > .95) {
             rarity = ItemDefinition.ItemRarity.Mythic;
-        } else if (dangerRating > .5) {
+        } else if (dangerRating > .85) {
+            rarity = ItemDefinition.ItemRarity.Legendary;
+        } else if (dangerRating > .63) {
             rarity = ItemDefinition.ItemRarity.Rare;
-        } else if (dangerRating > .3) {
+        } else if (dangerRating > .35) {
             rarity = ItemDefinition.ItemRarity.Uncommon;
         }
-        if (Random.Range(0f,1f) > .95f) {
+        if (Random.Range(0f,1f) > .95f && rarity != ItemDefinition.ItemRarity.Mythic) {
             rarity++;
         }
         return GetItemOfRarity(rarity);
