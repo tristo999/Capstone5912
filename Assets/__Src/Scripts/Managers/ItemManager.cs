@@ -26,7 +26,7 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
     public override void OnEvent(SpawnItem evnt) {
         if (!entity.isOwner) return;
         if (evnt.ItemId == -1) {
-            float randomValWeighted = Mathf.Pow(Random.value, 0.83f); // Slight root function (best room spawn rate is 0.75f).
+            float randomValWeighted = Mathf.Pow(Random.value, 0.91f); // Slight root function (best room spawn rate is 0.85f).
             evnt.ItemId = ItemFromDangerRating(GenerationManager.instance.rarityCurve.Evaluate(randomValWeighted)).ItemId;
         }
         Spawn(evnt.Position, evnt.Force, items[evnt.ItemId].DroppedModel, evnt.SpawnerTag, evnt.UsesUsed);
@@ -55,13 +55,13 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
 
     public ItemDefinition ItemFromDangerRating(float dangerRating) {
         ItemDefinition.ItemRarity rarity = ItemDefinition.ItemRarity.Common;
-        if (dangerRating > .98) {
+        if (dangerRating > .985) {
             rarity = ItemDefinition.ItemRarity.Mythic;
-        } else if (dangerRating > .94) {
+        } else if (dangerRating > .95) {
             rarity = ItemDefinition.ItemRarity.Legendary;
-        } else if (dangerRating > .75) {
+        } else if (dangerRating > .8) {
             rarity = ItemDefinition.ItemRarity.Rare;
-        } else if (dangerRating > .4) {
+        } else if (dangerRating > .45) {
             rarity = ItemDefinition.ItemRarity.Uncommon;
         }
         if (Random.Range(0f,1f) > .98f && rarity != ItemDefinition.ItemRarity.Mythic) {

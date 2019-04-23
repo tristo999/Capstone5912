@@ -269,7 +269,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     private void PopuplateChests() {
         foreach (NormalChest chest in Resources.FindObjectsOfTypeAll<NormalChest>()) {
             float rating = chest.GetComponent<DangerRating>().rating;
-            float randomValWeighted = Mathf.Pow(Random.value, 1 - rating * 0.25f); // rating of 0 = linear, rating of 1 = slight root function
+            float randomValWeighted = Mathf.Pow(Random.value, 1 - rating * 0.15f); // rating of 0 = linear, rating of 1 = slight root function
             chest.ContainedItem = ItemManager.Instance.ItemFromDangerRating(rarityCurve.Evaluate(randomValWeighted));
         }
     }
@@ -320,7 +320,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         vertices[width / 2, height / 2 - 1].state.DistanceFromCenter = 0;
 
         for (int i = 0; i < generationAttempts; i++) {
-            float specialRoomChance = .06f;
+            float specialRoomChance = .055f;
             Vector2 existingCell = randomExistingNotSurrounded();
             List<Vector2> possible = OpenNeighbors((int)existingCell.x, (int)existingCell.y);
             Vector2 newCell = possible[Random.Range(0, possible.Count)];
@@ -404,7 +404,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             if (edge.Target.transform.position.x - edge.Source.transform.position.x > 5) {
                 // room to the right 
                 if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false); // This is *maybe* the quick patch for rooms not being removed for the fair. Might have worked but it's 4 am. Pt 2: It didn't work, but it maybe made sure the outer ones appear idk I can't remember delete this later after sleeping.
-                edge.Target.state.WestWall = (int)DungeonRoom.WallState.Destroyed; // Honestly the only room that EVER does it to me now is the bottom left room from the center.
+                edge.Target.state.WestWall = (int)DungeonRoom.WallState.Destroyed; // Honestly the only room that EVER does it to me now is the rooms to the left or down.
             } else if (edge.Target.transform.position.x - edge.Source.transform.position.x < -5) {
                 // room to the left
                 if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false);
