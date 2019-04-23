@@ -96,6 +96,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
     private void PlayerDied() {
         InputDisabled = true;
+        state.Health = 0;
     }
 
     private void DoMovement() {

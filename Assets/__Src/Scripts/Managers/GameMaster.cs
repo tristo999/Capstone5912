@@ -17,10 +17,10 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
     public Dictionary<int, List<DungeonRoom>> RoomLayers = new Dictionary<int, List<DungeonRoom>>();
     public List<BoltEntity> roomsAndClutter = new List<BoltEntity>();
     public List<string> WinningOrder = new List<string>();
-    public int RoomDropTime = 120;
-    public int RoomCriticalTime = 115;
-    public int RoomDangerTime = 100;
-    public int RoomWarningTime = 90;
+    public int RoomDropTime = 15;
+    public int RoomCriticalTime = 13;
+    public int RoomDangerTime = 11;
+    public int RoomWarningTime = 8;
     public int RoomLayer;
     public int SpawnedPlayers
     {

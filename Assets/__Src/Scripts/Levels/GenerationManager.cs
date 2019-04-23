@@ -320,6 +320,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         vertices[width / 2, height / 2 - 1].state.DistanceFromCenter = 0;
 
         for (int i = 0; i < generationAttempts; i++) {
+            float specialRoomChance = .06f;
             Vector2 existingCell = randomExistingNotSurrounded();
             List<Vector2> possible = OpenNeighbors((int)existingCell.x, (int)existingCell.y);
             Vector2 newCell = possible[Random.Range(0, possible.Count)];
@@ -328,7 +329,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             int mirrorY = height - 1 - (int)newCell.y;
             Vector3 pos = new Vector3(newCell.x, 0, newCell.y) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
             GameObject newRoom;
-            if (Random.Range(0f, 1f) < .075f) {
+            if (Random.Range(0f, 1f) < specialRoomChance) {
                 newRoom = BoltNetwork.Instantiate(specialRooms[Random.Range(0, specialRooms.Count)], pos, Quaternion.identity);
             } else {
                 newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
@@ -338,7 +339,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             if (!vertices[mirrorX, mirrorY] && adjacentToRoom(mirrorX, mirrorY) && Random.Range(0.0f, 1.0f) > .05f) {
                 //vertices[mirrorX, mirrorY] = true;
                 pos = new Vector3(mirrorX, 0, mirrorY) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
-                if (Random.Range(0f, 1f) < .075f) {
+                if (Random.Range(0f, 1f) < specialRoomChance) {
                     newRoom = BoltNetwork.Instantiate(specialRooms[Random.Range(0, specialRooms.Count)], pos, Quaternion.identity);
                 } else {
                     newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
@@ -402,15 +403,19 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         foreach (Edge<DungeonRoom> edge in dungeonGraph.OutEdges(room)) {
             if (edge.Target.transform.position.x - edge.Source.transform.position.x > 5) {
                 // room to the right 
+                if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false); // This is *maybe* the quick patch for rooms not being removed for the fair. Might have worked but it's 4 am.
                 edge.Target.state.WestWall = (int)DungeonRoom.WallState.Destroyed;
             } else if (edge.Target.transform.position.x - edge.Source.transform.position.x < -5) {
                 // room to the left
+                if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false);
                 edge.Target.state.EastWall = (int)DungeonRoom.WallState.Destroyed;
             } else if (edge.Target.transform.position.y - edge.Source.transform.position.y > 5) {
                 // room above
+                if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false);
                 edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Destroyed;
             } else if (edge.Target.transform.position.y - edge.Source.transform.position.y < -5) {
                 // room below
+                if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false);
                 edge.Target.state.NorthWall = (int)DungeonRoom.WallState.Destroyed;
             }
         }
