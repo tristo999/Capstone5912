@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfee882232557841b61338c550462b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: dee890f51733ecd44b312f65ee747987, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: ce2cf911bdf4c5a47b2e6caf82ad18ef, type: 2}
 --- !u!114 &12126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +173,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 310eb3a08e9064b4daef1a7ebcb55ad7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f15fbe43ab4b7c6478ec28de416da27a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 310eb3a08e9064b4daef1a7ebcb55ad7, type: 3}
 --- !u!4 &2488966401547635785 stripped

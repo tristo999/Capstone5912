@@ -127,7 +127,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void UpdateMovementAir(Vector3 movement) {
-        rb.velocity = CalculateVelocityFromInputAccel(movement, 1/4.5f, 1f);
+        rb.velocity = CalculateVelocityFromInputAccel(movement, 1/4.25f, 1f);
     }
 
     private Vector3 CalculateVelocityFromFriction() {
