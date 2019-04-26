@@ -5,46 +5,42 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
-{
-    private NavMeshAgent nav;
-    private GameObject currentPlayer;
-    private Vector3 intPosition;
-    private GameObject[] players;
-    public bool inAttackAnim
-    {
-        get
-        {
-            return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attacking");
-        }
-    }
-    public bool inDeathAnim
-    {
-        get
-        {
-            return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Dying");
-        }
-    }
-    public bool isDead
-    {
-        get
-        {
-            return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Death");
-        }
-    }
+public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState> {
+    public enum AttackDirection {left, right};
 
-    public float roomWidth = 30;
-    public float attackTimer = 6f;
-    public float attackCooldown = 6f;
-    public float animationLength = 3f;
-    public float animationTimer = 0f;
-    public float attackDamage = 3f;
+    public bool InAttackAnim { 
+        get { return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attacking"); }
+    }
+    public bool InDeathAnim { 
+        get { return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Dying"); }
+    }
+    public bool InDeadAnim { 
+        get { return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Death"); }
+    }
+    
     public float health = 30f;
-    public bool inAttackRange;
-    public bool inHitRange;
     public float itemCount = 4;
+    public float attackCooldown = 6f;
+    public float attackDamage = 3f;
+    public float attackKnockback = 0f;
+    public float attackAnimationHitDelay = 0f;
+    public AttackDirection attackDirection = AttackDirection.left;
+    [HideInInspector]
+    public float roomWidth = 10;
+    [HideInInspector]
+    public float attackCooldownTimer;
+    [HideInInspector]
+    public bool inAttackRange;
+    [HideInInspector]
+    public bool inHitRange;
+
+    private NavMeshAgent nav;
+    private GameObject targetPlayer;
+    private Vector3 initialPosition;
+    private GameObject[] players;
     private Animator enemyAnimator;
-    private bool attackStarted;
+    private bool attackHasHit;
+    private float attackAnimationHitDelayTimer = 0f;
 
     public override void Attached() {
         state.SetTransforms(state.transform, transform);
@@ -55,93 +51,100 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         state.Health = health;
         state.AddCallback("Health", HealthChanged);
         state.OnAttack += Attack;
-        nav = GetComponent<NavMeshAgent>();
-        nav.enabled = true;
-        intPosition = transform.position;
-        attackTimer = 100f;
-        animationTimer = 0f;
-        inAttackRange = false;
-        inHitRange = false;
         state.Dying = false;
         state.Death = false;
+
+        nav = GetComponent<NavMeshAgent>();
+        nav.enabled = true;
+        // nav.updatePosition = false; // TODO: Switch entirely to our own position update to support knockback.
+        // nav.updateRotation = false;
+
+        initialPosition = transform.position;
+        attackCooldownTimer = float.MaxValue;
+        inAttackRange = false;
+        inHitRange = false;
     }
 
     private void Attack() {
-        attackTimer = 0f;
-        animationTimer = 0f;
+        attackCooldownTimer = 0f;
         SetStopped(true);
-        attackStarted = true;
+        attackAnimationHitDelayTimer = 0f;
+        attackHasHit = false;
     }
 
-    // Update is called once per frame
     public override void SimulateOwner() {
-        if (!inDeathAnim) {
+        if (!InDeathAnim && !InDeadAnim) {
             if (players == null || players.Length == 0) {
                 players = GameObject.FindGameObjectsWithTag("Player");
             } else {
                 // Update the player list another way, it takes nearly 10ms every frame.
                 // players = GameObject.FindGameObjectsWithTag("Player");
 
-                currentPlayer = FindCurrentPlayer();
+                targetPlayer = FindTargetPlayer();
             }
             
             CheckAttack();
             CheckMove();
 
-            if (attackTimer < attackCooldown) attackTimer += BoltNetwork.FrameDeltaTime;
-
-            animationTimer += BoltNetwork.FrameDeltaTime;
+            if (attackCooldownTimer < attackCooldown) attackCooldownTimer += BoltNetwork.FrameDeltaTime;
+            attackAnimationHitDelayTimer += BoltNetwork.FrameDeltaTime;
         }
-        if (isDead) BoltNetwork.Destroy(gameObject);
+        if (InDeadAnim) BoltNetwork.Destroy(gameObject);
     }
     
     private void HealthChanged() {
-        if (state.Health <= 0f && !inDeathAnim) {
+        if (state.Health <= 0f && !InDeathAnim && !InDeadAnim) {
             for (int i = 0; i < itemCount; i++)
             {
                 Vector3 tossForce = 500f * transform.forward + 1000f * transform.up;
                 SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
-                if (i == 0) 
-                    evnt.Position = transform.position + new Vector3(0, 1f, 0f);
-                else if ( i == 1)
-                    evnt.Position = transform.position + new Vector3(-1, 1f, 1f);
-                else if ( i == 2)
-                    evnt.Position = transform.position + new Vector3(-1, 1f, 0f);
-                else if (i == 3)
-                    evnt.Position = transform.position + new Vector3(0, 1f, -1f);
+
+                if (i == 0) evnt.Position = transform.position + new Vector3(0, 1f, 0f);
+                else if ( i == 1) evnt.Position = transform.position + new Vector3(-1, 1f, 1f);
+                else if ( i == 2) evnt.Position = transform.position + new Vector3(-1, 1f, 0f);
+                else if (i == 3) evnt.Position = transform.position + new Vector3(0, 1f, -1f);
+
                 evnt.Force = tossForce;
                 evnt.ItemId = -1;
                 evnt.SpawnerTag = gameObject.tag;
                 evnt.Send();
             }
-            nav.SetDestination(transform.position);
+
+            if (nav.enabled) nav.SetDestination(transform.position);
             state.Dying = true;
-            //BoltNetwork.Destroy(entity);
         }
     }
 
     private void CheckAttack() {
-        if (attackStarted && animationTimer > animationLength && inAttackRange && !enemyAnimator.IsInTransition(0)) {
-            if (currentPlayer) {
-                DamageEntity DamageEntity = DamageEntity.Create(currentPlayer.GetComponent<BoltEntity>());
+        if (inHitRange && InAttackAnim && !attackHasHit && attackAnimationHitDelayTimer >= attackAnimationHitDelay) {
+            // This will likely be buggy with multiple players but leaving it for now.
+            if (targetPlayer) {
+                DamageEntity DamageEntity = DamageEntity.Create(targetPlayer.GetComponent<BoltEntity>());
                 DamageEntity.Damage = attackDamage;
                 DamageEntity.Send();
+
+                if (attackKnockback > 0) {
+                    KnockbackEntity KnockbackEntity = KnockbackEntity.Create(targetPlayer.GetComponent<BoltEntity>());
+                    KnockbackEntity.Force = GetKnockback();
+                    KnockbackEntity.Send();
+                }
+
+                attackHasHit = true;
             }
-            attackStarted = false;
         }
 
-        if (currentPlayer && inAttackRange && attackTimer > attackCooldown) {
+        if (inAttackRange && attackCooldownTimer >= attackCooldown && targetPlayer) {
             state.Attack();
         }
     }
 
     private void CheckMove() {
-        if (inAttackAnim || enemyAnimator.IsInTransition(0)) return;
+        if (InAttackAnim || enemyAnimator.IsInTransition(0)) return;
 
-        if (currentPlayer) {
+        if (targetPlayer) {
             nav.enabled = true;
             if (!inAttackRange) {
-                nav.SetDestination(currentPlayer.transform.position);
+                nav.SetDestination(targetPlayer.transform.position);
                 SetStopped(false);
             } else {
                 nav.SetDestination(transform.position);
@@ -149,7 +152,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
             }
         } else {
             if (nav.enabled) {
-                nav.SetDestination(intPosition);
+                nav.SetDestination(initialPosition);
                 if (nav.remainingDistance <= nav.stoppingDistance) {
                     SetStopped(true);
                     nav.enabled = false;
@@ -160,11 +163,21 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
         }
     }
 
-    private GameObject FindCurrentPlayer() {
+    private GameObject FindTargetPlayer() {
         GameObject pObj = null;
         GameObject closestPlayer = players.Aggregate((curMin, x) => (curMin == null || Vector3.Distance(x.transform.position, transform.position) < Vector3.Distance(curMin.transform.position, transform.position)) ? x : curMin);
-        if (Vector3.Distance(closestPlayer.transform.position, intPosition) < roomWidth / 2)
-            pObj = closestPlayer;
+
+        if (closestPlayer != null) {
+            bool isInRoom = Mathf.Abs(closestPlayer.transform.position.x - initialPosition.x) < roomWidth / 2 && Mathf.Abs(closestPlayer.transform.position.z - initialPosition.z) < roomWidth / 2; // Manhattan distance.
+
+            bool isVisible = true;
+            MeshRenderer[] meshRenderers = closestPlayer.GetComponentsInChildren<MeshRenderer>();
+            if (meshRenderers.Length > 0 && meshRenderers[0].gameObject.layer != 0) isVisible = false;
+
+            if (isInRoom && isVisible) {
+                pObj = closestPlayer;
+            }
+        }
         return pObj;
     }
 
@@ -185,5 +198,16 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState>
                 ui.AddDamageText(evnt.Damage, evnt.HitPosition);
             }
         }
+    }
+
+    private Vector3 GetKnockback() {
+        Vector3 directionToPlayer = (targetPlayer.transform.position - transform.position).normalized;
+        Vector3 knockbackDirection;
+        if (attackDirection == AttackDirection.left) {
+            knockbackDirection = 0.8f * Vector3.Cross(directionToPlayer, transform.up).normalized + 0.2f * directionToPlayer;
+        } else {
+            knockbackDirection = -0.6f * Vector3.Cross(directionToPlayer, transform.up).normalized + 0.4f * directionToPlayer;
+        }
+        return (knockbackDirection + new Vector3(0, 0.7f, 0)).normalized * attackKnockback;
     }
 }
