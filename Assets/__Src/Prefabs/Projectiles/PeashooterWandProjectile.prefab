@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 12176}
   - component: {fileID: 219495901580161069}
   - component: {fileID: 5229338466449579415}
+  - component: {fileID: 3363904387819450395}
   - component: {fileID: 12524}
   - component: {fileID: 13012}
   - component: {fileID: 12775}
@@ -218,6 +219,19 @@ MonoBehaviour:
   - {fileID: 4918744207626516818}
   retainPosition: 0001
   DestroyAfterDelay: 1
+--- !u!114 &3363904387819450395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0967bb0e7a7476f478eb0a00908bc376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockback: 1500
 --- !u!114 &12524
 MonoBehaviour:
   m_ObjectHideFlags: 0

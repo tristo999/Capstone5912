@@ -19,10 +19,10 @@ GameObject:
   - component: {fileID: 6910165226121004161}
   - component: {fileID: 7036007598849185154}
   - component: {fileID: 12802}
+  - component: {fileID: 13053}
   - component: {fileID: 13038}
   - component: {fileID: 12769}
   - component: {fileID: 12511}
-  - component: {fileID: 13053}
   m_Layer: 0
   m_Name: CrossbowProjectile
   m_TagString: Projectile
@@ -219,6 +219,19 @@ MonoBehaviour:
   CollideWithPlayers: 1
   CollideWithOwner: 0
   CollideWithEnvironment: 1
+--- !u!114 &13053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0967bb0e7a7476f478eb0a00908bc376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockback: 7500
 --- !u!114 &13038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,19 +273,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifespan: 10
---- !u!114 &13053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0967bb0e7a7476f478eb0a00908bc376, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockback: 5000
 --- !u!1 &1305
 GameObject:
   m_ObjectHideFlags: 0
