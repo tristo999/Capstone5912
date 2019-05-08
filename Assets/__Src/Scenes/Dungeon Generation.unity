@@ -332,6 +332,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9118733849382296639, guid: fe688cbeeb46bf84194f9a1d567c53a4,
         type: 3}
+      propertyPath: carpetObjects.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9118733849382296639, guid: fe688cbeeb46bf84194f9a1d567c53a4,
+        type: 3}
       propertyPath: debug
       value: 1
       objectReference: {fileID: 0}
@@ -340,5 +345,11 @@ PrefabInstance:
       propertyPath: roomSize
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 9118733849382296639, guid: fe688cbeeb46bf84194f9a1d567c53a4,
+        type: 3}
+      propertyPath: carpetObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 4507411456280734406, guid: e14f0720e0326a0499a6629a99a07fd0,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe688cbeeb46bf84194f9a1d567c53a4, type: 3}
