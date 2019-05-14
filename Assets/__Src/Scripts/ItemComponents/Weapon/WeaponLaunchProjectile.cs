@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class WeaponLaunchProjectile : MonoBehaviour
 {
@@ -30,8 +31,10 @@ public class WeaponLaunchProjectile : MonoBehaviour
     private void Awake() {
         weaponBase = GetComponent<Weapon>();
         if (fireSound) {
+            AudioMixer mixer = Resources.Load("AudioMixer") as AudioMixer;
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.clip = fireSound;
+            audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         }
     }
 
