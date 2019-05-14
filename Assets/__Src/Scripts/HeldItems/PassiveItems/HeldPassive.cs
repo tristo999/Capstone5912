@@ -18,7 +18,7 @@ public class HeldPassive : HeldItem {
         if (!FloatRoughlyZero(item.ProjectileSpeedModifier)) Owner.state.ProjectileSpeed += item.ProjectileSpeedModifier;
         if (!FloatRoughlyZero(item.DamageModifier)) Owner.state.ProjectileDamage += item.DamageModifier;
 
-        Destroy(gameObject);
+        Destroy(gameObject, 1.0f);
     }
 
     private bool FloatRoughlyZero(float val) {

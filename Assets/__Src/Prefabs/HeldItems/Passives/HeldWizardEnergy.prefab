@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8888734220540054276}
   - component: {fileID: 8631587400501033398}
   - component: {fileID: 2479910131979872708}
+  - component: {fileID: 1767904340008657220}
   m_Layer: 0
   m_Name: HeldWizardEnergy
   m_TagString: Interactive
@@ -58,3 +59,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be17b00b98012f940ae0b784b762f759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1767904340008657220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8815563781034413229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813798cb81d8f9d429e09d028b2a5973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 382f062ae37ae6a4888ccc60b80f3ede, type: 3}

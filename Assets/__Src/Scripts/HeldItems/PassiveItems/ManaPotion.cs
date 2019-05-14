@@ -4,29 +4,7 @@ using UnityEngine;
 
 public class ManaPotion : HeldPassive {
 
-    public AudioClip sound;
-    public AudioSource audioSource;
-    bool ready;
-
-    private void Awake(){
-        audioSource = gameObject.AddComponent<AudioSource>();
-        ready = false;
-    }
-
-    public void Update(){
-        if (ready && !audioSource.isPlaying){
-            base.OnEquip();
-        }
-    }
-
     public override void OnEquip() {
-        
-        if (sound != null) {
-            audioSource.Stop();
-            audioSource.clip = sound;
-            audioSource.time = 0f;
-            audioSource.Play();
-        }
 
         bool wasted = true;
         Weapon wep = Owner.GetComponent<PlayerInventoryController>().wizardWeapon;
@@ -53,6 +31,6 @@ public class ManaPotion : HeldPassive {
             Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("You wasted it!", Owner.transform.position);
         }
 
-        ready = true;
+        base.OnEquip();
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8888734220540054276}
   - component: {fileID: 4598785454288207852}
   - component: {fileID: 1989129282688272857}
+  - component: {fileID: 8259873113381375988}
   m_Layer: 0
   m_Name: HeldManaPotion
   m_TagString: Passive
@@ -58,3 +59,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sound: {fileID: 8300000, guid: 63013ed30ac03bc4096e541cfac40c1a, type: 3}
   audioSource: {fileID: 0}
+--- !u!114 &8259873113381375988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8815563781034413229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813798cb81d8f9d429e09d028b2a5973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 63013ed30ac03bc4096e541cfac40c1a, type: 3}
