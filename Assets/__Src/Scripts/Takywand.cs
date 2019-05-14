@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(WeaponLaunchProjectile))]
 public class Takywand : Weapon
 {
-    public AudioClip takyonScream;
+   // public AudioClip takyonScream;
 
     private float[] beatTimings = { 0.0f, 0.68f, 1.13f, 1.57f, 1.8f, 2.02f, 2.24f, 2.47f};
     private float timer = 0.0f;
@@ -45,7 +45,7 @@ public class Takywand : Weapon
     }
 
     public override void OnEquip() {
-        launchProj.audioSource.PlayOneShot(takyonScream);
+        //launchProj.audioSource.PlayOneShot(takyonScream);
     }
 
     public override void OnDequip() { }
