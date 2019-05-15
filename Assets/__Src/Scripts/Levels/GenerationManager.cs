@@ -29,6 +29,8 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     public List<GameObject> groundObjects = new List<GameObject>();
     [Tooltip("ChildClutter tag.")]
     public List<GameObject> childClutterObjects = new List<GameObject>();
+    [Tooltip("WallDeco tag.")]
+    public List<GameObject> wallDecoObjects = new List<GameObject>();
     [Space(20)]
 
     [Header("Generation Settings")]
@@ -232,6 +234,7 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         SpawnTagFromList("ChestSpawn", chestEntities);
         SpawnTagFromList("TableClutter", tableObjects);
         SpawnTagFromList("GroundClutter", groundObjects);
+        SpawnTagFromList("WallDeco", wallDecoObjects);
     }
 
     private IEnumerable<BoltEntity> SpawnTagFromList(string tag, List<GameObject> list) {
