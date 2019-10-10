@@ -11,23 +11,23 @@ public class Potion : HeldPassive
         
         switch(stat){
             case 0:
-                Owner.state.Speed += 0.1f;
+                Owner.GetComponent<PlayerStatsController>().Speed += 0.1f;
                 break;
             case 1:
-                Owner.state.FireRate += 0.2f;
+                Owner.GetComponent<PlayerStatsController>().FireRate += 0.2f;
                 break;
             case 2:
-                Owner.state.ProjectileSpeed += 0.2f;
+                Owner.GetComponent<PlayerStatsController>().ProjectileSpeed += 0.2f;
                 break;
             case 3:
-                Owner.state.ProjectileDamage += 0.15f;
+                Owner.GetComponent<PlayerStatsController>().ProjectileDamage += 0.15f;
                 break;
             case 4:
-                Owner.state.Health += 15f;
+                Owner.GetComponent<PlayerStatsController>().Health += 15f;
                 Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(-5f, Owner.transform.position, true);
                 break;
             default:
-                Owner.state.Health += 15f;
+                Owner.GetComponent<PlayerStatsController>().Health += 15f;
                 Owner.GetComponent<PlayerStatsController>().ui.AddDamageText(-5f, Owner.transform.position, true);
                 break;
         }

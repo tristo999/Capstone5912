@@ -1,16 +1,18 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class KnockbackEnabledEntity : Bolt.EntityEventListener
+public class KnockbackEnabledEntity : NetworkBehaviour
 {
     private Rigidbody rb;
-    public override void Attached() {
+    public void Awake() {
         rb = GetComponent<Rigidbody>();
     }
 
-    public override void OnEvent(KnockbackEntity evnt) {
-        rb.AddForce(evnt.Force);
+    [Command]
+    public void CmdAddKnockback(Vector3 force) {
+        rb.AddForce(force);
     }
 }

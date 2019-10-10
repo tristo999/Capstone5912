@@ -20,7 +20,7 @@ public class Louder : Weapon
     }
     public override void FireDown()
     {
-        if (!Owner.entity.isOwner) return;
+        if (!Owner.hasAuthority) return;
         if (cooldown.Ready)
         {
             launchProj.Launch();

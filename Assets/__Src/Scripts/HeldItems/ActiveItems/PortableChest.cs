@@ -15,7 +15,7 @@ public class PortableChest : ActiveItem {
     }
 
     public override void ActiveDown() {
-        if (!Owner.entity.isOwner) return;
+        if (!Owner.hasAuthority) return;
         if (cooldown.Ready) {
             SpawnItems();
             uses.Use();
@@ -37,12 +37,9 @@ public class PortableChest : ActiveItem {
 
     private void SpawnSingleItem(float rightOffset) {
         Transform t = Owner.transform;
-
-        SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
-        evnt.ItemId = -1;
-        evnt.Position = t.position + t.forward * 1.3f + t.up * 0.5f + t.right * rightOffset;
-        evnt.Force = 500f * t.forward + 1000f * t.up + 500f * rightOffset * t.right;
-        evnt.SpawnerTag = Owner.gameObject.tag;
-        evnt.Send();
+        Vector3 pos = t.position + t.forward * 1.3f + t.up * 0.5f + t.right * rightOffset;
+        Vector3 force = 500f * t.forward + 1000f * t.up + 500f * rightOffset * t.right;
+        string tag = Owner.gameObject.tag;
+        ItemManager.Instance.CmdSpawnRandom(pos, force, tag);
     }
 }

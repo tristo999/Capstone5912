@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +11,9 @@ public class PositionBugTesting : Bolt.GlobalEventListener
         base.SceneLoadLocalDone(scene);
         
 
-        if (BoltNetwork.IsServer) {
+        if (isServer) {
             BoltNetwork.Instantiate(enemies[Random.Range(0, enemies.Count)], new Vector3(Random.Range(-10f,10f), .5f, Random.Range(-5f,5f)), Quaternion.identity);
         }
     }
 }
+*/

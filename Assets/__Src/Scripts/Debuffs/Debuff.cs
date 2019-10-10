@@ -10,9 +10,9 @@ public abstract class Debuff : MonoBehaviour
 
     public float GrantedTime { get; set; }
 
-    public abstract void OnGiven(IPlayerState playerState);
+    public abstract void OnGiven(PlayerStatsController playerState);
 
-    public abstract void OnRemoved(IPlayerState playerState);
+    public abstract void OnRemoved(PlayerStatsController playerState);
 
-    public abstract void OnUpdate(IPlayerState playerState);
+    public abstract void OnUpdate(PlayerStatsController playerState);
 }

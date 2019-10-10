@@ -14,7 +14,7 @@ public class BigThrowingKnife : Weapon {
     }
 
     public override void FireDown() {
-        if (!Owner.entity.isOwner) return;
+        if (!Owner.hasAuthority) return;
         launchProj.Launch(0, new Vector3(0, 0, -200));
         uses.Use();
     }
@@ -24,10 +24,10 @@ public class BigThrowingKnife : Weapon {
     public override void FireRelease() { }
 
     public override void OnEquip() {
-        Owner.GetComponent<PlayerStatsController>().state.Speed -= 0.3f;
+        Owner.GetComponent<PlayerStatsController>().Speed -= 0.3f;
     }
 
     public override void OnDequip() {
-        Owner.GetComponent<PlayerStatsController>().state.Speed += 0.3f;
+        Owner.GetComponent<PlayerStatsController>().Speed += 0.3f;
     }
 }

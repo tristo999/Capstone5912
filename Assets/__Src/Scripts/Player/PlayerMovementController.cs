@@ -1,15 +1,16 @@
-﻿using Rewired;
+﻿using Mirror;
+using Rewired;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
+public class PlayerMovementController : NetworkBehaviour
 {
     public float BaseSpeed;
     public float BaseAccel;
     public float BaseFriction;
     public bool InputDisabled;
-    public Transform RenderTransform;
     private Rigidbody rb;
     private Plane aimPlane = new Plane(Vector3.up, Vector3.zero);
     public Player localPlayer;
@@ -26,14 +27,10 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
             objectInFocusField = value;
 
             // Update item description in UI.
-            if (entity.hasControl)
-            {
-                if (value is DroppedItem)
-                {
+            if (hasAuthority) {
+                if (value is DroppedItem) {
                     ui.SetItemFullDescription(((DroppedItem)value).Id);
-                }
-                else
-                {
+                } else {
                     ui.SetItemFullDescription(-1);
                 }
             }
@@ -42,39 +39,37 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
     private PlayerUI ui;
     private Animator anim;
+    private NetworkAnimator netAnim;
+    private PlayerStatsController statsController;
+    private PlayerInventoryController inventoryController;
     private bool thirdPerson;
 
-    public override void Attached()
-    {
+    public void Awake() {
+        if (!isLocalPlayer) return;
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
-        state.SetTransforms(state.transform, transform, RenderTransform);
-        state.SetAnimator(anim);
-        state.AddCallback("Dead", PlayerDied);
-        if (entity.isOwner) ui = GetComponent<PlayerUI>();
+        netAnim = GetComponent<NetworkAnimator>();
+        ui = GetComponent<PlayerUI>();
     }
 
     public void Update() {
-        // Since we're using Rewired we cannot use Bolt's SimulateController as Rewired won't be able to get input.
-        // Hence we have to do a check here. localPlayer == null will prevent the server from throwing exceptions when it gets
-        // upset that it can't control client's players.
-        if (!entity.isOwner || localPlayer == null) return;
-        if (InputDisabled) return;
+        // Now that we are free from Bolt, this is a normal solution!
+        if (!isLocalPlayer || InputDisabled) return;
         DoLook();
         CheckInteract();
-        if (localPlayer.GetButtonDown("Interact")) DoInteract();
-        if (localPlayer.GetButtonDown("Fire")) state.FireDown();
-        if (localPlayer.GetButton("Fire")) state.FireHold();
-        if (localPlayer.GetButtonUp("Fire")) state.FireRelease();
-        if (localPlayer.GetButtonDown("UseActive")) state.ActiveDown();
-        if (localPlayer.GetButton("UseActive")) state.ActiveHold();
-        if (localPlayer.GetButtonUp("UseActive")) state.ActiveRelease();
+        if (localPlayer.GetButtonDown("Interact")) CmdDoInteract();
+        if (localPlayer.GetButtonDown("Fire")) CmdFireDown();
+        if (localPlayer.GetButton("Fire")) CmdFireHold();
+        if (localPlayer.GetButtonUp("Fire")) CmdFireRelease();
+        if (localPlayer.GetButtonDown("UseActive")) CmdActiveDown();
+        if (localPlayer.GetButton("UseActive")) CmdActiveHold();
+        if (localPlayer.GetButtonUp("UseActive")) CmdActiveRelease();
         if (localPlayer.GetButtonDown("ChangeView")) ToggleView();
-        if (localPlayer.GetButtonDown("Pause")) PauseMenu.Instance.TogglePauseMenu();
+        //if (localPlayer.GetButtonDown("Pause")) PauseMenu.Instance.TogglePauseMenu(); todo fix me
     }
 
     public void FixedUpdate() {
-        if (!entity.isOwner || localPlayer == null) return;
+        if (!isLocalPlayer) return;
 
         // Custom gravity for the players. They are far too floaty with default gravity.
         rb.AddForce(Physics.gravity * rb.mass * 2.5f); // was 3.5f
@@ -87,16 +82,17 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
             if (p.GetAnyButton()) {
                 Debug.LogFormat("{0}: {1}", p.id, p.GetAnyButton());
             }
-            
+
             if (p.GetAnyButton() && !p.isPlaying) {
                 AssignPlayer(p.id);
             }
         }
     }
 
-    private void PlayerDied() {
+    [Command]
+    private void CmdPlayerDied() {
         InputDisabled = true;
-        state.Health = 0;
+        anim.SetBool("Dead", true);
     }
 
     private void DoMovement() {
@@ -109,7 +105,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
                 movement = SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].camera.transform.TransformDirection(movement);
                 movement.y = 0;
             }
-        }        
+        }
 
         if (CalculateIsOnGround()) {
             UpdateMovementGround(movement);
@@ -117,8 +113,8 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
             UpdateMovementAir(movement);
         }
 
-        state.ForwardMovement = Vector3.Dot(rb.velocity, transform.forward) / (state.Speed * BaseSpeed);
-        state.RightMovement = Vector3.Dot(rb.velocity, transform.right) / (state.Speed * BaseSpeed);
+        anim.SetFloat("ForwardMovement", Vector3.Dot(rb.velocity, transform.forward) / (statsController.Speed * BaseSpeed));
+        anim.SetFloat("RightMovement", Vector3.Dot(rb.velocity, transform.right) / (statsController.Speed * BaseSpeed));
     }
 
     private void UpdateMovementGround(Vector3 movement) {
@@ -127,7 +123,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void UpdateMovementAir(Vector3 movement) {
-        rb.velocity = CalculateVelocityFromInputAccel(movement, 1/4.25f, 1f);
+        rb.velocity = CalculateVelocityFromInputAccel(movement, 1 / 4.25f, 1f);
     }
 
     private Vector3 CalculateVelocityFromFriction() {
@@ -143,8 +139,8 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
 
     private Vector3 CalculateVelocityFromInputAccel(Vector3 movement, float accelAmountMultiplier, float maxVelocityMultiplier) {
         Vector3 accelDir = movement.normalized;
-        float accelAmount = Mathf.Min(movement.magnitude, 1) * state.Speed * BaseSpeed * BaseAccel * accelAmountMultiplier;
-        float maxVelocity = state.Speed * BaseSpeed * maxVelocityMultiplier;
+        float accelAmount = Mathf.Min(movement.magnitude, 1) * statsController.Speed * BaseSpeed * BaseAccel * accelAmountMultiplier;
+        float maxVelocity = statsController.Speed * BaseSpeed * maxVelocityMultiplier;
 
         float projVel = Vector3.Dot(rb.velocity, accelDir);
         float accelVel = accelAmount * Time.fixedDeltaTime;
@@ -208,7 +204,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
                 if (io != null && io.CanHighlight) {
                     if (closest == null || Vector3.Distance(transform.position, c.transform.position) < Vector3.Distance(transform.position, io.transform.position))
                         closest = io;
-                } 
+                }
             }
         }
 
@@ -228,38 +224,63 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
         }
     }
 
-    private void DoInteract() {
-        if (ObjectInFocus != null)
-        {
-            ObjectInFocus.DoInteract(entity);
+    [Command]
+    private void CmdDoInteract() {
+        if (ObjectInFocus != null) {
+            ObjectInFocus.CmdDoInteract(gameObject);
 
             // Clear UI description. 
-            if (ObjectInFocus is DroppedItem) { 
+            if (ObjectInFocus is DroppedItem) {
                 ObjectInFocus = null;
             }
         }
     }
 
+    [Command]
+    private void CmdActiveRelease() {
+        inventoryController.ActiveRelease();
+    }
+
+    [Command]
+    private void CmdActiveHold() {
+        inventoryController.ActiveHold();
+    }
+
+    [Command]
+    private void CmdActiveDown() {
+        inventoryController.ActiveDown();
+    }
+
+    [Command]
+    private void CmdFireRelease() {
+        inventoryController.FireRelease();
+    }
+
+    [Command]
+    private void CmdFireHold() {
+        inventoryController.FireHeld();
+    }
+
+    [Command]
+    private void CmdFireDown() {
+        inventoryController.FireDown();
+    }
+
     public void GetPickup(DroppedItemPickup pickup) {
-        PlayerGotItem evnt = PlayerGotItem.Create(entity, Bolt.EntityTargets.OnlyOwner);
-        evnt.PickupId = pickup.Id;
-        evnt.UsesUsed = pickup.UsesUsed;
-        evnt.Send();
+        inventoryController.CmdGiveItem(pickup);
     }
 
     public void AssignPlayer(int id) {
-        if (entity.isControllerOrOwner) {
+        if (isLocalPlayer) {
             Debug.LogFormat("Assigning player id {0}", id);
             localPlayer = ReInput.players.GetPlayer(id);
             SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].PlayerId = localPlayer.id;
             localPlayer.isPlaying = true;
-        } else {
-            Debug.Log("Please only assign local player as networked owner.");
         }
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (!entity.isOwner) return;
+        if (isLocalPlayer) return;
         if (other.tag == "Room") {
             DungeonRoom room = other.GetComponent<DungeonRoom>();
             SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].AddRoomToCamera(other.transform.Find("Focus"), room);
@@ -267,7 +288,7 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
     }
 
     private void ToggleView() {
-        if (!entity.isOwner) return;
+        if (!isLocalPlayer) return;
         thirdPerson = !thirdPerson;
         if (thirdPerson)
             SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].SwitchToThirdPerson();
@@ -275,8 +296,14 @@ public class PlayerMovementController : Bolt.EntityEventListener<IPlayerState>
             SplitscreenManager.instance.playerCameras[ui.ScreenNumber - 1].SwitchToOverview();
     }
 
-    public override void OnEvent(TeleportPlayer evnt) {
-        if (entity.isOwner)
-            transform.position = evnt.position;
+    [Command]
+    public void CmdTeleportPlayer(Vector3 pos) {
+        if (hasAuthority)
+            transform.position = pos;
+    }
+
+    [Command]
+    public void CmdApplyKnockback(Vector3 force) {
+        rb.AddForce(force);
     }
 }

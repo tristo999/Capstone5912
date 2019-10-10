@@ -16,7 +16,7 @@ public class ProjectileCreatePopup : EditorWindow
     [MenuItem("Wizard Fight/Create/Projectile")]
     static void Init() {
         itemName = "";
-        EditorWindow window = EditorWindow.CreateInstance<ProjectileCreatePopup>();
+        EditorWindow window = CreateInstance<ProjectileCreatePopup>();
         window.ShowPopup();
     }
 
@@ -29,9 +29,6 @@ public class ProjectileCreatePopup : EditorWindow
             PrefabUtility.SaveAsPrefabAsset(item, waitingPath);
             PrefabUtility.UnloadPrefabContents(item);
             Close();
-            if (EditorUtility.DisplayDialog("Do Bolt compile?", "Would you like to do a Bolt compile now to add the new prefab?", "Ye", "Nah")) {
-                BoltMenuItems.UpdatePrefabDatabase();
-            }
         } else {
             GUILayout.Label("Projectile Creation Wizard", EditorStyles.boldLabel);
             GUILayout.Label("Name:");

@@ -50,7 +50,7 @@ public class CloakOfInvisibility : ActiveItem
         oldSkinnedMats = new List<Material>();
         foreach (MeshRenderer ren in renderers) {
             oldMats.Add(ren.material);
-            if (Owner.entity.isOwner) {
+            if (Owner.hasAuthority) {
                 ren.material = TransparentMaterial;
                 ren.gameObject.layer = 7 + Owner.GetComponent<PlayerUI>().ScreenNumber;
             } else {
@@ -60,7 +60,7 @@ public class CloakOfInvisibility : ActiveItem
 
         foreach (SkinnedMeshRenderer ren in meshRenderers) {
             oldSkinnedMats.Add(ren.material);
-            if (Owner.entity.isOwner) {
+            if (Owner.hasAuthority) {
                 ren.material = TransparentMaterial;
                 ren.gameObject.layer = 7 + Owner.GetComponent<PlayerUI>().ScreenNumber;
             } else {

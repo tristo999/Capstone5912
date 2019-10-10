@@ -1,4 +1,5 @@
-﻿using MyBox;
+﻿using Mirror;
+using MyBox;
 using QuickGraph;
 using QuickGraph.Algorithms;
 using QuickGraph.Algorithms.ShortestPath;
@@ -7,8 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GenerationManager : BoltSingletonPrefab<GenerationManager>
+public class GenerationManager : NetworkBehaviour
 {
+    public static GenerationManager instance;
+
     public List<GameObject> centerPrefabs = new List<GameObject>();
 
     [Header("Room Generation Prefabs")]
@@ -71,7 +74,12 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
     private DungeonRoom westNeighber;
     private DungeonRoom westNeighbor2;
 
-    private List<BoltEntity> enemies;
+    private List<GameObject> enemies;
+
+    public void Awake() {
+        if (instance) Destroy(this);
+        instance = this;
+    }
 
     public void DoGeneration(int playerCount) {
         batchingRoot = new GameObject();
@@ -93,16 +101,6 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         }
     }
 
-    public void BumpEnemies() {
-        foreach (BoltEntity enemy in enemies) {
-            IEnemyState eState;
-            if (enemy.TryFindState(out eState)) {
-                Debug.Log("Attempting to fix enemy position for clients.");
-                enemy.transform.position += enemy.transform.forward;
-            }
-        }
-    }
-
     private void CalculateRoomDistances() {
         Queue<DungeonRoom> roomQueue = new Queue<DungeonRoom>();
         roomQueue.Enqueue(vertices[width / 2, height / 2]);
@@ -115,7 +113,6 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             foreach (Edge<DungeonRoom> edge in dungeonGraph.OutEdges(currentRoom)) {
                 if (edge.Target.DistanceFromCenter == -1) {
                     edge.Target.DistanceFromCenter = edge.Source.DistanceFromCenter + 1;
-                    edge.Target.state.DistanceFromCenter = edge.Source.DistanceFromCenter + 1;
                     if (edge.Target.DistanceFromCenter > maxDist)
                         maxDist = edge.Target.DistanceFromCenter;
                     roomQueue.Enqueue(edge.Target);
@@ -196,11 +193,11 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                     if (i < width && vertices[i + 1, j]) {
                         Edge<DungeonRoom> edge = new Edge<DungeonRoom>(vertices[i, j], vertices[i + 1, j]);
                         if (edge.Source.DistanceFromCenter == 0 && edge.Target.DistanceFromCenter == 0) {
-                            edge.Source.state.EastWall = (int)DungeonRoom.WallState.Open;
-                            edge.Target.state.WestWall = (int)DungeonRoom.WallState.Open;
+                            edge.Source.eastWallState = DungeonRoom.WallState.Open;
+                            edge.Target.westWallState = DungeonRoom.WallState.Open;
                         } else {
-                            edge.Source.state.EastWall = (int)DungeonRoom.WallState.Door;
-                            edge.Target.state.WestWall = (int)DungeonRoom.WallState.Door;
+                            edge.Source.eastWallState = DungeonRoom.WallState.Door;
+                            edge.Target.westWallState = DungeonRoom.WallState.Door;
                         }
                         dungeonGraph.AddVerticesAndEdge(edge);
                         dungeonGraph.AddEdge(new Edge<DungeonRoom>(edge.Target, edge.Source));
@@ -208,11 +205,11 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                     if (j < height && vertices[i, j + 1]) {
                         Edge<DungeonRoom> edge = new Edge<DungeonRoom>(vertices[i, j], vertices[i, j + 1]);
                         if (edge.Source.DistanceFromCenter == 0 && edge.Target.DistanceFromCenter == 0) {
-                            edge.Source.state.NorthWall = (int)DungeonRoom.WallState.Open;
-                            edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Open;
+                            edge.Source.northWallState = DungeonRoom.WallState.Open;
+                            edge.Target.southWallState = DungeonRoom.WallState.Open;
                         } else {
-                            edge.Source.state.NorthWall = (int)DungeonRoom.WallState.Door;
-                            edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Door;
+                            edge.Source.northWallState = DungeonRoom.WallState.Door;
+                            edge.Target.southWallState = DungeonRoom.WallState.Door;
                         }
                         dungeonGraph.AddVerticesAndEdge(edge);
                         dungeonGraph.AddEdge(new Edge<DungeonRoom>(edge.Target, edge.Source));
@@ -237,24 +234,26 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         SpawnTagFromList("WallDeco", wallDecoObjects);
     }
 
-    private IEnumerable<BoltEntity> SpawnTagFromList(string tag, List<GameObject> list) {
-        List<BoltEntity> spawnedFromTag = new List<BoltEntity>();
+    private IEnumerable<GameObject> SpawnTagFromList(string tag, List<GameObject> list) {
+        List<GameObject> spawnedFromTag = new List<GameObject>();
         foreach (GameObject spawn in GameObject.FindGameObjectsWithTag(tag)) {
             if (Random.Range(0f, 1f) <= spawn.GetComponent<SpawnChance>().Chance) {
-                BoltEntity spawned = BoltNetwork.Instantiate(list[Random.Range(0, list.Count)], spawn.transform.position, spawn.transform.rotation);
+                GameObject spawned = Instantiate(list[Random.Range(0, list.Count)], spawn.transform.position, spawn.transform.rotation);
                 spawnedFromTag.Add(spawned);
+                NetworkServer.Spawn(spawned);
                 DangerRating dr = spawned.GetComponent<DangerRating>();
                 if (dr) {
                     dr.rating = spawn.GetComponentInParent<DungeonRoom>().DangerRating;
                 }
                 foreach (GameObject child in FindChildrenWithTag(spawn, "ChildClutter")) {
                     if (Random.Range(0f, 1f) <= child.GetComponent<SpawnChance>().Chance) {
-                        BoltNetwork.Instantiate(childClutterObjects[Random.Range(0, childClutterObjects.Count)], child.transform.position, child.transform.rotation);
-                        BoltNetwork.Destroy(child);
+                        GameObject childSpawn = Instantiate(childClutterObjects[Random.Range(0, childClutterObjects.Count)], child.transform.position, child.transform.rotation);
+                        NetworkServer.Spawn(childSpawn);
+                        NetworkServer.Destroy(child);
                     }
                 }
             }
-            BoltNetwork.Destroy(spawn);
+            NetworkServer.Destroy(spawn);
         }
         return spawnedFromTag;
     }
@@ -263,9 +262,9 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         foreach (GameObject spawner in GameObject.FindGameObjectsWithTag("DroppedItemSpawn")) {
             DroppedItemSpawner spawnerScript = spawner.GetComponent<DroppedItemSpawner>();
             if (Random.Range(0f, 1f) <= spawnerScript.spawnChance) {
-                ItemManager.Instance.SpawnItemFromRarity(spawnerScript.preferredRarity, spawner.transform.position);
+                ItemManager.Instance.CmdSpawnItemFromRarity(spawnerScript.preferredRarity, spawner.transform.position);
             }
-            BoltNetwork.Destroy(spawner);
+            NetworkServer.Destroy(spawner);
         }
     }
 
@@ -297,30 +296,31 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
         dungeon = new bool[width, height];
         dungeon[width / 2, height / 2] = true;
         vertices = new DungeonRoom[width, height];
-        DungeonRoom obj = BoltNetwork.Instantiate(centerPrefabs[1], Vector3.zero, Quaternion.identity).GetComponent<DungeonRoom>();
+        DungeonRoom obj = Instantiate(centerPrefabs[1], Vector3.zero, Quaternion.identity).GetComponent<DungeonRoom>();
+        NetworkServer.Spawn(obj.gameObject);
         centerRoom = obj;
         vertices[width / 2, height / 2] = obj;
-        vertices[width / 2 - 1, height / 2] = BoltNetwork.Instantiate(centerPrefabs[0], new Vector3(-30, 0, 0), Quaternion.identity).GetComponent<DungeonRoom>();
-        vertices[width / 2 - 1, height / 2 - 1] = BoltNetwork.Instantiate(centerPrefabs[2], new Vector3(-30, 0, -30), Quaternion.identity).GetComponent<DungeonRoom>();
-        vertices[width / 2, height / 2 - 1] = BoltNetwork.Instantiate(centerPrefabs[3], new Vector3(0, 0, -30), Quaternion.identity).GetComponent<DungeonRoom>();
+        vertices[width / 2 - 1, height / 2] = Instantiate(centerPrefabs[0], new Vector3(-30, 0, 0), Quaternion.identity).GetComponent<DungeonRoom>();
+        vertices[width / 2 - 1, height / 2 - 1] = Instantiate(centerPrefabs[2], new Vector3(-30, 0, -30), Quaternion.identity).GetComponent<DungeonRoom>();
+        vertices[width / 2, height / 2 - 1] = Instantiate(centerPrefabs[3], new Vector3(0, 0, -30), Quaternion.identity).GetComponent<DungeonRoom>();
+        NetworkServer.Spawn(vertices[width / 2 - 1, height / 2].gameObject);
+        NetworkServer.Spawn(vertices[width / 2 - 1, height / 2 - 1].gameObject);
+        NetworkServer.Spawn(vertices[width / 2, height / 2 - 1].gameObject);
 
-        vertices[width / 2 - 1, height / 2].state.EastWall = (int)DungeonRoom.WallState.Open;
-        vertices[width / 2 - 1, height / 2].state.SouthWall = (int)DungeonRoom.WallState.Open;
-        vertices[width / 2, height / 2].state.WestWall = (int)DungeonRoom.WallState.Open;
-        vertices[width / 2, height / 2].state.SouthWall = (int)DungeonRoom.WallState.Open;
-        vertices[width / 2 - 1, height / 2 - 1].state.EastWall = (int)DungeonRoom.WallState.Open;
-        vertices[width / 2 - 1, height / 2 - 1].state.NorthWall = (int)DungeonRoom.WallState.Open;
-        vertices[width / 2, height / 2 - 1].state.WestWall = (int)DungeonRoom.WallState.Open;
-        vertices[width / 2, height / 2 - 1].state.NorthWall = (int)DungeonRoom.WallState.Open;
+
+        vertices[width / 2 - 1, height / 2].eastWallState = DungeonRoom.WallState.Open;
+        vertices[width / 2 - 1, height / 2].southWallState = DungeonRoom.WallState.Open;
+        vertices[width / 2, height / 2].westWallState = DungeonRoom.WallState.Open;
+        vertices[width / 2, height / 2].southWallState = DungeonRoom.WallState.Open;
+        vertices[width / 2 - 1, height / 2 - 1].eastWallState = DungeonRoom.WallState.Open;
+        vertices[width / 2 - 1, height / 2 - 1].northWallState = DungeonRoom.WallState.Open;
+        vertices[width / 2, height / 2 - 1].westWallState = DungeonRoom.WallState.Open;
+        vertices[width / 2, height / 2 - 1].northWallState = DungeonRoom.WallState.Open;
 
         vertices[width / 2, height / 2].DistanceFromCenter = 0;
         vertices[width / 2 - 1, height / 2].DistanceFromCenter = 0;
         vertices[width / 2 - 1, height / 2 - 1].DistanceFromCenter = 0;
         vertices[width / 2, height / 2 - 1].DistanceFromCenter = 0;
-        vertices[width / 2, height / 2].state.DistanceFromCenter = 0;
-        vertices[width / 2 - 1, height / 2].state.DistanceFromCenter = 0;
-        vertices[width / 2 - 1, height / 2 - 1].state.DistanceFromCenter = 0;
-        vertices[width / 2, height / 2 - 1].state.DistanceFromCenter = 0;
 
         for (int i = 0; i < generationAttempts; i++) {
             float specialRoomChance = .055f;
@@ -333,9 +333,11 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             Vector3 pos = new Vector3(newCell.x, 0, newCell.y) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
             GameObject newRoom;
             if (Random.Range(0f, 1f) < specialRoomChance) {
-                newRoom = BoltNetwork.Instantiate(specialRooms[Random.Range(0, specialRooms.Count)], pos, Quaternion.identity);
+                newRoom = Instantiate(specialRooms[Random.Range(0, specialRooms.Count)], pos, Quaternion.identity);
+                NetworkServer.Spawn(newRoom);
             } else {
-                newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+                newRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+                NetworkServer.Spawn(newRoom);
             }
             DungeonRoom room = newRoom.GetComponent<DungeonRoom>();
             vertices[(int)newCell.x, (int)newCell.y] = room;
@@ -343,9 +345,11 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
                 //vertices[mirrorX, mirrorY] = true;
                 pos = new Vector3(mirrorX, 0, mirrorY) * roomSize - new Vector3(width / 2 * roomSize, 0, height / 2 * roomSize);
                 if (Random.Range(0f, 1f) < specialRoomChance) {
-                    newRoom = BoltNetwork.Instantiate(specialRooms[Random.Range(0, specialRooms.Count)], pos, Quaternion.identity);
+                    newRoom = Instantiate(specialRooms[Random.Range(0, specialRooms.Count)], pos, Quaternion.identity);
+                    NetworkServer.Spawn(newRoom);
                 } else {
-                    newRoom = BoltNetwork.Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+                    newRoom = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Count)], pos, Quaternion.identity);
+                    NetworkServer.Spawn(newRoom);
                 }
                 room = newRoom.GetComponent<DungeonRoom>();
                 vertices[mirrorX, mirrorY] = room;
@@ -397,29 +401,26 @@ public class GenerationManager : BoltSingletonPrefab<GenerationManager>
             dungeonGraph.AddVerticesAndEdge(newEdge);
         }
         dungeonGraph.RemoveVertex(from);
-        BoltNetwork.Destroy(from.gameObject);
+        NetworkServer.Destroy(from.gameObject);
     }
 
-    public void DestroyNeighborWalls(DungeonRoom room) {
+    [Command]
+    public void CmdDestroyNeighborWalls(DungeonRoom room) {
         float halfRoom = roomSize / 2f;
         Debug.Log("Destroying neighbor walls");
         foreach (Edge<DungeonRoom> edge in dungeonGraph.OutEdges(room)) {
             if (edge.Target.transform.position.x - edge.Source.transform.position.x > 5) {
                 // room to the right 
-                if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false); // This is *maybe* the quick patch for rooms not being removed for the fair. Might have worked but it's 4 am. Pt 2: It didn't work, but it maybe made sure the outer ones appear idk I can't remember delete this later after sleeping.
-                edge.Target.state.WestWall = (int)DungeonRoom.WallState.Destroyed; // Honestly the only room that EVER does it to me now is the rooms to the left or down.
+                edge.Target.westWallState = DungeonRoom.WallState.Destroyed; // Honestly the only room that EVER does it to me now is the rooms to the left or down.
             } else if (edge.Target.transform.position.x - edge.Source.transform.position.x < -5) {
                 // room to the left
-                if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false);
-                edge.Target.state.EastWall = (int)DungeonRoom.WallState.Destroyed;
+                edge.Target.eastWallState = DungeonRoom.WallState.Destroyed;
             } else if (edge.Target.transform.position.y - edge.Source.transform.position.y > 5) {
                 // room above
-                if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false);
-                edge.Target.state.SouthWall = (int)DungeonRoom.WallState.Destroyed;
+                edge.Target.southWallState = DungeonRoom.WallState.Destroyed;
             } else if (edge.Target.transform.position.y - edge.Source.transform.position.y < -5) {
                 // room below
-                if (edge.Target.entity.isFrozen) edge.Target.entity.Freeze(false);
-                edge.Target.state.NorthWall = (int)DungeonRoom.WallState.Destroyed;
+                edge.Target.northWallState = DungeonRoom.WallState.Destroyed;
             }
         }
     }

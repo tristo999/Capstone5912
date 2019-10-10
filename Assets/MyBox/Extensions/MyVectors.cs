@@ -279,6 +279,28 @@ namespace MyBox
 			return new Vector3(vector.x, vector.y);
 		}
 
+
+		public static Vector2 ToVector2(this Vector2Int vector)
+		{
+			return new Vector2(vector.x, vector.y);
+		}
+
+		public static Vector3 ToVector3(this Vector3Int vector)
+		{
+			return new Vector3(vector.x, vector.y);
+		}
+		
+
+		public static Vector2Int ToVector2Int(this Vector2 vector)
+		{
+			return new Vector2Int(Mathf.RoundToInt(vector.x), Mathf.RoundToInt(vector.y));
+		}
+
+		public static Vector3Int ToVector3Int(this Vector3 vector)
+		{
+			return new Vector3Int(Mathf.RoundToInt(vector.x), Mathf.RoundToInt(vector.y), Mathf.RoundToInt(vector.z));
+		}
+
 		#endregion
 
 
@@ -365,6 +387,28 @@ namespace MyBox
 
 		#endregion
 
+		
+		#region Approximately
+
+		public static bool Approximately(this Vector3 vector, Vector3 compared, float threshold = 0.1f)
+		{
+			var xDiff = Mathf.Abs(vector.x - compared.x);
+			var yDiff = Mathf.Abs(vector.y - compared.y);
+			var zDiff = Mathf.Abs(vector.z - compared.z);
+
+			return xDiff <= threshold && yDiff <= threshold && zDiff <= threshold;
+		}
+		
+		public static bool Approximately(this Vector2 vector, Vector2 compared, float threshold = 0.1f)
+		{
+			var xDiff = Mathf.Abs(vector.x - compared.x);
+			var yDiff = Mathf.Abs(vector.y - compared.y);
+
+			return xDiff <= threshold && yDiff <= threshold;
+		}
+		
+		#endregion
+		
 
 		#region Get Closest 
 

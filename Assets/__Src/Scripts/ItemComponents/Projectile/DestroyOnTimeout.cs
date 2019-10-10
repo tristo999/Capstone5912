@@ -1,15 +1,18 @@
-﻿public class DestroyOnTimeout : Bolt.EntityBehaviour<IProjectileState>
+﻿using Mirror;
+
+public class DestroyOnTimeout : NetworkBehaviour
 {
     public float lifespan;
-    private int deathFrame;
+    private double deathTime;
 
-    public override void Attached() {
-        deathFrame = (int)(BoltNetwork.Frame + lifespan * BoltNetwork.FramesPerSecond);
+    public void Awake() {
+        deathTime = NetworkTime.time + lifespan;
     }
 
-    public override void SimulateOwner() {
-        if (entity.isAttached && BoltNetwork.Frame > deathFrame) {
-            BoltNetwork.Destroy(entity);
+    public void FixedUpdate() {
+        if (!hasAuthority) return;
+        if (NetworkTime.time > deathTime) {
+            NetworkServer.Destroy(gameObject);
         }
     }
 }

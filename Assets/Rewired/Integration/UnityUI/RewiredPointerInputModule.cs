@@ -56,7 +56,6 @@ namespace Rewired.Integration.UnityUI {
     using System.Text;
     using UnityEngine;
     using UnityEngine.EventSystems;
-    using UnityEngine.Serialization;
     using System.Collections.Generic;
     using Rewired.UI;
 
@@ -237,7 +236,8 @@ namespace Rewired.Integration.UnityUI {
             // Get or create the pointer event data
 
             Dictionary<int, PlayerPointerEventData> byMouseIndexDict = pointerDataByIndex[pointerIndex];
-            if(!byMouseIndexDict.TryGetValue(pointerTypeId, out data) && create) {
+            if(!byMouseIndexDict.TryGetValue(pointerTypeId, out data)) {
+                if (!create) return false;
                 data = CreatePointerEventData(playerId, pointerIndex, pointerTypeId, pointerEventType); // create the event data
                 byMouseIndexDict.Add(pointerTypeId, data);
                 return true;
@@ -460,7 +460,12 @@ namespace Rewired.Integration.UnityUI {
         protected virtual void ProcessMove(PlayerPointerEventData pointerEvent) {
             GameObject targetGO;
             if(pointerEvent.sourceType == PointerEventType.Mouse) {
-                targetGO = GetMouseInputSource(pointerEvent.playerId, pointerEvent.inputSourceIndex).locked ? null : pointerEvent.pointerCurrentRaycast.gameObject;
+                IMouseInputSource source = GetMouseInputSource(pointerEvent.playerId, pointerEvent.inputSourceIndex);
+                if(source != null) {
+                    targetGO = source.locked ? null : pointerEvent.pointerCurrentRaycast.gameObject;
+                } else {
+                    targetGO = null;
+                }
             } else if(pointerEvent.sourceType == PointerEventType.Touch) {
                 targetGO = pointerEvent.pointerCurrentRaycast.gameObject;
             } else throw new NotImplementedException();
@@ -469,9 +474,9 @@ namespace Rewired.Integration.UnityUI {
 
         protected virtual void ProcessDrag(PlayerPointerEventData pointerEvent) {
             if(!pointerEvent.IsPointerMoving() || pointerEvent.pointerDrag == null) return;
-            if(pointerEvent.sourceType == PointerEventType.Mouse &&
-                GetMouseInputSource(pointerEvent.playerId, pointerEvent.inputSourceIndex).locked) {
-                return;
+            if(pointerEvent.sourceType == PointerEventType.Mouse) {
+                IMouseInputSource source = GetMouseInputSource(pointerEvent.playerId, pointerEvent.inputSourceIndex);
+                if(source == null || source.locked) return;
             }
 
             if(!pointerEvent.dragging
@@ -601,7 +606,11 @@ namespace Rewired.Integration.UnityUI {
             }
 
             bool IMouseInputSource.enabled {
-                get { TryUpdate(); return Input.mousePresent; }
+                get {
+                    TryUpdate();
+                    return true;
+                    // return Input.mousePresent; // REMOVED: Input.mousePresent is unreliable. Some platforms will return false when a mouse is present and working.
+                }
             }
 
             bool IMouseInputSource.locked {

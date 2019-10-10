@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class Spawner : NetworkBehaviour
 {
     public string folder;
     private GameObject spawned;
@@ -13,18 +14,18 @@ public class Spawner : MonoBehaviour
         return objs;
     }
     
-    GameObject SpawnObject(GameObject[] prefabs){
+    [Command]
+    GameObject CmdSpawnObject(GameObject[] prefabs){
         Transform pos = GetComponent<Transform>();
         GameObject toSpawn = prefabs[Random.Range(0, prefabs.Length)];
-        if (toSpawn.GetComponent<BoltEntity>())
-            return BoltNetwork.Instantiate(toSpawn, transform.position, transform.rotation);
-        else
-            return Instantiate(toSpawn, transform.position, transform.rotation);
+        GameObject spawned = Instantiate(toSpawn, transform.position, transform.rotation);
+        NetworkServer.Spawn(spawned);
+        return spawned;
     }
 
     void Awake(){
-        if (BoltNetwork.IsServer)
-            spawned = SpawnObject(LoadFromFolder(folder));
+        if (isServer)
+            spawned = CmdSpawnObject(LoadFromFolder(folder));
     }
 
     /*
@@ -37,7 +38,7 @@ public class Spawner : MonoBehaviour
 
     private void DemoRespawn() {
         Destroy(spawned);
-        spawned = SpawnObject(LoadFromFolder(folder));
+        spawned = CmdSpawnObject(LoadFromFolder(folder));
     }
 
 }

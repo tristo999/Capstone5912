@@ -7,7 +7,7 @@ public class WandofWandsofWands : Weapon
     private WeaponCooldown cooldown;
     private WeaponLaunchProjectile launchProj;
     private WeaponUses uses;
-    private List<BoltEntity> projectiles = new List<BoltEntity>();
+    private List<GameObject> projectiles = new List<GameObject>();
     private void Awake() {
         cooldown = GetComponent<WeaponCooldown>();
         launchProj = GetComponent<WeaponLaunchProjectile>();
@@ -19,11 +19,11 @@ public class WandofWandsofWands : Weapon
     }
 
     public override void FireHold() {
-        if (!Owner.entity.isOwner) return;
+        if (!Owner.hasAuthority) return;
         if (cooldown.Ready) {
             projectiles.RemoveAll(e => e == null);
-            foreach (BoltEntity e in projectiles) {
-                if (e != null && e.isAttached)
+            foreach (GameObject e in projectiles) {
+                if (e != null)
                     e.GetComponent<WoWoWProj>().Shoot(Owner.transform.forward);
             }
             projectiles.Add(launchProj.Launch());

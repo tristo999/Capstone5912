@@ -1,99 +1,281 @@
 fileFormatVersion: 2
 guid: 00425ec813ae9804491e0f010c663039
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: Guard02
-    100004: Head
-    100006: HeadTop_End
-    100008: Hips
-    100010: LeftArm
-    100012: LeftFoot
-    100014: LeftForeArm
-    100016: LeftHand
-    100018: LeftHandIndex1
-    100020: LeftHandIndex2
-    100022: LeftHandIndex3
-    100024: LeftHandIndex4
-    100026: LeftHandThumb1
-    100028: LeftHandThumb2
-    100030: LeftHandThumb3
-    100032: LeftHandThumb4
-    100034: LeftLeg
-    100036: LeftShoulder
-    100038: LeftToe_End
-    100040: LeftToeBase
-    100042: LeftUpLeg
-    100044: Neck
-    100046: RightArm
-    100048: RightFoot
-    100050: RightForeArm
-    100052: RightHand
-    100054: RightHandIndex1
-    100056: RightHandIndex2
-    100058: RightHandIndex3
-    100060: RightHandIndex4
-    100062: RightHandThumb1
-    100064: RightHandThumb2
-    100066: RightHandThumb3
-    100068: RightHandThumb4
-    100070: RightLeg
-    100072: RightShoulder
-    100074: RightToe_End
-    100076: RightToeBase
-    100078: RightUpLeg
-    100080: Spine
-    100082: Spine1
-    100084: Spine2
-    400000: //RootNode
-    400002: Guard02
-    400004: Head
-    400006: HeadTop_End
-    400008: Hips
-    400010: LeftArm
-    400012: LeftFoot
-    400014: LeftForeArm
-    400016: LeftHand
-    400018: LeftHandIndex1
-    400020: LeftHandIndex2
-    400022: LeftHandIndex3
-    400024: LeftHandIndex4
-    400026: LeftHandThumb1
-    400028: LeftHandThumb2
-    400030: LeftHandThumb3
-    400032: LeftHandThumb4
-    400034: LeftLeg
-    400036: LeftShoulder
-    400038: LeftToe_End
-    400040: LeftToeBase
-    400042: LeftUpLeg
-    400044: Neck
-    400046: RightArm
-    400048: RightFoot
-    400050: RightForeArm
-    400052: RightHand
-    400054: RightHandIndex1
-    400056: RightHandIndex2
-    400058: RightHandIndex3
-    400060: RightHandIndex4
-    400062: RightHandThumb1
-    400064: RightHandThumb2
-    400066: RightHandThumb3
-    400068: RightHandThumb4
-    400070: RightLeg
-    400072: RightShoulder
-    400074: RightToe_End
-    400076: RightToeBase
-    400078: RightUpLeg
-    400080: Spine
-    400082: Spine1
-    400084: Spine2
-    2100000: Guard_02
-    4300000: Guard02
-    7400000: mixamo.com
-    9500000: //RootNode
-    13700000: Guard02
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Guard02
+  - first:
+      1: 100004
+    second: Head
+  - first:
+      1: 100006
+    second: HeadTop_End
+  - first:
+      1: 100008
+    second: Hips
+  - first:
+      1: 100010
+    second: LeftArm
+  - first:
+      1: 100012
+    second: LeftFoot
+  - first:
+      1: 100014
+    second: LeftForeArm
+  - first:
+      1: 100016
+    second: LeftHand
+  - first:
+      1: 100018
+    second: LeftHandIndex1
+  - first:
+      1: 100020
+    second: LeftHandIndex2
+  - first:
+      1: 100022
+    second: LeftHandIndex3
+  - first:
+      1: 100024
+    second: LeftHandIndex4
+  - first:
+      1: 100026
+    second: LeftHandThumb1
+  - first:
+      1: 100028
+    second: LeftHandThumb2
+  - first:
+      1: 100030
+    second: LeftHandThumb3
+  - first:
+      1: 100032
+    second: LeftHandThumb4
+  - first:
+      1: 100034
+    second: LeftLeg
+  - first:
+      1: 100036
+    second: LeftShoulder
+  - first:
+      1: 100038
+    second: LeftToe_End
+  - first:
+      1: 100040
+    second: LeftToeBase
+  - first:
+      1: 100042
+    second: LeftUpLeg
+  - first:
+      1: 100044
+    second: Neck
+  - first:
+      1: 100046
+    second: RightArm
+  - first:
+      1: 100048
+    second: RightFoot
+  - first:
+      1: 100050
+    second: RightForeArm
+  - first:
+      1: 100052
+    second: RightHand
+  - first:
+      1: 100054
+    second: RightHandIndex1
+  - first:
+      1: 100056
+    second: RightHandIndex2
+  - first:
+      1: 100058
+    second: RightHandIndex3
+  - first:
+      1: 100060
+    second: RightHandIndex4
+  - first:
+      1: 100062
+    second: RightHandThumb1
+  - first:
+      1: 100064
+    second: RightHandThumb2
+  - first:
+      1: 100066
+    second: RightHandThumb3
+  - first:
+      1: 100068
+    second: RightHandThumb4
+  - first:
+      1: 100070
+    second: RightLeg
+  - first:
+      1: 100072
+    second: RightShoulder
+  - first:
+      1: 100074
+    second: RightToe_End
+  - first:
+      1: 100076
+    second: RightToeBase
+  - first:
+      1: 100078
+    second: RightUpLeg
+  - first:
+      1: 100080
+    second: Spine
+  - first:
+      1: 100082
+    second: Spine1
+  - first:
+      1: 100084
+    second: Spine2
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Guard02
+  - first:
+      4: 400004
+    second: Head
+  - first:
+      4: 400006
+    second: HeadTop_End
+  - first:
+      4: 400008
+    second: Hips
+  - first:
+      4: 400010
+    second: LeftArm
+  - first:
+      4: 400012
+    second: LeftFoot
+  - first:
+      4: 400014
+    second: LeftForeArm
+  - first:
+      4: 400016
+    second: LeftHand
+  - first:
+      4: 400018
+    second: LeftHandIndex1
+  - first:
+      4: 400020
+    second: LeftHandIndex2
+  - first:
+      4: 400022
+    second: LeftHandIndex3
+  - first:
+      4: 400024
+    second: LeftHandIndex4
+  - first:
+      4: 400026
+    second: LeftHandThumb1
+  - first:
+      4: 400028
+    second: LeftHandThumb2
+  - first:
+      4: 400030
+    second: LeftHandThumb3
+  - first:
+      4: 400032
+    second: LeftHandThumb4
+  - first:
+      4: 400034
+    second: LeftLeg
+  - first:
+      4: 400036
+    second: LeftShoulder
+  - first:
+      4: 400038
+    second: LeftToe_End
+  - first:
+      4: 400040
+    second: LeftToeBase
+  - first:
+      4: 400042
+    second: LeftUpLeg
+  - first:
+      4: 400044
+    second: Neck
+  - first:
+      4: 400046
+    second: RightArm
+  - first:
+      4: 400048
+    second: RightFoot
+  - first:
+      4: 400050
+    second: RightForeArm
+  - first:
+      4: 400052
+    second: RightHand
+  - first:
+      4: 400054
+    second: RightHandIndex1
+  - first:
+      4: 400056
+    second: RightHandIndex2
+  - first:
+      4: 400058
+    second: RightHandIndex3
+  - first:
+      4: 400060
+    second: RightHandIndex4
+  - first:
+      4: 400062
+    second: RightHandThumb1
+  - first:
+      4: 400064
+    second: RightHandThumb2
+  - first:
+      4: 400066
+    second: RightHandThumb3
+  - first:
+      4: 400068
+    second: RightHandThumb4
+  - first:
+      4: 400070
+    second: RightLeg
+  - first:
+      4: 400072
+    second: RightShoulder
+  - first:
+      4: 400074
+    second: RightToe_End
+  - first:
+      4: 400076
+    second: RightToeBase
+  - first:
+      4: 400078
+    second: RightUpLeg
+  - first:
+      4: 400080
+    second: Spine
+  - first:
+      4: 400082
+    second: Spine1
+  - first:
+      4: 400084
+    second: Spine2
+  - first:
+      21: 2100000
+    second: Guard_02
+  - first:
+      43: 4300000
+    second: Guard02
+  - first:
+      74: 7400000
+    second: mixamo.com
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Guard02
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -149,6 +331,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -156,18 +339,19 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -176,10 +360,35 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips:
+  - bf61e589df9eb7843b64d952f8ae7136
+  - 4a1b9f079e8ee884f9eb605053e89ca1
+  - 53ec4197496d04e40b0e6c8eef1b57eb
+  - dfaec31e7bd728a49b4ad02ad63731cc
+  - 24632ce2718b9d44787e16cc4a69bdf0
+  - beb1e5aa446fcb84599412dd635b3216
+  - 456890da74d11854880659e0debd6df4
+  - e226326f2887ba0449782ad6ceceead3
+  - e300449915b3a2940bd31e7264e3b6f7
+  - c31fe915c0751734f9ff5a1f467fb1c4
+  - f28a19772c40da74db6856019029417f
+  - b5c9e1fa32ce16644b6a6356a9f35316
+  - f09e7a8dda6ce6d4c84ad4bb1b2d0f7a
+  - 1588230abe834f740a04b4613a984ace
+  - ce6974351e4870d4da97769635c1b45d
+  - bb952021fbae8094ca6f34591e46b819
+  - 71498d331a9edcf4baeaac1d2ec30d9a
+  - b83d2cacea413e44fbea3c0829b5cafa
+  - 99956d07b5212e943bab4769a51a557f
+  - e854ca85eecad8b4da51186bd446552d
+  - 49a4482f41d2ccf4abc6880b76658398
+  - 706b33e20b273264286222f3a9007801
+  - 3da0ff28baf36eb4a93cc790d15ea483
+  - 6578476b0b88fea4bbc6d8679107c519
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -189,6 +398,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: Hips
     hasTranslationDoF: 0
     hasExtraRoot: 0

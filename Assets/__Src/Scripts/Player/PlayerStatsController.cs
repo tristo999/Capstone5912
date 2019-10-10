@@ -1,11 +1,8 @@
-﻿using Rewired;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using System;
+﻿using System;
 using UnityEngine;
+using Mirror;
 
-public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
+public class PlayerStatsController : NetworkBehaviour
 {
     public Canvas HealthCanvas;
     public float StartingHealth;
@@ -15,174 +12,138 @@ public class PlayerStatsController : Bolt.EntityEventListener<IPlayerState>
 
     private PlayerMovementController movementController;
 
+    [SyncVar(hook = nameof(OnHealthChanged))]
+    public float Health;
+    [SyncVar(hook = nameof(OnSpeedChanged))]
+    public float Speed;
+    [SyncVar(hook = nameof(OnFireRateChanged))]
+    public float FireRate;
+    [SyncVar(hook = nameof(OnProjectileSpeedChanged))]
+    public float ProjectileSpeed;
+    [SyncVar(hook = nameof(OnProjectileDamageChanged))]
+    public float ProjectileDamage;
+    [SyncVar(hook = nameof(OnColorChanged))]
+    public Color PlayerColor;
+    [SyncVar(hook = nameof(OnAliveChanged))]
+    public bool Alive;
+
     private float oldSpeed;
     private float oldFireRate;
     private float oldProjectileSpeed;
     private float oldProjectileDamage;
     private float oldHealth;
 
-    public override void Attached() {
-        movementController = GetComponent<PlayerMovementController>();
-        ui = GetComponent<PlayerUI>();
-
-        if (entity.isOwner) {
-            state.Speed = 1f;
-            state.FireRate = 1f;
-            state.ProjectileSpeed = 1f;
-            state.ProjectileDamage = 1f;
-            state.Health = StartingHealth;
-            state.PlayerId = -1;
-
+    public void Awake() {
+        if (isLocalPlayer) {
+            movementController = GetComponent<PlayerMovementController>();
+            ui = GetComponent<PlayerUI>();
             StoreOldStats();
         }
+    }
 
-        state.AddCallback("Health", HealthChanged);
-        state.AddCallback("Speed", SpeedChanged);
-        state.AddCallback("FireRate", FireRateChanged);
-        state.AddCallback("ProjectileSpeed", ProjectileSpeedChanged);
-        state.AddCallback("ProjectileDamage", ProjectileDamageChanged);
-        state.AddCallback("Color", ColorChanged);
-        state.AddCallback("PlayerId", IdChanged);
-        state.AddCallback("Dead", PlayerDied);
-        if (entity.isOwner) {
-            state.AddCallback("WeaponId", WeaponIdChanged);
-            state.AddCallback("ActiveId", ActiveIdChanged);
+    [Command]
+    public void CmdApplyItemStats(ItemDefinition item) {
+        Health += item.HealthModifier;
+        Speed += item.SpeedModifier;
+        FireRate += item.FireRateModifier;
+        ProjectileSpeed += item.ProjectileSpeedModifier;
+        ProjectileDamage += item.DamageModifier;
+    }
+
+    private void OnColorChanged() {
+        robeAndHat.material.color = PlayerColor;
+    }
+
+    private void OnHealthChanged() {
+        if (hasAuthority) {
+            if (Health < 0) {
+                Health = 0;
+                Alive = false;
+            } else if (Health > 100) Health = 100;
+        }
+
+        if (isLocalPlayer) {
+            ui.SetHealth(Health);
+            float change = Health - oldHealth;
+            if (Math.Abs(change) > 0.0001f) ui.FlashDamageTaken(-change);
+            oldHealth = Health;
         }
     }
 
-    private void WeaponIdChanged()
-    {
-        if (state.WeaponId >= 0)
-        {
-            ItemDefinition item = ItemManager.Instance.items[state.WeaponId];
-            state.Health += item.HealthModifier;
-            state.Speed += item.SpeedModifier;
-            state.FireRate += item.FireRateModifier;
-            state.ProjectileSpeed += item.ProjectileSpeedModifier;
-            state.ProjectileDamage += item.DamageModifier;
-        }
-    }
-
-    private void ActiveIdChanged() {
-        if (state.ActiveId >= 0)
-        {
-            ItemDefinition item = ItemManager.Instance.items[state.ActiveId];
-            state.Health += item.HealthModifier;
-            state.Speed += item.SpeedModifier;
-            state.FireRate += item.FireRateModifier;
-            state.ProjectileSpeed += item.ProjectileSpeedModifier;
-            state.ProjectileDamage += item.DamageModifier;
-        }
-    }
-
-    private void IdChanged() {
-        if (state.PlayerId < 0) return;
-        GameMaster.instance.PlayerIdChange(entity, state.PlayerId);
-    }
-
-    private void ColorChanged() {
-        robeAndHat.material.color = state.Color;
-    }
-
-    private void HealthChanged() {
-        if (entity.isOwner) {
-            if (state.Health < 0) {
-                // Retriggers HealthChanged()
-                state.Health = 0; 
-            } else if (state.Health > 100) { // Max Health here
-                // Retriggers HealthChanged()
-                state.Health = 100;
-            } else {
-                ui.SetHealth(state.Health);
-                if (state.Health == 0) {
-                    state.Dead = true;
-                }
-
-                float change = state.Health - oldHealth;
-                if (Math.Abs(change) > 0.0001f) ui.FlashDamageTaken(-change);
-                oldHealth = state.Health;
-            }
-        }
-    }
-
-    private void PlayerDied() {
-        if (entity.isOwner) {
-            if (state.Dead) {
+    private void OnAliveChanged() {
+        if (isLocalPlayer) {
+            if (!Alive) {
                 ui.DisplayMessage("You Died.", 4f, 2f, () => SplitscreenManager.instance.SetCameraToSpectator(ui.ScreenNumber-1, movementController.localPlayer));
                 movementController.localPlayer.StopVibration();
             }
         }
     }
 
-    private void SpeedChanged() {
-        if (entity.isOwner) {
-            float change = state.Speed - oldSpeed;
+    private void OnSpeedChanged() {
+        if (isLocalPlayer) {
+            float change = Speed - oldSpeed;
             if (Math.Abs(change) > 0.0001f) {
                 ui.AddSpeedText(change, transform.position);
-                ui.SetPlayerSpeedStat(state.Speed);
+                ui.SetPlayerSpeedStat(Speed);
             }
-
-            oldSpeed = state.Speed;
+            oldSpeed = Speed;
         }
     }
 
-    private void FireRateChanged() {
-        if (entity.isOwner) {
-            float change = state.FireRate - oldFireRate;
+    private void OnFireRateChanged() {
+        if (isLocalPlayer) {
+            float change = FireRate - oldFireRate;
             if (Math.Abs(change) > 0.0001f) {
                 ui.AddFireRateText(change, transform.position);
-                ui.SetFireRateStat(state.FireRate);
+                ui.SetFireRateStat(FireRate);
             }
-            oldFireRate = state.FireRate;
+            oldFireRate = FireRate;
         }
     }
 
-    private void ProjectileSpeedChanged() {
-        if (entity.isOwner) {
-            float change = state.ProjectileSpeed - oldProjectileSpeed;
+    private void OnProjectileSpeedChanged() {
+        if (isLocalPlayer) {
+            float change = ProjectileSpeed - oldProjectileSpeed;
             if (Math.Abs(change) > 0.0001f) {
                 ui.AddProjectileSpeedText(change, transform.position);
-                ui.SetProjectileSpeedStat(state.ProjectileSpeed);
+                ui.SetProjectileSpeedStat(ProjectileSpeed);
             }
-            oldProjectileSpeed = state.ProjectileSpeed;
+            oldProjectileSpeed = ProjectileSpeed;
         }
     }
 
-    private void ProjectileDamageChanged() {
-        if (entity.isOwner) {
-            float change = state.ProjectileDamage - oldProjectileDamage;
+    private void OnProjectileDamageChanged() {
+        if (isLocalPlayer) {
+            float change = ProjectileDamage - oldProjectileDamage;
             if (Math.Abs(change) > 0.0001f) {
                 ui.AddProjectileDamageText(change, transform.position);
-                ui.SetProjectileDamageStat(state.ProjectileDamage);
+                ui.SetProjectileDamageStat(ProjectileDamage);
             }
-            oldProjectileDamage = state.ProjectileDamage;
+            oldProjectileDamage = ProjectileDamage;
         }
     }
 
-    public override void OnEvent(DamageEntity evnt) {
-        if (state.Health > 0) {
-            if (entity.isOwner) {
-                if (evnt.Damage > 0) {
-                    movementController.localPlayer.SetVibration(0, 1f, .1f);
-                    movementController.localPlayer.SetVibration(1, 1f, .1f);
-                    movementController.localPlayer.SetVibration(2, 1f, .1f);
-                    movementController.localPlayer.SetVibration(3, 1f, .1f);
-                }
-                state.Health -= evnt.Damage;
-            }
-            if (evnt.Owner && evnt.Owner.isOwner) {
-                PlayerUI ui = evnt.Owner.GetComponent<PlayerUI>();
-                ui.AddDamageText(evnt.Damage, evnt.HitPosition);
-            }
+    [Command]
+    public void CmdDamagePlayer(float amt, Vector3 damagePos, GameObject owner) {
+        if (Health <= 0) return;
+        if (hasAuthority) {
+            Health -= amt;
+        }
+        if (isLocalPlayer) {
+            movementController.localPlayer.SetVibration(0, 1f, .1f);
+            movementController.localPlayer.SetVibration(1, 1f, .1f);
+            movementController.localPlayer.SetVibration(2, 1f, .1f);
+            movementController.localPlayer.SetVibration(3, 1f, .1f);
+            ui.AddDamageText(amt, damagePos);
         }
     }
 
     private void StoreOldStats() {
-        oldSpeed = state.Speed;
-        oldFireRate = state.FireRate;
-        oldProjectileSpeed = state.ProjectileSpeed;
-        oldProjectileDamage = state.ProjectileDamage;
-        oldHealth = state.Health; 
+        oldSpeed = Speed;
+        oldFireRate = FireRate;
+        oldProjectileSpeed = ProjectileSpeed;
+        oldProjectileDamage = ProjectileDamage;
+        oldHealth = Health; 
         // Health is only used for compounded damage taken, not damage dealt or healing received.
     }
 }

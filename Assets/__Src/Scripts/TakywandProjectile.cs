@@ -1,17 +1,14 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TakywandProjectile : Bolt.EntityBehaviour<IProjectileState>
+public class TakywandProjectile : NetworkBehaviour
 {
     public float maxSizeScale;
 
     private float aliveFor = 0f;
     private float lifetime = .42f;
-
-    public override void Attached() {
-        state.SetTransforms(state.transform, transform);
-    }
 
     public void FixedUpdate() {
         float scale = .6f + (aliveFor / lifetime) * maxSizeScale;

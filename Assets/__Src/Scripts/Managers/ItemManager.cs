@@ -1,16 +1,17 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
+public class ItemManager : NetworkBehaviour
 {
     public static ItemManager Instance;
 
     public List<ItemDefinition> items = new List<ItemDefinition>();
     public List<GameObject> rarityGlowPrefabs = new List<GameObject>();
 
-    public override void Attached() {
+    public void Awake() {
         Instance = this;
         AssignIds();
     }
@@ -23,34 +24,41 @@ public class ItemManager : Bolt.EntityEventListener<IItemManagerState>
         }
     }
 
-    public override void OnEvent(SpawnItem evnt) {
-        if (!entity.isOwner) return;
-        if (evnt.ItemId == -1) {
-            float randomValWeighted = Mathf.Pow(Random.value, 0.91f); // Slight root function (best room spawn rate is 0.85f).
-            evnt.ItemId = ItemFromDangerRating(GenerationManager.instance.rarityCurve.Evaluate(randomValWeighted)).ItemId;
-        }
-        Spawn(evnt.Position, evnt.Force, items[evnt.ItemId].DroppedModel, evnt.SpawnerTag, evnt.UsesUsed);
+    [Command]
+    public GameObject CmdSpawnRandom(Vector3 location, Vector3 force, string spawnerTag = "", int usesUsed = 0) {
+        float randomValWeighted = Mathf.Pow(Random.value, 0.91f); // Slight root function (best room spawn rate is 0.85f).
+        int id = ItemFromDangerRating(GenerationManager.instance.rarityCurve.Evaluate(randomValWeighted)).ItemId;
+        return CmdSpawn(location, force, id, spawnerTag, usesUsed);
     }
 
-    public GameObject Spawn(Vector3 location, Vector3 force, GameObject itemPrefab, string spawnerTag = "", int usesUsed = 0) { 
-        GameObject newItem = BoltNetwork.Instantiate(itemPrefab, location, Quaternion.identity);
-        newItem.GetComponent<DroppedItem>().state.ItemId = itemPrefab.GetComponent<DroppedItem>().Id;
-        newItem.GetComponent<DroppedItem>().UsesUsed = usesUsed;
+    [Command]
+    public GameObject CmdSpawn(Vector3 location, Vector3 force, int id, string spawnerTag = "", int usesUsed = 0) {
+        GameObject itemPrefab = items[id].DroppedModel;
+        GameObject newItem = Instantiate(itemPrefab, location, Quaternion.identity);
+        newItem.GetComponent<DroppedItem>().Used = usesUsed;
         newItem.GetComponent<Rigidbody>().AddForce(force);
         newItem.GetComponent<Rigidbody>().AddTorque(force.magnitude / 4.0f * new Vector3(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)).normalized);
         if (!Equals(spawnerTag, "")) {
             newItem.GetComponent<DroppedItem>().StartNoCollideTimer(spawnerTag);
         }
+        NetworkServer.Spawn(newItem);
         return newItem;
     }
 
-    public void SpawnItemFromRarity(ItemDefinition.ItemRarity rarity, Vector3 location, string spawnerTag = "") {
+    [Command]
+    public GameObject CmdSpawn(Vector3 location, Vector3 force, GameObject gObject) {
+        GameObject spawned = Instantiate(gObject, location, Quaternion.identity);
+        spawned.GetComponent<Rigidbody>().AddForce(force);
+        spawned.GetComponent<Rigidbody>().AddTorque(force.magnitude / 4.0f * new Vector3(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)).normalized);
+        NetworkServer.Spawn(spawned);
+        return spawned;
+
+    }
+
+    [Command]
+    public void CmdSpawnItemFromRarity(ItemDefinition.ItemRarity rarity, Vector3 location, string spawnerTag = "") {
         ItemDefinition[] itemsOfRarity = items.Where(i => i.Rarity == rarity).ToArray();
-        SpawnItem evnt = SpawnItem.Create(entity);
-        evnt.ItemId = items.IndexOf(itemsOfRarity[Random.Range(0, itemsOfRarity.Length)]);
-        evnt.Position = location;
-        evnt.SpawnerTag = spawnerTag;
-        evnt.Send();
+        CmdSpawn(location, Vector3.zero, items.IndexOf(itemsOfRarity[Random.Range(0, itemsOfRarity.Length)]), spawnerTag);
     }
 
     public ItemDefinition ItemFromDangerRating(float dangerRating) {

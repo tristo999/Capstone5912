@@ -19,7 +19,7 @@ public class Peashooter : Weapon {
     }
 
     public override void FireHold() {
-        if (!Owner.entity.isOwner) return;
+        if (!Owner.hasAuthority) return;
         if (cooldown.Ready) {
             launchProj.Launch();
             uses.Use();
@@ -32,10 +32,10 @@ public class Peashooter : Weapon {
     }
 
     public override void OnEquip() {
-        Owner.GetComponent<PlayerStatsController>().state.Speed += speedMod;
+        Owner.GetComponent<PlayerStatsController>().Speed += speedMod;
     }
 
     public override void OnDequip() {
-        Owner.GetComponent<PlayerStatsController>().state.Speed -= speedMod;
+        Owner.GetComponent<PlayerStatsController>().Speed -= speedMod;
     }
 }

@@ -1,11 +1,21 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
+/* Todo:
+ * 
+ * We gonna have to fix animations for enemies, in ripping out bolt I broke all of the state based
+ * animation triggers because we used bolt built in animator sync.
+ * 
+ * <3 David
+ * 
+ */
 
-public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState> {
+
+public class BasicEnemyAI : NetworkBehaviour {
     public enum AttackDirection {left, right};
 
     public bool InAttackAnim { 
@@ -18,6 +28,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState> {
         get { return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Death"); }
     }
     
+    [SyncVar(hook = nameof(OnHealthChanged))]
     public float health = 30f;
     public float itemCount = 4;
     public float attackCooldown = 6f;
@@ -42,17 +53,10 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState> {
     private bool attackHasHit;
     private float attackAnimationHitDelayTimer = 0f;
 
-    public override void Attached() {
-        state.SetTransforms(state.transform, transform);
+    public void Awake() {
         enemyAnimator = GetComponentInChildren<Animator>();
-        state.SetAnimator(enemyAnimator);
 
-        if (!entity.isOwner) return;
-        state.Health = health;
-        state.AddCallback("Health", HealthChanged);
-        state.OnAttack += Attack;
-        state.Dying = false;
-        state.Death = false;
+        if (!isServer) return;
 
         nav = GetComponent<NavMeshAgent>();
         nav.enabled = true;
@@ -72,7 +76,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState> {
         attackHasHit = false;
     }
 
-    public override void SimulateOwner() {
+    public void FixedUpdate() {
         if (!InDeathAnim && !InDeadAnim) {
             if (players == null || players.Length == 0) {
                 players = GameObject.FindGameObjectsWithTag("Player");
@@ -86,32 +90,28 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState> {
             CheckAttack();
             CheckMove();
 
-            if (attackCooldownTimer < attackCooldown) attackCooldownTimer += BoltNetwork.FrameDeltaTime;
-            attackAnimationHitDelayTimer += BoltNetwork.FrameDeltaTime;
+            if (attackCooldownTimer < attackCooldown) attackCooldownTimer += Time.deltaTime;
+            attackAnimationHitDelayTimer += Time.deltaTime;
         }
-        if (InDeadAnim) BoltNetwork.Destroy(gameObject);
+        if (InDeadAnim) Destroy(gameObject);
     }
     
-    private void HealthChanged() {
-        if (state.Health <= 0f && !InDeathAnim && !InDeadAnim) {
+    private void OnHealthChanged() {
+        if (health <= 0f && !InDeathAnim && !InDeadAnim) {
             for (int i = 0; i < itemCount; i++)
             {
                 Vector3 tossForce = 500f * transform.forward + 1000f * transform.up;
-                SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
+                Vector3 pos;
 
-                if (i == 0) evnt.Position = transform.position + new Vector3(0, 1f, 0f);
-                else if ( i == 1) evnt.Position = transform.position + new Vector3(-1, 1f, 1f);
-                else if ( i == 2) evnt.Position = transform.position + new Vector3(-1, 1f, 0f);
-                else if (i == 3) evnt.Position = transform.position + new Vector3(0, 1f, -1f);
+                if (i == 0) pos = transform.position + new Vector3(0, 1f, 0f);
+                else if ( i == 1) pos = transform.position + new Vector3(-1, 1f, 1f);
+                else if ( i == 2) pos = transform.position + new Vector3(-1, 1f, 0f);
+                else pos = transform.position + new Vector3(0, 1f, -1f);
 
-                evnt.Force = tossForce;
-                evnt.ItemId = -1;
-                evnt.SpawnerTag = gameObject.tag;
-                evnt.Send();
+                ItemManager.Instance.CmdSpawnRandom(pos, tossForce, tag);
             }
 
             if (nav.enabled) nav.SetDestination(transform.position);
-            state.Dying = true;
         }
     }
 
@@ -119,22 +119,14 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState> {
         if (inHitRange && InAttackAnim && !attackHasHit && attackAnimationHitDelayTimer >= attackAnimationHitDelay) {
             // This will likely be buggy with multiple players but leaving it for now.
             if (targetPlayer) {
-                DamageEntity DamageEntity = DamageEntity.Create(targetPlayer.GetComponent<BoltEntity>());
-                DamageEntity.Damage = attackDamage;
-                DamageEntity.Send();
-
-                if (attackKnockback > 0) {
-                    KnockbackEntity KnockbackEntity = KnockbackEntity.Create(targetPlayer.GetComponent<BoltEntity>());
-                    KnockbackEntity.Force = GetKnockback();
-                    KnockbackEntity.Send();
-                }
+                // Todo: That code that makes attacks do damage. <3 David
 
                 attackHasHit = true;
             }
         }
 
         if (inAttackRange && attackCooldownTimer >= attackCooldown && targetPlayer) {
-            state.Attack();
+            // Animation and trigger code goes here! Todo! <3 David
         }
     }
 
@@ -185,10 +177,11 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState> {
         if (nav.enabled) {
             nav.isStopped = bStopped;
         }
-        state.Moving = !bStopped;
+        // Todo: Animation trigger <3 Dave
     }
 
-    public override void OnEvent(DamageEntity evnt) {
+    // Todo: Figure out how to refactor damage. <3 Dave
+    /*public override void OnEvent(DamageEntity evnt) {
         if (state.Health > 0) {
             if (entity.isOwner) {
                 state.Health -= evnt.Damage;
@@ -198,7 +191,7 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState> {
                 ui.AddDamageText(evnt.Damage, evnt.HitPosition);
             }
         }
-    }
+    }*/ 
 
     private Vector3 GetKnockback() {
         Vector3 directionToPlayer = (targetPlayer.transform.position - transform.position).normalized;
@@ -209,5 +202,11 @@ public class BasicEnemyAI : Bolt.EntityEventListener<IEnemyState> {
             knockbackDirection = -0.6f * Vector3.Cross(directionToPlayer, transform.up).normalized + 0.4f * directionToPlayer;
         }
         return (knockbackDirection + new Vector3(0, 0.7f, 0)).normalized * attackKnockback;
+    }
+
+    [Command]
+    public void CmdDamageEnemy(float amt) {
+        health -= amt;
+        // Todo add ui popup
     }
 }

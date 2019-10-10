@@ -14,7 +14,7 @@ public class ThrowingKnife : Weapon {
     }
 
     public override void FireDown() {
-        if (!Owner.entity.isOwner) return;
+        if (!Owner.hasAuthority) return;
         launchProj.Launch(0, new Vector3(0, 0, -70));
         uses.Use();
     }

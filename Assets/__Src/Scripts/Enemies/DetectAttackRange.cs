@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DetectAttackRange : Bolt.EntityBehaviour<IEnemyState>
+public class DetectAttackRange : NetworkBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (entity.isAttached && !entity.isOwner) return;
+        if (!hasAuthority) return;
         if (other.gameObject.tag == "Player")
         {
             GetComponentInParent<BasicEnemyAI>().inAttackRange = true;
@@ -15,7 +16,7 @@ public class DetectAttackRange : Bolt.EntityBehaviour<IEnemyState>
 
     private void OnTriggerExit(Collider other)
     {
-        if (entity.isAttached && !entity.isOwner) return;
+        if (!hasAuthority) return;
         if (other.gameObject.tag == "Player")
         {
             GetComponentInParent<BasicEnemyAI>().inAttackRange = false;

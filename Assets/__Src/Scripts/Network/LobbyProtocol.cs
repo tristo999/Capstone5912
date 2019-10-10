@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
-using UdpKit;
+
 using UnityEngine;
 
 public class LobbyProtocol : Bolt.IProtocolToken
@@ -24,3 +24,4 @@ public class LobbyProtocol : Bolt.IProtocolToken
         packet.WriteString(lobbyName);
     }
 }
+*/

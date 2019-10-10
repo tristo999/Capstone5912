@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,23 +8,22 @@ public abstract class Chest : InteractiveObject
     public GameObject closedChestModel;
     public GameObject openChestModel;
 
-    public override void Attached() {
-        state.SetTransforms(state.transform, transform);
-        state.AddCallback("Open", OpenChange);
-    }
-
     public abstract void OnOpen();
 
-    public override void DoInteract(BoltEntity bEntity) {
-        OpenChest evnt = OpenChest.Create(entity);
-        evnt.Send();
+    [Command]
+    public override void CmdDoInteract(GameObject bEntity) {
+        CmdOpenChest();
     }
 
-    private void OpenChange() {
-        if (state.Open) 
-            ChestOpen();
+    [Command]
+    private void CmdOpenChest() {
+        ChestOpen();
     }
 
+    [Command]
+    private void CmdCloseChest() {
+        ChestClose();
+    }
 
     protected void ChestClose()
     {
@@ -35,11 +35,6 @@ public abstract class Chest : InteractiveObject
         GetComponent<MeshFilter>().mesh = openChestModel.GetComponent<MeshFilter>().sharedMesh;
         CanHighlight = false;
         OnOpen();
-    }
-
-    public override void OnEvent(OpenChest evnt) {
-        if (entity.isOwner && !state.Open)
-            state.Open = !state.Open;
     }
 
 }

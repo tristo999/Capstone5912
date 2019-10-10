@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameMaster : BoltSingletonPrefab<GameMaster>
+public class GameMaster : NetworkBehaviour
 {
+    public static GameMaster instance;
 
     private int _startFrame;
     private int _spawnedPlayers;
@@ -13,9 +15,9 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
     private int destructionTime;
     private int criticalTime;
     private int warningTime;
-    public Dictionary<int, BoltEntity> players { get; private set; } = new Dictionary<int, BoltEntity>();
+    public Dictionary<int, NetworkBehaviour> players { get; private set; } = new Dictionary<int, NetworkBehaviour>();
     public Dictionary<int, List<DungeonRoom>> RoomLayers = new Dictionary<int, List<DungeonRoom>>();
-    public List<BoltEntity> roomsAndClutter = new List<BoltEntity>();
+    public List<NetworkBehaviour> roomsAndClutter = new List<NetworkBehaviour>();
     public List<string> WinningOrder = new List<string>();
     public int RoomDropTime = 27;
     public int RoomCriticalTime = 25;
@@ -31,32 +33,34 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
         set
         {
             _spawnedPlayers = value;
-            if (_spawnedPlayers >= WizardFightPlayerRegistry.Players.Count()) {
-                FreezeDistantEntities();
-            }
         }
     }
     public int GameTime
     {
         get
         {
-            return (BoltNetwork.ServerFrame - _startFrame) / BoltNetwork.FramesPerSecond;
+            return (Time.frameCount - _startFrame) / Time.captureFramerate;
         }
     }
 
-    public List<BoltEntity> LivePlayers
+    public List<NetworkBehaviour> LivePlayers
     {
         get
         {
-            return players.Values.Where(k => !k.GetState<IPlayerState>().Dead).ToList();
+            return players.Values.Where(k => k.GetComponent<PlayerStatsController>().Alive).ToList();
         }
     }
 
     public AudioSource sfxSource;
 
     private void Awake() {
+        if (instance != null) {
+            Destroy(this);
+            return;
+        }
+        instance = this;
         sfxSource = gameObject.AddComponent<AudioSource>();
-        _startFrame = BoltNetwork.ServerFrame;
+        _startFrame = Time.frameCount;
         destructionTime = GameTime + RoomDropTime;
         dangerTime = GameTime + RoomDangerTime;
         warningTime = GameTime + RoomWarningTime;
@@ -64,7 +68,7 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
     }
 
     public void FixedUpdate() {
-        if (!BoltNetwork.IsServer) return;
+        if (!isServer) return;
         if (RoomLayer > 0) {
             if (GameTime == warningTime)
                 SetDestructionStates(DungeonRoom.DestructionState.Warning);
@@ -78,20 +82,18 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
         }
     }
 
-    public void PlayerIdChange(BoltEntity entity, int id) {
-        if (!BoltNetwork.IsServer) return;
+    public void PlayerIdChange(NetworkBehaviour entity, int id) {
+        if (!isServer) return;
         if (!players.ContainsValue(entity)) {
             players.Add(id, entity);
-            entity.GetState<IPlayerState>().AddCallback("Dead", TrackPlayerDeath);
         }
     }
 
-    private void TrackPlayerDeath(Bolt.IState state, string path, Bolt.ArrayIndices indices) {
-        WinningOrder.Insert(0, ((IPlayerState)state).Name);
+    [Command]
+    public void CmdTrackPlayerDeath(string playerName) {
+        WinningOrder.Insert(0, playerName);
         if (LivePlayers.Count == 1) {
-            MatchComplete matchCompleteEvnt = MatchComplete.Create();
-            matchCompleteEvnt.Winner = LivePlayers.First();
-            matchCompleteEvnt.Send();
+            //Todo Conversion: Call victory screen
         }
     }
 
@@ -109,39 +111,20 @@ public class GameMaster : BoltSingletonPrefab<GameMaster>
     public void SetDestructionStates(DungeonRoom.DestructionState level) {
         foreach (DungeonRoom room in RoomLayers[RoomLayer]) {
             if (room) {
-                room.GetComponent<BoltEntity>().GetState<IDungeonRoom>().DestructionState = (int)level;
+                room.GetComponent<DungeonRoom>().currentDestructionState = level;
             }
         }
     }
 
     public void DestroyLayer() {
         foreach (DungeonRoom room in RoomLayers[RoomLayer]) {
-            room.GetComponent<BoltEntity>().GetState<IDungeonRoom>().DestructionState = (int)DungeonRoom.DestructionState.Destroyed;
+            room.GetComponent<DungeonRoom>().currentDestructionState= DungeonRoom.DestructionState.Destroyed;
         }
         RoomLayer--;
         destructionTime = GameTime + RoomDropTime;
         dangerTime = GameTime + RoomDangerTime;
         warningTime = GameTime + RoomWarningTime;
         criticalTime = GameTime + RoomCriticalTime;
-    }
-
-    public void FreezeDistantEntities() {
-
-        foreach (BoltEntity entity in roomsAndClutter) {
-            if (entity != null)
-            {
-                if (players.Any(pair => Vector3.Distance(pair.Value.transform.position, entity.transform.position) < GenerationManager.instance.roomSize * 1.5f))
-                {
-                    if (entity.isFrozen)
-                        entity.Freeze(false);
-                }
-                else
-                {
-                    if (!entity.isFrozen)
-                        entity.Freeze(true);
-                }
-            }
-        }
     }
 
 }

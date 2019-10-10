@@ -1,18 +1,19 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomDestroy : Bolt.EntityBehaviour<IRoomObject>
+public class RandomDestroy : NetworkBehaviour
 {
     [Tooltip("Probability of object existing")]
     [Range(0, 100)]
     public int probability;
 
-    public override void Attached()
+    public void Awake()
     {
-        if (entity.isOwner) {
+        if (isServer) {
             if (Random.Range(0, 100) > probability) {
-                BoltNetwork.Destroy(entity);
+                NetworkServer.Destroy(gameObject);
             }
         }
     }

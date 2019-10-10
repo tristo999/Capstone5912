@@ -973,6 +973,7 @@ namespace Rewired.Integration.UnityUI {
             ProcessMousePress(mouseData.GetButtonState(2).eventData);
             ProcessDrag(mouseData.GetButtonState(2).eventData.buttonData);
             IMouseInputSource mouseInputSource = GetMouseInputSource(playerId, pointerIndex);
+            if (mouseInputSource == null) return; // in case mouse source removed by user in event callback
             for(int i = 3; i < mouseInputSource.buttonCount; i++) {
                 ProcessMousePress(mouseData.GetButtonState(i).eventData);
                 ProcessDrag(mouseData.GetButtonState(i).eventData.buttonData);
@@ -998,6 +999,7 @@ namespace Rewired.Integration.UnityUI {
         /// </summary>
         private void ProcessMousePress(MouseButtonEventData data) {
             var pointerEvent = data.buttonData;
+            if (GetMouseInputSource(pointerEvent.playerId, pointerEvent.inputSourceIndex) == null) return; // invalid mouse source
             var currentOverGo = pointerEvent.pointerCurrentRaycast.gameObject;
 
             // PointerDown notification

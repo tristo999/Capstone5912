@@ -1,9 +1,10 @@
 ﻿using MyBox;
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
+public class DungeonRoom : NetworkBehaviour
 {
     public int DistanceFromCenter = -1;
     public float DangerRating;
@@ -35,94 +36,119 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     [ConditionalField("centerRoom")] public GameObject westWallDestroyed2;
     [Range(0.0f,1.0f)]
     public float chanceDestroyCarpet;
+    [SyncVar(hook = nameof(OnCarpetChange))]
+    public bool hasCarpet;
+    [SyncVar(hook = nameof(OnCarpetChange))]
+    public Color carpetColor;
     public ParticleSystem ceilingDust;
     private List<PlayerCamera> camerasInRoom = new List<PlayerCamera>();
     private float shakeTime = 1f;
+    [SyncVar(hook = nameof(OnDestructionStateChange))]
+    public DestructionState currentDestructionState;
+    [SyncVar(hook = nameof(OnNorthWallChange))]
+    public WallState northWallState;
+    [SyncVar(hook = nameof(OnEastWallChange))]
+    public WallState eastWallState;
+    [SyncVar(hook = nameof(OnSouthWallChange))]
+    public WallState southWallState;
+    [SyncVar(hook = nameof(OnWestWallChange))]
+    public WallState westWallState;
 
     public enum WallState { Door=1, Open=2, Closed=0, Destroyed=3 }
     public enum DestructionState { Normal, Warning, Danger, Critical, Destroyed }
 
-    public override void Attached() {
-        if (entity.isOwner) {
-            if (Random.Range(0.0f,1.0f) < chanceDestroyCarpet) {
-                state.Carpet = false;
-            } else {
-                state.Carpet = true;
-                state.CarpetColor = Random.ColorHSV(0f, 1f, .6f, 1f, .6f, 1f);
-            }
+    public void Awake() {
+        if (!hasAuthority) return;
+        if (Random.Range(0.0f, 1.0f) < chanceDestroyCarpet) {
+            hasCarpet = false;
+        } else {
+            hasCarpet = true;
+            carpetColor = Random.ColorHSV(0f, 1f, .6f, 1f, .6f, 1f);
         }
-
-        state.AddCallback("NorthWall", NorthWallChange);
-        state.AddCallback("SouthWall", SouthWallChange);
-        state.AddCallback("EastWall", EastWallChange);
-        state.AddCallback("WestWall", WestWallChange);
-        state.AddCallback("Carpet", CarpetChange);
-        state.AddCallback("CarpetColor", CarpetColorChange);
-        state.AddCallback("DestructionState", DestructionStateChange);
     }
 
-    private void NorthWallChange() {
-        WallState wallState = (WallState)state.NorthWall;
+    [Command]
+    public void CmdChangeNorthWallState(WallState state) {
+        northWallState = state;
+    }
+    [Command]
+    public void CmdChangeEastWallState(WallState state) {
+        eastWallState = state;
+    }
+    [Command]
+    public void CmdChangeSouthWallState(WallState state) {
+        southWallState = state;
+    }
+    [Command]
+    public void CmdChangeWestWallState(WallState state) {
+        westWallState = state;
+    }
+
+    private void OnCarpetChange() {
+        /*
+        carpet.SetActive(hasCarpet);
+        carpet.GetComponent<Renderer>().material.color = carpetColor;
+        */
+    }
+
+    private void OnNorthWallChange() {
         northWall.SetActive(false);
         northWallFlat.SetActive(false);
         northWallDestroyed.SetActive(false);
-        if (wallState == WallState.Door) {
+        if (northWallState == WallState.Door) {
             northWall.SetActive(true);
-        } else if (wallState == WallState.Closed) {
+        } else if (northWallState == WallState.Closed) {
             northWallFlat.SetActive(true);
-        } else if (wallState == WallState.Destroyed) {
+        } else if (northWallState == WallState.Destroyed) {
             northWallDestroyed.SetActive(true);
         }
     }
 
-    private void EastWallChange() {
-        WallState wallState = (WallState)state.EastWall;
+    private void OnEastWallChange(WallState state) {
         eastWall.SetActive(false);
         eastWallFlat.SetActive(false);
         eastWallDestroyed.SetActive(false);
-        if (wallState == WallState.Door) {
+        if (eastWallState == WallState.Door) {
             eastWall.SetActive(true);
-        } else if (wallState == WallState.Closed) {
+        } else if (eastWallState == WallState.Closed) {
             eastWallFlat.SetActive(true);
-        } else if (wallState == WallState.Destroyed) {
+        } else if (eastWallState == WallState.Destroyed) {
             eastWallDestroyed.SetActive(true);
         }
     }
 
-    private void SouthWallChange() {
-        WallState wallState = (WallState)state.SouthWall;
+    private void OnSouthWallChange(WallState state) {
         southWall.SetActive(false);
         southWallFlat.SetActive(false);
         southWallDestroyed.SetActive(false);
-        if (wallState == WallState.Door) {
+        if (southWallState == WallState.Door) {
             southWall.SetActive(true);
-        } else if (wallState == WallState.Closed) {
+        } else if (southWallState == WallState.Closed) {
             southWallFlat.SetActive(true);
-        } else if (wallState == WallState.Destroyed) {
+        } else if (southWallState == WallState.Destroyed) {
             southWallDestroyed.SetActive(true);
         }
     }
 
-    private void WestWallChange() {
-        WallState wallState = (WallState)state.WestWall;
+    private void OnWestWallChange(WallState state) {
         westWall.SetActive(false);
         westWallFlat.SetActive(false);
         westWallDestroyed.SetActive(false);
-        if (wallState == WallState.Door) {
+        if (westWallState == WallState.Door) {
             westWall.SetActive(true);
-        } else if (wallState == WallState.Closed) {
+        } else if (westWallState == WallState.Closed) {
             westWallFlat.SetActive(true);
-        } else if (wallState == WallState.Destroyed) {
+        } else if (westWallState == WallState.Destroyed) {
             westWallDestroyed.SetActive(true);
         }
     }
 
-    private void DestructionStateChange() {
-        if (state.DestructionState == (int)DestructionState.Warning) {
+    private void OnDestructionStateChange() {
+        if (currentDestructionState == DestructionState.Warning) {
             StartCoroutine(warnShake());
         }
 
-        if (state.DestructionState == (int)DestructionState.Critical) {
+        if (currentDestructionState == DestructionState.Critical) {
             ceilingDust.Play();
             foreach (PlayerCamera cam in camerasInRoom) {
                 cam.SetShake(1f);
@@ -131,19 +157,19 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
             }
         }
 
-        if (state.DestructionState == (int)DestructionState.Destroyed) {
-            if (state.NorthWall != (int)WallState.Closed)
-                state.NorthWall = (int)WallState.Destroyed;
-            if (state.EastWall != (int)WallState.Closed)
-                state.EastWall = (int)WallState.Destroyed;
-            if (state.WestWall != (int)WallState.Closed)
-                state.WestWall = (int)WallState.Destroyed;
-            if (state.SouthWall != (int)WallState.Closed)
-                state.SouthWall = (int)WallState.Destroyed;
+        if (currentDestructionState == DestructionState.Destroyed) {
+            if (northWallState != WallState.Closed)
+                northWallState = WallState.Destroyed;
+            if (eastWallState != WallState.Closed)
+                eastWallState = WallState.Destroyed;
+            if (westWallState != WallState.Closed)
+                westWallState = WallState.Destroyed;
+            if (southWallState != WallState.Closed)
+                southWallState = WallState.Destroyed;
             ceilingDust.Stop();
-            GenerationManager.instance.DestroyNeighborWalls(this);
+            GenerationManager.instance.CmdDestroyNeighborWalls(this);
             foreach (PlayerCamera cam in camerasInRoom) {
-                cam.CameraPlayer.GetState<IPlayerState>().Dead = true;
+                cam.CameraPlayer.GetComponent<PlayerStatsController>().Alive = false;
                 cam.SetShake(0f);
                 cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(0, 0f);
                 cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(1, 0f);
@@ -157,8 +183,8 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
         float timeBetweenShake = 1.5f;
         
 
-        while (state.DestructionState == (int)DestructionState.Warning || state.DestructionState == (int) DestructionState.Danger) {
-            if (state.DestructionState == (int) DestructionState.Danger) {
+        while (currentDestructionState == DestructionState.Warning || currentDestructionState == DestructionState.Danger) {
+            if (currentDestructionState == DestructionState.Danger) {
                 shakeTime = .75f;
                 timeBetweenShake = .75f;
             }
@@ -170,7 +196,7 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
             }
             ceilingDust.Play();
             yield return new WaitForSeconds(shakeTime);
-            if (state.DestructionState != (int)DestructionState.Critical) {
+            if (currentDestructionState != DestructionState.Critical) {
                 foreach (PlayerCamera cam in camerasInRoom) {
                     cam.SetShake(0f);
                     cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(0, 0f);
@@ -185,10 +211,10 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Player" && other.GetComponent<BoltEntity>().isOwner) {
-            PlayerCamera cam = SplitscreenManager.instance.GetEntityCamera(other.GetComponent<BoltEntity>());
+        if (other.tag == "Player" && other.GetComponent<PlayerStatsController>().hasAuthority) {
+            PlayerCamera cam = SplitscreenManager.instance.GetEntityCamera(other.gameObject);
             camerasInRoom.Add(cam);
-            if (state.DestructionState == (int)DestructionState.Critical) {
+            if (currentDestructionState == DestructionState.Critical) {
                 cam.SetShake(1f);
                 cam.CameraPlayer.GetComponent<PlayerMovementController>().localPlayer.SetVibration(1, 1f);
             } else {
@@ -199,26 +225,18 @@ public class DungeonRoom : Bolt.EntityBehaviour<IDungeonRoom>
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.tag == "Player" && other.GetComponent<BoltEntity>().isOwner) {
-            PlayerCamera cam = SplitscreenManager.instance.GetEntityCamera(other.GetComponent<BoltEntity>());
+        if (other.tag == "Player" && other.GetComponent<PlayerStatsController>().hasAuthority) {
+            PlayerCamera cam = SplitscreenManager.instance.GetEntityCamera(other.gameObject);
             camerasInRoom.Remove(cam);
         }
     }
 
     private void Update() {
-        if (state.DestructionState == (int)DestructionState.Danger) {
+        if (currentDestructionState == DestructionState.Danger) {
             foreach (PlayerCamera cam in camerasInRoom) {
                 cam.SetShake(shakeTime, 1f);
             }
             shakeTime += 0.05f;
         }
-    }
-
-    private void CarpetChange() {
-        //carpet.SetActive(state.Carpet);
-    }
-
-    private void CarpetColorChange() {
-        //carpet.GetComponent<Renderer>().material.color = state.CarpetColor;
     }
 }

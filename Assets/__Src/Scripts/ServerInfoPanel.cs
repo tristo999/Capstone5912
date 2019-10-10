@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ServerInfoPanel : MonoBehaviour
 {
+    /*
     public string ServerName
     {
         get
@@ -58,5 +59,5 @@ public class ServerInfoPanel : MonoBehaviour
 
     public void Select() {
         netMan.PanelSelect(guid);
-    }
+    }*/
 }

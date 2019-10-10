@@ -12,10 +12,7 @@ public class ScrolloftheMiddle : ActiveItem
 
     public override void ActiveDown() {
         GameMaster.instance.sfxSource.PlayOneShot(telesound);
-        TeleportPlayer evnt = TeleportPlayer.Create(GetComponent<ActiveItem>().Owner.entity);
-        evnt.position = new Vector3(Random.Range(-15f, 15f), 2, Random.Range(-15f, 15f));
-        evnt.Send();
-        uses.Use();
+        Owner.GetComponent<PlayerMovementController>().CmdTeleportPlayer(new Vector3(Random.Range(-15f, 15f), 2, Random.Range(-15f, 15f)));
     }
 
     public override void OnEquip() {

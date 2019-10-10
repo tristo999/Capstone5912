@@ -1,17 +1,17 @@
-﻿using Bolt;
+﻿
 using Cinemachine;
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UdpKit;
+
 using UnityEngine;
 
-[BoltGlobalBehaviour(BoltNetworkModes.Server, "WizardFightGame")]
-public class GameNetworkCallbacks : Bolt.GlobalEventListener
+public class GameNetworkCallbacks : NetworkBehaviour
 {
-    private int connections = WizardFightPlayerRegistry.NumberConnections;
-    private int readyConnections = 0;
-
+    //private int connections = WizardFightPlayerRegistry.NumberConnections;
+    //private int readyConnections = 0;
+    /*
     public override void SceneLoadLocalDone(string scene) {
         BoltNetwork.Instantiate(BoltPrefabs.ItemManager);
         GameMaster.Instantiate();
@@ -77,5 +77,5 @@ public class GameNetworkCallbacks : Bolt.GlobalEventListener
 
     private void Update() {
 
-    }
+    }*/
 }

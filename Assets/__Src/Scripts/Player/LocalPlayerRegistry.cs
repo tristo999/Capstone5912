@@ -1,4 +1,4 @@
-﻿using Rewired;
+﻿/*using Rewired;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,3 +48,4 @@ public static class LocalPlayerRegistry
         PlayerNumbers.Clear();
     }
 }
+*/

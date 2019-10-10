@@ -1,18 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-#if UNITY_EDITOR
-using System.Linq;
-using System.Reflection;
-using UnityEditor;
-using Object = UnityEngine.Object;
-#endif
-
 namespace MyBox
 {
 	/// <summary>
-	/// Apply to reference type property in MonoBehaviour to check if it is null at game start
+	/// Apply to MonoBehaviour field to assert that this field is assigned via inspector (not null, false, empty of zero) on playmode
 	/// </summary>
+	[AttributeUsage(AttributeTargets.Field)]
 	public class MustBeAssignedAttribute : PropertyAttribute
 	{
 	}
@@ -21,9 +15,16 @@ namespace MyBox
 #if UNITY_EDITOR
 namespace MyBox.Internal
 {
+	using System.Linq;
+	using System.Reflection;
+	using UnityEditor;
+	using Object = UnityEngine.Object;
+
 	[InitializeOnLoad]
 	public class MustBeAssignedAttributeChecker
 	{
+		public static Func<FieldInfo, MonoBehaviour, bool> ExcludeFieldFilter;
+
 		static MustBeAssignedAttributeChecker()
 		{
 			EditorApplication.update += CheckOnce;
@@ -34,21 +35,26 @@ namespace MyBox.Internal
 			if (Application.isPlaying)
 			{
 				EditorApplication.update -= CheckOnce;
-				CheckComponents();
+				AssertComponents();
 			}
 		}
 
-
-		private static void CheckComponents()
+		private static bool FieldExcluded(FieldInfo field, MonoBehaviour behaviour)
 		{
-			MonoBehaviour[] scripts = Object.FindObjectsOfType<MonoBehaviour>();
-			AssertComponents(scripts);
+			if (ExcludeFieldFilter == null) return false;
+
+			foreach (var filterDelegate in ExcludeFieldFilter.GetInvocationList())
+			{
+				var filter = filterDelegate as Func<FieldInfo, MonoBehaviour, bool>;
+				if (filter != null && filter(field, behaviour)) return true;
+			}
+
+			return false;
 		}
 
-
-		private static void AssertComponents(MonoBehaviour[] components)
+		private static void AssertComponents()
 		{
-			ConditionalFieldChecker conditionalFieldChecker = new ConditionalFieldChecker();
+			MonoBehaviour[] components = Object.FindObjectsOfType<MonoBehaviour>();
 
 			foreach (MonoBehaviour behaviour in components)
 			{
@@ -61,8 +67,9 @@ namespace MyBox.Internal
 				{
 					object propValue = field.GetValue(behaviour);
 
-					// Used to check ConditionalFieldAttribute
-					if (!conditionalFieldChecker.IsVisible(field, behaviour)) continue;
+					// Used by external systems to exclude specific fields.
+					// Specifically for ConditionalFieldAttribute
+					if (FieldExcluded(field, behaviour)) continue;
 
 					// Value Type with default value
 					if (field.FieldType.IsValueType && Activator.CreateInstance(field.FieldType).Equals(propValue))
@@ -96,25 +103,6 @@ namespace MyBox.Internal
 							behaviour.gameObject);
 					}
 				}
-			}
-		}
-
-		private class ConditionalFieldChecker
-		{
-			private readonly Type _conditionallyVisibleType = typeof(ConditionalFieldAttribute);
-
-			public bool IsVisible(FieldInfo field, MonoBehaviour behaviour)
-			{
-				if (_conditionallyVisibleType == null) return true;
-				if (!field.IsDefined(_conditionallyVisibleType, false)) return true;
-
-				// Get a specific attribute of this field
-				var conditionalFieldAttribute = field.GetCustomAttributes(_conditionallyVisibleType, false)
-					.Select(a => a as ConditionalFieldAttribute)
-					.SingleOrDefault();
-
-				return conditionalFieldAttribute == null ||
-				       conditionalFieldAttribute.CheckBehaviourPropertyVisible(behaviour, field.Name);
 			}
 		}
 	}

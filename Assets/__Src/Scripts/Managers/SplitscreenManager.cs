@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using DG.Tweening;
+using Mirror;
 using QuickGraph;
 using Rewired;
 using System;
@@ -8,8 +9,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
+public class SplitscreenManager : NetworkBehaviour
 {
+    public static SplitscreenManager instance;
+
     [Flags]
     public enum SplitScreenMode { WithPreview = 1, WithoutPreview = 2, VerticalSplitscreen = 4, HorizontalSplitscreen = 8 }
 
@@ -21,11 +24,13 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
     private GameObject spectatorCamPrefab;
 
     private void Awake() {
+        if (instance) Destroy(this);
+        instance = this;
         playerCamPrefab = Resources.Load("UI/PlayerCamera") as GameObject;
         spectatorCamPrefab = Resources.Load("UI/SpectatorCam") as GameObject;
     }
 
-    public PlayerCamera GetEntityCamera(BoltEntity entity) {
+    public PlayerCamera GetEntityCamera(GameObject entity) {
         return playerCameras.First(p => p.CameraPlayer == entity);
     }
 
@@ -124,9 +129,9 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
         }
     }
 
-    public void DoRoomCulling() {
-        FreezeDistant.Create().Send();
-        
+    // Removed in favor of Unet/Mirror culling.
+    /* 
+    public void DoRoomCulling() {     
         if (renderers.Count == 0) {
             Renderer[] rend = FindObjectsOfType<Renderer>();
             renderers.AddRange(rend.Where(r => r.gameObject.layer == 14 || r.gameObject.layer == 15 || r.gameObject.layer == 16));
@@ -157,7 +162,7 @@ public class SplitscreenManager : BoltSingletonPrefab<SplitscreenManager>
                 }
             }
         }
-    }
+    } */
 }
 
 

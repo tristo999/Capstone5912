@@ -8,10 +8,10 @@ public class ExperimentalPotion : HeldPassive
 
     public override void OnEquip() {        
 
-        Owner.state.Speed += Random.Range(-3, 3) / 10f;
-        Owner.state.FireRate += Random.Range(-3, 3) / 10f;
-        Owner.state.ProjectileSpeed += Random.Range(-3, 3) / 10f;
-        Owner.state.ProjectileDamage += Random.Range(-3, 3) / 10f;
+        Owner.GetComponent<PlayerStatsController>().Speed += Random.Range(-3, 3) / 10f;
+        Owner.GetComponent<PlayerStatsController>().FireRate += Random.Range(-3, 3) / 10f;
+        Owner.GetComponent<PlayerStatsController>().ProjectileSpeed += Random.Range(-3, 3) / 10f;
+        Owner.GetComponent<PlayerStatsController>().ProjectileDamage += Random.Range(-3, 3) / 10f;
 
         base.OnEquip();
     }

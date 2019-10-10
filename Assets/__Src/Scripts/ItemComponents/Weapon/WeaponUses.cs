@@ -28,17 +28,17 @@ public class WeaponUses : MonoBehaviour
 
     void Start() {
         weapon = GetComponent<Weapon>();
-        if (weapon.Owner.entity.isOwner) {
+        if (weapon.Owner.hasAuthority) {
             UpdatePlayerUI();
         }
     }
 
     public void Use() {
-        if (weapon.Owner.entity.isOwner) AmountUsed++;
+        if (weapon.Owner.hasAuthority) AmountUsed++;
     }
 
     private void UpdatePlayerUI() {
-        if (weapon && weapon.Owner.entity.isOwner) weapon.Owner.GetComponent<PlayerStatsController>().ui.SetWeaponUsesRemaining(Uses - AmountUsed);
+        if (weapon && weapon.Owner.hasAuthority) weapon.Owner.GetComponent<PlayerStatsController>().ui.SetWeaponUsesRemaining(Uses - AmountUsed);
     }
 
     IEnumerator DelayedDestroy(float time) {
@@ -46,7 +46,7 @@ public class WeaponUses : MonoBehaviour
         if (Uses > 1) {
             weapon.Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("Weapon exhausted!", GetComponent<Weapon>().Owner.transform.position);
         }
-        GetComponentInParent<PlayerInventoryController>().state.OnDestroyWeapon();
+        GetComponentInParent<PlayerInventoryController>().CmdDestroyWeapon();
     }
 
 }

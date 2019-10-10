@@ -79,6 +79,8 @@ namespace Rewired {
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public sealed class InputManager : InputManager_Base {
 
+        private bool ignoreRecompile;
+
         protected override void OnInitialized() {
             SubscribeEvents();
         }
@@ -89,6 +91,11 @@ namespace Rewired {
 
         protected override void DetectPlatform() {
             // Set the editor and platform versions
+
+#if UNITY_EDITOR
+            // Do not check for recompile if using "Recompile After Finish Playing" mode or Rewired will be disabled and never reinitialize due to a bug in EditorApplication.isCompiling
+            ignoreRecompile = (ScriptChangesDuringPlayOptions)UnityEditor.EditorPrefs.GetInt("ScriptCompilationDuringPlay", 0) == ScriptChangesDuringPlayOptions.RecompileAfterFinishedPlaying;
+#endif
 
             scriptingBackend = ScriptingBackend.Mono;
             scriptingAPILevel = ScriptingAPILevel.Net20;
@@ -238,6 +245,10 @@ namespace Rewired {
             platform = Platform.WebGL;
 #endif
 
+#if UNITY_STADIA
+            platform = Platform.Stadia;
+#endif
+
             // Check if Webplayer
 #if UNITY_WEBPLAYER
 
@@ -277,6 +288,8 @@ namespace Rewired {
 
         protected override void CheckRecompile() {
 #if UNITY_EDITOR
+            if(ignoreRecompile) return;
+
             // Destroy system if recompiling
             if(UnityEditor.EditorApplication.isCompiling) { // editor is recompiling
                 if(!isCompiling) { // this is the first cycle of recompile
@@ -327,6 +340,14 @@ namespace Rewired {
             OnSceneLoaded();
         }
 
+#endif
+
+#if UNITY_EDITOR
+        private enum ScriptChangesDuringPlayOptions {
+            RecompileAndContinuePlaying,
+            RecompileAfterFinishedPlaying,
+            StopPlayingAndRecompile
+        }
 #endif
     }
 }

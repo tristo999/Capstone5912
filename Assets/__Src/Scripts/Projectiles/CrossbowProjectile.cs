@@ -1,10 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrossbowProjectile : Bolt.EntityBehaviour<IProjectileState>
+public class CrossbowProjectile : NetworkBehaviour
 {
-    public override void Attached() {
-        state.SetTransforms(state.transform, transform);
-    }
+
 }

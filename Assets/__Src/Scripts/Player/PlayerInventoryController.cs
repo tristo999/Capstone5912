@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
+public class PlayerInventoryController : NetworkBehaviour
 {
+    [SyncVar(hook = nameof(OnActiveChange))]
+    private ItemDefinition activeDef;
     public ActiveItem activeItem;
+    [SyncVar(hook = nameof(OnWeaponChange))]
+    private ItemDefinition weaponDef;
     public Weapon wizardWeapon;
     public Transform launchPos;
     private Transform playerHand;
@@ -12,219 +17,178 @@ public class PlayerInventoryController : Bolt.EntityEventListener<IPlayerState>
 
     private List<HeldPassive> passiveItems = new List<HeldPassive>();
 
-    private int storedUsesUsed = 0; // TEMP FIX - Can't pass data into callbacks and need this done right now. 
+    [SyncVar]
+    private int storedUses = 0; // TEMP FIX - Can't pass data into callbacks and need this done right now. 
 
-    public override void Attached() {
+    public void Awake() {
         ui = GetComponent<PlayerUI>();
 
-        if (entity.isOwner) {
-            state.WeaponId = -1;
-            state.ActiveId = -1;
-        }
-        
-        state.AddCallback("WeaponId", WeaponIdChanged);
-        state.AddCallback("ActiveId", ActiveIdChanged);
-        state.AddCallback("Dead", PlayerDied);
-
-        state.OnAddPassive += AddPassive;
-        state.OnFireDown += FireDownTrigger;
-        state.OnFireHold += FireHeldTrigger;
-        state.OnFireRelease += FireReleaseTrigger;
-        state.OnActiveDown += ActiveDownTrigger;
-        state.OnActiveHold += ActiveHoldTrigger;
-        state.OnActiveRelease += ActiveReleaseTrigger;
-        state.OnDestroyActive += DestroyActive;
-        state.OnDestroyWeapon += DestroyWeapon;
-
         playerHand = GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.RightHand);
-        StartCoroutine("WaitForItemManager");
-    }
-
-    private void GrantStarterItems()
-    {
-        if (entity.isOwner) {
-            state.WeaponId = 0;
-        }
+        if (isLocalPlayer)
+            StartCoroutine("WaitForItemManager");
     }
 
     IEnumerator WaitForItemManager() {
         while (ItemManager.Instance == null) {
             yield return new WaitForSeconds(0.1f);
         }
-        // Update initial UI.
-        WeaponIdChanged();
-        ActiveIdChanged();
 
-        GrantStarterItems();
+        // Give basic wand
+        weaponDef = ItemManager.Instance.items[0];
     }
 
     private void PlayerDied() {
-        DropActive();
-        DropWeapon();
+        CmdDropActive();
+        CmdDropWeapon();
     }
 
-    private void AddPassive() {
-        GameObject newPassive = Instantiate(ItemManager.Instance.items[state.NewPassiveId].HeldModel, transform);
-        HeldPassive passive = newPassive.GetComponent<HeldPassive>();
-        passive.Id = state.NewPassiveId;
-        passive.Owner = this;
-        passiveItems.Add(passive);
-        passive.OnEquip();
-    }
-
-    private void WeaponIdChanged() {
-        DropWeapon();
-        if (entity.hasControl) ui.SetWeapon(state.WeaponId);
-
-        if (state.WeaponId >= 0) {
-            ItemDefinition item = ItemManager.Instance.items[state.WeaponId];
-
+    private void OnWeaponChange() {
+        if (weaponDef == null) {
+            Destroy(wizardWeapon.gameObject);
+            wizardWeapon = null;
+            if (isLocalPlayer)
+                ui.SetWeapon(-1);
+        } else {
             Vector3 handOffset = new Vector3(-2.65f, -1.7f, .63f);
             Quaternion handRotation = Quaternion.Euler(-26.35f, -13.78f, 148.35f);
-            GameObject newWep = Instantiate(item.HeldModel, playerHand);
+            GameObject newWep = Instantiate(weaponDef.HeldModel, playerHand);
             newWep.transform.localPosition = handOffset;
             newWep.transform.localRotation = handRotation;
-            newWep.GetComponent<HeldItem>().Id = state.WeaponId;
-            wizardWeapon = newWep.GetComponent<Weapon>();
-            wizardWeapon.Owner = this;
-
-            WeaponUses uses = wizardWeapon.GetComponent<WeaponUses>();
-            if (uses) uses.AmountUsed = storedUsesUsed;
-
-            wizardWeapon.OnEquip();
+            if (isLocalPlayer) {
+                wizardWeapon = newWep.GetComponent<Weapon>();
+                wizardWeapon.Owner = this;
+                WeaponUses uses = wizardWeapon.GetComponent<WeaponUses>();
+                if (uses) uses.AmountUsed = storedUses;
+                ui.SetWeapon(wizardWeapon.Id);
+                wizardWeapon.OnEquip();
+            }
         }
     }
 
-    private void ActiveIdChanged() {
-        DropActive();
-        if (entity.hasControl) ui.SetActiveItem(state.ActiveId);
-
-        if (state.ActiveId >= 0)
-        {
-            ItemDefinition item = ItemManager.Instance.items[state.ActiveId];
-
-            GameObject newActive = Instantiate(item.HeldModel, transform);
-            newActive.GetComponent<HeldItem>().Id = state.ActiveId;
-            activeItem = newActive.GetComponent<ActiveItem>();
-            activeItem.Owner = this;
-
-            ActiveUses uses = activeItem.GetComponent<ActiveUses>();
-            if (uses) uses.AmountUsed = storedUsesUsed;
-
-            activeItem.OnEquip();
+    private void OnActiveChange() {
+        if (activeDef == null) {
+            Destroy(activeItem.gameObject);
+            activeItem = null;
+            if (isLocalPlayer)
+                ui.SetActiveItem(-1);
+        } else {
+            GameObject newActive = Instantiate(activeDef.HeldModel, transform);
+            if (isLocalPlayer) {
+                ui.SetActiveItem(activeDef.ItemId);
+                activeItem = newActive.GetComponent<ActiveItem>();
+                activeItem.Owner = this;
+                ActiveUses uses = activeItem.GetComponent<ActiveUses>();
+                if (uses) uses.AmountUsed = storedUses;
+                activeItem.OnEquip();
+            }
         }
     }
 
-    private void FireDownTrigger() {
+    public void FireDown() {
         if (wizardWeapon != null)
             wizardWeapon.FireDown();
     }
 
-    private void FireHeldTrigger() {
+    public void FireHeld() {
         if (wizardWeapon != null)
             wizardWeapon.FireHold();
     }
 
-    private void FireReleaseTrigger() {
+    public void FireRelease() {
         if (wizardWeapon != null)
             wizardWeapon.FireRelease();
     }
 
-    private void ActiveDownTrigger() {
+    public void ActiveDown() {
         if (activeItem != null)
             activeItem.ActiveDown();
     }
 
-    private void ActiveHoldTrigger() {
+    public void ActiveHold() {
         if (activeItem != null)
             activeItem.ActivateHold();
     }
 
-    private void ActiveReleaseTrigger() {
+    public void ActiveRelease() {
         if (activeItem != null)
             activeItem.ActivateRelease();
     }
 
-    public override void OnEvent(PlayerGotItem pickup) {
-        ItemDefinition item = ItemManager.Instance.items[pickup.PickupId];
-
-        storedUsesUsed = pickup.UsesUsed; // Hack to pass data into IdChanged callbacks. 
-
-        if (item.Type == ItemDefinition.ItemType.Weapon) {
-            state.WeaponId = pickup.PickupId;
-        } else if (item.Type == ItemDefinition.ItemType.Active) {
-            state.ActiveId = pickup.PickupId;
-        } else if (item.Type == ItemDefinition.ItemType.Passive) {
-            state.NewPassiveId = pickup.PickupId;
-            AddPassive();
-        }
-
-
-        if (wizardWeapon != null && pickup.PickupId == wizardWeapon.Id) {
-            WeaponIdChanged();
-        } else if (activeItem != null && pickup.PickupId == activeItem.Id) {
-            ActiveIdChanged();
+    [Command]
+    public void CmdGiveItem(DroppedItem item) {
+        ItemDefinition def = ItemManager.Instance.items[item.Id];
+        if (def.Type == ItemDefinition.ItemType.Weapon) {
+            CmdSetWeapon(item);
+        } else if (def.Type == ItemDefinition.ItemType.Active) {
+            CmdSetActive(item);
+        } else if (def.Type == ItemDefinition.ItemType.Passive) {
+            CmdGivePassive(item);
         }
     }
 
-    private void DropActive() {
+    [Command]
+    public void CmdSetWeapon(DroppedItem item) {
+        CmdDropWeapon();
+        weaponDef = ItemManager.Instance.items[item.Id];
+        storedUses = item.Used;
+    }
+
+    [Command]
+    public void CmdSetActive(DroppedItem item) {
+        CmdDropActive();
+        activeDef = ItemManager.Instance.items[item.Id];
+        storedUses = item.Used;
+    }
+
+    [Command]
+    public void CmdGivePassive(DroppedItem item) {
+        GameObject newPassive = Instantiate(ItemManager.Instance.items[item.Id].HeldModel, transform);
+        HeldPassive passive = newPassive.GetComponent<HeldPassive>();
+        passive.Id = item.Id;
+        passive.Owner = this;
+        passiveItems.Add(passive);
+        passive.OnEquip();
+        NetworkServer.Spawn(newPassive);
+    }
+
+    [Command]
+    private void CmdDropActive() {
         if (activeItem != null) {
             activeItem.OnDequip();
-            if (entity.isControllerOrOwner) {
-                SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
-                evnt.ItemId = activeItem.Id;
-                evnt.Position = transform.position + transform.forward * 1.3f + transform.up * .5f;
-                evnt.Force = 500f * transform.forward + 1000f * transform.up;
-                evnt.SpawnerTag = gameObject.tag;
-
-                ActiveUses uses = activeItem.GetComponent<ActiveUses>();
-                if (uses != null) {
-                    evnt.UsesUsed = uses.AmountUsed;
-                }
-
-                evnt.Send();
+            Vector3 dropForce = transform.position + transform.forward * 1.3f + transform.up * .5f;
+            ActiveUses uses = activeItem.GetComponent<ActiveUses>();
+            int used = 0;
+            if (uses != null) {
+                used = uses.AmountUsed;
             }
-            DetachAndHideItem(activeItem.gameObject);
+            ItemManager.Instance.CmdSpawn(transform.position, dropForce, activeItem.Id, "", used);
+            activeDef = null;
         }
     }
 
-    private void DestroyActive() {
-        if (activeItem != null) {
-            activeItem.OnDequip();
-            DetachAndHideItem(activeItem.gameObject);
-            state.ActiveId = -1;
-            activeItem = null;
-        }
+    [Command]
+    public void CmdDestroyActive() {
+        activeDef = null;
     }
 
-    private void DropWeapon() {
+    [Command]
+    private void CmdDropWeapon() {
         if (wizardWeapon != null) {
             wizardWeapon.OnDequip();
-            if (entity.isControllerOrOwner) {
-                SpawnItem evnt = SpawnItem.Create(ItemManager.Instance.entity);
-                evnt.ItemId = wizardWeapon.Id;
-                evnt.Position = transform.position + transform.forward * 1.3f + transform.up * .5f;
-                evnt.Force = 500f * transform.forward + 1000f * transform.up;
-                evnt.SpawnerTag = gameObject.tag;
-
-                WeaponUses uses = wizardWeapon.GetComponent<WeaponUses>();
-                if (uses != null) {
-                    evnt.UsesUsed = uses.AmountUsed;
-                }
-
-                evnt.Send();
+            Vector3 dropForce = transform.position + transform.forward * 1.3f + transform.up * .5f;
+            ActiveUses uses = activeItem.GetComponent<ActiveUses>();
+            int used = 0;
+            if (uses != null) {
+                used = uses.AmountUsed;
             }
-            DetachAndHideItem(wizardWeapon.gameObject);
+            ItemManager.Instance.CmdSpawn(transform.position, dropForce, activeItem.Id, gameObject.tag, used);
+            weaponDef = null;
         }
     }
 
-    private void DestroyWeapon() {
-        if (wizardWeapon != null) {
-            wizardWeapon.OnDequip();
-            DetachAndHideItem(wizardWeapon.gameObject);
-            state.WeaponId = -1;
-            wizardWeapon = null;
-        }
+    [Command]
+    public void CmdDestroyWeapon() {
+        weaponDef = null;
     }
 
     private void DetachAndHideItem(GameObject obj) {

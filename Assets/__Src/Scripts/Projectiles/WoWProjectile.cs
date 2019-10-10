@@ -1,10 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WoWProjectile : Bolt.EntityBehaviour<IProjectileState>
+public class WoWProjectile : NetworkBehaviour
 {
-    public override void Attached() {
-        state.SetTransforms(state.transform, transform);
-    }
+
 }

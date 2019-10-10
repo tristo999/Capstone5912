@@ -32,7 +32,7 @@ public class CloakofWhoosh : ActiveItem
     private void ActivateCloak() {
         if (timeout.InTimeout || !cooldown.Ready) return;
 
-        Owner.GetComponent<PlayerStatsController>().state.Speed += 0.7f;
+        Owner.GetComponent<PlayerStatsController>().Speed += 0.7f;
 
         timeout.StartTimeout();
         uses.Use();
@@ -41,6 +41,6 @@ public class CloakofWhoosh : ActiveItem
     private void DeactivateCloak() {
         cooldown.ResetCooldown();
 
-        Owner.GetComponent<PlayerStatsController>().state.Speed -= 0.7f;
+        Owner.GetComponent<PlayerStatsController>().Speed -= 0.7f;
     }
 }

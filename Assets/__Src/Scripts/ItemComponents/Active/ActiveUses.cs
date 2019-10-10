@@ -28,17 +28,17 @@ public class ActiveUses : MonoBehaviour
 
     void Start() {
         active = GetComponent<ActiveItem>();
-        if (active.Owner.entity.isOwner) {
+        if (active.Owner.hasAuthority) {
             UpdatePlayerUI();
         }
     }
 
     public void Use() {
-        if (active.Owner.entity.isOwner) AmountUsed++;
+        if (active.Owner.hasAuthority) AmountUsed++;
     }
 
     private void UpdatePlayerUI() {
-        if (active && active.Owner.entity.isOwner) GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.SetActiveItemUsesRemaining(Uses - AmountUsed);
+        if (active && active.Owner.hasAuthority) GetComponent<ActiveItem>().Owner.GetComponent<PlayerStatsController>().ui.SetActiveItemUsesRemaining(Uses - AmountUsed);
     }
 
     IEnumerator DelayedDestroy(float time) {
@@ -46,7 +46,7 @@ public class ActiveUses : MonoBehaviour
         if (Uses > 1) {
             active.Owner.GetComponent<PlayerStatsController>().ui.AddFloatingMessageText("Active exhausted!", GetComponent<ActiveItem>().Owner.transform.position);
         }
-        GetComponentInParent<PlayerInventoryController>().state.OnDestroyActive();
+        GetComponentInParent<PlayerInventoryController>().CmdDestroyActive();
     }
 
 }

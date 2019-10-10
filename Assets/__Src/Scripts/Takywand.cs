@@ -24,7 +24,7 @@ public class Takywand : Weapon
     }
 
     public override void FireHold() {
-        if (!Owner.entity.isOwner) return;
+        if (!Owner.hasAuthority) return;
         if (currentBeat > beatTimings.Length || firing == false) {
             if (!launchProj.audioSource.isPlaying) {
                 firing = true;

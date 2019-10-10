@@ -1,35 +1,37 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDebuffHandler : Bolt.EntityBehaviour<IPlayerState>
+public class PlayerDebuffHandler : NetworkBehaviour
 {
     List<Debuff> playerDebuffs = new List<Debuff>();
     PlayerUI ui;
 
-    public override void Attached() {
+    public void Awake() {
         ui = GetComponent<PlayerUI>();
     }
 
     public void GrantDebuff(Debuff debuff) {
         ui.AddFloatingMessageText("Got Debuff: " + debuff.Name, transform.position);
         playerDebuffs.Add(debuff);
-        debuff.OnGiven(state);
-        debuff.GrantedTime = BoltNetwork.Time;
+        debuff.OnGiven(GetComponent<PlayerStatsController>());
+        debuff.GrantedTime = (float)NetworkTime.time;
     }
 
     public void RemoveDebuff(Debuff debuff) {
         ui.AddFloatingMessageText("Debuff Removed: " + debuff.Name, transform.position);
         playerDebuffs.Remove(debuff);
-        debuff.OnRemoved(state);
+        debuff.OnRemoved(GetComponent<PlayerStatsController>());
     }
 
-    public override void SimulateOwner() {
+    public void Update() {
+        if (!hasAuthority) return;
         foreach (Debuff debuff in playerDebuffs) {
-            if (BoltNetwork.Time - debuff.GrantedTime > debuff.EffectLength) {
+            if (NetworkTime.time - debuff.GrantedTime > debuff.EffectLength) {
                 RemoveDebuff(debuff);
             } else {
-                debuff.OnUpdate(state);
+                debuff.OnUpdate(GetComponent<PlayerStatsController>());
             }
         }
     }

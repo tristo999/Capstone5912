@@ -1,10 +1,5 @@
 ﻿using System;
 
-#if UNITY_EDITOR
-using UnityEditor;
-using UnityEngine;
-#endif
-
 namespace MyBox
 {
 	/// <summary>
@@ -40,6 +35,9 @@ namespace MyBox
 #if UNITY_EDITOR
 namespace MyBox.Internal
 {
+	using UnityEditor;
+	using UnityEngine;
+	
 	[CustomPropertyDrawer(typeof (OptionalMinMax))]
 	public class MinMaxFloatPropertyDrawer : PropertyDrawer
 	{
@@ -47,7 +45,8 @@ namespace MyBox.Internal
 		{
 			EditorGUI.BeginProperty(position, label, property);
 			position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
-
+			EditorGUI.indentLevel = 0; // PropertyDrawer Indent fix for nested inspectors
+			
 			var minProp = property.FindPropertyRelative("Min");
 			var maxProp = property.FindPropertyRelative("Max");
 			var minCheckProp = property.FindPropertyRelative("MinIsSet");

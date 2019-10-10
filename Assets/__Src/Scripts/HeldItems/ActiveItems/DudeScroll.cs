@@ -12,10 +12,7 @@ public class DudeScroll : ActiveItem
 
     public override void ActiveDown() {
         GameMaster.instance.sfxSource.PlayOneShot(telesound);
-        TeleportPlayer evnt = TeleportPlayer.Create(GetComponent<ActiveItem>().Owner.entity);
-        evnt.position = GameMaster.instance.LivePlayers[Random.Range(0, GameMaster.instance.LivePlayers.Count)].transform.position;
-        evnt.Send();
-        uses.Use();
+        Owner.GetComponent<PlayerMovementController>().CmdTeleportPlayer(GameMaster.instance.LivePlayers[Random.Range(0, GameMaster.instance.LivePlayers.Count)].transform.position);
     }
 
     public override void OnEquip() {

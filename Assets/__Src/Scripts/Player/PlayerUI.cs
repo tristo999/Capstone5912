@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using TMPro;
@@ -6,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
+public class PlayerUI : NetworkBehaviour
 {
     public int ScreenNumber
     {
@@ -60,7 +61,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     private TextMeshProUGUI projectileSpeedStatTextElement;
     private TextMeshProUGUI projectileDamageStatTextElement;
 
-    public override void ControlGained() {
+    public void Awake() {
         GameObject pref = Resources.Load<GameObject>("UI/PlayerUI");
         canvas = Instantiate(pref).GetComponent<Canvas>();
         SetLayerRecursive(canvas.gameObject, 7 + screenNumber);
@@ -190,7 +191,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     public void AddProjectileDamageText(float projectileDamageChange, Vector3 position3d) { AddStatModText(projectileDamageChange, "damage", position3d); }
 
     public void AddDamageText(float damage, Vector3 position3d, bool showStatName = false) {
-        if (entity.isOwner) {
+        if (hasAuthority) {
             if (Math.Abs(damage) > 0.0001f) {
                 if (damage > 0) {
                     AddFloatingText($"-{FloatToOneDecimalPrecision(damage)}{(showStatName ? " health" : "")}", position3d, Color.red);
@@ -225,7 +226,8 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         AddFlashDamageTakenText(damage);
     }
 
-    public override void SimulateOwner() {
+    public void Update() {
+        if (!hasAuthority) return;
         UpdateCompassDirection();
         UpdateDamageOverlay();
         floatingTextStackDictionary = new Dictionary<Vector3, int>();
@@ -249,7 +251,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
         FloatingTextController text = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
         text.AddToCanvas(canvas);
-        text.SetPosition3d(position3d, stackPositionOffset, SplitscreenManager.instance.GetEntityCamera(entity).camera);
+        text.SetPosition3d(position3d, stackPositionOffset, SplitscreenManager.instance.GetEntityCamera(gameObject).camera);
         text.SetColor(color);
         text.SetText(message);
     }
@@ -288,7 +290,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
     }
 
     private void UpdateCompassDirection() { 
-        if (!entity.isOwner) return;
+        if (hasAuthority) return;
         Vector2 positionTopDown = new Vector2(-transform.position.x, -transform.position.z);
 
         float angle = Vector2.Angle(positionTopDown, new Vector2(1, 0)) - 90;
@@ -308,7 +310,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
 
         FloatingTextController text = Instantiate(floatingTextPrefab).GetComponent<FloatingTextController>();
         text.AddToCanvas(canvas);
-        text.SetPosition2d(position2d, SplitscreenManager.instance.GetEntityCamera(entity).camera);
+        text.SetPosition2d(position2d, SplitscreenManager.instance.GetEntityCamera(gameObject).camera);
         if (damage > 0) {
             text.SetText($"-{(int)Math.Round(damage)}");
             text.SetColor(Color.red);
@@ -323,7 +325,7 @@ public class PlayerUI : Bolt.EntityBehaviour<IPlayerState>
         if (painMagnitude < 0) painMagnitude = 0;
 
         float painAlpha = (float)Math.Sqrt(painMagnitude / MAX_PAIN) * 0.25f;
-        float lowHpAlpha = (1 - Math.Min(state.Health / LOW_HP_THESHOLD, 1)) * 0.175f;
+        float lowHpAlpha = (1 - Math.Min(GetComponent<PlayerStatsController>().Health / LOW_HP_THESHOLD, 1)) * 0.175f;
         float alpha = painAlpha + lowHpAlpha;
         damageTakenImage.color = new Color(144, 0, 0, alpha);
 

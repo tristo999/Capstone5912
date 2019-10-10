@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿using Mirror;
+using UnityEngine;
 
-public class EntitySpawner : MonoBehaviour
+public class EntitySpawner : NetworkBehaviour
 {
-    public BoltEntity entity;
+    public GameObject entity;
     [Range(0.0f,1.0f)]
     public float ChanceSpawn;
 
     private void Start() {
-        if (BoltNetwork.IsServer) {
+        if (isServer) {
             if (Random.Range(0.0f,1.0f) < ChanceSpawn) {
-                BoltNetwork.Instantiate(entity, transform.position, Quaternion.identity);
+                GameObject spawned = Instantiate(entity, transform.position, Quaternion.identity);
+                NetworkServer.Spawn(spawned);
             }
         }
     }

@@ -1,25 +1,22 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WoWoWProj : Bolt.EntityBehaviour<IProjectileState>
+public class WoWoWProj : Projectile
 {
     public GameObject Projectile;
     public float force;
 
-    public override void Attached() {
-        state.SetTransforms(state.transform, transform);
-    }
-
     internal void Shoot(Vector3 dir) {
-        BoltEntity proj = BoltNetwork.Instantiate(Projectile, transform.position, Quaternion.LookRotation(dir));
-        proj.GetComponent<Rigidbody>().velocity = dir * force * state.Owner.GetState<IPlayerState>().ProjectileSpeed;
-        proj.GetState<IProjectileState>().Owner = state.Owner;
+        GameObject proj = Instantiate(Projectile, transform.position, Quaternion.LookRotation(dir));
+        NetworkServer.Spawn(proj);
+        proj.GetComponent<Rigidbody>().velocity = dir * force * OwnerGameObject.GetComponent<PlayerStatsController>().ProjectileSpeed;
 
         DamageOnCollide damageOnCollide = proj.GetComponent<DamageOnCollide>();
         if (damageOnCollide) {
-            damageOnCollide.damageModifier = state.Owner.GetState<IPlayerState>().ProjectileDamage;
+            damageOnCollide.damageModifier = OwnerGameObject.GetComponent<PlayerStatsController>().ProjectileDamage;
         }
     }
 }

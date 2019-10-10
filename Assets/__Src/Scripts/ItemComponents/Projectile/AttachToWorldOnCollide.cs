@@ -1,16 +1,17 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CollisionCheck))]
-public class AttachToWorldOnCollide : Bolt.EntityBehaviour<IProjectileState>
+public class AttachToWorldOnCollide : NetworkBehaviour
 {
     public List<GameObject> objectsToSurvive = new List<GameObject>();
     public List<bool> retainPosition = new List<bool>();
     public float DestroyAfterDelay;
 
     private void OnCollisionEnter(Collision collision) {
-        if (!entity.isAttached || !entity.isOwner) return;
+        if (!hasAuthority) return;
         if (GetComponent<CollisionCheck>().ValidCollision(collision)) {
             for (int i = 0; i < objectsToSurvive.Count; i++) {
                 GameObject obj = objectsToSurvive[i];
@@ -21,7 +22,7 @@ public class AttachToWorldOnCollide : Bolt.EntityBehaviour<IProjectileState>
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (!entity.isAttached || !entity.isOwner) return;
+        if (!hasAuthority) return;
         if (GetComponent<CollisionCheck>().ValidCollision(other)) {
             for (int i = 0; i < objectsToSurvive.Count; i++) {
                 GameObject obj = objectsToSurvive[i];

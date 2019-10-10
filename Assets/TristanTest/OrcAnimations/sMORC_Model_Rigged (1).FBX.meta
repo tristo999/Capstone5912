@@ -1,102 +1,290 @@
 fileFormatVersion: 2
 guid: f8a8cce08d16ce649a7867846c625087
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Bip002
-    100002: Bip002 Head
-    100004: Bip002 L Calf
-    100006: Bip002 L Clavicle
-    100008: Bip002 L Finger0
-    100010: Bip002 L Foot
-    100012: Bip002 L Forearm
-    100014: Bip002 L Hand
-    100016: Bip002 L Thigh
-    100018: Bip002 L Toe0
-    100020: Bip002 L Toe01
-    100022: Bip002 L Toe02
-    100024: Bip002 L UpperArm
-    100026: Bip002 Neck
-    100028: Bip002 Pelvis
-    100030: Bip002 R Calf
-    100032: Bip002 R Clavicle
-    100034: Bip002 R Finger0
-    100036: Bip002 R Foot
-    100038: Bip002 R Forearm
-    100040: Bip002 R Hand
-    100042: Bip002 R Thigh
-    100044: Bip002 R Toe0
-    100046: Bip002 R Toe01
-    100048: Bip002 R Toe02
-    100050: Bip002 R UpperArm
-    100052: Bip002 Spine
-    100054: Bip002 Spine1
-    100056: Bip002 Spine2
-    100058: Bip002 Spine3
-    100060: hat
-    100062: OrcBody
-    100064: Overalls
-    100066: Shoes
-    100068: Skirt
-    100070: //RootNode
-    100072: Teeth
-    400000: Bip002
-    400002: Bip002 Head
-    400004: Bip002 L Calf
-    400006: Bip002 L Clavicle
-    400008: Bip002 L Finger0
-    400010: Bip002 L Foot
-    400012: Bip002 L Forearm
-    400014: Bip002 L Hand
-    400016: Bip002 L Thigh
-    400018: Bip002 L Toe0
-    400020: Bip002 L Toe01
-    400022: Bip002 L Toe02
-    400024: Bip002 L UpperArm
-    400026: Bip002 Neck
-    400028: Bip002 Pelvis
-    400030: Bip002 R Calf
-    400032: Bip002 R Clavicle
-    400034: Bip002 R Finger0
-    400036: Bip002 R Foot
-    400038: Bip002 R Forearm
-    400040: Bip002 R Hand
-    400042: Bip002 R Thigh
-    400044: Bip002 R Toe0
-    400046: Bip002 R Toe01
-    400048: Bip002 R Toe02
-    400050: Bip002 R UpperArm
-    400052: Bip002 Spine
-    400054: Bip002 Spine1
-    400056: Bip002 Spine2
-    400058: Bip002 Spine3
-    400060: hat
-    400062: OrcBody
-    400064: Overalls
-    400066: Shoes
-    400068: Skirt
-    400070: //RootNode
-    400072: Teeth
-    2100000: 'Material #8'
-    2100002: 'Material #7'
-    2100004: 'Material #10'
-    2100006: 'Material #9'
-    2100008: 'Material #4'
-    2100010: 'Material #6'
-    4300000: OrcBody
-    4300002: hat
-    4300004: Shoes
-    4300006: Teeth
-    4300008: Skirt
-    4300010: Overalls
-    7400000: Take 001
-    9500000: //RootNode
-    13700000: hat
-    13700002: OrcBody
-    13700004: Overalls
-    13700006: Shoes
-    13700008: Skirt
-    13700010: Teeth
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Bip002
+  - first:
+      1: 100002
+    second: Bip002 Head
+  - first:
+      1: 100004
+    second: Bip002 L Calf
+  - first:
+      1: 100006
+    second: Bip002 L Clavicle
+  - first:
+      1: 100008
+    second: Bip002 L Finger0
+  - first:
+      1: 100010
+    second: Bip002 L Foot
+  - first:
+      1: 100012
+    second: Bip002 L Forearm
+  - first:
+      1: 100014
+    second: Bip002 L Hand
+  - first:
+      1: 100016
+    second: Bip002 L Thigh
+  - first:
+      1: 100018
+    second: Bip002 L Toe0
+  - first:
+      1: 100020
+    second: Bip002 L Toe01
+  - first:
+      1: 100022
+    second: Bip002 L Toe02
+  - first:
+      1: 100024
+    second: Bip002 L UpperArm
+  - first:
+      1: 100026
+    second: Bip002 Neck
+  - first:
+      1: 100028
+    second: Bip002 Pelvis
+  - first:
+      1: 100030
+    second: Bip002 R Calf
+  - first:
+      1: 100032
+    second: Bip002 R Clavicle
+  - first:
+      1: 100034
+    second: Bip002 R Finger0
+  - first:
+      1: 100036
+    second: Bip002 R Foot
+  - first:
+      1: 100038
+    second: Bip002 R Forearm
+  - first:
+      1: 100040
+    second: Bip002 R Hand
+  - first:
+      1: 100042
+    second: Bip002 R Thigh
+  - first:
+      1: 100044
+    second: Bip002 R Toe0
+  - first:
+      1: 100046
+    second: Bip002 R Toe01
+  - first:
+      1: 100048
+    second: Bip002 R Toe02
+  - first:
+      1: 100050
+    second: Bip002 R UpperArm
+  - first:
+      1: 100052
+    second: Bip002 Spine
+  - first:
+      1: 100054
+    second: Bip002 Spine1
+  - first:
+      1: 100056
+    second: Bip002 Spine2
+  - first:
+      1: 100058
+    second: Bip002 Spine3
+  - first:
+      1: 100060
+    second: hat
+  - first:
+      1: 100062
+    second: OrcBody
+  - first:
+      1: 100064
+    second: Overalls
+  - first:
+      1: 100066
+    second: Shoes
+  - first:
+      1: 100068
+    second: Skirt
+  - first:
+      1: 100070
+    second: //RootNode
+  - first:
+      1: 100072
+    second: Teeth
+  - first:
+      4: 400000
+    second: Bip002
+  - first:
+      4: 400002
+    second: Bip002 Head
+  - first:
+      4: 400004
+    second: Bip002 L Calf
+  - first:
+      4: 400006
+    second: Bip002 L Clavicle
+  - first:
+      4: 400008
+    second: Bip002 L Finger0
+  - first:
+      4: 400010
+    second: Bip002 L Foot
+  - first:
+      4: 400012
+    second: Bip002 L Forearm
+  - first:
+      4: 400014
+    second: Bip002 L Hand
+  - first:
+      4: 400016
+    second: Bip002 L Thigh
+  - first:
+      4: 400018
+    second: Bip002 L Toe0
+  - first:
+      4: 400020
+    second: Bip002 L Toe01
+  - first:
+      4: 400022
+    second: Bip002 L Toe02
+  - first:
+      4: 400024
+    second: Bip002 L UpperArm
+  - first:
+      4: 400026
+    second: Bip002 Neck
+  - first:
+      4: 400028
+    second: Bip002 Pelvis
+  - first:
+      4: 400030
+    second: Bip002 R Calf
+  - first:
+      4: 400032
+    second: Bip002 R Clavicle
+  - first:
+      4: 400034
+    second: Bip002 R Finger0
+  - first:
+      4: 400036
+    second: Bip002 R Foot
+  - first:
+      4: 400038
+    second: Bip002 R Forearm
+  - first:
+      4: 400040
+    second: Bip002 R Hand
+  - first:
+      4: 400042
+    second: Bip002 R Thigh
+  - first:
+      4: 400044
+    second: Bip002 R Toe0
+  - first:
+      4: 400046
+    second: Bip002 R Toe01
+  - first:
+      4: 400048
+    second: Bip002 R Toe02
+  - first:
+      4: 400050
+    second: Bip002 R UpperArm
+  - first:
+      4: 400052
+    second: Bip002 Spine
+  - first:
+      4: 400054
+    second: Bip002 Spine1
+  - first:
+      4: 400056
+    second: Bip002 Spine2
+  - first:
+      4: 400058
+    second: Bip002 Spine3
+  - first:
+      4: 400060
+    second: hat
+  - first:
+      4: 400062
+    second: OrcBody
+  - first:
+      4: 400064
+    second: Overalls
+  - first:
+      4: 400066
+    second: Shoes
+  - first:
+      4: 400068
+    second: Skirt
+  - first:
+      4: 400070
+    second: //RootNode
+  - first:
+      4: 400072
+    second: Teeth
+  - first:
+      21: 2100000
+    second: 'Material #8'
+  - first:
+      21: 2100002
+    second: 'Material #7'
+  - first:
+      21: 2100004
+    second: 'Material #10'
+  - first:
+      21: 2100006
+    second: 'Material #9'
+  - first:
+      21: 2100008
+    second: 'Material #4'
+  - first:
+      21: 2100010
+    second: 'Material #6'
+  - first:
+      43: 4300000
+    second: OrcBody
+  - first:
+      43: 4300002
+    second: hat
+  - first:
+      43: 4300004
+    second: Shoes
+  - first:
+      43: 4300006
+    second: Teeth
+  - first:
+      43: 4300008
+    second: Skirt
+  - first:
+      43: 4300010
+    second: Overalls
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: hat
+  - first:
+      137: 13700002
+    second: OrcBody
+  - first:
+      137: 13700004
+    second: Overalls
+  - first:
+      137: 13700006
+    second: Shoes
+  - first:
+      137: 13700008
+    second: Skirt
+  - first:
+      137: 13700010
+    second: Teeth
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -132,6 +320,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -139,18 +328,19 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -159,10 +349,16 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips:
+  - 580e344c3785959498ba7e05ade2ce81
+  - ee3b87d0a7be35840a3e6eceb5f7dc55
+  - 765d154c4b291294eabd27589dfb66e1
+  - 411571c31e0993b4e97b6a1ffb2dd737
+  - 2f5a131a7188c0549a6967dfb12f1cca
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -172,6 +368,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

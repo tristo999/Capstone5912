@@ -6,10 +6,11 @@ using UnityEngine.Events;
 using System.Linq;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
+using Mirror;
 
 public delegate void CommandHandler(string[] args);
 
-public class WizardConsole : Bolt.GlobalEventListener
+public class WizardConsole : NetworkBehaviour
 {
     class WizardCommand
     {
@@ -45,11 +46,11 @@ public class WizardConsole : Bolt.GlobalEventListener
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(ConsoleCanvas);
         RegisterCommand("spawn", ItemSpawn, "Spawn item at position");
-        RegisterCommand("playerinfo", PlayerInfo, "Get player information.");
+        /*RegisterCommand("playerinfo", PlayerInfo, "Get player information.");
         RegisterCommand("listplayers", ListPlayers, "List current players");
         RegisterCommand("tp", Teleport, "Teleport player");
         RegisterCommand("listitems", ListItems, "List all registered items.");
-        RegisterCommand("hpmod", ModifyPlayerHealth, "Modify a player's health");
+        RegisterCommand("hpmod", ModifyPlayerHealth, "Modify a player's health");*/
     }
 
     public void RegisterCommand(string command, CommandHandler handler, string help) {
@@ -130,22 +131,24 @@ public class WizardConsole : Bolt.GlobalEventListener
     }
 
     private void ItemSpawn(string[] args) {
-        SpawnItem evt = SpawnItem.Create(ItemManager.Instance.entity);
-        evt.ItemId = int.Parse(args[0]);
+        
+        int id = int.Parse(args[0]);
+        Vector3 pos = Vector3.zero;
         if (args.Length > 1) {
             if (args.Length == 2) {
-                evt.Position = GameMaster.instance.players[int.Parse(args[1])].transform.position + Vector3.up;
+                pos = GameMaster.instance.players[int.Parse(args[1])].transform.position + Vector3.up;
             } else {
                 float x, y, z;
                 x = float.Parse(args[1]);
                 y = float.Parse(args[2]);
                 z = float.Parse(args[3]);
-                evt.Position = new Vector3(x, y, z);
+                pos = new Vector3(x, y, z);
             }
         }
-        evt.Send();
+        ItemManager.Instance.CmdSpawn(pos, Vector3.zero, id);
     }
 
+    /*
     private void PlayerInfo(string[] args) {
         BoltEntity player = GameMaster.instance.players[int.Parse(args[0])];
         IPlayerState playerState = player.GetState<IPlayerState>();
@@ -181,5 +184,5 @@ public class WizardConsole : Bolt.GlobalEventListener
         DamageEntity evnt = DamageEntity.Create(player);
         evnt.Damage = float.Parse(args[1]);
         evnt.Send();
-    }
+    }*/
 }

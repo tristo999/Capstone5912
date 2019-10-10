@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomPhysicsObject : Bolt.EntityBehaviour<IRoomObject>
+public class RoomPhysicsObject : NetworkBehaviour
 {
-    public override void Attached() {
-        state.SetTransforms(state.transform, transform);
+    public void Awake() {
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 }

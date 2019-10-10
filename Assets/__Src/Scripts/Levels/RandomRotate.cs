@@ -1,14 +1,15 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomRotate : MonoBehaviour
+public class RandomRotate : NetworkBehaviour
 {
     public bool debug = true;
     // Start is called before the first frame update
     void Awake()
     {
-        if (BoltNetwork.IsServer)
+        if (isServer)
             DoRotation();
     }
 

@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Mirror;
+using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(CollisionCheck))]
-public class DisableColliderOnCollide : Bolt.EntityBehaviour<IProjectileState>
+public class DisableColliderOnCollide : NetworkBehaviour
 {
     public List<Collider> colliders = new List<Collider>();
 
     private void OnCollisionEnter(Collision collision) {
-        if (!entity.isAttached || !entity.isOwner) return;
+        if (!hasAuthority) return;
         if (GetComponent<CollisionCheck>().ValidCollision(collision)) {
             foreach (Collider collider in colliders) {
                 collider.enabled = false;
@@ -15,7 +16,7 @@ public class DisableColliderOnCollide : Bolt.EntityBehaviour<IProjectileState>
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (!entity.isAttached || !entity.isOwner) return;
+        if (!hasAuthority) return;
         if (GetComponent<CollisionCheck>().ValidCollision(other)) {
             foreach (Collider collider in colliders) {
                 collider.enabled = false;

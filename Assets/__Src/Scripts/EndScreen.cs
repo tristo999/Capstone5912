@@ -1,11 +1,12 @@
-﻿using Rewired;
+﻿using Mirror;
+using Rewired;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EndScreen : MonoBehaviour
+public class EndScreen : NetworkBehaviour
 {
     public static EndScreen Instance;
     public GameObject endScreen;
@@ -22,12 +23,12 @@ public class EndScreen : MonoBehaviour
 
         Instance = this;
     }
-
+    /*
     public void OpenEndScreen(bool victor) {
         foreach (BoltEntity player in LocalPlayerRegistry.PlayerEntities) {
             player.GetComponent<PlayerMovementController>().InputDisabled = true;
         }
-        lobbyButton.gameObject.SetActive(BoltNetwork.IsServer);
+        lobbyButton.gameObject.SetActive(isServer);
         if (victor) {
             victoryText.text = "Wizard Triumph!\n";
         } else {
@@ -43,13 +44,13 @@ public class EndScreen : MonoBehaviour
     }
 
     public void ReturnToLobby() {
-        if (BoltNetwork.IsServer) {
+        if (isServer) {
             BoltNetwork.LoadScene("Lobby");
         }
     }
 
     public void ReturnToMenu() {
-        if (BoltNetwork.IsServer) {
+        if (isServer) {
             foreach (BoltConnection client in BoltNetwork.Clients) {
                 client.Disconnect();
             }
@@ -57,5 +58,5 @@ public class EndScreen : MonoBehaviour
         } else {
             DisconnectPlayer.Create().Send();
         }
-    }
+    }*/
 }

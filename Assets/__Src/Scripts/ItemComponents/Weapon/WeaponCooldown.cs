@@ -17,7 +17,7 @@ public class WeaponCooldown : MonoBehaviour
     [HideInInspector]
     public float ModifiedCooldown {
         get {
-            return Cooldown / GetComponent<Weapon>().Owner.state.FireRate;
+            return Cooldown / GetComponent<Weapon>().Owner.GetComponent<PlayerStatsController>().FireRate;
         }
     }
 

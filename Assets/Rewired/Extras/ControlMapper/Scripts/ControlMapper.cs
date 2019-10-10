@@ -199,6 +199,12 @@ namespace Rewired.UI.ControlMapper {
         [Tooltip("The height in relative pixels of the input grid button rows.")]
         private int _inputRowHeight = 40;
         [SerializeField]
+        [Tooltip("The padding of the input grid button rows.")]
+        private RectOffset _inputRowPadding = new RectOffset();
+        [SerializeField]
+        [Tooltip("The width in relative pixels of spacing between input fields in a single column.")]
+        private int _inputRowFieldSpacing = 0;
+        [SerializeField]
         [Tooltip("The width in relative pixels of spacing between columns.")]
         private int _inputColumnSpacing = 40;
         [SerializeField]
@@ -2188,6 +2194,8 @@ namespace Rewired.UI.ControlMapper {
             // Create horizontal layout group to hold fields
             GameObject layoutGroup = CreateNewGUIObject("FieldLayoutGroup", parent, new Vector2(0, yPos));
             HorizontalLayoutGroup hLayoutGroup = layoutGroup.AddComponent<HorizontalLayoutGroup>();
+            hLayoutGroup.padding = _inputRowPadding;
+            hLayoutGroup.spacing = _inputRowFieldSpacing;
             RectTransform rt = layoutGroup.GetComponent<RectTransform>();
             rt.anchorMin = new Vector2(0, 1);
             rt.anchorMax = new Vector2(1, 1);

@@ -19,7 +19,7 @@ public class WandofWands : Weapon
     }
 
     public override void FireHold() {
-        if (!Owner.entity.isOwner) return;
+        if (!Owner.hasAuthority) return;
         if (cooldown.Ready) {
             launchProj.Launch();
             uses.Use();

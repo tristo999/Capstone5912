@@ -19,31 +19,31 @@ public class ProjectileDebuff : Debuff
 
     public float damageMod { get; set; }
 
-    public override void OnGiven(IPlayerState Owner)
+    public override void OnGiven(PlayerStatsController Owner)
     {
         if (!FloatRoughlyZero(healthMod))
         {
             Owner.Health += healthMod;
         }
-        if (!FloatRoughlyZero(speedMod)) Owner.Speed += speedMod;
+        if (!FloatRoughlyZero(speedMod)) Owner.GetComponent<PlayerStatsController>().Speed += speedMod;
         if (!FloatRoughlyZero(firerateMod)) Owner.FireRate += firerateMod;
         if (!FloatRoughlyZero(projectileMod)) Owner.ProjectileSpeed += projectileMod;
         if (!FloatRoughlyZero(damageMod)) Owner.ProjectileDamage += damageMod;
     }
 
-    public  override void OnRemoved(IPlayerState Owner)
+    public  override void OnRemoved(PlayerStatsController Owner)
     {
         if (!FloatRoughlyZero(healthMod))
         {
             Owner.Health -= healthMod;
         }
-        if (!FloatRoughlyZero(speedMod)) Owner.Speed -= speedMod;
+        if (!FloatRoughlyZero(speedMod)) Owner.GetComponent<PlayerStatsController>().Speed -= speedMod;
         if (!FloatRoughlyZero(firerateMod)) Owner.FireRate -= firerateMod;
         if (!FloatRoughlyZero(projectileMod)) Owner.ProjectileSpeed -= projectileMod;
         if (!FloatRoughlyZero(damageMod)) Owner.ProjectileDamage -= damageMod;
     }
 
-    public override void OnUpdate(IPlayerState playerState)
+    public override void OnUpdate(PlayerStatsController playerState)
     {
 
     }

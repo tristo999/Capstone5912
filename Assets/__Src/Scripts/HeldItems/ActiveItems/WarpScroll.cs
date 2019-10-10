@@ -10,10 +10,8 @@ public class WarpScroll : ActiveItem
     public override void ActivateRelease() { }
 
     public override void ActiveDown() {
-        TeleportPlayer evnt = TeleportPlayer.Create(GetComponent<ActiveItem>().Owner.entity);
-        evnt.position = new Vector3(Random.Range(-15f, 15f), 2, Random.Range(-15f, 15f));
-        evnt.Send();
-        uses.Use();
+        Vector3 pos = new Vector3(Random.Range(-15f, 15f), 2, Random.Range(-15f, 15f));
+        Owner.GetComponent<PlayerMovementController>().CmdTeleportPlayer(pos);
     }
 
     public override void OnEquip() {

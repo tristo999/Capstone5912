@@ -1,13 +1,15 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorRandomizer : Bolt.EntityBehaviour<IColoredRoomObject>
+public class ColorRandomizer : NetworkBehaviour
 {
     public Color[] colors;
     public bool debug = true;
     
-    public override void Attached()
+    /*
+    public void Awake()
     {
         state.AddCallback("Color", ChangeColor);
         if (entity.isOwner) {
@@ -22,7 +24,6 @@ public class ColorRandomizer : Bolt.EntityBehaviour<IColoredRoomObject>
             if (Input.GetMouseButtonDown(0)) ChangeColor();
         }
     }
-    */
 
     void ChangeColor(){
 
@@ -31,5 +32,5 @@ public class ColorRandomizer : Bolt.EntityBehaviour<IColoredRoomObject>
         //Set the main Color of the Material to green
         //rend.material.shader = Shader.Find("HDRP/Lit");
         rend.material.color = state.Color;
-    }
+    } Todo: EUGH REWRITE THIS YOU ABSOLUTE MAD LAD */
 }

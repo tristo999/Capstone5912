@@ -1,27 +1,26 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public abstract class DroppedItem : InteractiveObject {
-    public int Id { get; set; }
-    public int UsesUsed { get; set; } = 0;
+    [SyncVar(hook = nameof(IdChanged))]
+    public int Id;
+    public HeldItem Item { get; set; }
+    public int Used;
     public static readonly float NO_PARENT_COLLIDE_TIME = 0.5f;
 
     private GameObject halo;
     private float noCollideTimer = 0;
     private string noCollideTag;
 
-    public override void Attached() {
+    public void Awake() {
         // Start with Id uninitialized. 
-        state.ItemId = -1;
         Id = -1;
 
         // Don't allow highlighting until this object has obtained its proper Id.
         CanHighlight = false;
-
-        state.SetTransforms(state.transform, transform);
-        state.AddCallback("ItemId", IdChanged);
     }
 
     public override void AddHighlight() {
@@ -43,13 +42,9 @@ public abstract class DroppedItem : InteractiveObject {
         noCollideTag = tag;
     }
 
-    public override void DoInteract(BoltEntity bEntity) {
-        DestroyPickup evnt = DestroyPickup.Create(entity);
-        evnt.Send();
-    }
-
-    public override void OnEvent(DestroyPickup evnt) {
-        BoltNetwork.Destroy(gameObject);
+    [Command]
+    public override void CmdDoInteract(GameObject gObject) {
+        NetworkServer.Destroy(gameObject);
     }
 
     void Update() {
@@ -57,8 +52,7 @@ public abstract class DroppedItem : InteractiveObject {
     }
 
     private void IdChanged() {
-        if (state.ItemId >= 0) {
-            Id = state.ItemId;
+        if (Id >= 0) {
             CanHighlight = true;
             UpdateHalo();
         }

@@ -19,7 +19,7 @@ public class PauseMenu : MonoBehaviour
 
         Instance = this;
     }
-
+    /*
     public void OpenPauseMenu() {
         foreach (BoltEntity player in LocalPlayerRegistry.PlayerEntities) {
             player.GetComponent<PlayerMovementController>().InputDisabled = true;
@@ -43,7 +43,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void ReturnToMenu() {
-        if (BoltNetwork.IsServer) {
+        if (isServer) {
             foreach (BoltConnection client in BoltNetwork.Clients) {
                 client.Disconnect();   
             }
@@ -52,4 +52,5 @@ public class PauseMenu : MonoBehaviour
             DisconnectPlayer.Create().Send();
         }
     }
+    */
 }

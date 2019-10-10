@@ -125,9 +125,6 @@ public class ItemCreationUtil : EditorWindow
                     }
                     PrefabUtility.UnloadPrefabContents(newPrefab);
                 }
-                if (EditorUtility.DisplayDialog("Do Bolt compile?", "Would you like to do a Bolt compile now to add the new prefabs?", "Ye", "Nah")) {
-                    BoltMenuItems.UpdatePrefabDatabase();
-                }
                 delayedTemplate.Clear();
                 delayedScript.Clear();
                 delayedSavePath.Clear();

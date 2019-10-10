@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ public class FireballWand : Weapon
     }
 
     public override void FireDown() {
-        currentVelocity = BaseLaunchVelocity * Owner.state.ProjectileSpeed;
+        currentVelocity = BaseLaunchVelocity * Owner.GetComponent<PlayerStatsController>().ProjectileSpeed;
 
         // Need to late instantiate this so that Owner is available.
         if (ownerLaunchPos == null) {
@@ -39,10 +40,10 @@ public class FireballWand : Weapon
     public override void FireHold() {
         if (!cooldown.Ready) return;
         if (!beganFiring) {
-            Owner.state.Speed -= 0.66f;
+            Owner.GetComponent<PlayerStatsController>().Speed -= 0.66f;
             beganFiring = true;
         }
-        if (currentVelocity < MaxLaunchVelocity * Owner.state.ProjectileSpeed) currentVelocity += 60f * Owner.state.ProjectileSpeed * Time.deltaTime;
+        if (currentVelocity < MaxLaunchVelocity * Owner.GetComponent<PlayerStatsController>().ProjectileSpeed) currentVelocity += 60f * Owner.GetComponent<PlayerStatsController>().ProjectileSpeed * Time.deltaTime;
 
         /* 
         Vector3[] positions = new Vector3[PointsInArc];
@@ -60,16 +61,17 @@ public class FireballWand : Weapon
         if (!cooldown.Ready) return;
         if (beganFiring) {
             // Sometimes firerelease gets called twice so we need to check to make sure the speed up is not applied twice.
-            Owner.state.Speed += 0.66f;
+            Owner.GetComponent<PlayerStatsController>().Speed += 0.66f;
         }
         cooldown.ResetCooldown();
         beganFiring = false;
         // line.SetPositions(new Vector3[PointsInArc]);
-        if (Owner.entity.isOwner) {
+        if (Owner.hasAuthority) {
             launchProjectile.LaunchForce = currentVelocity;
             launchProjectile.Launch();
             uses.Use();
-            Owner.state.FireAnim();
+            Owner.GetComponent<Animator>().SetTrigger("FireAnim");
+            Owner.GetComponent<NetworkAnimator>().SetTrigger("FireAnim");
         }
     }
 
@@ -80,7 +82,7 @@ public class FireballWand : Weapon
 
     public override void OnDequip() {
         if (beganFiring) {
-            Owner.state.Speed -= 0.66f;
+            Owner.GetComponent<PlayerStatsController>().Speed -= 0.66f;
         }
     }
 

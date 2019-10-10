@@ -94,7 +94,12 @@ namespace Rewired.Integration.Cinemachine {
         /// <summary>
         /// If enabled, the Cinemachine Bridge runs in edit mode. The Rewired Input Manager must also be set to run in Edit Mode for this to have any effect.
         /// </summary>
-        new public bool runInEditMode {
+#if UNITY_EDITOR
+        new public bool runInEditMode
+#else
+        public bool runInEditMode
+#endif
+        {
             get { return _runInEditMode; }
             set {
                 if(_runInEditMode == value) return;
@@ -127,7 +132,7 @@ namespace Rewired.Integration.Cinemachine {
             }
 
             if(_instance != null) {
-                Debug.LogWarning("You cannot have multiple Rewired Cinemachine Bridges enabled in the scene. This warning can be ignored if loading a new scene which already has a Rewired Cinemachine Bridge.");
+                Debug.LogError("You cannot have multiple Rewired Cinemachine Bridges enabled in the scene.");
                 return;
             }
             _instance = this;

@@ -1,10 +1,9 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicWandProjectile : Bolt.EntityBehaviour<IProjectileState>
+public class BasicWandProjectile : NetworkBehaviour
 {
-    public override void Attached() {
-        state.SetTransforms(state.transform, transform);
-    }
+
 }

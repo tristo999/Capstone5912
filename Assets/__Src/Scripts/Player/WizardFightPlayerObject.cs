@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,4 +19,4 @@ public class WizardFightPlayerObject
     public string PlayerName { get; set; }
     public int PlayerId { get; set; }
     public Color PlayerColor { get; set; }
-}
+}*/

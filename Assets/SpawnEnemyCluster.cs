@@ -1,18 +1,22 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnEnemyCluster : Bolt.EntityEventListener<IEnemyClusterS>
+public class SpawnEnemyCluster : NetworkBehaviour
 {
     public List<GameObject> enemyList;
-    public override void Attached()
+    public void Awake()
     {
-        if (!entity.isOwner) return;
+        if (!hasAuthority) return;
         foreach (GameObject x in enemyList)
         {
-            BoltNetwork.Instantiate(x, new Vector3(transform.position.x + 1, transform.position.y, transform.position.z), transform.rotation);
-            BoltNetwork.Instantiate(x, new Vector3(transform.position.x -.8666f, transform.position.y, transform.position.z - .5f), transform.rotation);
-            BoltNetwork.Instantiate(x, new Vector3(transform.position.x -.8666f, transform.position.y, transform.position.z + .5f), transform.rotation);
+            GameObject spawnOne = Instantiate(x, new Vector3(transform.position.x + 1, transform.position.y, transform.position.z), transform.rotation);
+            GameObject spawnTwo = Instantiate(x, new Vector3(transform.position.x -.8666f, transform.position.y, transform.position.z - .5f), transform.rotation);
+            GameObject spawnThree = Instantiate(x, new Vector3(transform.position.x -.8666f, transform.position.y, transform.position.z + .5f), transform.rotation);
+            NetworkServer.Spawn(spawnOne);
+            NetworkServer.Spawn(spawnTwo);
+            NetworkServer.Spawn(spawnThree);
         }
     }
 }
